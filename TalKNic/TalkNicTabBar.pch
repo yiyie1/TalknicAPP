@@ -1,0 +1,297 @@
+//
+//  TalkNicTabBar.pch
+//  TalkNic
+//
+//  Created by ldy on 15/10/21.
+//  Copyright (c) 2015年 TalkNic. All rights reserved.
+//
+#import <Availability.h>
+#define TalkNic_TalkNicTabBar_pch
+#ifndef __IPHONE_5_0
+#warning "This project uses features only available in iOS SDK 5.0 and later."
+#endif
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#ifdef __OBJC__
+   #import<UIKit/UIKit.h>
+   #import<Foundation/Foundation.h>
+#import <AlipaySDK/AlipaySDK.h>
+#import "UIView+Extension.h"
+
+#import "UIViewController+DismissKeyboard.h"
+#import "NSString+Valid.h"
+#import "EaseUI.h"
+#import "EaseMob.h"
+
+#import "UIBarButtonItem+Extension.h"
+
+// 按比例适配
+#define kWidth [UIScreen mainScreen].bounds.size.width
+#define kHeight [UIScreen mainScreen].bounds.size.height
+#define kCGRectMake(A,B,C,D)  CGRectMake((kWidth / 375 )* (A), (kHeight / 667) * (B) ,(kWidth / 375) * (C), (kHeight / 667) * (D) )
+
+
+#ifdef DEBUG // 处于开发阶段
+#define TalkLog(...) NSLog(__VA_ARGS__)
+#else // 处于发布阶段
+#define TalkLog(...)
+#endif
+
+//RGB颜色
+#define TalkColor(r,g,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+
+//随机色
+#define TalkRandomColor  TalkColor(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
+// 通知中心
+#define TalkNotificationCenter [NSNotificationCenter defaultCenter]
+
+#define kChooese_ChineseOrForeigner @"chooese_ChineseOrForeigner"
+#define kLogin_user_information @"kLogin_user_information"
+#endif
+
+//#define BAIWUSHI
+
+#ifdef BAIWUSHI
+//获取验证码
+#define PATH_GET_CODE  @"http://115.47.28.121/talknic1.0/admin.php/api"
+//登陆
+#define PATH_GET_LOGIN @"http://115.47.28.121/talknic1.0/admin.php/api/index?"
+// 生成订单
+#define PATH_GET_ORDER @"http://115.47.28.121/talknic1.0/admin.php/api/index?cmd=16"
+// 交易记录
+#define PATH_GET_ORDER_RECORDER @"http://115.47.28.121/talknic1.0/admin.php/api/index?cmd=23"
+
+// 充值记录
+#define PATH_GET_ORDER_CHARGE @"http://115.47.28.121/talknic1.0/admin.php/api/index?cmd=25"
+
+//   获取金额
+#define PATH_GET_MONEY @"http://115.47.28.121/talknic1.0/admin.php/api/index?cmd=26"
+
+//   充钱
+#define PATH_ADD_MONEY @"http://115.47.28.121/talknic1.0/admin.php/api/index?cmd=24"
+
+#define ALI_PRIVATE_KEY    @"MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAMPebFVZEeyPRXOmvYuiCxRjxS1ytMDupjlImIDYWq7QJf9JDtto65jXpJ3PDT25ik3UwCmNYH4UV9dAnpFNq1jsxUHWatUDw4p6gHnu5zfavE4DcyBRppGYUvCRiwWu4GexAm0Ie5g7FvUztZ79sUjjhZ0KLf2ohssHQ9LzO8k/AgMBAAECgYEAr9kC/eUHmJBQVDKAvdnvhJDGN7Vh3kzj403vzM1xLL0nP/iBZC7gRcpkumFni+EF8DZvh16sIMV2z4PuWJmYmJ1VpwKiMMEl5RAChHWKpufTyuUDaeSs4+hjcYPdRqAfImlZ5/2N6vQXfpXNVCHjN3fC3WA82iCRxGu0TxDni2ECQQDllbisuO5mCpF44knEprWYaVFuHaYfAOl0hLbMLGtITvBSXd2xa+E/DFc34Mg9lcLtUNvmbiDCwASwbw+I1vWXAkEA2meeJofqwtVJoSRpi3tSn33vloQZE3TLFvSrwD2e9oqiDNpHhGyxIwhVlB9+Dkd2N0BDFqKAT/LEXby5t2lOmQJAOlEQqtcCv2q5zvHz+P67q+48n/LqCoAJzO4VHMG/sotSoilzsaiMe55f3TK8yl/rNqrOYLbinXV2+3YKhSDNGwJBAICCa7o8S1Rs77ATns7lt44FKg6kl6StGjrdqJmrKHfkxslNPruawPfeFYzcou1/+v0zoMYWw+1G6WhGffh/zDECQQDP3PynFdmQXVAk9+47gxNyR1R8d5W/cUSUYx+VpvBl9V8M/3SDQB9F4HMUHbm0uilrc5NmfPbe+wHgifyfYMgq"
+
+#define ALI_PARTNER_ID  @"2088411960192074"
+#define ALI_SELLER_ID   @"2088411960192074"
+
+#else
+//获取验证码
+#define PATH_GET_CODE  @"http://120.92.230.17/talknic1.0/admin.php/Api"
+//登陆
+#define PATH_GET_LOGIN @"http://120.92.230.17/talknic1.0/admin.php/Api/index?"
+// 生成订单
+#define PATH_GET_ORDER @"http://120.92.230.17/talknic1.0/admin.php/Api/index?cmd=16"
+// 交易记录
+#define PATH_GET_ORDER_RECORDER @"http://120.92.230.17/talknic1.0/admin.php/Api/index?cmd=23"
+
+// 充值记录
+#define PATH_GET_ORDER_CHARGE @"http://120.92.230.17/talknic1.0/admin.php/Api/index?cmd=25"
+
+//   获取金额
+#define PATH_GET_MONEY @"http://120.92.230.17/talknic1.0/admin.php/Api/index?cmd=26"
+
+//   充钱
+#define PATH_ADD_MONEY @"http://120.92.230.17/talknic1.0/admin.php/Api/index?cmd=24"
+
+
+//FIXME Move to PHP Server
+#define ALI_PRIVATE_KEY     @"MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBANNPUJ2SBfcs2IsFmOuaYe8ENkj9qLOFLXDYpzOU5MPgGdU/B3dQ2O+cmvIYquC59ztaWqGWNZCRap8ZbWfMhcEGS9XLJG1FkcZYnZt/rQxpoF0N4ebDLnX3Jszh+DG8GrhBuRpiujHogRiIcKceig4edC6ol0GSQy7a8sOlcMkFAgMBAAECgYA7XmRq8PTmHl50qMzvHP/49HkABuyYC4nZ07UeY+3mLpdzd3L0je11XM2XyWBxJS6WKWufTKGeDY0kSDOZ3zeQoZcVBhc6flWkf/oxoS41mb2GvPsgnpsfS4En4xkd19Q0oK3yCq4vMHycZ0/xI5wauEObT2z0ExID37uJGtgQ3QJBAP/h1mw90a/VPVGnEiLBBLgOL8+ll7plq1tzOAaMRYKaY3bs7tQZWCeE7IlxuiE0CXo03APD6kByQJ178UYSUcsCQQDTaDkp+00w0zMm/IU6f/afBbhBHYvkdXT4NQ6FSoOeFyWiUTpT2zRIRCLup5t0FHzX/ZglRhPRslu0Iud467ZvAkBYpjQ0QeKQiU76J+iXk8l/vqJ/zP3Y/Po175/8XMKEMdq9y+4eGz24S0vrfjQe5rlV1lRXFZvlge+y38rCHPyrAkEAmdpc18ey2pipvnLCRtu/0OVpvcHSAFbW5JhAVBLxjIkN834n88Uw3HLx9Tt3b9hFLy+4nU/NtquV/5fzW1Y38wJAFh87t4d/6Je0kj70Wn5JqRI7kxTRjoSw02lufuW/CaAQhbRVgeDoO7YieGtNIzu9nnrh+XmIiw+JHJ0WKkSI6w=="
+
+#define ALI_PARTNER_ID  @"2088121821295317"
+#define ALI_SELLER_ID   @"2088121821295317"
+
+#endif
+
+#define ALI_PAY_SUBJECT @"TALKNIC PAY ACCOUNT"
+//聊天
+#define kBtnFont  [UIFont systemFontOfSize:15.0f]
+#define kEaseKey @"bws#talknic"
+//字体
+#define kHelveticaLight @"HelveticaNeue-Light"
+#define kHelveticaRegular @"HelveticaNeue-Regular"
+//TabBar
+#define kLoginBg @"login_bg.png"
+#define kHOMEImage @"main_btn_home_50%.png"
+#define KHOMeSelected @"main_btn_home_100%.png"
+#define kVoiceImage  @"main_btn_vioce_50%.png"
+#define kVoiceSelected @"main_btn_voice_100%.png"
+
+
+#define kFeeds  @"main_btn_feeds_50%.png"
+#define kFeedsSelected @"main_btn_feeds_100%.png"
+//界面图片
+#define kMEImage  @"main_btn_me_50%.png"
+#define kMEImageSelected @"main_btn_me_100%.png"
+#define kChooseBtn @"login_btn_50%.png"
+#define kChooseBtnHigh @"login_btn_50%_a.png"
+#define kSendBtn @"login_btn_100%.png"
+#define kSendBtnHigh @"login_btn_100%_a.png"
+#define kInputLg @"login_input_lg.png"
+
+
+// 国际化
+#define  kAlertPointStr NSLocalizedString(@"alert.prompt",@"")
+#define  kAlertNoNews NSLocalizedString(@"alert.nonews",@"")
+#define  kAlertSure NSLocalizedString(@"alert.sure",@"")
+#define  kAlertShare NSLocalizedString(@"alert.share",@"")
+#define  kAlertFail NSLocalizedString(@"alert.fail",@"")
+#define  kAlertYan NSLocalizedString(@"alert.yan",@"")
+#define  kAlertRegister NSLocalizedString(@"alert.register",@"")
+#define  kAlertPrompt NSLocalizedString(@"alert.prompt",@"")
+#define  kAlertLess NSLocalizedString(@"alert.less",@"")
+#define  kAlertSee NSLocalizedString(@"alert.see",@"")
+#define  kAlertSuccess NSLocalizedString(@"alert.success",@"")
+#define  kAlertThumb NSLocalizedString(@"alert.thumb",@"")
+#define  kAlertThumbFail NSLocalizedString(@"alert.thumbFail",@"")
+#define  kAlertCode NSLocalizedString(@"alert.code",@"")
+#define  kAlertCodeFail NSLocalizedString(@"alert.codeFail",@"")
+#define  kAlertTwoCode NSLocalizedString(@"alert.twoCode",@"")
+#define  kAlertCodeEmpty NSLocalizedString(@"alert.empty",@"")
+#define  kAlertFalse NSLocalizedString(@"alert.false",@"")
+#define  kAlert16 NSLocalizedString(@"alert.16",@"")
+#define  kAlert108 NSLocalizedString(@"alert.108",@"")
+#define  kAlertFormat NSLocalizedString(@"alert.format",@"")
+#define  kAlertcardFormat NSLocalizedString(@"alert.cardFormat",@"")
+#define  kAlertcardLength NSLocalizedString(@"alert.cardLength",@"")
+#define  kAlertcardNameEmpty NSLocalizedString(@"alert.cardNameEmpty",@"")
+#define  kAlertDateEmpty NSLocalizedString(@"alert.dateEmpty",@"")
+#define  kAlertCCVEmpty NSLocalizedString(@"alert.ccvEmpty",@"")
+#define  kAlertLenghtEmpty NSLocalizedString(@"alert.lenghtEmpty",@"")
+#define  kAlertUpSecEmpty NSLocalizedString(@"alert.upSecEmpty",@"")
+#define  kAlertUpFailEmpty NSLocalizedString(@"alert.upFailEmpty",@"")
+#define  kAlertUseridWrongEmpty NSLocalizedString(@"alert.useridWrongEmpty",@"")
+#define  kAlertCardnumberExists NSLocalizedString(@"alert.cardnumberExists",@"")
+#define  kAlertPhoneNumberFormatWrong NSLocalizedString(@"alert.phoneNumberFormatWrong",@"")
+#define  kAlertPhoneNumberNotCorrect NSLocalizedString(@"alert.phoneNumberNotCorrect",@"")
+#define  kAlertEnterThePhoneNumber NSLocalizedString(@"alert.enterThePhoneNumber",@"")
+#define  kAlertverificationSent NSLocalizedString(@"alert.verificationSent",@"")
+#define  kAlertregisteredPhoneNumber NSLocalizedString(@"alert.registeredPhoneNumber",@"")
+#define  kAlertenterEmailAddress NSLocalizedString(@"alert.enterEmailAddress",@"")
+#define  kAlertenterLoggedIn NSLocalizedString(@"alert.loggedIn",@"")
+#define  kAlertloginSuccessful NSLocalizedString(@"alert.loginSuccessful",@"")
+#define  kAlertModifyDataFailure NSLocalizedString(@"alert.modifyDataFailure",@"")
+#define  kAlertModifyDatassSuccessful NSLocalizedString(@"alert.modifyDatassSuccessful",@"")
+#define  kAlertUsernamecannotbeEmpty NSLocalizedString(@"alert.usernamecannotbeEmpty",@"")
+#define  kAlertSelectGender NSLocalizedString(@"alert.selectGender",@"")
+#define  kAlertSelectNotion NSLocalizedString(@"alert.selectnotion",@"")
+#define  kAlertProfession NSLocalizedString(@"alert.selectProfession",@"")
+#define  kAlertPerson NSLocalizedString(@"alert.selectPerson",@"")
+#define  kAlertRegistered NSLocalizedString(@"alert.registered",@"")
+#define  kAlertUploadFail NSLocalizedString(@"alert.uploadFail",@"")
+#define  kAlertIDwrong NSLocalizedString(@"alert.IDWrong",@"")
+#define  kAlertCardEmpty NSLocalizedString(@"alert.cardEmpty",@"")
+#define  kAlertdataSuccess NSLocalizedString(@"alert.dataSuccess",@"")
+#define  kAlertdataFailure NSLocalizedString(@"alert.dataFailure",@"")
+#define  kAlertPasstouch NSLocalizedString(@"alert.passtouch",@"")
+#define  kAlertPassChangeSuccess NSLocalizedString(@"alert.passwordChangeSuccess",@"")
+#define  kAlertSex NSLocalizedString(@"alert.sex",@"")
+#define  kAlertEnglishLevel NSLocalizedString(@"alert.EnglishLevel", @"")
+#define  kAlertPhoto NSLocalizedString(@"alert.uploadPhoto",@"")
+#define  kAlertPasswordWrong NSLocalizedString(@"alert.passwordWrong",@"")
+#define  kAlertOurceFile NSLocalizedString(@"alert.sourceFile",@"")
+#define  kAlertCancel NSLocalizedString(@"alert.cancel",@"")
+#define  kAlertCamera NSLocalizedString(@"alert.camera",@"")
+#define  kAlertLocal NSLocalizedString(@"alert.local",@"")
+#define  kAlertTopic NSLocalizedString(@"alert.topic", @"")
+#define  kAlertCCVOverLength NSLocalizedString(@"alert.ccvOverLength",@"") // 修改9
+#define  kAlertunregisteredPhoneNumber NSLocalizedString(@"alert.unregisteredPhoneNumber",@"")
+#define  kAlertfaildePhoneNumber NSLocalizedString(@"alert.failedPhoneNumber",@"")
+#define  kAlertEmailError NSLocalizedString(@"alert.emailError",@"")
+#define  kAlertAccountNotMatchID NSLocalizedString(@"alert.accountNidentity",@"")
+#define  kAlertBalanceInsufficient NSLocalizedString(@"alert.balanceInsufficient",@"")
+#define  kAlertLoading NSLocalizedString(@"alert.loading",@"")
+#define  kAlertSendSuccessful NSLocalizedString(@"alert.sendSuccessful",@"")
+#define  kAlert6 NSLocalizedString(@"alert.6",@"")
+#define  kAlertNoTime NSLocalizedString(@"alert.noTime",@"")
+#define  kAlertNoProject NSLocalizedString(@"alert.noProject",@"")
+
+
+//APP language
+#define AppDone  NSLocalizedString(@"AppDone",@"")
+#define AppCancel  NSLocalizedString(@"AppCancel",@"")
+//Chinese or Foreginer
+#define AppChinese  NSLocalizedString(@"AppChinese",@"")
+#define AppForeigner  NSLocalizedString(@"AppForeigner",@"")
+//Login Signup
+#define AppSignup  NSLocalizedString(@"AppSignup",@"")
+#define AppLogin  NSLocalizedString(@"AppLogin",@"")
+#define AppCreateAccount    NSLocalizedString(@"AppCreateAccount",@"")
+#define AppCellNum  NSLocalizedString(@"AppCellNum",@"")
+#define AppSend  NSLocalizedString(@"AppSend",@"")
+#define AppCode  NSLocalizedString(@"AppCode",@"")
+#define AppEmail  NSLocalizedString(@"AppEmail",@"")
+#define AppOtherFastSignup    NSLocalizedString(@"AppOtherFastSignup",@"")
+#define AppPassword  NSLocalizedString(@"AppPassword",@"")
+#define AppForgetPassword  NSLocalizedString(@"AppForgetPassword",@"")
+#define AppOtherFastLogin  NSLocalizedString(@"AppOtherFastLogin",@"")
+#define AppCellOrEmail  NSLocalizedString(@"AppCellOrEmail",@"")
+#define AppConfirmPassword    NSLocalizedString(@"AppConfirmPassword",@"")
+
+//Information
+#define AppInformation1  NSLocalizedString(@"AppInformation1",@"")
+#define AppInformation2  NSLocalizedString(@"AppInformation2",@"")
+#define AppInformation3    NSLocalizedString(@"AppInformation3",@"")
+#define AppUploadPhoto  NSLocalizedString(@"AppUploadPhoto",@"")
+#define AppUserName  NSLocalizedString(@"AppUserName",@"")
+#define AppMale  NSLocalizedString(@"AppMale",@"")
+#define AppFemail  NSLocalizedString(@"AppFemale",@"")
+#define AppBeginner    NSLocalizedString(@"AppBeginner",@"")
+#define AppJunior  NSLocalizedString(@"AppJunior",@"")
+#define AppSenior  NSLocalizedString(@"AppSenior",@"")
+#define AppProfessor  NSLocalizedString(@"AppProfessor",@"")
+#define AppChooseFavor  NSLocalizedString(@"AppChooseFavor",@"")
+#define AppTravel    NSLocalizedString(@"AppTravel",@"")
+#define AppFilm    NSLocalizedString(@"AppFilm",@"")
+#define AppSports    NSLocalizedString(@"AppSports",@"")
+#define AppTech    NSLocalizedString(@"AppTech",@"")
+#define AppDesign    NSLocalizedString(@"AppDesign",@"")
+#define AppArts    NSLocalizedString(@"AppArts",@"")
+#define AppCooking    NSLocalizedString(@"AppCooking",@"")
+#define AppBook    NSLocalizedString(@"AppBook",@"")
+#define AppOther    NSLocalizedString(@"AppOther",@"")
+
+//Home
+#define AppHome NSLocalizedString(@"AppHome",@"")
+
+#define AppFeatured  NSLocalizedString(@"AppFeatured",@"")
+#define AppLatest  NSLocalizedString(@"AppLatest",@"")
+#define AppPopular    NSLocalizedString(@"AppPopular",@"")
+#define AppMin  NSLocalizedString(@"AppMin",@"")
+#define AppDiscover  NSLocalizedString(@"AppDiscover",@"")
+#define AppVoice  NSLocalizedString(@"AppVoice",@"")
+#define AppMatch  NSLocalizedString(@"AppMatch",@"")
+#define AppFeeds    NSLocalizedString(@"AppFeeds",@"")
+#define AppMe  NSLocalizedString(@"AppMe",@"")
+#define AppSearch  NSLocalizedString(@"AppSearch",@"")
+
+//me
+#define AppCoupon  NSLocalizedString(@"AppCoupon",@"")
+#define AppPoints  NSLocalizedString(@"AppPoints",@"")
+#define AppRedeem  NSLocalizedString(@"AppRedeem",@"")
+#define AppEditProfile    NSLocalizedString(@"AppEditProfile",@"")
+#define AppBalance  NSLocalizedString(@"AppBalance",@"")
+#define AppCreditCard  NSLocalizedString(@"AppCreditCard",@"")
+#define AppHistory    NSLocalizedString(@"AppHistory",@"")
+
+#define AppShare  NSLocalizedString(@"AppShare",@"")
+#define AppQA  NSLocalizedString(@"AppQA",@"")
+#define AppAbout    NSLocalizedString(@"AppAbout",@"")
+#define AppFollowed  NSLocalizedString(@"AppFollowed",@"")
+#define AppFollowing  NSLocalizedString(@"AppFollowing",@"")
+#define AppFreeze    NSLocalizedString(@"AppFreeze",@"")
+
+#define AppWeChat    NSLocalizedString(@"AppWeChat",@"")
+#define AppWeibo  NSLocalizedString(@"AppWeibo",@"")
+#define AppMessage  NSLocalizedString(@"AppMessage",@"")
+#define AppFriends    NSLocalizedString(@"AppFriends",@"")
+#define AppAccount  NSLocalizedString(@"AppAccount",@"")
+#define AppInviteFriends NSLocalizedString(@"AppInviteFriends",@"")
+#define AppSetting  NSLocalizedString(@"AppSetting",@"")
+
+#define AppPayment NSLocalizedString(@"AppPayment",@"")
+#define AppGeneral  NSLocalizedString(@"AppGeneral",@"")
+
+#define AppAlipay   NSLocalizedString(@"AppAlipay",@"")
+#define AppAvailablebalance   NSLocalizedString(@"AppAvailablebalance",@"")
+

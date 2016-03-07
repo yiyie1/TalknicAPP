@@ -1,0 +1,170 @@
+/* 
+  Localizable.strings
+  TalKNic
+
+  Created by 郭刚 on 16/2/5.
+  Copyright © 2016年 TalKNik. All rights reserved.
+*/
+"alert.prompt" = "提示";
+"alert.nonews" = "暂时没有消息";
+"alert.sure" = "确定";
+"alert.share" = "分享成功";
+"alert.fail" = "分享失败";
+"alert.yan" = "请输入验证码";
+"alert.register" = "注册成功";
+"alert.register" = "提示";
+"alert.less" = "缺少partner或者seller或者私钥";
+"alert.see" = "聊天后才能查看";
+"alert.success" = "上传资料成功";
+"alert.thumb" = "已点赞";
+"alert.thumbFail" = "点赞失败";
+"alert.code" = "请输入验证码";
+"alert.codeFail" = "验证码输入错误";
+"alert.twoCode" = "两次验证码输入不一致";
+"alert.empty" = "账号或密码不能为空";
+"alert.false" = "手机号码格式不正确";
+"alert.16" = "密码长度不能大于16位";
+"alert.OK" = "好";
+"alert.format" = "银行卡号格式不正确";
+"alert.cardFormat" = "银行卡号不能为空";
+"alert.cardLength" = "银行卡号长度超过限制";
+"alert.cardNameEmpty" = "姓名不能为空";
+"alert.dateEmpty" = "日期不能为空";
+"alert.ccvEmpty" = "CCV不能为空";
+"alert.lenghtEmpty" = "长度超过限制";
+"alert.upSecEmpty" = "上传成功请返回";
+"alert.upFailEmpty" = "上传失败";
+"alert.useridWrongEmpty" = "用户ID错误";
+"alert.cardnumberExists" = "银行卡号已经存在";
+"alert.phoneNumberFormatWrong" = "手机号码格式不正确";
+"alert.phoneNumberNotCorrect" = "手机号码不正确";
+"alert.enterThePhoneNumber" = "请输入手机号";
+"alert.verificationSent" = "验证码已发送";
+"alert.registeredPhoneNumber" = "手机号码已注册";
+"alert.enterEmailAddress" = "请输入邮箱地址";
+"alert.loggedIn" = "正在登录...";
+"alert.loginSuccessful" = "登录成功";
+"alert.modifyDataFailure" = "修改资料失败";
+"alert.modifyDatassSuccessful" = "修改资料成功";
+"alert.usernamecannotbeEmpty" = "用户名不能为空";
+"alert.selectGender" = "请选择性别";
+"alert.selectnotion" = "请输入国籍";
+"alert.selectProfession" = "请输入职业";
+"alert.selectPerson" = "请输入个人介绍";
+"alert.registered" = "正在注册...";
+"alert.uploadFail" = "上传失败";
+"alert.IDWrong" = "用户ID错误";
+"alert.cardEmpty" = "银行卡号不能为空";
+"alert.dataSuccess" = "修改资料成功";
+"alert.dataFailure" = "修改资料失败";
+"alert.passtouch" = "两次密码不一致";
+"alert.passwordChangeSuccess" = "密码修改成功";
+"alert.sex" = "请选择性别";
+"alert.passwordWrong" = "密码错误";
+"alert.sourceFile" = "请选择文件来源";
+"alert.cancel" = "取消";
+"alert.camera" = "照相机";
+"alert.local" = "本地相册";
+"alert.ccvOverLength" = "cvv超出长度"; // 修改9
+"alert.unregisteredPhoneNumber" = "手机号未注册";//手机号未注册
+"alert.failedPhoneNumber" = "发送失败";//发送失败
+"alert.emailError" = "邮箱格式不正确";
+"alert.accountNidentity" = "账号与身份不符";
+"alert.balanceInsufficient" = "您的余额不足";
+"alert.loading" = "正在加载...";
+"alert.sendSuccessful" = "发送成功";
+"alert.uploadPhoto" = "请上传照片";
+"alert.6" = "密码长度不能少于6位";
+"alert.noTime" = "没有选择时间";
+"alert.noProject" = "没有选择项目";
+"alert.EnglishLevel" = "请选择您的英语水平";
+"alert.topic" = "请选择您感兴趣的话题";
+
+//APP language
+"AppForeigner" = "老外";
+"AppChinese"   = "中国人";
+
+"AppDone" = "完成";
+"AppCancel" = "取消";
+//Login Signup
+"AppSignup" = "注册";
+"AppLogin" = "登入";
+"AppCreateAccount" = "创建账户";
+"AppCellNum" = "手机号";
+"AppSend" = "发送";
+"AppCode" = "验证码";
+"AppEmail" = "邮箱";
+"AppOtherFastSignup" = "快速注册";
+"AppPassword" = "密码";
+"AppForgetPassword" = "忘记密码";
+"AppOtherFastLogin" = "快速登入";
+"AppCellOrEmail" = "手机号或邮箱";
+"AppConfirmPassword" = "确认秘密";
+
+//Information
+"AppInformation1" = "注册信息 (1/3)";
+"AppInformation2" ="注册信息 (2/3)";
+"AppInformation3" ="注册信息 (3/3)";
+"AppUploadPhoto" = "上传头像";
+"AppUserName" = "用户名";
+"AppMale" = "男";
+"AppFemale" = "女";
+"AppBeginner" = "初学者";
+"AppJunior" = "一般";
+"AppSenior" = "良好";
+"AppProfessor" = "优秀";
+"AppChooseLevel" = "选择你的水平";
+"AppChooseFavor" = "选择你的兴趣";
+"AppTravel" = "旅行";
+"AppFilm" = "电影";
+"AppSports" = "体育";
+"AppTech" = "技术";
+"AppDesign" = "设计";
+"AppArts" = "艺术";
+"AppCooking" = "烹饪";
+"AppBook" = "阅读";
+"AppOther" = "其他";
+
+//Home
+"AppHome" = "主页";
+"AppFeatured" = "特色";
+"AppLatest" = "最新";
+"AppPopular" = "热门";
+"AppMin" = "分钟";
+"AppDiscover" = "发现";
+"AppVoice" = "语音";
+"AppMatch" = "配对";
+"AppFeeds" = "朋友圈";
+"AppMe" = "我";
+"AppSearch" = "搜索";
+
+//me
+"AppCoupon" = "优惠券";
+"AppPoints" = "积分";
+"AppRedeem" = "兑换";
+"AppEditProfile" = "编辑个人信息";
+"AppBalance" = "钱包";
+"AppCreditCard" = "信用卡";
+"AppHistory" = "历史订单";
+
+"AppShare" = "分享好友";
+"AppQA" = "疑问";
+"AppAbout" = "关于";
+"AppFollowed" = "好友";
+"AppFollowing" = "关注";
+"AppFreeze" = "冻结金额";
+
+"AppWeChat" = "微信";
+"AppWeibo" = "微博";
+"AppMessage" = "短信";
+"AppFriends" = "朋友圈";
+"AppAccount" = "账户";
+
+"AppInviteFriends" = "邀请好友";
+"AppSetting" = "设置";
+
+"AppPayment" = "    支付";
+"AppGeneral" = "    通用";
+
+"AppAlipay" = "支付宝";
+"AppAvailablebalance" = "可用余额";
