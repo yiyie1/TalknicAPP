@@ -1,0 +1,1518 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <scenes>
+        <!--Me View Controller-->
+        <scene sceneID="eVZ-sf-0Xn">
+            <objects>
+                <viewController storyboardIdentifier="meVC" id="fQc-zN-rDG" customClass="MeViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="duB-Ce-VbC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="rMu-Dg-Shb">
+                                <rect key="frame" x="35" y="239" width="255" height="206"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="me_followed_bg" id="uXm-LS-nE6">
+                                        <rect key="frame" x="0.0" y="0.0" width="255" height="219"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <searchBar contentMode="redraw" placeholder="Search" id="GIq-2O-6dh">
+                                        <rect key="frame" x="0.0" y="11" width="255" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="EaG-a0-Kww">
+                                        <rect key="frame" x="0.0" y="56" width="255" height="164"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageview" destination="uXm-LS-nE6" id="3zL-MV-P6C"/>
+                        <outlet property="searchBar" destination="GIq-2O-6dh" id="Swh-OU-KaJ"/>
+                        <outlet property="searchBarView" destination="rMu-Dg-Shb" id="uqw-b0-cED"/>
+                        <outlet property="searchTable" destination="EaG-a0-Kww" id="xjj-9R-T4v"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T2s-8v-gAt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="188" y="179"/>
+        </scene>
+        <!--Foreigner Me View Controller-->
+        <scene sceneID="Hte-c3-OfG">
+            <objects>
+                <viewController storyboardIdentifier="fmeVC" id="mok-a7-lAq" customClass="ForeignerMeViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qHT-TZ-XtM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="QCJ-HS-qdP">
+                                <rect key="frame" x="35" y="239" width="255" height="206"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="me_followed_bg" id="OLD-1D-oWu">
+                                        <rect key="frame" x="0.0" y="0.0" width="255" height="219"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <searchBar contentMode="redraw" id="tmr-bF-b3q">
+                                        <rect key="frame" x="0.0" y="11" width="255" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="dCJ-iH-d7L">
+                                        <rect key="frame" x="0.0" y="56" width="255" height="164"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="FsearchBarView" destination="QCJ-HS-qdP" id="uea-7M-wS6"/>
+                        <outlet property="fimageview" destination="OLD-1D-oWu" id="yp4-F5-r8S"/>
+                        <outlet property="fsearchBar" destination="tmr-bF-b3q" id="aXu-ZU-HRK"/>
+                        <outlet property="fsearchTable" destination="dCJ-iH-d7L" id="xIm-Yh-OPt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cU1-N0-adT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="523" y="184"/>
+        </scene>
+        <!--Credit Card View Controller-->
+        <scene sceneID="MhQ-xy-7Xd">
+            <objects>
+                <viewController storyboardIdentifier="creditCard" id="EHX-dN-4kf" customClass="CreditCardViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Fth-u2-GrJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="me_creditcard_card_bg.png" id="Vfg-lc-zIQ">
+                                <rect key="frame" x="7" y="72" width="306" height="208"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="vpX-P5-r9t">
+                                <rect key="frame" x="11" y="76" width="298" height="200"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cardCell" rowHeight="42" id="S7p-30-c7m" customClass="CreditCardCell">
+                                        <rect key="frame" x="0.0" y="28" width="298" height="42"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="S7p-30-c7m" id="D2w-Hz-zTn">
+                                            <rect key="frame" x="0.0" y="0.0" width="298" height="41"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="a8Y-Gp-pZh">
+                                                    <rect key="frame" x="8" y="9" width="31" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KIo-Ed-W1X">
+                                                    <rect key="frame" x="66" y="9" width="228" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" id="kQs-qQ-aRm">
+                                                    <rect key="frame" x="0.0" y="39" width="300" height="1"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="cardNum" destination="KIo-Ed-W1X" id="0dL-nt-qSP"/>
+                                            <outlet property="imageview" destination="a8Y-Gp-pZh" id="3Od-Av-DS7"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="vpX-P5-r9t" id="YcG-wK-dVt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h3l-x0-A5x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="882" y="178"/>
+        </scene>
+        <!--Chat View Controller-->
+        <scene sceneID="TmQ-EJ-5qR">
+            <objects>
+                <viewController storyboardIdentifier="chat" id="SNn-cE-WMb" customClass="ChatViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WCz-7v-Brv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="88" sectionHeaderHeight="28" sectionFooterHeight="28" id="7uB-QA-U0K">
+                                <rect key="frame" x="0.0" y="53" width="320" height="374"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="leftcell" rowHeight="66" id="8wC-Rd-oEa" customClass="leftCell">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="66"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8wC-Rd-oEa" id="6G8-Vb-IUW">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="msg_bubble_white" id="che-TZ-cQQ">
+                                                    <rect key="frame" x="8" y="14" width="116" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="msg_audio_icon_grey" id="lbW-UW-KNb">
+                                                    <rect key="frame" x="18" y="20" width="17" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lDk-3z-R46">
+                                                    <rect key="frame" x="43" y="19" width="52" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yps-Z8-jUl">
+                                                    <rect key="frame" x="92" y="48" width="112" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="backView" destination="che-TZ-cQQ" id="NLq-C7-cGx"/>
+                                            <outlet property="deetaLb" destination="yps-Z8-jUl" id="HNu-eB-eaa"/>
+                                            <outlet property="timeLb" destination="lDk-3z-R46" id="ewn-Zv-X7m"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="rightcell" rowHeight="64" id="vGX-qA-KGV" customClass="RightcellTableViewCell">
+                                        <rect key="frame" x="0.0" y="94" width="320" height="64"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vGX-qA-KGV" id="u9t-2i-KMM">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="63"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="msg_bubble_blue" id="kH9-KU-KYr">
+                                                    <rect key="frame" x="203.00000022391282" y="11" width="109" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="msg_audio_icon_white" id="5TL-aG-wfM">
+                                                    <rect key="frame" x="279" y="16" width="17" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lPr-zQ-ilB">
+                                                    <rect key="frame" x="90" y="48" width="120" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xxb-Mj-nA4">
+                                                    <rect key="frame" x="217.00000127930377" y="16" width="54" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="backview" destination="kH9-KU-KYr" id="4Qu-TX-TRK"/>
+                                            <outlet property="detaLb" destination="lPr-zQ-ilB" id="vXW-wt-FhF"/>
+                                            <outlet property="timelb" destination="xxb-Mj-nA4" id="9P4-BI-ewn"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rAd-r1-f28">
+                                <rect key="frame" x="131" y="443" width="58" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="104DE6A8-5B0C-4356-A341-D9D8A25C3389"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.83659855769230773" green="0.83659855769230773" blue="0.83659855769230773" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="sayBtn" destination="rAd-r1-f28" id="Noa-yg-erO"/>
+                        <outlet property="tableview" destination="7uB-QA-U0K" id="usY-ya-Xh5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IC7-vc-I6v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="190" y="-459"/>
+        </scene>
+        <!--Home View Controller-->
+        <scene sceneID="zfp-Qh-Bz4">
+            <objects>
+                <viewController storyboardIdentifier="homeViewController" id="zNr-bj-d0N" customClass="HomeViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1va-4M-fWd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="PW1-Ak-aCp">
+                                <rect key="frame" x="0.0" y="135" width="320" height="389"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="zy4-K1-txk">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="389"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VpE-6J-egG">
+                                            <size key="itemSize" width="150" height="200"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="HomeShowPicturwCell" reuseIdentifier="HomeShowPicturwCell" id="lgf-3K-Kbg" customClass="HomeShowPicturwCell">
+                                                <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="test" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BAj-WD-3t5">
+                                                            <rect key="frame" x="8" y="134" width="134" height="44"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Designer" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HED-an-C6S">
+                                                            <rect key="frame" x="91.999999889960648" y="169" width="52" height="32"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <color key="textColor" red="0.37251602564102559" green="0.37251602564102559" blue="0.37251602564102559" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="test" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pXW-Aq-mk0">
+                                                            <rect key="frame" x="8" y="169" width="83" height="32"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <view contentMode="scaleToFill" id="HHo-9l-32v">
+                                                            <rect key="frame" x="6" y="8" width="138" height="130"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                            <subviews>
+                                                                <view contentMode="scaleToFill" id="SWs-WI-gQN">
+                                                                    <rect key="frame" x="36" y="28" width="64" height="64"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                                    <subviews>
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="kHO-NW-ApR">
+                                                                            <rect key="frame" x="2" y="2" width="60" height="60"/>
+                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                                            <color key="backgroundColor" red="1" green="0.68711838430583794" blue="0.72083478549110525" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        </imageView>
+                                                                    </subviews>
+                                                                    <color key="backgroundColor" red="0.56796875000000002" green="0.56796875000000002" blue="0.56796875000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                </view>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="discover_like_red" id="JJs-nf-Vml">
+                                                                    <rect key="frame" x="72" y="111" width="12" height="12"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                                                </imageView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="discover_pay_star_yellow" id="07C-ko-ewW">
+                                                                    <rect key="frame" x="101" y="109" width="15" height="15"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                                                </imageView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ckA-fz-ciK">
+                                                                    <rect key="frame" x="84" y="107" width="21" height="21"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JKY-Ym-9cb">
+                                                                    <rect key="frame" x="117" y="107" width="21" height="21"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <color key="backgroundColor" red="0.91474358974358971" green="0.91474358974358971" blue="0.91474358974358971" alpha="1" colorSpace="calibratedRGB"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="15"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="dianzanLb" destination="ckA-fz-ciK" id="qbj-iK-42z"/>
+                                                    <outlet property="imageview" destination="kHO-NW-ApR" id="y6J-jW-S63"/>
+                                                    <outlet property="nickNameLb" destination="pXW-Aq-mk0" id="IYM-hs-IIc"/>
+                                                    <outlet property="pingfenLb" destination="JKY-Ym-9cb" id="bLa-Wn-BXb"/>
+                                                    <outlet property="titlelb" destination="BAj-WD-3t5" id="Q9T-SS-tdf"/>
+                                                    <outlet property="yinyingview" destination="SWs-WI-gQN" id="oKk-mF-m2U"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                    </collectionView>
+                                </subviews>
+                            </view>
+                            <view alpha="0.90000000000000002" contentMode="scaleToFill" id="fxE-Na-HbO">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" id="ENn-bt-7WH">
+                                        <rect key="frame" x="51" y="175" width="218" height="224"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" id="Ph1-vE-lX2">
+                                                <rect key="frame" x="2" y="2" width="214" height="220"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" id="r4X-1z-1fo">
+                                                        <rect key="frame" x="21" y="8" width="54" height="54"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="ssU-dx-cfw">
+                                                                <rect key="frame" x="2" y="2" width="50" height="50"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </imageView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" red="0.56796875000000002" green="0.56796875000000002" blue="0.56796875000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RPh-2k-DQv">
+                                                        <rect key="frame" x="102" y="13" width="104" height="20"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bio：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="N6c-ns-3CU">
+                                                        <rect key="frame" x="13" y="75" width="89" height="15"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily Topic：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JTd-kR-w0G">
+                                                        <rect key="frame" x="15" y="75" width="89" height="15"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sPR-P5-JVT">
+                                                        <rect key="frame" x="14" y="88" width="186" height="35"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" id="iHl-J6-Dai">
+                                                        <rect key="frame" x="10" y="122" width="190" height="1"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" red="0.70769230769230762" green="0.70769230769230762" blue="0.70769230769230762" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily Topic：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9lB-2s-r1B">
+                                                        <rect key="frame" x="13" y="129" width="89" height="15"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coupons/Poi..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tJk-K8-XzP">
+                                                        <rect key="frame" x="14" y="129" width="89" height="15"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SUd-Dv-iaH">
+                                                        <rect key="frame" x="14" y="144" width="186" height="31"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7Vc-t5-fEz">
+                                                        <rect key="frame" x="115" y="151" width="85" height="22"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <state key="normal" title="￥20.00" image="discover_pay_next">
+                                                            <color key="titleColor" red="0.069971955128205088" green="0.069971955128205088" blue="0.069971955128205088" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                    </button>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Est.frae:(RMB)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EtT-Mc-hKm">
+                                                        <rect key="frame" x="14" y="148" width="80" height="27"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view hidden="YES" contentMode="scaleToFill" id="kkF-to-g6X">
+                                                        <rect key="frame" x="106" y="152" width="1" height="20"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" red="0.81346153850000003" green="0.81346153850000003" blue="0.81346153850000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </view>
+                                                    <view hidden="YES" contentMode="scaleToFill" id="vnP-Vc-BEY">
+                                                        <rect key="frame" x="12" y="148" width="190" height="1"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" red="0.70769230770000002" green="0.70769230770000002" blue="0.70769230770000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </view>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0pZ-No-ip0">
+                                                        <rect key="frame" x="64" y="180" width="30" height="30"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                                        <state key="normal" backgroundImage="discover_pay_ok"/>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="q9s-Xv-g1f">
+                                                        <rect key="frame" x="102" y="58" width="18" height="12"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <state key="normal" backgroundImage="discover_like_red"/>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8qp-58-PC5">
+                                                        <rect key="frame" x="148" y="54" width="17" height="16"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <state key="normal" backgroundImage="discover_pay_star_yellow"/>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PHR-0t-nUr">
+                                                        <rect key="frame" x="123" y="53" width="33" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="96Y-Fl-Akr">
+                                                        <rect key="frame" x="167" y="53" width="33" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view hidden="YES" contentMode="scaleToFill" id="5hr-Hp-SXb">
+                                                        <rect key="frame" x="10" y="174" width="190" height="1"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" red="0.70769230770000002" green="0.70769230770000002" blue="0.70769230770000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </view>
+                                                    <view hidden="YES" contentMode="scaleToFill" id="MiS-0O-zLD">
+                                                        <rect key="frame" x="106" y="124" width="1" height="20"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" red="0.81346153846153846" green="0.81346153846153846" blue="0.81346153846153846" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </view>
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6le-ka-N7p">
+                                                        <rect key="frame" x="115" y="124" width="85" height="22"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <state key="normal" title="  20%ff" image="discover_pay_next">
+                                                            <color key="titleColor" red="0.10026041666666663" green="0.10026041666666663" blue="0.10026041666666663" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Tj1-BA-U8e">
+                                                        <rect key="frame" x="102" y="35" width="104" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MbZ-U9-EZg">
+                                                        <rect key="frame" x="115" y="180" width="30" height="30"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                                        <state key="normal" backgroundImage="discover_match_cancel_blue"/>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="30"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.33333333333333331" green="0.75294117647058822" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="30"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.67091346153846154" green="0.67091346153846154" blue="0.67091346153846154" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="addressLb" destination="Tj1-BA-U8e" id="oKj-Mq-wjB"/>
+                        <outlet property="beijingView" destination="r4X-1z-1fo" id="7iZ-N5-w33"/>
+                        <outlet property="bioLb" destination="sPR-P5-JVT" id="5l5-FW-iP3"/>
+                        <outlet property="cancelBtn" destination="MbZ-U9-EZg" id="fxS-W3-mGR"/>
+                        <outlet property="couponsLb" destination="tJk-K8-XzP" id="PMj-C7-cBZ"/>
+                        <outlet property="dailyTopicLb1" destination="9lB-2s-r1B" id="bKK-gN-XDS"/>
+                        <outlet property="dailyTopicLb2" destination="JTd-kR-w0G" id="IqR-hl-MV6"/>
+                        <outlet property="detailimage1" destination="ssU-dx-cfw" id="hQ7-De-P1p"/>
+                        <outlet property="dianzaiLb" destination="PHR-0t-nUr" id="s3P-2Q-U8G"/>
+                        <outlet property="dianzangBtn" destination="q9s-Xv-g1f" id="3hc-xz-F0L"/>
+                        <outlet property="fengexian2" destination="vnP-Vc-BEY" id="SjZ-7s-viF"/>
+                        <outlet property="fengexian3" destination="5hr-Hp-SXb" id="okB-PO-Jl7"/>
+                        <outlet property="homecollectview" destination="zy4-K1-txk" id="N9y-W3-1d9"/>
+                        <outlet property="jieshaoLb" destination="N6c-ns-3CU" id="TpP-c0-p7o"/>
+                        <outlet property="nameLb" destination="RPh-2k-DQv" id="Ulh-7O-WUn"/>
+                        <outlet property="pingfenBtn" destination="8qp-58-PC5" id="Ego-Wp-Gx4"/>
+                        <outlet property="pingfenLb" destination="96Y-Fl-Akr" id="OHH-Id-WHe"/>
+                        <outlet property="priceBtn" destination="7Vc-t5-fEz" id="DAP-Xd-SrM"/>
+                        <outlet property="rmbLb" destination="EtT-Mc-hKm" id="Tfg-eD-aPJ"/>
+                        <outlet property="sureBtn" destination="0pZ-No-ip0" id="uCf-8E-TQL"/>
+                        <outlet property="topicLb" destination="SUd-Dv-iaH" id="zFl-8O-8Zb"/>
+                        <outlet property="xiaofengexian1" destination="kkF-to-g6X" id="adB-fJ-QE1"/>
+                        <outlet property="xiaofengexian2" destination="MiS-0O-zLD" id="t1K-g8-ny7"/>
+                        <outlet property="youhuiquanBtn" destination="6le-ka-N7p" id="jvt-TF-10h"/>
+                        <outlet property="zhedangbanview" destination="fxE-Na-HbO" id="M7c-UZ-NJn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GEA-u3-ajw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="622" y="-470"/>
+        </scene>
+        <!--Balance2 View Controller-->
+        <scene sceneID="tj8-7B-GDd">
+            <objects>
+                <viewController storyboardIdentifier="balance2ViewController" id="J7b-wz-E2y" customClass="Balance2ViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6kE-Ah-ktT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="jrL-Ui-YOY">
+                                <rect key="frame" x="73" y="74" width="174" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.53231924164865418" green="0.81004529200080833" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <segments>
+                                    <segment title="in"/>
+                                    <segment title="out"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentController:" destination="J7b-wz-E2y" eventType="valueChanged" id="xaE-Tg-5dq"/>
+                                </connections>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" id="XWm-fd-V4E">
+                                <rect key="frame" x="15" y="116" width="290" height="376"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BalanceCell" rowHeight="50" id="jro-58-3Oj" customClass="BalanceCell">
+                                        <rect key="frame" x="0.0" y="28" width="290" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jro-58-3Oj" id="4vO-Q7-CpM">
+                                            <rect key="frame" x="0.0" y="0.0" width="290" height="49"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="wI3-1j-8Mj">
+                                                    <rect key="frame" x="11" y="12" width="14" height="23"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alipay Recharging" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wDI-XN-pOV">
+                                                    <rect key="frame" x="49" y="14" width="133" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 RMB" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lgk-qv-eOd">
+                                                    <rect key="frame" x="206" y="5" width="76" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="China 2015-11-13" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OZB-w2-am4">
+                                                    <rect key="frame" x="198" y="24" width="92" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dateLb" destination="OZB-w2-am4" id="nFS-M1-lhc"/>
+                                            <outlet property="imageview" destination="wI3-1j-8Mj" id="YaI-xV-66j"/>
+                                            <outlet property="messageLb" destination="wDI-XN-pOV" id="fLP-S2-SNF"/>
+                                            <outlet property="moneyLb" destination="lgk-qv-eOd" id="P0z-BI-HIS"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.92159455128205126" green="0.92159455128205126" blue="0.92159455128205126" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="segment" destination="jrL-Ui-YOY" id="ZmW-rT-7DI"/>
+                        <outlet property="segmentcontroller" destination="jrL-Ui-YOY" id="fZu-Yd-Qcd"/>
+                        <outlet property="tableview" destination="XWm-fd-V4E" id="uec-h9-J5z"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VZ5-Dx-Frm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1076" y="-480"/>
+        </scene>
+        <!--Show Match Data View Controller-->
+        <scene sceneID="Y6G-It-C1G">
+            <objects>
+                <viewController storyboardIdentifier="ShowMatchDataViewController" id="dH1-T7-ky0" customClass="ShowMatchDataViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="d3Z-qm-Fug">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="tm4-UV-AVZ">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="nxK-59-nVz">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="521"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="We2-0T-hfP">
+                                            <size key="itemSize" width="150" height="200"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="HomeShowPicturwCell" reuseIdentifier="HomeShowPicturwCell" id="0yH-7u-RIx" customClass="HomeShowPicturwCell">
+                                                <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="test" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IWF-PG-aW1">
+                                                            <rect key="frame" x="8" y="134" width="134" height="44"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Designer" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="a0e-9k-7oE">
+                                                            <rect key="frame" x="91.999999775336306" y="169" width="52" height="32"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <color key="textColor" red="0.37251602560000002" green="0.37251602560000002" blue="0.37251602560000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="test" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FLs-MD-Ss5">
+                                                            <rect key="frame" x="8" y="169" width="83" height="32"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <view contentMode="scaleToFill" id="uTI-er-jUl">
+                                                            <rect key="frame" x="6" y="8" width="138" height="130"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                            <subviews>
+                                                                <view contentMode="scaleToFill" id="jXK-zJ-zlI">
+                                                                    <rect key="frame" x="36" y="28" width="64" height="64"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                                    <subviews>
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="80h-Gi-tT9">
+                                                                            <rect key="frame" x="2" y="2" width="60" height="60"/>
+                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                                            <color key="backgroundColor" red="1" green="0.68711838430000005" blue="0.72083478550000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        </imageView>
+                                                                    </subviews>
+                                                                    <color key="backgroundColor" red="0.56796875000000002" green="0.56796875000000002" blue="0.56796875000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                </view>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="discover_like_red" id="Yex-hK-2yW">
+                                                                    <rect key="frame" x="72" y="111" width="12" height="12"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                                                </imageView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="discover_pay_star_yellow" id="kTq-t8-gij">
+                                                                    <rect key="frame" x="101" y="109" width="15" height="15"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                                                </imageView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZpN-N1-EIW">
+                                                                    <rect key="frame" x="84" y="107" width="21" height="21"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QOy-n0-Epp">
+                                                                    <rect key="frame" x="117" y="107" width="21" height="21"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <color key="backgroundColor" red="0.91474358970000003" green="0.91474358970000003" blue="0.91474358970000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="15"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="dianzanLb" destination="ZpN-N1-EIW" id="DQG-Za-HhC"/>
+                                                    <outlet property="imageview" destination="80h-Gi-tT9" id="1gC-52-iS3"/>
+                                                    <outlet property="nickNameLb" destination="FLs-MD-Ss5" id="PIS-Hi-0BX"/>
+                                                    <outlet property="pingfenLb" destination="QOy-n0-Epp" id="iPV-WD-rEt"/>
+                                                    <outlet property="titlelb" destination="IWF-PG-aW1" id="1OZ-Pt-H4y"/>
+                                                    <outlet property="yinyingview" destination="jXK-zJ-zlI" id="9zf-Mr-Uem"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                    </collectionView>
+                                </subviews>
+                            </view>
+                            <view alpha="0.80000000000000004" contentMode="scaleToFill" id="JRC-rX-FeW">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" id="GpJ-v7-Uhh">
+                                        <rect key="frame" x="51" y="111" width="218" height="224"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" id="zs1-Q4-phK">
+                                                <rect key="frame" x="2" y="2" width="214" height="220"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" id="zDr-di-jpv">
+                                                        <rect key="frame" x="21" y="8" width="54" height="54"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="kbI-o2-CSQ">
+                                                                <rect key="frame" x="2" y="2" width="50" height="50"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </imageView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" red="0.56796875000000002" green="0.56796875000000002" blue="0.56796875000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="biz-0D-0nZ">
+                                                        <rect key="frame" x="102" y="13" width="104" height="20"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bio：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LiM-bH-Q4R">
+                                                        <rect key="frame" x="13" y="75" width="89" height="15"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily Topic：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h8k-vF-lez">
+                                                        <rect key="frame" x="15" y="75" width="89" height="15"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Gwn-Z1-vql">
+                                                        <rect key="frame" x="14" y="88" width="186" height="35"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" id="DZw-Kb-MAl">
+                                                        <rect key="frame" x="10" y="122" width="190" height="1"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" red="0.70769230770000002" green="0.70769230770000002" blue="0.70769230770000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily Topic：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1HR-NC-nOh">
+                                                        <rect key="frame" x="13" y="129" width="89" height="15"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coupons/Poi..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yRx-GK-YjN">
+                                                        <rect key="frame" x="14" y="129" width="89" height="15"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eQ5-Zm-2sb">
+                                                        <rect key="frame" x="14" y="144" width="186" height="31"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xWm-mh-7h4">
+                                                        <rect key="frame" x="115" y="151" width="85" height="22"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <state key="normal" title="￥20.00" image="discover_pay_next">
+                                                            <color key="titleColor" red="0.069971955129999999" green="0.069971955129999999" blue="0.069971955129999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                    </button>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Est.frae:(RMB)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Yvu-OW-76c">
+                                                        <rect key="frame" x="14" y="148" width="80" height="27"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view hidden="YES" contentMode="scaleToFill" id="qB0-nJ-VKx">
+                                                        <rect key="frame" x="106" y="152" width="1" height="20"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" red="0.81346153850000003" green="0.81346153850000003" blue="0.81346153850000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </view>
+                                                    <view hidden="YES" contentMode="scaleToFill" id="t2c-E8-Yq3">
+                                                        <rect key="frame" x="12" y="148" width="190" height="1"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" red="0.70769230770000002" green="0.70769230770000002" blue="0.70769230770000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </view>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5My-R5-udy">
+                                                        <rect key="frame" x="64" y="180" width="30" height="30"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                                        <state key="normal" backgroundImage="discover_pay_ok"/>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OqY-vL-YM5">
+                                                        <rect key="frame" x="102" y="58" width="18" height="12"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <state key="normal" backgroundImage="discover_like_red"/>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="F93-r9-s7N">
+                                                        <rect key="frame" x="148" y="54" width="17" height="16"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <state key="normal" backgroundImage="discover_pay_star_yellow"/>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KxV-hM-0ul">
+                                                        <rect key="frame" x="123" y="53" width="33" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HPa-te-sXr">
+                                                        <rect key="frame" x="167" y="53" width="33" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view hidden="YES" contentMode="scaleToFill" id="I6u-Cx-11e">
+                                                        <rect key="frame" x="10" y="174" width="190" height="1"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" red="0.70769230770000002" green="0.70769230770000002" blue="0.70769230770000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </view>
+                                                    <view hidden="YES" contentMode="scaleToFill" id="e6p-EB-K2C">
+                                                        <rect key="frame" x="106" y="124" width="1" height="20"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" red="0.81346153850000003" green="0.81346153850000003" blue="0.81346153850000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </view>
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3Id-qD-Mut">
+                                                        <rect key="frame" x="115" y="124" width="85" height="22"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <state key="normal" title="  20%ff" image="discover_pay_next">
+                                                            <color key="titleColor" red="0.10026041669999999" green="0.10026041669999999" blue="0.10026041669999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Wn8-Nx-Bf9">
+                                                        <rect key="frame" x="102" y="35" width="104" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ib3-jl-eAD">
+                                                        <rect key="frame" x="115" y="180" width="30" height="30"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                                        <state key="normal" backgroundImage="discover_match_cancel_blue"/>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="30"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.33333333329999998" green="0.75294117650000003" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="30"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.67091346149999997" green="0.67091346149999997" blue="0.67091346149999997" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="addressLb" destination="Wn8-Nx-Bf9" id="xJn-Jr-V2T"/>
+                        <outlet property="beijingView" destination="zDr-di-jpv" id="2rm-YZ-RRf"/>
+                        <outlet property="bioLb" destination="Gwn-Z1-vql" id="TPg-7V-S7S"/>
+                        <outlet property="cancelBtn" destination="Ib3-jl-eAD" id="ASg-bO-U35"/>
+                        <outlet property="couponsLb" destination="yRx-GK-YjN" id="e9D-GC-idm"/>
+                        <outlet property="dailyTopicLb1" destination="1HR-NC-nOh" id="gUX-Zq-LLg"/>
+                        <outlet property="dailyTopicLb2" destination="h8k-vF-lez" id="tww-bG-gtU"/>
+                        <outlet property="detailimage1" destination="kbI-o2-CSQ" id="etE-ym-7JB"/>
+                        <outlet property="dianzaiLb" destination="KxV-hM-0ul" id="5Uk-Sw-NVW"/>
+                        <outlet property="dianzangBtn" destination="OqY-vL-YM5" id="GAV-jf-8t9"/>
+                        <outlet property="fengexian2" destination="t2c-E8-Yq3" id="gwk-La-j3M"/>
+                        <outlet property="fengexian3" destination="I6u-Cx-11e" id="d7s-hb-hJ9"/>
+                        <outlet property="homecollectview" destination="nxK-59-nVz" id="vKN-zT-9Rq"/>
+                        <outlet property="jieshaoLb" destination="LiM-bH-Q4R" id="iV8-ce-hav"/>
+                        <outlet property="nameLb" destination="biz-0D-0nZ" id="LmR-BG-cPt"/>
+                        <outlet property="pingfenBtn" destination="F93-r9-s7N" id="Jv6-h7-4bL"/>
+                        <outlet property="pingfenLb" destination="HPa-te-sXr" id="Ews-KC-vy9"/>
+                        <outlet property="priceBtn" destination="xWm-mh-7h4" id="78v-gu-iL2"/>
+                        <outlet property="rmbLb" destination="Yvu-OW-76c" id="71U-ko-Att"/>
+                        <outlet property="sureBtn" destination="5My-R5-udy" id="oUT-nm-1t5"/>
+                        <outlet property="topicLb" destination="eQ5-Zm-2sb" id="IYb-dH-TjD"/>
+                        <outlet property="xiaofengexian1" destination="qB0-nJ-VKx" id="7ft-tv-N9X"/>
+                        <outlet property="xiaofengexian2" destination="e6p-EB-K2C" id="4jU-zH-CIw"/>
+                        <outlet property="youhuiquanBtn" destination="3Id-qD-Mut" id="2za-CO-uCD"/>
+                        <outlet property="zhedangbanview" destination="JRC-rX-FeW" id="7u5-bW-0Nf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ejd-7E-dOs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1509" y="-492"/>
+        </scene>
+        <!--Daily Topic View Controller-->
+        <scene sceneID="AnR-1e-4tv">
+            <objects>
+                <viewController storyboardIdentifier="topic" id="0mw-f7-6Vd" customClass="DailyTopicViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MSz-eW-p3r">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uWi-tu-hue">
+                                <rect key="frame" x="120" y="92" width="75" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="topic_blue_circle"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nII-m1-rDN">
+                                <rect key="frame" x="67" y="285" width="194" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" id="NAQ-fx-Sai">
+                                <rect key="frame" x="0.0" y="313" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.75823317310000005" green="0.75823317310000005" blue="0.75823317310000005" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xJT-uy-ye1">
+                                <rect key="frame" x="44" y="176" width="227" height="95"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="chooseBtn" destination="uWi-tu-hue" id="yok-11-ImB"/>
+                        <outlet property="editingLb" destination="xJT-uy-ye1" id="T5k-hs-2XU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aaM-AF-GYa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="229" y="799"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="104DE6A8-5B0C-4356-A341-D9D8A25C3389" width="75" height="75">
+            <mutableData key="keyedArchiveRepresentation">
+YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
+GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
+c1dOU0NvbG9ygAKADRIgwAAAgAOAC1h7NzUsIDc1fdIVChYYWk5TLm9iamVjdHOhF4AEgArSFQoaHaIb
+HIAFgAaACRAA0iAKISJfEBROU1RJRkZSZXByZXNlbnRhdGlvboAHgAhPEWCCTU0AKgAAV+wAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACBAcHDR0t
+LRw+X18sY5SUN369vT+P1dVCluPjQpfj40KW4+M/j9XVN369vSxjlJQcPl9fDR0tLQIEBwcAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMHCgoPIDIyHkVoaC5qn587iMvLQpnm
+5kei9fVJqPv9Sqv//0qq//9Kqv//Sqn//0qq//9Kqv//Sqv//0mo+/1HovX1Qpnm5juIy8suap+fHkVo
+aA8gMjIDBwoKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECBQUQJTg4KVuIiDyIzMxHovL0TbH//0yw//9Krv//Sar/
+/0in//9Hpf3/R6X9/0ek/f9HpPz/R6T8/0ek/P9HpP3/R6X9/0el/f9Ip///Sar//0qu//9Mr///TbH/
+/0ei8vQ8iMzMKVuIiBAlODgBAgUFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAFDBMTHEFiYjmAwMBIpvf3TbH//0qs//9Ip///R6X9/0al/f9FpPz/RaP8
+/0Wj/P9Eo/z/Q6L8/0Si/P9Eovz/RKL8/0Si/P9Eovz/RKL8/0Si/P9Fo/z/RaP8/0Wk/P9Gpf3/R6X9
+/0in//9KrP//TLH//0il9/c4gMDAHUFiYgUMExMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAABQsSEiBKb28+j9bWTK7//0yv//9Ip///R6X9/0ak/P9Fo/z/RKL8/0Og/P9DoPz/Qp/8
+/0Ge+/9Bnvv/QZ77/0Cd+/9Anfv/QJ37/0Cd+/9Anfv/QZ77/0Ge+/9Bnvv/Qp/8/0Og/P9DoPz/RKL8
+/0Wj/P9GpPz/R6X9/0in//9Lrv//TK7//z6P1tYgSm9vBQsSEgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAACBAQaO1lZPYzR0Uyw//9LrP//R6X9/0ek/f9Fo/z/RKL8/0Og/P9Cn/z/QZ77/0Cd+/8/nPv/P5z7
+/z+b+/8+m/v/Ppv7/z6Z+/8+mfr/PZn6/z6Z+v8+mfr/Ppn7/z6b+/8/m/v/P5z7/z+c+/9Anfv/QZ77
+/0Kf+/9DoPz/RKL8/0Wj/P9HpPz/R6X9/0qs//9MsP//PYzR0Rk7WVkAAgQEAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADBwq
+KjN1rq5Krf7+S6z//0el/f9GpP3/RaP8/0Og/P9Cn/z/QZ37/0Cd+/8/nPv/Ppv7/z6Z+/89mPr/PJf6
+/zuY+v87lvr/Opb6/zqX+v86lvr/Opb6/zqW+v86l/r/Opb6/zuW+v87mPr/PJf6/z2Y+v89m/v/Ppv7
+/z+b+/9Anfv/QJ37/0Og/P9Eovz/RKL8/0aj/f9Ipv3/Sqz//0ut/v4zda6uCxwqKgAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcQF9fRJzo
+6Eyw//9Ip///RqT9/0Wj/P9DoPz/QZ78/0Cd+/8/nPv/Ppv7/z2Z+/89mPr/PJf6/zqX+v86lvr/OZX6
+/zmU+P85lPj/OZT4/ziS+P84kvj/OJL4/ziS+P84kvj/OZT4/zmU+P85lPj/OZX6/zqW+v86lvr/O5f6
+/z2Y+v89mfv/Ppv7/z+c+/9Anfv/Qp78/0Og/P9Fo/z/RqT9/0im//9MsP//RJzo6BxAX18AAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAkNDS1ll5dMrf39Sqv/
+/0el/f9Fo/z/RKL8/0Kf/P9Anvv/P5z7/z6Z+/89mPr/PJf6/zqW+v86lfr/OZT4/ziU+P84kvj/N5H4
+/zaQ+P82kPj/NpD4/zWP9/81j/f/NY/3/zWP9/81j/f/NpD4/zaQ+P82kPj/N5H4/ziS+P84kvj/OZT4
+/zqV+v87lvr/O5f6/z2Y+v8+m/v/P5z7/0Cd+/9Cnvz/Q6D8/0Wj/P9HpP3/Sqv//0us/f0tZZeXBAkN
+DQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIEhwcNny4uk2x//9Jp///RqT9
+/0Si/P9DoPz/QZ77/z+c+/8+m/v/PJj6/zuX+v86lfr/OZP6/ziS+P83kfj/NpD4/zWQ+P81j/j/NI73
+/zSO9/8zjff/M433/zON9/8zi/f/M4v3/zOL9/8zi/f/M433/zON9/80jvf/NI73/zWP9/81j/j/NpD4
+/zeR+P84kvj/OZP6/zqV+v87l/r/PJj6/z6Z+/8/nPv/QJ37/0Kf/P9Eovz/RqT9/0in//9Nsf//Nny4
+uggSHBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoZJyc8is3NTbH//0im/f9Ho/z/RKL8
+/0Kf/P9Anfv/P5v7/z2Z+/88l/r/Opb6/zmT+v84kvj/N5H4/zaQ+P81j/f/NI73/zON9/8zjff/Mov3
+/zKK9/8xivb/MYr2/zCJ9v8wifb/MIn2/zCJ9v8wifb/MYn2/zGK9v8yivf/Mov3/zON9/8zjff/NI73
+/zWP9/81kPj/N5H4/ziS+P85lfj/Opb6/zyX+v89mfv/Ppv7/0Cd+/9Cnvz/RKL8/0aj/P9Hpf3/TLH/
+/zyKzc0KGScnAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADBspKT+Q19dMsP//R6X9/0Wj/P9Eovz/QZ77
+/z+c+/8+mfv/PJj6/zqW+v85lfj/OJL4/zeR+P81kPf/NI73/zON9/8zi/f/MYr3/zCK9v8wifb/L4j2
+/y+H9v8vh/b/Lob2/y6G9v8uhvb/Lob2/y6G9v8uhvb/Lob2/y+H9v8vh/b/L4j2/zCJ9v8xifb/MYr2
+/zOL9/8zjff/NI73/zWP9/83kfj/OJL4/zmV+P86lvr/PJj6/z6Z+/8/nPv/QZ77/0Og/P9Fo/z/R6X9
+/0yw//8/kNfXDBspKQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJFiEhPo3T00yw//9Hpf3/RaP8/0Og/P9Bnvv/P5z7
+/z2Z+/88l/r/OZX6/ziS+P83kfj/NZD4/zSO9/8zjff/Mov3/zGK9/8wifb/L4f2/y+H9v8uhvb/LYX2
+/yyF9v8sg/X/LIP1/yuC9f8rgvX/K4L1/yuC9f8rgvX/LIP1/yyD9f8shfb/LYX2/y6G9v8vh/b/L4f2
+/zCI9v8wivf/Mov3/zON9/80jvf/NY/4/zeR+P85lPj/OZX6/zyX+v89mPv/P5z7/0Gd+/9Cn/z/RaP8
+/0el/f9MsP//Po3T0wkWISEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAULEhI5gcDCTbD//0il/f9Fo/z/Qp/8/0Ge+/8/nPv/PZn6
+/zuX+v85lfr/OJL4/zaQ+P80j/f/M433/zKL9/8xivb/L4j2/y+H9v8uh/b/LYX2/yyD9f8sg/X/K4L1
+/yuB9f8rgfX/KoH1/yqA9f8qf/X/Kn/1/yp/9f8qgPX/KoH1/yuB9f8rgfX/K4L1/yyD9f8shfX/LYX1
+/y6G9v8vh/b/MIn2/zGK9v8yi/f/M433/zWP9/82kPj/OJL4/zmV+v87lvr/PJn6/z+b+/9Anfv/Q6D8
+/0aj/P9Hpf3/TLH//ziBwMIFCxISAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQMGBjBupqZNsf//R6X9/0Wj/P9Cn/z/QZ37/z+b+/89mPr/O5b6
+/zmT+v83kfj/NpD4/zSO9/8zjff/MYr2/zCJ9v8vh/b/Lob2/yyF9f8sg/X/K4L1/yuB9f8qgPX/KX/z
+/yh/8/8ofvP/KH7z/yh+8/8nffP/J33z/yd98/8ofvP/KH7z/yh+8/8of/P/KX/z/yqA9f8rgfX/K4L1
+/yyD9f8sg/X/Lob2/y+H9v8wiPb/MYr2/zON9/80jvf/NpD3/zeR+P85lPj/O5b6/zyY+v8/m/v/QJ37
+/0Kf/P9Fo/z/R6X9/02x//8wbqamAQMGBgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAIk10dE2w//9Ip///RqP8/0Og/P9Bnvv/P5v7/z2Y+/87lvr/OZT4
+/zeR+P81j/j/NI73/zKL9/8wifb/L4j2/y6G9v8thfb/LIP1/yuC9f8qgPX/KX/1/yh/8/8ofvP/J33z
+/yZ78/8me/P/JXrz/yV68/8levP/JXrz/yV68/8levP/JXrz/yZ78/8me/P/J33z/yh+8/8ofvP/KH/z
+/yqA9f8rgfX/K4L1/y2F9v8uhvb/L4j2/zCJ9v8yi/f/M433/zWP+P83kfj/OZT4/zuW+v88mPr/P5v7
+/0Cd+/9DoPz/RaP8/0im//9MsP//Ikx0dAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAARJzo6R6Tx8Umq//9GpP3/Q6D8/0Ge/P8/nPv/PZj6/zuW+v85lPj/N5H4
+/zSP+P8zjff/Mor3/zCJ9v8vh/b/LYX2/yyD9f8rgfX/KoD1/yl/8/8ofvP/J33z/yZ78/8le/P/JXny
+/yV58v8lefL/JHjy/yJ38v8gdPL/IHTy/yF18v8kePL/JHjy/yR48v8lefL/JXny/yV78/8lffP/J33z
+/yh+8/8of/P/KYD1/yuB9f8sg/X/LoX2/y+H9v8viPb/MYr3/zON9/80j/j/N5H4/zmU+P86lvr/PZj6
+/z+b+/9Cnvz/RKD8/0ej/f9Jqf//R6Tx8REnOjoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAQJDQ06hMbGTK///0el/f9Eo/z/QZ77/z+c+/89mPr/O5b6/zmT+v83kfj/NY/3
+/zON9/8xivf/MIj2/y+H9v8thfX/K4L1/yuB9f8pf/P/KH7z/yd98/8me/P/JXry/yV58v8kePL/I3fy
+/yN38v8hdfH/Gm7w/yF18f8vgPL/MYHy/yl78v8ab/H/HXHx/yJ28v8jd/L/I3fy/yR48v8kefL/JXry
+/yZ78/8nffP/KH7z/yl/8/8qgfX/K4L1/y2F9f8uhvb/L4j2/zGK9/8zjff/NI/3/zeR+P85lPj/Opb6
+/z2Z+v8/nPv/QZ77/0Si/P9HpP3/S6///zqExsYECQ0NAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAACNPd3dNsf//SKb9/0Wj/P9DoPz/QJ37/z6Z+/87l/r/OZX6/zeR+P81j/j/M433
+/zGK9/8viPb/L4b2/y2D9v8rgvX/KoD1/yh/8/8nffP/Jnvz/yV68/8kefL/I3jy/yN38v8idvL/IXXx
+/x1w8f8hdfH/bKn3/8Te+//z9/7/9Pn+/+Hw/P+dyPr/PYrz/xlt8P8hdPH/IXXx/yJ28v8id/L/I3jy
+/yR58v8levP/Jnvz/yd98/8of/P/KoD1/yuC9f8sg/b/Lob2/y+I9v8xiff/M433/zSP+P82kfj/OZX6
+/zuX+v8+mfv/QJ37/0Kf/P9Fo/z/R6X9/02x//8jT3d3AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAChglJUWc6etKqv//RqP8/0Sg/P9Anfv/Ppv7/zyY+v85lfr/N5H4/zaP+P8zjff/MYr2
+/y+I9v8uhvb/LIP1/yuB9f8pf/P/KH7z/yZ78/8levL/JHjy/yN38v8idvL/IXXx/yF08f8hdPH/HG/x
+/yh58f+62Pv/////////////////////////////////8ff+/2Wk9v8Ya/D/H3Hx/yBy8f8hdPH/IXXx
+/yJ28v8jd/L/JHjy/yV68v8ne/P/KH7z/yl/8/8qgfX/LIP1/y6G9v8viPb/MYr2/zON9/81j/f/N5H4
+/zmT+v88l/r/Ppn7/0Cd+/9DoPz/RqP8/0mq//9FnOnrChglJQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAALGaYmE2x//9Hpf3/RKL8/0Gf+/8/nPv/PJj6/zqW+v84kvj/NpD3/zSO9/8yivf/MIn2
+/y6G9v8sg/X/K4H1/yl/8/8ofvP/Jnvz/yV68v8kePL/I3fy/yF18f8hdPH/IHLx/x9x8f8ecPD/Gmzw
+/7DS+v////////////////////////////////////////////r8//9KkfP/GGvw/x9x8P8fcfH/IHLx
+/yF08f8idvH/I3fy/yR48v8levL/Jnvz/yd98/8of/P/KoH1/yyD9f8uhvb/L4j2/zKK9/8zjff/NpD3
+/ziS+P86lfr/PJj6/z+c+/9Bnvv/RKL8/0ek/f9Nsf//LGaYmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAMHSwsRqDw8Emp//9GpPz/Qp/8/0Cd+/8+mfr/O5f6/zmU+P83kfj/NI73/zOL9/8wifb/L4f2
+/yyD9f8rgvX/KYDz/yh+8/8me/P/JXny/yN48v8idvH/IXXx/yB08f8fcfH/HnDw/x1v8P8XaPD/VJj1
+///////////////////////////////////////////////////////A3Pv/Gmzw/xxt8P8eb/D/HnDw
+/x9x8f8gdPH/IXXx/yJ28f8kePL/JXny/yZ78/8nffP/KX/z/yuC9f8sg/X/Lob2/zCI9v8yi/f/NI73
+/zeR+P85lPj/O5b6/z6Z+v9Anfv/Qp/8/0aj/P9Jqf//RaDw8AwdLCwAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAqX4+PTbH//0el/f9Eovz/QZ77/z+c+/88mPr/OZX6/ziR+P81j/f/M433/zCJ9v8vh/b/LYX1
+/yuC9f8pf/X/KH7z/yZ78/8lefL/I3jy/yJ28v8hdfH/IHLx/x9x8f8ecPD/HG7w/xxu8P8WZ/D/oMj6
+///////////////////////////////////////////////////////5+///NoLx/xdo7v8cbvD/HG7w
+/x5w8P8fcPH/IHLx/yF08f8idvL/I3fy/yV58v8mevP/KH7z/ymA9f8rgvX/LIX1/y+H9v8wifb/M433
+/zWP9/83kfj/OZX4/zyY+v8+nPv/QZ77/0Si/P9HpP3/TLD//ylfj48AAAAAAAAAAAAAAAAAAAAAAAAA
+AAgSHBxDmeXlSar//0Wj/P9DoPz/QJ37/z2b+/87l/r/OZT4/zaQ+P80jvf/Moz2/zCI9v8thfb/K4L1
+/yqB9f8ofvP/Jnvz/yV58v8jePL/Inbx/yF18f8gcvH/H3Dw/x1v8P8cbvD/G2zw/xts7v8XZ+7/wdz7
+////////////////////////////////////////////////////////////U5bz/xRk7v8bbO7/G2zw
+/xxu8P8db/D/HnDw/yBy8f8gdPH/Inbx/yN38v8lefL/J3vz/yh+8/8pgPX/LIP1/y6F9v8viPb/MYr2
+/zSO9/82kPj/OJT4/zuX+v89m/r/QJ37/0Kg/P9Go/z/Sar//0OZ5eUIEhwcAAAAAAAAAAAAAAAAAAAA
+AB5EZmZNsP//R6X9/0Si/P9Cnvv/P5z7/zyY+v86lfr/OJL4/zWP9/8yi/f/MIn2/y+H9v8sg/X/K4H1
+/yh/8/8nffP/JXry/yR48v8id/L/IXTx/yBy8f8ecPD/HW/w/xxu8P8bbPD/Gmvu/xlq7v8WZe7/wtz7
+////////////////////////////////////////////////////////////Vpfz/xNi7v8aau7/Gmvu
+/xts7v8cbvD/HW/w/x5w8P8gcvH/IXXx/yJ28f8jePL/JXny/yd78/8of/P/K4H1/yyD9f8uh/b/MIn2
+/zOL9/81j/f/N5H4/zmV+P88mPr/Ppv7/0Ge+/9Eovz/R6X9/0yv//8eRGZmAAAAAAAAAAAAAAAAAAED
+AzV8ublLr///RqT8/0Og/P9Anfv/Ppn7/zuX+v85lPj/NpD4/zSO9/8yivf/L4j2/y2F9v8rgvX/KYDz
+/yh+8/8le/P/JXny/yJ38v8hdfH/IHLx/x9w8f8db/D/HG3w/xts8P8aa+7/GWju/xhn7v8VZO3/wtz7
+////////////////////////////////////////////////////////////VJbz/xFg7f8YZ+7/GWju
+/xpr7v8bbPD/HG3w/xxu8P8ecfH/IHLx/yF18f8id/L/JHjy/yV78/8nffP/KYDz/yuB9f8thfb/L4j2
+/zKJ9/80jvf/NpD4/ziU+P87l/r/PZn6/0Cd+/9Cn/z/RqT8/0uu//81fLm5AAEDAwAAAAAAAAAAChgm
+Jkae7u5Jqf//RaP8/0Kf/P8/nPv/PJj6/zqW+v84kvj/NY/3/zON9/8wifb/L4b2/yyD9f8qgfX/KH/z
+/yZ78/8lefL/I3fy/yF18f8gdPH/H3Hx/x1v8P8cbvD/G2zu/xpq7v8ZaO7/GGfu/xhm7f8UYu3/wdz7
+////////////////////////////////////////////////////////////UpXz/xBf7f8XZu3/GGfu
+/xlo7v8aa+7/G2zu/xxt8P8db/D/H3Dw/yB08f8hdfH/I3fy/yV58v8me/P/KH7z/yqA9f8sg/X/Lob2
+/zCJ9v8zi/f/NI/3/ziS+P86lvr/PJj6/z+c+/9Bn/z/RaL8/0mp//9Fnu7uChgmJgAAAAAAAAAAHkNl
+ZU2w//9Hpf3/RKL8/0Ge+/8/m/v/O5f6/zmV+P83kfj/NI73/zKL9/8viPb/LYX1/yuC9f8pgPP/J33z
+/yV68/8kePL/Inbx/yB08f8fcfH/HnDw/xxu8P8bbPD/Gmvu/xlo7v8YZ+7/F2Xt/xZk7f8TYO3/wdr7
+////////////////////////////////////////////////////////////UZTz/xBc7f8WZO3/F2Xt
+/xhn7v8ZaO7/Gmvu/xts8P8cbfD/HW/w/x9x8f8gdPH/Inbx/yR48v8levL/J33z/yl/8/8rgfX/LYX1
+/y+I9v8yivf/NI73/zaQ+P85lPj/O5f6/z6b+/9Bnvv/Q6L8/0ek/f9MsP//HkNlZQAAAAAAAAAAMG2j
+o0uv//9GpP3/Q6D8/0Cd+/89mfv/O5b6/ziU+P82kPj/M433/zGK9/8vh/b/LIX1/yqB9f8pf/P/Jn3z
+/yV58v8iePL/IXXx/yBy8f8ecPD/HG7w/xts8P8aa+7/GWru/xhn7v8XZe3/FmTt/xVk7f8TYOz/wdr7
+////////////////////////////////////////////////////////////UJLy/w9d7P8VY+3/FmTt
+/xdl7f8YZ+7/GWju/xpr7v8bbPD/HG7w/x9w8P8gcvH/IXXx/yJ38v8lefL/J3vz/yh/8/8qgfX/LIP1
+/y+H9v8xivb/M433/zWQ+P85kvj/O5b6/z2Z+v9Anfv/Q5/8/0ak/P9Lr///MGyjowAAAAAECQ4OPYzT
+00qs//9Go/z/Qp/8/z+c+/89mPr/OpX6/ziS+P81j/f/M4v3/zCJ9v8uhvb/LIP1/ymA9f8ofvP/Jnry
+/yR48v8idvL/IXTx/x9x8f8eb/D/HG3w/xpr8P8aau7/GGfu/xhm7f8WZO3/FWPt/xVi7f8SXuz/wdr7
+////////////////////////////////////////////////////////////UJHy/w5a6/8VYu3/FWPt
+/xZk7f8XZu3/GGfu/xpq7v8ba+7/HG3w/x1v8P8fcfH/IHTx/yJ28v8kePL/JXry/yh+8/8pgPX/K4L1
+/y6G9v8wifb/Mov3/zWP9/84kvj/OZX6/z2Y+v8/nPv/Qp/8/0Wj/P9Kq///PYzT0wQJDg4LGigoRJ/t
+70in//9Fo/z/QZ77/z+c+/88mPr/OZX4/zeR+P80jvf/Mor3/zCI9v8thfb/K4L1/ymA8/8nffP/JXry
+/yN38v8hdfH/IHLx/x5w8f8dbvD/G23w/xpr7v8ZaO7/GGbt/xdl7f8WY+3/FWLs/xNh7P8RXez/wdn7
+////////////////////////////////////////////////////////////T5Dy/w5Y6/8UYez/FWLs
+/xVj7f8WZO3/GGbt/xlo7v8aau7/G2zw/xxu8P8ecPD/IHLx/yF18f8jd/L/JXny/yd98/8of/P/K4L1
+/y2F9f8viPb/Mor2/zSO9/83kfj/OZT4/zyX+v8+nPv/QZ77/0Si/P9Jqf//RJ7t7wsaKCgYOFRUSqv+
+/kel/f9Eovz/QZ77/z6b+/87l/r/OZT4/zeR+P80jvf/MYr2/y+I9v8tg/X/K4H1/yh/8/8me/P/JXny
+/yJ28v8hdfH/IHLx/x1w8P8cbfD/G2zu/xpq7v8YZ+7/F2bt/xZk7f8VY+3/FGHs/xNg7P8RW+z/wdn7
+////////////////////////////////////////////////////////////TpDy/w1Y6/8TYOz/FGHs
+/xVj7f8WZO3/F2bt/xhn7v8ZaO7/Gmvu/xxt8P8db/D/H3Hx/yF08f8idvL/JXny/yZ78/8of/P/K4H1
+/yyF9f8viPb/MYr2/zSO9/82kfj/OZT4/zuX+v8+m/v/QJ77/0Si/P9Hpf3/Sav+/hg3VFQmVoGBTK7/
+/0ek/f9Eovz/QJ37/z6b+/87l/r/OZT4/zaQ+P8zjff/MYn2/y+H9v8sg/X/KoH1/yh/8/8mevP/JHjy
+/yJ28v8hdPH/H3Hx/x1v8P8bbfD/Gmvu/xlo7v8YZu7/F2Xt/xZk7f8VYuz/E2Ds/xNf7P8RWuv/wNn7
+////////////////////////////////////////////////////////////To/x/w1X6/8TX+z/E2Ds
+/xVi7P8VY+3/F2Xt/xhm7f8ZaO7/Gmvu/xxt8P8db/D/H3Hx/yFy8f8idvL/JHjy/yZ78/8ofvP/KoD1
+/yyD9f8vh/b/MIn2/zON9/82kPj/OJL4/zuW+v89mfv/QJ37/0Og/P9HpP3/S67//yVVgIAyc6ysSqv/
+/0ek/f9DoPz/QJ37/z2Z+/86lvr/OJL4/zWQ+P8zjff/MIn2/y+H9v8sg/X/KoD1/yd98/8levL/JHjy
+/yF18v8gcvH/H3Dw/xxu8P8bbPD/Gmvu/xlo7v8XZu3/FmTt/xVj7f8UYez/E2Ds/xJe7P8RWuv/wNn6
+////////////////////////////////////////////////////////////TY/x/wxW6/8SX+z/E2Ds
+/xRh7P8VY+3/FmTt/xdm7f8ZaO7/Gmru/xts8P8cbvD/HnDw/yBy8f8hdfH/JHjy/yV68v8nffP/KYDz
+/yyD9f8uhvb/MIn2/zON9/81kPj/OJL4/zqW+v8+mPv/QJ37/0Og/P9Go/3/Sqv//zJyrKw8ic7OSar/
+/0aj/f9DoPz/QJ37/z2Y+/86lvr/OJL4/zSQ+P8zjff/MIn2/y6G9v8sg/X/KYDz/yd98/8lefL/I3jy
+/yF18f8gcvH/HnDw/xxu8P8bbPD/Gmru/xhn7v8XZe3/FmTt/xVi7f8UYez/E1/s/xFe7P8QWen/wNn6
+////////////////////////////////////////////////////////////TY7x/wxV6f8SXuz/E1/s
+/xNg7P8VYu3/FmTt/xdl7f8YZ+7/GWru/xts8P8cbfD/Hm/w/yBx8f8hdfH/I3fy/yV58v8nffP/KYDz
+/yuB9f8thvb/MIj2/zOL9/80jvf/OJL4/zqW+v88mfr/P5z7/0Kf/P9Fo/3/Sar//zyJzs5CmebmSan/
+/0aj/f9DoPz/P5z7/zyZ+v86lvr/OJL4/zSO9/8zi/f/MIj2/y2G9v8rgfX/KX/z/yd+8/8lefL/I3fy
+/yF18f8fcfH/Hm/w/xxt8P8bbO7/GWru/xhn7v8XZe3/FmPt/xVi7f8TYOz/E1/s/xFe7P8QWen/wNn6
+////////////////////////////////////////////////////////////TY7x/wtV6f8SXez/E1/s
+/xNg7P8VYu3/FmPt/xdl7f8YZ+7/GWru/xpr7v8cbfD/Hm/w/x9x8f8hdfH/I3fy/yV68v8nffP/KX/z
+/yuC9f8uhvb/L4j2/zKL9/81j/f/N5H4/zqV+v88mfr/P5z7/0Kf/P9FpPz/SKf//0KZ5OZHovPzSKf/
+/0Wj/P9Cn/z/P5z7/zyZ+v86lfr/N5H4/zWP9/8yi/f/L4j2/y6G9v8rgvX/KX/z/yd98/8levL/I3fy
+/yF18f8fcfH/Hm/w/xxt8P8aa+7/GWru/xhn7v8XZe3/FWPt/xVi7P8UYOz/E1/s/xFd7P8QWOn/wNj6
+////////////////////////////////////////////////////////////TY3x/wtU6f8SXuv/E1/s
+/xRg7P8UYez/FWPt/xdl7f8YZ+7/GWju/xpr7v8cbfD/Hm/w/x9x8f8hdPH/I3fy/yV68v8ne/P/KX/z
+/yuC9f8uhvb/L4j2/zKL9/80j/f/N5H4/zmV+v89mPr/P5z7/0Kf/P9GpPz/SKj9/0ah8/NHo/T0SKf/
+/0Wk/P9Cn/z/P5z7/zyZ+v86lfr/N5H4/zWP9/8yi/f/L4j2/y6G9v8rgvX/KX/z/yd98/8levL/I3fy
+/yF18f8fcfH/Hm/w/xxt8P8aa+7/GWru/xhn7v8XZe3/FWPt/xBd7P8NV+v/EFvs/xFd7P8QWOn/wNj6
+////////////////////////////////////////////////////////////TY3x/wtU6f8SXuv/D1rr
+/w1X6/8RXuz/FmPt/xdl7f8YZu7/GWju/xpr7v8cbfD/HW/w/x9x8f8hdPH/I3fy/yV58v8me/P/KX/z
+/yuC9f8uhvb/L4j2/zKL9/80j/f/N5H4/zmV+v89mPr/P5z7/0Kf/P9GpPz/SKj9/0Wi9PRHovPzSKf/
+/0Wk/P9Cn/z/P5z7/zyZ+v86lfr/N5H4/zWP9/8yi/f/L4j2/y6G9v8rgvX/KX/z/yd98/8levL/I3fy
+/yF18f8fcfH/Hm/w/xxt8P8aa+7/GWru/xhn7v8XZe3/EV/s/zF88P9UlPL/H2vt/w5Z6/8QWOn/wNj6
+////////////////////////////////////////////////////////////TY3x/wtV6f8OWev/LXfu
+/1WV8v8ibu7/EmDt/xdl7f8YZu7/GWju/xts7v8cbfD/HnDw/x9x8f8hdPH/I3fy/yV68v8ne/P/KH/z
+/yuC9f8uhvb/L4j2/zKL9/80j/f/N5H4/zmV+v89mPr/P5z7/0Kf/P9GpPz/SKj9/0ai8/NDmebmSan/
+/0aj/f9DoPz/P5z7/zyZ+v86lvr/N5H4/zWP9/8zi/f/MIj2/y2G9v8rgfX/KX/z/yd+8/8levL/I3fy
+/yF18f8fcfH/Hm/w/xxt8P8bbO7/GWru/xhn7v8SYe3/M37x/+r0/v//////xNz7/xdj7P8PV+n/wNn6
+////////////////////////////////////////////////////////////TY7x/wlR6f8udu7/6vL+
+///////L3/z/G2ju/xVj7f8YZ+7/GWru/xts7v8cbfD/Hm/w/x9x8f8hdfH/I3fy/yV68v8nffP/KX/z
+/yuC9f8uhvb/L4j2/zKL9/81j/f/N5H4/zqV+v88mfr/P5z7/0Kf/P9FpPz/SKf//0KZ5uY8is7OSar/
+/0aj/f9DoPz/QJ37/z2Y+/86lvr/OJL4/zSP9/8zi/f/MIn2/y6G9v8rgvX/KYDz/yd98/8lefL/I3jy
+/yF18f8gcvH/HnDw/xxu8P8bbPD/Gmru/xhn7v8QXuz/Z6H1/////////////////zN88P8MVOn/wtr6
+////////////////////////////////////////////////////////////TI7x/whM6f9dmfP/////
+///////9/v//OILx/xJg7f8YZ+7/GWru/xts7v8cbfD/Hm/w/x9x8f8hdfH/I3fy/yV68v8nfvP/KX/z
+/yuB9f8uhvb/L4j2/zOL9/81j/f/N5H4/zqV+v88mfr/P5z7/0Kf/P9GpPz/San//zyKzs4yc6ysSqv/
+/0ek/f9DoPz/QJ37/z2Z+/86lvr/OJL4/zWQ+P8zjff/MIn2/y+H9v8sg/X/KYD1/yd98/8levL/JHjy
+/yF18v8gcvH/H3Dw/xxu8P8bbPD/Gmru/xhn7v8RX+3/XZvz/////////////////z+C8f8KUun/qMr5
+///////////////////////////////////////////////////////8/P//Nn3u/whN6f9xp/X/////
+///////0+f7/MHrw/xNi7f8YZ+7/Gmru/xts8P8cbvD/HnDw/yBy8f8hdfH/JHjy/yV68v8nffP/KYDz
+/yyD9f8uhvb/MIn2/zON9/81kPj/OJL4/zqW+v89mPv/QJ37/0Og/P9Go/3/Sqv//zJzrKwmWIKCS67/
+/0ek/f9Dovz/QJ37/z6b+/87lvr/OJT4/zaQ+P8zjff/MYn2/y+H9v8sg/X/KoH1/yh+8/8mevP/JHjy
+/yJ28v8gdPH/H3Hx/x1v8P8cbfD/Gmvu/xlo7v8SYe3/Qojy//v8/////////////2mj9f8ITen/X5vz
+///////////////////////////////////////////////////////S5Pv/FV/r/wpT6/+hx/n/////
+///////p8v7/IG3u/xVk7f8ZaO7/Gmvu/xtt8P8cbvD/H3Dx/yBy8f8idvL/JHjy/yV68/8ofvP/KoD1
+/yyD9f8vh/b/MIn2/zON9/82kPj/OJL4/zuW+v89mfv/QJ37/0Og/P9Gpf3/S6z//yZXgoIZOFVVSqv+
+/kel/f9Eovz/QJ77/z+b+/87l/r/OZT4/zaR+P80jvf/MYr2/y+I9v8shfX/K4H1/yh+8/8ne/P/JXny
+/yJ28v8hdPH/H3Hx/x1v8P8cbfD/G2zu/xlq7v8VZO3/IW/u/+bx/v///////////7rV+v8OWOv/FmDs
+/8zh+/////////////////////////////////////////////////9bl/L/CVPp/yBs7f/l8P7/////
+//////+21Pv/E2Ht/xhm7f8ZaO7/Gmvu/xxt8P8db/D/H3Hx/yF18f8idvL/JXny/yZ78/8ofvP/KoH1
+/yyD9f8vh/b/MYr2/zON9/82kPj/OZT4/zuX+v8+m/v/QJ37/0Si/P9Hpf3/Sav+/hk4VVULGykpRZ/t
+70in//9Fo/z/QZ77/z+c+/88mPr/OZX4/zeR+P80jvf/Mor3/zCI9v8thfb/K4L1/yiA8/8nffP/JXry
+/yN38v8idvH/IHLx/x5w8f8cbvD/G2zw/xpr7v8ZaO7/EWDt/6DH+f////////////3+//9NjvH/CVDr
+/zB38P/e6/z//////////////////////////////////////4Oy9f8OWOv/ClTr/32w9v//////////
+//////9qpfX/EF7s/xlo7v8aau7/G2zw/xxu8P8ecPD/IHLx/yF18f8jd/L/JXny/yd98/8of/P/K4H1
+/y2F9f8vh/b/Mor2/zSO9/83kfj/OZT4/zyX+v8+nPv/QZ77/0Si/P9Jqf//RJ/t7wsbKSkECA8PPY7U
+1Eqr//9Fo/z/Qp/8/0Cd+/89mPr/OpX6/zeS+P81j/f/M4v3/zCJ9v8uhvb/K4L1/ymA9f8nffP/JXry
+/yR48v8idvL/IXTx/x9x8f8db/D/HG3w/xts7v8aau7/E2Lt/0OK8f/9/v/////////////Y6Pz/IWzt
+/wlS6/8mb+7/m8P5/+zz/v////////////7+///N4vv/W5fy/w9Z6/8KU+v/QoXx//T5////////////
+/+Xw/v8kce7/FmXt/xlq7v8aa+7/HG3w/x1v8P8fcfH/IHTx/yJ28v8kePL/JXry/yh+8/8pgPX/K4L1
+/y6G9v8wifb/Mov3/zSP9/84kvj/OZX6/zyY+v8/nPv/Qp/8/0Wj/P9Kq///PYzU1AQIDw8AAAAAL26l
+pUyv//9GpPz/Q6D8/0Cd+/89mfr/Opb6/zmU+P82kPj/M433/zGK9v8vh/b/LIP1/yqB9f8ofvP/J3vz
+/yV58v8jd/L/IXXx/yBy8f8ecPD/HG7w/xts8P8aa+7/GWju/xNj7f+hyPn/////////////////xt37
+/yhz7v8JUen/DVfr/yZx7v9KivH/UY/y/zl/8P8WY+z/CVTr/wpV6/9Dh/H/5fH+////////////////
+/2ym9f8QX+3/GWju/xpr7v8bbPD/HG7w/x9w8P8fcfH/IXTx/yJ38v8kefL/Jnvz/yh+8/8qgPX/LIP1
+/y+H9v8xivb/M433/zWP9/84kvj/Opb6/z2Z+v9Anfv/Qp/8/0ak/P9Lrv//L26lpQAAAAAAAAAAHkRn
+Z0yw//9Hpf3/RKL8/0Ge+/8/m/v/O5f6/zmV+P83kfj/NI73/zKL9/8viPb/LYX1/yuC9f8pgPP/J33z
+/yV68v8kePL/Inbx/yB08f8fcfH/HW/w/xxt8P8bbPD/Gmvu/xVl7v8ldPD/2un8////////////////
+/+Pu/v9infP/GmXs/wtW6/8JUun/CVHp/wlT6/8NWev/JG7t/4Cy9v/5+///////////////////sdL6
+/xZl7f8YZ+7/Gmru/xts7v8cbfD/HW/w/x9x8f8gdPH/Inbx/yR48v8levL/J33z/yl/8/8rgfX/LYX1
+/y+I9v8yivf/NI73/zaQ+P85lPj/O5f6/z6b+/9Anvv/Q6D8/0el/f9Mr///HkRnZwAAAAAAAAAACxko
+KEWg7e9Jqf//RaP8/0Kf/P8/nPv/PJj6/zqW+v84kvj/NY/3/zKL9/8wifb/Lob2/yyD9f8qgfX/KH7z
+/yZ78/8lefL/I3fy/yF18f8gcvH/H3Hx/x1v8P8cbfD/G2zu/xpr7v8TYu7/OILx/+Tw/v//////////
+////////////2+n8/5vD9/9zqvX/ZqLz/3ut9v+ozPn/6/T+///////////////////////G3vv/IG7u
+/xZl7v8aa+7/G2zu/xxt8P8db/D/H3Dw/yBy8f8hdfH/I3fy/yV58v8me/P/KH7z/yqA9f8sg/X/Lob2
+/zCJ9v8yi/f/NI/3/zeR+P86lfr/PJj6/z+c+/9Cn/z/RKL8/0in//9En+3vCxkoKAAAAAAAAAAAAAEE
+BDd9u7tLr///RqP8/0Og/P9Anfv/PZn6/zuX+v84kvj/NpD3/zSO9/8xivb/L4f2/yyF9f8rgvX/KX/z
+/yd98/8levL/JHjy/yJ28v8hdPH/IHLx/x5w8P8db/D/HG3w/xpr7v8aau7/EmLt/zWA8f/N4vz/////
+/////////////////////////////////////////////////////////////////6fM+f8gb/D/FGTu
+/xpr7v8bbO7/HG3w/xxu8P8ecPD/H3Hx/yF08f8idvL/JHjy/yV68v8nffP/KX/z/yuC9f8sg/X/L4f2
+/zGK9v8zjff/NY/3/ziS+P87l/r/PZj6/0Cd+/9CoPz/RqP8/0uu//83fbu7AAEEBAAAAAAAAAAAAAAA
+AB5GaWlMsP//R6X9/0Wi/P9Cnvv/P5v7/zyX+v85lfr/N5H4/zWP9/8zi/f/MIn2/y6G9v8sg/X/KoH1
+/yh/8/8nffP/JXry/yN48v8idvH/IXXx/yBy8f8ecfD/HW/w/xxt8P8bbO7/G2vu/xNj7f8fbu7/g7b3
+/+jy/v/////////////////////////////////////////////////Z6Pz/ZKL1/xZl7v8WZe7/Gmvu
+/xts7v8cbfD/HG7w/x5w8P8fcfH/IHTx/yJ28f8jd/L/JXny/yd98/8ofvP/KoD1/yyD9f8uhvb/MIj2
+/zKL9/80jvf/N5H4/zmV+P88mPr/P5v7/0Ge+/9Eovz/R6T9/0yv//8eRWlpAAAAAAAAAAAAAAAAAAAA
+AAgUHR1CmubmSar//0ak/P9DoPz/P5z7/z2Z+/87lvr/OJL4/zaQ+P80jvf/MYr2/y+I9v8thfb/K4L1
+/yqA9f8ofvP/Jnvz/yV58v8kePL/Inbx/yB08f8gcvH/H3Dw/x1v8P8cbvD/G2zw/xts7v8YaO7/EmLt
+/yl48P9yq/b/tdT6/+jx/v/////////////////d6/z/qs36/16d9f8fbu7/EmLt/xlq7v8bbO7/G2zw
+/xxt8P8db/D/HnDw/x9x8f8gdPH/Inbx/yN38v8lefL/Jnvz/yh+8/8pgPX/K4L1/y6F9v8viPb/MYr2
+/zON9/82kPj/OJL4/zuW+v89mfr/P5z7/0Kf/P9Fovz/Sar//0KZ5uYIFB0dAAAAAAAAAAAAAAAAAAAA
+AAAAAAArYJGRTLH//0ek/f9Eovz/QZ77/z6b+/88l/r/OZT4/ziS+P81j/f/M433/zCJ9v8vh/b/LIP1
+/yuB9f8pgPP/J33z/yZ68/8lefL/I3fy/yJ28f8hdPH/IHLx/x9w8P8ecPD/HG7w/xxt8P8cbO7/G2zu
+/xdn7v8TY+7/EGDt/2Gg9f////////////r8//8+hvL/EmHt/xNj7f8YaO7/G2zu/xts7v8cbfD/HG7w
+/x1v8P8fcfD/IHLx/yF08f8idvH/I3fy/yV58v8levP/KH7z/yl/8/8rgvX/LYX1/y+H9v8xifb/Mov3
+/zSO9/83kfj/OZX4/zuY+v8/m/v/QJ77/0Oi/P9GpP3/TLH//ypgkZEAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAANHy4uRqHy8kmn//9Go/z/Qp/8/z+c+/8+mfr/O5b6/zmU+P83kPj/NI73/zKL9/8wifb/L4b2
+/yyD9f8rgvX/KX/z/yd98/8me/P/JXny/yN38v8idvH/IXXx/yB08f8fcfH/HnDw/x1v8P8cbvD/HG3w
+/xxt8P8bbe7/FGXt/16e9f////////////r8//86hvH/Fmfu/xtt7v8cbfD/HG3w/xxu8P8db/D/HnDw
+/x9x8f8gcvH/IXXx/yJ28f8jePL/JXny/yZ78v8nfvP/KX/z/yuB9f8sg/X/Lob2/zCJ9v8yi/f/NI73
+/zaQ+P85lPj/O5b6/z2Z+v9Anfv/Qp/7/0Wj/P9Jqf//RqHw8g0fLi4AAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAALWianE2x//9HpP3/RKL8/0Ge+/8/nPv/PJj6/zqV+v84kvj/No/3/zON9/8xivf/L4j2
+/y6G9v8sg/X/KoH1/yh/8/8nffP/Jnvz/yV58v8kePL/Infy/yJ28f8hdPH/IHLx/x9x8f8ecPD/HW/w
+/x1v8P8cbvD/FWfw/2Gg9v////////////r8//88iPL/GGrw/xxu8P8db/D/HW/w/x5w8P8fcfH/IHLx
+/yB08f8hdfH/Inby/yN48v8levL/Jnvz/yd98/8of/P/KoH1/yyD9f8uhvb/L4j2/zKK9v8zjff/NY/3
+/ziS+P86lfr/PJj6/z+b+/9Bnvv/Q6D8/0ek/f9MsP//LGeanAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAACxonJ0Se7OxJqv//RqP8/0Og/P9Bnfv/Ppv6/zyX+v85lfj/N5L4/zWO9/8zjff/MYr2
+/y+H9v8uhvX/LIP1/yqB9f8pf/P/KH7z/yZ78/8levL/JHjy/yN38v8id/H/IXXx/yF08f8gcvH/H3Hx
+/x9x8P8fcPD/F2rw/2Oj9v////////////r8//8+ifL/Gmzw/x9w8P8fcfD/H3Hx/yBy8f8gdPH/IXXx
+/yJ28f8jd/L/JHjy/yV68v8me/P/J33z/yh/8/8qgfX/LIP1/y6F9f8vh/b/MYn2/zON9/80j/f/N5H4
+/zmV+P87l/r/Ppn6/0Cd+/9DoPz/RaP8/0mq//9EnuzsCxonJwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAACRSe3tNsf//R6X9/0Wi/P9Cn/z/QJ37/z6Z+/87l/r/OZT4/zaR+P80j/f/M433
+/zGK9/8viPb/Lob2/yyD9f8rgvX/KoD1/yh/8/8nffP/Jnvz/yV68v8kePL/I3fy/yJ38v8idvH/IXXx
+/yF08f8gdPH/GWzx/2Sl9v////////////r8//8/jPP/G27x/yB08f8hdPH/IXXx/yJ28f8id/L/I3fy
+/yR48v8levL/Jnvz/yd98/8ofvP/KoDz/yuC9f8sg/X/Lob2/y+I9v8xivb/M433/zWP9/83kfj/OZT4
+/zuW+v89mfv/P5z7/0Kf/P9Fo/z/R6X9/02x//8jUnt7AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAQKDw87h8nJS6///0ek/f9Eovz/QZ77/z+b+/89mfr/O5b6/zmU+P83kfj/NI/3
+/zON9/8xivf/L4j2/y6G9v8thfX/K4L1/yqB9f8of/P/KH7z/yd98/8levP/JXny/yR58v8jePL/Infy
+/yJ28v8idvL/Gm7x/2Wl9v////////////7+//9AjfP/HXHx/yJ28v8idvL/Infy/yN48v8kefL/JXny
+/yV68/8nffP/KH7z/yh/8/8qgPX/K4L1/yyF9f8uhfb/L4j2/zGK9v8zjff/NI/3/zeR+P85kvj/Opb6
+/zyY+v8/nPv/QZ77/0Si/P9HpPz/S6///zuGyckECg8PAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAASKT4+R6Xz80mq//9GpP3/Q6D8/0Ge/P8/nPv/PZj6/zqW+v85lPj/N5H4
+/zSP+P8zjff/MYr3/y+I9v8vh/b/LYX2/yyD9f8rgvX/KYD1/yh/8/8ofvP/J3vz/yZ78/8levL/JXny
+/yR58v8kePL/IHXy/zWG8//V6Pz//f7//7LU+/8mePL/Infy/yR48v8kefL/JXny/yV68v8me/P/Jnvz
+/yh+8/8of/P/KYD1/yqB9f8rgvX/LYX2/y6H9v8wiPb/MYr3/zON9/81j/f/N5H4/zmU+P86lfr/PJj6
+/z+b+/9Bnfv/Q6D8/0ak/P9Jqf//R6Px8xIqPj4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAI1B5eUyw//9Ipv3/RaP8/0Og/P9Anfv/P5v7/zyY+v87lvr/OZT4
+/zeR+P80j/f/M433/zKL9/8wifb/L4f2/y6G9v8tg/X/K4L1/yuB9f8qgPX/KH/z/yh+8/8nffP/J33z
+/yZ78/8mevL/JXry/yJ38v8xg/P/S5b1/yh98/8iePL/JXry/yZ68v8me/P/J3vz/yd98/8ofvP/KH/z
+/ymA8/8qgfX/K4L1/yyD9f8uhvb/L4f2/zCJ9v8yivf/M433/zSP9/82kfj/OZT4/zqW+v88l/r/Ppv7
+/0Cd+/9Dn/z/RaP8/0im/f9MsP//IlB5eQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQQHBzFxqalNsf//R6X9/0aj/P9Cn/z/QJ37/z+b+/88mPr/O5b6
+/zmU+P83kfj/NpD3/zSO9/8zi/f/MYr2/y+I9v8vhvb/Lob2/yyD9f8rgvX/K4H1/yqA9f8pgPX/KX/z
+/yh/8/8nffP/KH7z/yd98/8levP/Injz/yV78/8nffP/KH7z/yd98/8of/P/KX/z/yiA8/8qgPX/K4H1
+/yuC9f8tg/X/LoX2/y+G9v8viPb/MYr2/zKL9/80jvf/NI/3/zeR+P85lPj/Opb6/zyY+v8+m/v/QJ37
+/0Of/P9Fovz/R6X9/02w//8xcampAQQHBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUMExM6hcbGTLD//0ek/f9Fo/z/Qp/8/0Cd+/8/m/v/PZj6
+/zuW+v85k/r/OJL4/zaQ+P80j/f/M433/zKL9/8wifb/L4j2/y6H9v8thfb/LIP1/yyD9f8rgvX/K4H1
+/yqB9f8qgPX/KYD1/yl/9f8pf/X/KX/1/yl/9f8pf/X/KYD1/yqA9f8qgfX/K4H1/yuC9f8sg/X/LIP1
+/y2F9v8vh/b/L4f2/zCJ9v8yivf/M433/zSP9/82kPj/N5H4/zmT+v87lvr/PZj6/z+b+/9Anfv/Qp/8
+/0Wj/P9Hpf3/TLD//ziExsYFDBMTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKGCUlP5DX10yw//9HpP3/RaP8/0Kf/P9Anfv/P5z7
+/z2Y+v87lvr/OZX6/ziU+P83kfj/NY/3/zSO9/8zjff/Mor3/zGJ9v8viPb/L4f2/y+G9v8thvb/LIX1
+/yyD9f8sg/X/K4L1/yuC9f8rgvX/K4L1/yuC9f8rgvX/K4L1/yyD9f8sg/X/LYX1/y6G9v8uhvb/L4f2
+/y+I9v8wifb/MYr2/zON9/80jvf/NY/3/zeR+P84kvj/OZX4/zuX+v88mfr/P5v7/0Cd+/9Cn/z/RaL8
+/0ak/f9Lr///P4/X1woYJSUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADR4tLUGT29tMsP//R6X9/0Wj/P9DoPz/QZ77
+/z+c+/8+mfv/PJj6/zqW+v85lPj/N5H4/zaQ+P81j/f/NI73/zON9/8yi/f/MYr2/zGJ9v8viPb/L4j2
+/y+H9v8vh/b/Lob2/y6G9v8uhvb/LYb2/y6G9v8uhvb/Lob2/y+H9v8vh/b/L4j2/y+I9v8wifb/MYr2
+/zKL9/8zjff/NI73/zWP9/83kfj/OJL4/zmU+P86lvr/PJf6/z2Z+/8/nPv/QZ77/0Og/P9Fo/z/R6T9
+/0uv//9Bk9vbDR4tLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwdKys9jtHRTLD//0el/f9Fo/z/Q6D8
+/0Ge/P9Anfv/Ppv7/z2Y+v87l/r/OZX6/zmU+P83kfj/NpD4/zWP+P80jvf/M433/zOL9/8yi/f/Mor3
+/zGJ9/8wifb/MIj2/y+I9v8viPb/L4j2/y+I9v8viPb/MIj2/zCJ9v8xiff/MYr3/zKK9/8zi/f/M433
+/zSO9/81j/j/NpD4/ziR+P85lPj/OZX6/zuW+v88mPr/Ppv7/z+c+/9Anvz/Q6D8/0Wj/P9Hpf3/TLD/
+/z2M0dEMHSsrAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJFCAgN4C/v02w//9Ipv//RqP8
+/0Si/P9Cn/z/QJ37/z+c+/8+mfv/PJj6/zuX+v86lfr/OZT4/ziS+P83kfj/NpD4/zWP9/80jvf/NI73
+/zON9/8zjff/M4v3/zOL9/8yi/f/Mov3/zKL9/8zi/f/M4v3/zON9/8zjff/NI73/zSO9/81j/f/NpD4
+/zeR+P84kvj/OZT4/zmV+v86lvr/PJj6/z2Z+v8/nPv/QJ37/0Kf/P9Eovz/RqP8/0im//9NsP//N4C/
+vwkUICAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAoPDy1pm51MrP//Sqv/
+/0ek/f9Fo/z/Q6D8/0Ge/P9Anfv/P5z7/z2b+/89mPr/O5f6/zqW+v85lfr/OZT4/ziS+P83kfj/N5H4
+/zaQ+P82kPj/NY/3/zWP9/80j/f/NY/3/zWP9/80j/f/NY/3/zaQ+P82kPj/N5H4/zeR+P84kvj/OZT4
+/zmV+P86lfr/O5f6/zyY+v89mfv/P5v7/0Cd+/9Bnvz/Q6D8/0Wj/P9HpP3/Sar//0uu//8taZudBAoP
+DwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAgIeQ2VlRJ/q
+6kyv//9Ipv//RqP8/0Si/P9Cn/z/QZ78/0Cd+/8/m/v/Ppn7/z2Y+v88l/r/O5b6/zqW+v85lfr/OZP6
+/zmU+P84kvj/OJL4/ziS+P83kfj/OJH4/ziR+P84kvj/OJL4/zmS+P85lPj/OZP6/zmV+v86lfr/O5b6
+/zyX+v88mPr/Ppn7/z+c+/9Anfv/QZ77/0Kf/P9Eovz/RqP8/0im//9MsP//RJ3q6h5EZWUAAgICAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADR0u
+LjV4s7NLrP//Sqz//0el/f9Go/z/RKL8/0Og/P9Cnvv/QJ37/z+c+/8/m/v/Ppn6/z2Z+v88mPr/PJf6
+/zuX+v87lvr/Opb6/zuW+v86lfr/OpX6/zqV+v87lvr/Opb6/zuW+v87l/r/PJf6/zyY+v89mfr/Ppn6
+/z+b+/9Anfv/QZ37/0Ge+/9DoPz/RKL8/0aj/P9Hpf3/Sqz//0us//81eLOzDR0uLgAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAEDBQUbP15ePpDW1k2x//9Kq///R6X9/0aj/P9Fo/z/Q6L8/0Kg/P9Bnvv/QJ37/0Cd+/8/nPv/Ppz7
+/z6b+/8+mfv/PZn6/z2Z+v89mfr/PZn6/z2Z+v89mfr/PZn6/z6Z+/8+m/v/Ppz7/z+c+/9Anfv/QJ37
+/0Ge+/9Dn/z/Q6D8/0Wj/P9Go/z/R6X9/0qr//9NsP//Po/W1hs/Xl4BAwUFAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAABQ4VFSNPdnY/ktzcTK7//0uu//9Ip///R6T9/0aj/P9Fo/z/RKL8/0Kg/P9Cn/z/QZ78
+/0Ge+/9Anvv/QJ37/0Cd+/9Anfv/QJ37/0Cd+/9Anfv/QJ37/0Ce+/9Bnvv/QZ78/0Kf/P9DoPz/RKL8
+/0Wj/P9Fo/z/R6T9/0im//9LrP//S67//z+S29sjTnZ2BQ4VFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAGDhYWH0ZpaTmExcVJp/r6TLD//0qr//9Ipv//R6T8/0ak/P9Fo/z/RKP8
+/0Si/P9DoPz/Q6L8/0Og/P9DoPz/Q6D8/0Og/P9DoPz/Q6D8/0Og/P9Eovz/RKP8/0Wj/P9Go/z/R6T8
+/0im//9Kq///TLH//0mn+vo5g8XFHkZpaQYOFhYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIFCAgSKT09KmCOjjyM0NJHpPX3TbD//0uv//9KrP//San/
+/0im//9Hpf3/R6T9/0ak/P9GpPz/RqT8/0ak/P9GpPz/R6T9/0el/f9Ipv//San//0qs//9Lr///TLD/
+/0ek9vY8jNHRKmCOjhIpPT0CBQgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQJDQ0QJDc3IEptbS9upaU8is/RQ5vo
+6kal9vhKqf3/Sqv//0qq//9Jqf//San//0mp//9Kqv//Sqv//0mp/f9GpPb4Q5vo6jyKz9EvbqWlIEpt
+bQ8kNzcECQ0NAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACBwoKDh8x
+MR1AYmIsZJaWN369vT2O1dVCl+HjQJfj40KX4eM/jtXVN369vSxklpYdQWJiDh8xMQIGCgoAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgEAAAMA
+AAABAEsAAAEBAAMAAAABAEsAAAECAAMAAAAEAABYmgEDAAMAAAABAAEAAAEGAAMAAAABAAIAAAERAAQA
+AAABAAAACAESAAMAAAABAAEAAAEVAAMAAAABAAQAAAEWAAMAAAABAEsAAAEXAAQAAAABAABX5AEcAAMA
+AAABAAEAAAFSAAMAAAABAAEAAAFTAAMAAAAEAABYoodzAAcAAAfYAABYqgAAAAAACAAIAAgACAABAAEA
+AQABAAAH2GFwcGwCIAAAbW50clJHQiBYWVogB9kAAgAZAAsAGgALYWNzcEFQUEwAAAAAYXBwbAAAAAAA
+AAAAAAAAAAAAAAAAAPbWAAEAAAAA0y1hcHBsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAALZGVzYwAAAQgAAABvZHNjbQAAAXgAAAWcY3BydAAABxQAAAA4d3RwdAAAB0wA
+AAAUclhZWgAAB2AAAAAUZ1hZWgAAB3QAAAAUYlhZWgAAB4gAAAAUclRSQwAAB5wAAAAOY2hhZAAAB6wA
+AAAsYlRSQwAAB5wAAAAOZ1RSQwAAB5wAAAAOZGVzYwAAAAAAAAAUR2VuZXJpYyBSR0IgUHJvZmlsZQAA
+AAAAAAAAAAAAFEdlbmVyaWMgUkdCIFByb2ZpbGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAG1sdWMAAAAAAAAAHwAAAAxza1NLAAAAKAAAAYRkYURLAAAALgAAAaxj
+YUVTAAAAJAAAAdp2aVZOAAAAJAAAAf5wdEJSAAAAJgAAAiJ1a1VBAAAAKgAAAkhmckZVAAAAKAAAAnJo
+dUhVAAAAKAAAApp6aFRXAAAAFgAAAsJuYk5PAAAAJgAAAthjc0NaAAAAIgAAAv5oZUlMAAAAHgAAAyBp
+dElUAAAAKAAAAz5yb1JPAAAAJAAAA2ZkZURFAAAALAAAA4prb0tSAAAAFgAAA7ZzdlNFAAAAJgAAAth6
+aENOAAAAFgAAA8xqYUpQAAAAGgAAA+JlbEdSAAAAIgAAA/xwdFBPAAAAJgAABB5ubE5MAAAAKAAABERl
+c0VTAAAAJgAABB50aFRIAAAAJAAABGx0clRSAAAAIgAABJBmaUZJAAAAKAAABLJockhSAAAAKAAABNpw
+bFBMAAAALAAABQJydVJVAAAAIgAABS5hckVHAAAAJgAABVBlblVTAAAAJgAABXYAVgFhAGUAbwBiAGUA
+YwBuAP0AIABSAEcAQgAgAHAAcgBvAGYAaQBsAEcAZQBuAGUAcgBlAGwAIABSAEcAQgAtAGIAZQBzAGsA
+cgBpAHYAZQBsAHMAZQBQAGUAcgBmAGkAbAAgAFIARwBCACAAZwBlAG4A6AByAGkAYwBDHqUAdQAgAGgA
+7ABuAGgAIABSAEcAQgAgAEMAaAB1AG4AZwBQAGUAcgBmAGkAbAAgAFIARwBCACAARwBlAG4A6QByAGkA
+YwBvBBcEMAQzBDAEOwRMBD0EOAQ5ACAEPwRABD4ERAQwBDkEOwAgAFIARwBCAFAAcgBvAGYAaQBsACAA
+ZwDpAG4A6QByAGkAcQB1AGUAIABSAFYAQgDBAGwAdABhAGwA4QBuAG8AcwAgAFIARwBCACAAcAByAG8A
+ZgBpAGyQGnUoACAAUgBHAEIAIIJyX2ljz4/wAEcAZQBuAGUAcgBpAHMAawAgAFIARwBCAC0AcAByAG8A
+ZgBpAGwATwBiAGUAYwBuAP0AIABSAEcAQgAgAHAAcgBvAGYAaQBsBeQF6AXVBeQF2QXcACAAUgBHAEIA
+IAXbBdwF3AXZAFAAcgBvAGYAaQBsAG8AIABSAEcAQgAgAGcAZQBuAGUAcgBpAGMAbwBQAHIAbwBmAGkA
+bAAgAFIARwBCACAAZwBlAG4AZQByAGkAYwBBAGwAbABnAGUAbQBlAGkAbgBlAHMAIABSAEcAQgAtAFAA
+cgBvAGYAaQBsx3y8GAAgAFIARwBCACDVBLhc0wzHfGZukBoAIABSAEcAQgAgY8+P8GWHTvZOAIIsACAA
+UgBHAEIAIDDXMO0w1TChMKQw6wOTA7UDvQO5A7oDzAAgA8ADwQO/A8YDrwO7ACAAUgBHAEIAUABlAHIA
+ZgBpAGwAIABSAEcAQgAgAGcAZQBuAOkAcgBpAGMAbwBBAGwAZwBlAG0AZQBlAG4AIABSAEcAQgAtAHAA
+cgBvAGYAaQBlAGwOQg4bDiMORA4fDiUOTAAgAFIARwBCACAOFw4xDkgOJw5EDhsARwBlAG4AZQBsACAA
+UgBHAEIAIABQAHIAbwBmAGkAbABpAFkAbABlAGkAbgBlAG4AIABSAEcAQgAtAHAAcgBvAGYAaQBpAGwA
+aQBHAGUAbgBlAHIAaQENAGsAaQAgAFIARwBCACAAcAByAG8AZgBpAGwAVQBuAGkAdwBlAHIAcwBhAGwA
+bgB5ACAAcAByAG8AZgBpAGwAIABSAEcAQgQeBDEESQQ4BDkAIAQ/BEAEPgREBDgEOwRMACAAUgBHAEIG
+RQZEBkEAIAYqBjkGMQZKBkEAIABSAEcAQgAgBicGRAY5BicGRQBHAGUAbgBlAHIAaQBjACAAUgBHAEIA
+IABQAHIAbwBmAGkAbABldGV4dAAAAABDb3B5cmlnaHQgMjAwNyBBcHBsZSBJbmMuLCBhbGwgcmlnaHRz
+IHJlc2VydmVkLgBYWVogAAAAAAAA81IAAQAAAAEWz1hZWiAAAAAAAAB0TQAAPe4AAAPQWFlaIAAAAAAA
+AFp1AACscwAAFzRYWVogAAAAAAAAKBoAABWfAAC4NmN1cnYAAAAAAAAAAQHNAABzZjMyAAAAAAABDEIA
+AAXe///zJgAAB5IAAP2R///7ov///aMAAAPcAADAbNIlJicoWiRjbGFzc25hbWVYJGNsYXNzZXNfEBBO
+U0JpdG1hcEltYWdlUmVwoykqK18QEE5TQml0bWFwSW1hZ2VSZXBaTlNJbWFnZVJlcFhOU09iamVjdNIl
+Ji0uV05TQXJyYXmiLSvSJSYwMV5OU011dGFibGVBcnJheaMwLSvTMzQKNTY3V05TV2hpdGVcTlNDb2xv
+clNwYWNlRDAgMAAQA4AM0iUmOTpXTlNDb2xvcqI5K9IlJjw9V05TSW1hZ2WiPCtfEA9OU0tleWVkQXJj
+aGl2ZXLRQEFUcm9vdIABAAgAEQAaACMALQAyADcARgBMAFcAXgBlAHIAeQCBAIMAhQCKAIwAjgCXAJwA
+pwCpAKsArQCyALUAtwC5ALsAvQDCANkA2wDdYWNhaGFzYXxhj2GTYaZhsWG6Yb9hx2HKYc9h3mHiYelh
+8WH+YgNiBWIHYgxiFGIXYhxiJGInYjliPGJBAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAAYkM
+</mutableData>
+        </image>
+        <image name="discover_like_red" width="9" height="8"/>
+        <image name="discover_match_cancel_blue" width="28" height="28"/>
+        <image name="discover_pay_next" width="7" height="11"/>
+        <image name="discover_pay_ok" width="28" height="28"/>
+        <image name="discover_pay_star_yellow" width="14" height="13"/>
+        <image name="me_creditcard_card_bg.png" width="713" height="453"/>
+        <image name="me_followed_bg" width="292" height="250"/>
+        <image name="msg_audio_icon_grey" width="12" height="15"/>
+        <image name="msg_audio_icon_white" width="12" height="15"/>
+        <image name="msg_bubble_blue" width="103" height="32"/>
+        <image name="msg_bubble_white" width="103" height="32"/>
+        <image name="topic_blue_circle" width="75" height="75"/>
+    </resources>
+</document>

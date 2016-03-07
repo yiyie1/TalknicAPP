@@ -1,0 +1,172 @@
+/* 
+  Localizable.strings
+  TalKNic
+
+  Created by 郭刚 on 16/2/5.
+  Copyright © 2016年 TalKNik. All rights reserved.
+*/
+"alert.prompt" = "Prompt";
+"alert.nonews" = "There is no news";
+"alert.sure" = "Sure";
+"alert.share" = "Sharing in successes";
+"alert.fail" = "Sharing in failed";
+"alert.yan" = "Please enter the verification code";
+"alert.register" = "Registered successfully";
+"alert.register" = "Prompt";
+"alert.less" = "Lack of partner or the seller or the private key";
+"alert.see" = "Chat to look at it";
+"alert.success" = "Upload data successfully";
+"alert.thumb" = "Have thumb up";
+"alert.thumbFail" = "Thumb up failure";
+"alert.code" = "Please enter the verification code";
+"alert.codeFail" = "Verification code input errors";
+"alert.twoCode" = "Two passwords don't match";
+"alert.empty" = "Account or password cannot be empty";
+"alert.false" = "Mobile phone number format is not correct";
+"alert.16" = "Password length is not greater than 16";
+"alert.OK" = "OK";
+"alert.format" = "Bank card number format is not correct";
+"alert.cardFormat" = "Bank card number cannot be empty";
+"alert.cardLength" = "Bank card number length exceed the limit";
+"alert.cardNameEmpty" = "The name cannot be empty";
+"alert.dateEmpty" = "The date can not be empty";
+"alert.ccvEmpty" = "CCV can't be empty";
+"alert.lenghtEmpty" = "The length of the exceed limit";
+"alert.upSecEmpty" = "Please return to upload successfully";
+"alert.upFailEmpty" = "Upload failed";
+"alert.useridWrongEmpty" = "User ID is wrong";
+"alert.cardnumberExists" = "Bank card number already exists";
+"alert.phoneNumberFormatWrong" = "Phone number format is wrong";
+"alert.phoneNumberNotCorrect" = "Mobile phone number is not correct";
+"alert.enterThePhoneNumber" = "Please enter the phone number";
+"alert.verificationSent" = "Verification code has been sent";
+"alert.registeredPhoneNumber" = "Registered mobile phone number";
+"alert.enterEmailAddress" = "Please enter the email address";
+"alert.loggedIn" = "Are logged in...";
+"alert.loginSuccessful" = "Login successful";
+"alert.modifyDataFailure" = "Modify data failure";
+"alert.modifyDatassSuccessful" = "Modify data successful";
+"alert.usernamecannotbeEmpty" = "User name cannot be empty";
+"alert.selectGender" = "Please select a gender";
+"alert.selectnotion" = "Please enter the nationality";
+"alert.selectProfession" = "Please enter the profession";
+"alert.selectPerson" = "Please enter the personal introduction";
+"alert.registered" = "Is the registered";
+"alert.uploadFail" = "Upload failed";
+"alert.IDWrong" = "User ID is wrong";
+"alert.EnglishLevel" = "Please choose your English level";
+"alert.cardEmpty" = "Bank card number cannot be empty";
+"alert.dataSuccess" = "Modify data successfully";
+"alert.dataFailure" = "Modify data failure";
+"alert.passtouch" = "The two passwords don't match";
+"alert.passwordChangeSuccess" = "Password is changed";
+"alert.sex" = "Please select a gender";
+"alert.passwordWrong" = "Password is wrong";
+"alert.sourceFile" = "Please select a source file";
+"alert.cancel" = "cancel";
+"alert.camera" = "camera";
+"alert.local" = "Local photo album";
+"alert.ccvOverLength" = "The length of cvv over the limit"; // 修改9
+"alert.unregisteredPhoneNumber" = "Mobile phone number is untrgistered";//手机号未注册
+"alert.failedPhoneNumber" = "Mobile phone number send failed";//发送失败
+"alert.emailError" = "Email format is wrong";
+"alert.uploadPhoto" = "Please upload photo";
+"alert.accountNidentity" = "Account and identity does not match";
+"alert.balanceInsufficient" = "Balance Insufficient";
+"alert.loading" = "Loading...";
+"alert.sendSuccessful" = "Send successful";
+"alert.topic" = "Please choose topics";
+"alert.6" = "Password length can not less than 6";
+"alert.noTime" = "has not choose time";
+"alert.noProject" = "has not choose item";
+
+
+//APP language
+"AppForeigner" = "Foreigner";
+"AppChinese"   = "Chinese";
+
+//APP language
+"AppDone" = "Done";
+"AppCancel" = "Cancel";
+//Login Signup
+"AppSignup" = "Sign Up";
+"AppLogin" = "Login In";
+"AppCreateAccount" = "Create An Account";
+"AppCellNum" = "Mobile No.";
+"AppSend" = "Send";
+"AppCode" = "Code";
+"AppEmail" = "Email No.";
+"AppOtherFastSignup" = "Other fast sign up";
+"AppPassword" = "Password";
+"AppForgetPassword" = "Forget password";
+"AppOtherFastLogin" = "Other fast Log in";
+"AppCellOrEmail" = "Mobile/Email No.";
+"AppConfirmPassword" = "Confirm Password";
+
+//Information
+"AppInformation1" = "Information (1/3)";
+"AppInformation2" ="Information (2/3)";
+"AppInformation3" ="Information (3/3)";
+"AppUploadPhoto" = "Upload avatar";
+"AppUserName" = "username";
+"AppMale" = "Male";
+"AppFemale" = "Female";
+"AppBeginner" = "Beginner";
+"AppJunior" = "Junior";
+"AppSenior" = "Senior";
+"AppProfessor" = "Professor";
+"AppChooseLevel" = "Choose your level";
+"AppChooseFavor" = "Choose your favorite";
+"AppTravel" = "Travel";
+  "AppFilm" = "Film";
+  "AppSports" = "Sports";
+  "AppTech" = "Tech";
+  "AppDesign" = "Design";
+  "AppArts" = "Arts";
+  "AppCooking" = "Cooking";
+  "AppBook" = "Book";
+  "AppOther" = "Other";
+
+//Home
+"AppHome" = "Home";
+"AppFeatured" = "Featured";
+"AppLatest" = "Latest";
+  "AppPopular" = "Popular";
+"AppMin" = "mins";
+"AppDiscover" = "Discover";
+"AppVoice" = "Voice";
+"AppMatch" = "Match";
+  "AppFeeds" = "Feeds";
+"AppMe" = "Me";
+"AppSearch" = "Search";
+
+//me
+"AppCoupon" = "Coupon";
+"AppPoints" = "Points";
+"AppRedeem" = "Redeem";
+  "AppEditProfile" = "Edit your profile";
+"AppBalance" = "Balance";
+"AppCreditCard" = "Credit card";
+  "AppHistory" = "History";
+
+"AppShare" = "Share";
+"AppQA" = "Q & A";
+"AppAbout" = "About";
+"AppFollowed" = "Followed";
+"AppFollowing" = "Following";
+"AppFreeze" = "Freeze balance";
+
+  "AppWeChat" = "WeChat";
+"AppWeibo" = "Weibo";
+"AppMessage" = "Message";
+  "AppFriends" = "Friends";
+
+"AppAccount" = "Account";
+"AppInviteFriends" = "Invite Friends";
+"AppSetting" = "Setting";
+
+"AppPayment" = "    Payment";
+"AppGeneral" = "    General";
+
+"AppAlipay" = "Alipay";
+"AppAvailablebalance" = "Available balance";
