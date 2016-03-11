@@ -2,7 +2,7 @@
 //  AppDelegate.m
 //  TalkNic
 //
-//  Created by ldy on 15/10/9.
+//  Created by Talknic on 15/10/9.
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
 #import "ScrollViewController.h"
@@ -15,7 +15,6 @@
 #import "LoginViewController.h"
 #import "RootViewController.h"
 #import "MeViewController.h"
-#import "ForeignerTabBarController.h"
 #import "AppDelegate+ShareSDK.h"
 
 #import "EaseMobSDK.h"
@@ -24,7 +23,7 @@
 //#import "UMSocial.h"
 #define kEaseKey @"bws#talknic"
 #import "HomeViewController.h"
-#import "ForeignerFeedsViewController.h"
+#import "FeedsViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -85,55 +84,51 @@
     //环信注册
     [EaseMobSDK easeMobRegisterSDKWithAppKey:kEaseKey apnsCertName:nil application:application didFinishLaunchingWithOptions:launchOptions];
     
-//    ChoosePeopleViewController *chooseVC = [[ChoosePeopleViewController alloc]init];
-//    UINavigationController *naVC = [[UINavigationController alloc]initWithRootViewController:chooseVC];
-//    self.window.rootViewController = naVC;
-   
-    
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     NSString *uid = [user objectForKey:@"userId"];
     NSString *str = [user objectForKey:kChooese_ChineseOrForeigner];
-    NSLog(@"%@,%@",uid,str);
-    NSLog(@"Server Address: %@", PATH_GET_CODE);
-    
-    if (uid.length == 0)    //Users never login
+    TalkLog(@"uid: %@, role: %@", uid, str);
+    TalkLog(@"Server Address: %@", PATH_GET_CODE);
+
+    if (![user boolForKey:@"FirstUseApp"])    //1st time to use APP, and never choose the role
     {
-        if (![user boolForKey:@"first"])    //1st time to use APP, and user nevers choose the role
-        {
             ChoosePeopleViewController *chooseVC = [[ChoosePeopleViewController alloc]init];
             UINavigationController *naVC = [[UINavigationController alloc]initWithRootViewController:chooseVC];
             self.window.rootViewController = naVC;
-            //[user setBool:YES forKey:@"first"];
-        }
-        else
+    }
+    else
+    {
+            
+        if (uid.length == 0)    //Users never login, no user id
         {
             LoginViewController  *loginVC = [[LoginViewController alloc]init];
             UINavigationController *naVC = [[UINavigationController alloc]initWithRootViewController:loginVC];
             self.window.rootViewController = naVC;
         }
-        
-    }
-    else
-    {
-        if ([str isEqualToString:@"Chinese"]) {
-            TalkTabBarViewController *talkVC =
-            [[TalkTabBarViewController alloc]init];
-            talkVC.ud = uid;
-            TalkLog(@"登陆界面的UID -- %@",uid);
-            HomeViewController *home = [[HomeViewController alloc]init];
-            [EaseMobSDK easeMobLoginAppWithAccount:uid password:@"12345678" isAutoLogin:NO HUDShowInView:home.view];
+        else
+        {
+
+            TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
+            talkVC.uid = uid;
+                    
+            if ([str isEqualToString:@"Chinese"])
+            {
+                talkVC.identity = CHINESEUSER;
+                HomeViewController *home = [[HomeViewController alloc]init];
+                [EaseMobSDK easeMobLoginAppWithAccount:uid password:@"12345678" isAutoLogin:NO HUDShowInView:home.view];
+            }
+            else
+            {
+                talkVC.identity = FOREINERUSER;
+                FeedsViewController *feeds = [[FeedsViewController alloc]init];
+                [EaseMobSDK easeMobLoginAppWithAccount:uid password:@"12345678" isAutoLogin:NO HUDShowInView:feeds.view];
+            }
             self.window.rootViewController = talkVC;
-            
-            
-        }else{
-            ForeignerTabBarController *foreTabVC = [[ForeignerTabBarController alloc]init];
-            foreTabVC.ud = uid;
-            ForeignerFeedsViewController *foreig = [[ForeignerFeedsViewController alloc]init];
-            [EaseMobSDK easeMobLoginAppWithAccount:uid password:@"12345678" isAutoLogin:NO HUDShowInView:foreig.view];
-            self.window.rootViewController = foreTabVC;
+
         }
     }
-        
+    
+
     [ShareSDK cancelAuthorize:SSDKPlatformTypeSinaWeibo];
     [ShareSDK cancelAuthorize:SSDKPlatformTypeWechat];
 

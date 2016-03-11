@@ -2,7 +2,7 @@
 //  ForeignerVoiceViewController.m
 //  TalKNic
 //
-//  Created by ldy on 15/11/27.
+//  Created by Talknic on 15/11/27.
 //  Copyright © 2015年 TalKNic. All rights reserved.
 //
 
@@ -45,6 +45,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    title.text = @"Audio Message";
+    title.textAlignment = NSTextAlignmentCenter;
+    title.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
+    title.font = [UIFont fontWithName:kHelveticaRegular size:17.0];
+    self.navigationItem.titleView = title;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newMessage:) name:@"FNewMessage" object:nil];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     [self messageView];
@@ -319,7 +327,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 88.5;
+    return KHeightScaled(88.5);
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -327,8 +335,6 @@
     self.navigationController.tabBarItem.badgeValue = nil;
     TalkLog(@"聊天界面  -  %@",_uid);
 }
-
-
 
 
 - (void)didReceiveMemoryWarning {

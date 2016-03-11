@@ -2,7 +2,7 @@
 //  SignupViewController.h
 //  TalkNic
 //
-//  Created by ldy on 15/10/9.
+//  Created by Talknic on 15/10/9.
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
 

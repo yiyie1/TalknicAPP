@@ -2,7 +2,7 @@
 //  MeViewController.m
 //  TalkNic
 //
-//  Created by ldy on 15/10/20.
+//  Created by Talknic on 15/10/20.
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
 #import <Foundation/Foundation.h>
@@ -99,7 +99,7 @@
     
     [self loadId];
     
-    [self Setupthe];
+    [self Setting];
     
     [self LayoutProfile];
     
@@ -130,6 +130,7 @@
     [_photoView addGestureRecognizer:portraitTap];
     [_imageViewBar addSubview:_photoView];
 }
+
 //头像点击方法
 -(void)editPortrait:(UITapGestureRecognizer *)tap
 {
@@ -137,6 +138,7 @@
     UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:kAlertOurceFile delegate:self cancelButtonTitle:kAlertCancel destructiveButtonTitle:nil otherButtonTitles:kAlertCamera,kAlertLocal, nil];
     [actionSheet showInView:self.view];
 }
+
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     TalkLog(@"buttonIndex = [%ld]",(long)buttonIndex);
@@ -195,9 +197,9 @@
     UIImage *selfPhoto = [UIImage imageWithContentsOfFile:imageFilePath];
     self.photoView.image = selfPhoto;
     
-    [self shangchuan];
+    [self uploadImage];
 }
--(void)shangchuan
+-(void)uploadImage
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     formatter.dateFormat =@"yyyyMMddHHmmss";
@@ -219,12 +221,13 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSString *str =[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
-        TalkLog(@"asdasd ---- %@",str);
+        TalkLog(@"Succeed to upload image ---- %@",str);
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
 }
+
 //改变图像的尺寸，方便上传服务器
 -(UIImage *)scaleFromImage:(UIImage *)image toSize:(CGSize)size
 {
@@ -266,8 +269,6 @@
     return newimage;
 }
 
-
-
 -(void)loadId
 {
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
@@ -281,7 +282,7 @@
     NSMutableDictionary *parme = [NSMutableDictionary dictionary];
     parme[@"cmd"] = @"19";
     parme[@"user_id"] = _uid;
-    TalkLog(@"个人中心ID -- %@",_uid);
+    TalkLog(@"Me ID -- %@",_uid);
     [session POST:PATH_GET_LOGIN parameters:parme progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -292,14 +293,12 @@
             _city = [NSString stringWithFormat:@"%@",[dict objectForKey:@"city"]];
             _nationality = [NSString stringWithFormat:@",%@",[dict objectForKey:@"nationality"]];
             _nameLabel.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"username"]];
-            _countries.text = [_city stringByAppendingString:_nationality];
+            _countries.text = @"China";  //Chinese user //[_city stringByAppendingString:_nationality];
             _followed1Label.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"fans"]];
             _following1Label.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"praise"]];
             _about.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"topic"]];
             NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@",[dict objectForKey:@"pic"]]];
             [self.photoView sd_setImageWithURL:url placeholderImage:nil];
-            
-                         
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -316,6 +315,7 @@
     UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.imageViewBar.frame), kWidth, kHeight - CGRectGetMaxY(self.imageViewBar.frame))];
     [backView setBackgroundColor:[UIColor grayColor]];
     backView.alpha = 0.4;
+    
     [[[UIApplication sharedApplication].windows lastObject]addSubview:backView];
     self.backview = backView;
     self.backview.hidden = YES;
@@ -340,13 +340,12 @@
 //    UIGraphicsEndImageContext(); //返回裁剪的部分图像
 //    return returnImage;
 //}
--(void)Setupthe
+-(void)Setting
 {
-
     self.rightItem = [[UIButton alloc]init];
     _rightItem.frame = kCGRectMake(0, 0, 41/2, 42/2);
     [_rightItem setBackgroundImage:[UIImage imageNamed:@"me_setting_icon.png"] forState:(UIControlStateNormal)];
-    [_rightItem addTarget:self action:@selector(setuptheAction) forControlEvents:(UIControlEventTouchUpInside)];
+    [_rightItem addTarget:self action:@selector(settingAction) forControlEvents:(UIControlEventTouchUpInside)];
     UIBarButtonItem *right =[[UIBarButtonItem alloc]initWithCustomView:_rightItem];
     self.navigationItem.rightBarButtonItem = right;
     
@@ -361,8 +360,6 @@
 }
 -(void)TopBarView
 {
-    
-    
     self.nameLabel = [[UILabel alloc]init];
     _nameLabel.frame = kCGRectMake(112.5, 10, 150, 25);
 //    _nameLabel.text = @"Elishia Raskin";
@@ -404,8 +401,6 @@
     _about.numberOfLines = 0;
     _about.textAlignment = NSTextAlignmentLeft;
     [_imageViewBar addSubview:_about];
-    
-    
     
     UIImageView *horizontalLine = [[UIImageView alloc]init];
     horizontalLine.frame = kCGRectMake(30, 165/2 +60, 315, 1);
@@ -548,9 +543,7 @@
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-
 {
-    
     if (section ==0) {
         UILabel *label = [[UILabel alloc]init];
         label.frame = kCGRectMake(10, 3, 100, 15);
@@ -569,15 +562,22 @@
         
     }
 }
--(void)setuptheAction
+
+-(void)settingAction
 {
+    self.isClickFeeds = NO;
+    self.isClickFollowed = NO;
+    self.isClickFollowing = NO;
+    
+    self.backview.hidden = YES;
+    self.searchBarView.hidden = YES;
+    
     SettingViewController *setVC = [[SettingViewController alloc]init];
     [self.navigationController pushViewController:setVC animated:NO];
 }
+
 -(void)editprofileAction
 {
-    
-    
     if (btnstare) {
         [self.editBtn setTitle:AppEditProfile forState:(UIControlStateNormal)];
         self.nameLabel.hidden=NO;
@@ -637,7 +637,7 @@
         self.about.hidden = YES;
         _nameText = [[UITextView alloc]initWithFrame:kCGRectMake(112.5, 10, 150, 25)];
         _nameText.delegate = self;       //设置代理方法的实现类
-        _nameText.font=[UIFont fontWithName:@"HelveticaNeue-Regular" size:17.0];
+        _nameText.font=[UIFont fontWithName:@"HelveticaNeue-Regular" size:14.0];
         _nameText.keyboardType = UIKeyboardTypeDefault;
         _nameText.textAlignment = NSTextAlignmentLeft;
         _nameText.alpha = 0.5;
@@ -646,7 +646,7 @@
         _nameText.textColor = [UIColor blackColor];
         [_imageViewBar addSubview:_nameText];
         _topText = [[UITextView alloc]initWithFrame:kCGRectMake(112.5, 95, 232.5, 38)];
-        _topText.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0];
+        _topText.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:9.0];
         _topText.delegate = self;
         _nameText.text =_nameLabel.text;
         _topText.text =_about.text;

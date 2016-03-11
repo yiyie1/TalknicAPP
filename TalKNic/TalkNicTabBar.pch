@@ -2,7 +2,7 @@
 //  TalkNicTabBar.pch
 //  TalkNic
 //
-//  Created by ldy on 15/10/21.
+//  Created by Talknic on 15/10/21.
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
 #import <Availability.h>
@@ -25,11 +25,15 @@
 
 #import "UIBarButtonItem+Extension.h"
 
+#define CHINESEUSER     @"0"
+#define FOREINERUSER    @"1"
 // 按比例适配
 #define kWidth [UIScreen mainScreen].bounds.size.width
 #define kHeight [UIScreen mainScreen].bounds.size.height
 #define kCGRectMake(A,B,C,D)  CGRectMake((kWidth / 375 )* (A), (kHeight / 667) * (B) ,(kWidth / 375) * (C), (kHeight / 667) * (D) )
 
+#define KWidthScaled(A)     ((kWidth / 375 )* (A))
+#define KHeightScaled(B)    ((kHeight / 667 )* (B))
 
 #ifdef DEBUG // 处于开发阶段
 #define TalkLog(...) NSLog(__VA_ARGS__)
@@ -111,12 +115,14 @@
 #define kHelveticaLight @"HelveticaNeue-Light"
 #define kHelveticaRegular @"HelveticaNeue-Regular"
 //TabBar
-#define kLoginBg @"login_bg.png"
-#define kHOMEImage @"main_btn_home_50%.png"
-#define KHOMeSelected @"main_btn_home_100%.png"
-#define kVoiceImage  @"main_btn_vioce_50%.png"
-#define kVoiceSelected @"main_btn_voice_100%.png"
+#define kLoginBg                @"login_bg.png"
+#define kHOMEImage              @"main_btn_home_50%.png"
+#define KHOMeSelected           @"main_btn_home_100%.png"
+#define kVoiceImage             @"main_btn_vioce_50%.png"
+#define kVoiceSelected          @"main_btn_voice_100%.png"
 
+#define kDailyTopicImage        @"daily_topic_icon.png"
+#define kDailyTopicSelected     @"daily_topic_icon.png"
 
 #define kFeeds  @"main_btn_feeds_50%.png"
 #define kFeedsSelected @"main_btn_feeds_100%.png"
@@ -205,7 +211,7 @@
 #define  kAlert6 NSLocalizedString(@"alert.6",@"")
 #define  kAlertNoTime NSLocalizedString(@"alert.noTime",@"")
 #define  kAlertNoProject NSLocalizedString(@"alert.noProject",@"")
-
+#define  kAlertNerverSignup NSLocalizedString(@"alert.neverSignup",@"")
 
 //APP language
 #define AppDone  NSLocalizedString(@"AppDone",@"")
@@ -216,6 +222,7 @@
 //Login Signup
 #define AppSignup  NSLocalizedString(@"AppSignup",@"")
 #define AppLogin  NSLocalizedString(@"AppLogin",@"")
+#define AppLogout  NSLocalizedString(@"AppLogout",@"")
 #define AppCreateAccount    NSLocalizedString(@"AppCreateAccount",@"")
 #define AppCellNum  NSLocalizedString(@"AppCellNum",@"")
 #define AppSend  NSLocalizedString(@"AppSend",@"")

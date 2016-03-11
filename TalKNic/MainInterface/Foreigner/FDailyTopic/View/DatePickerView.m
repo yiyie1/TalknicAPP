@@ -2,7 +2,7 @@
 //  DatePickerView.m
 //  TalKNic
 //
-//  Created by 罗大勇 on 15/12/11.
+//  Created by Talknic on 15/12/11.
 //  Copyright © 2015年 TalkNic. All rights reserved.
 //
 

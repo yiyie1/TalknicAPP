@@ -2,7 +2,7 @@
 //  Information2ViewController.m
 //  TalkNic
 //
-//  Created by ldy on 15/10/9.
+//  Created by Talknic on 15/10/9.
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
 
@@ -182,7 +182,7 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
      
         NSString *str =[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
-         TalkLog(@"上传资料成功 --%@",str);
+        TalkLog(@"Upload Data succeeds --%@",str);
         Information3ViewController *inforView3 = [[Information3ViewController alloc]init];
         inforView3.userID = _usID;
         
@@ -190,7 +190,7 @@
         [self.navigationController pushViewController:inforView3 animated:NO];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        TalkLog(@"上传失败 ---%@",error);
+        TalkLog(@"Failed to upload data ---%@",error);
     }];
     
 }

@@ -2,14 +2,15 @@
 //  SettingViewController.m
 //  TalKNic
 //
-//  Created by 罗大勇 on 15/12/9.
+//  Created by Talknic on 15/12/9.
 //  Copyright © 2015年 TalkNic. All rights reserved.
 //
 
 #import "SettingViewController.h"
 #import "Setting.h"
 #import "SDImageCache.h"
-
+#import "VoiceViewController.h"
+#import "ForeignerVoiceViewController.h"
 #import "AccountViewController.h"
 #import "NotificationViewController.h"
 @interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -18,6 +19,7 @@
     NSString *_cache;
 }
 @property (nonatomic,strong)UIButton *leftBT;
+
 @property (nonatomic,strong)UITableView *tableView;
 @end
 
@@ -43,8 +45,8 @@
     [self layouLeftBtn];
     
     [self layouTableView];
-}
 
+}
 
 
 -(void)layouLeftBtn
@@ -81,8 +83,6 @@
     Setting *set = _allSetting[indexPath.section];
     cell.textLabel.text = set.grouping[indexPath.row];
     
-    
-    
     if ( [cell.textLabel.text isEqual:@"Clear Cache"]) {
         UILabel *label = [[UILabel alloc]init];
         label.frame = kCGRectMake(150, 110, 100, 20);
@@ -112,16 +112,36 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0)
+    {
         AccountViewController *account = [[AccountViewController alloc]init];
         [self.navigationController pushViewController:account animated:YES];
     }
-    if (indexPath.section == 1) {
-        if (indexPath.row == 1) {
+    else if (indexPath.section == 1)
+    {
+        if (indexPath.row == 0)
+        {
+            NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+            NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
+            if ([str isEqualToString:@"Chinese"])
+            {
+                VoiceViewController *chineseVioce = [[VoiceViewController alloc] init];
+                [self.navigationController pushViewController:chineseVioce animated:NO];
+            }
+            else
+            {
+                ForeignerVoiceViewController *foreignerVoice = [[ForeignerVoiceViewController alloc]init];
+                [self.navigationController pushViewController:foreignerVoice animated:NO];
+            }
+
+        }
+        else if (indexPath.row == 1)
+        {
             [self myClearCacheAction];
         }
     }
-    if (indexPath.section == 2) {
+    else if (indexPath.section == 2)
+    {
         if (indexPath.row == 0) {
             NotificationViewController *noti = [[NotificationViewController alloc]init];
             [self.navigationController pushViewController:noti animated:YES];

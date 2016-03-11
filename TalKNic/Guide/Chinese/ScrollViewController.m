@@ -2,13 +2,12 @@
 //  ScrollViewController.m
 //  TalkNic
 //
-//  Created by ldy on 15/10/15.
+//  Created by Talknic on 15/10/15.
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
 
 #import "ScrollViewController.h"
 #import "TalkTabBarViewController.h"
-#import "ForeignerTabBarController.h"
 @interface ScrollViewController ()<UIScrollViewDelegate>
 
 @property(nonatomic,strong)UIPageControl *pageControl;
@@ -279,33 +278,29 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    
     _pageControl.currentPage = scrollView.contentOffset.x / self.view.frame.size.width;
 }
 
 - (void)tapAction
 {
-    
-    
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
-    if ([str isEqualToString:@"Chinese"]) {
-        TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
-        talkVC.ud = _uid;
-        self.hidesBottomBarWhenPushed = YES;
-        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-        [self.navigationController pushViewController:talkVC animated:NO];
-    }else
+    TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
+    talkVC.uid = _uid;
+    self.hidesBottomBarWhenPushed = YES;
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    [self.navigationController pushViewController:talkVC animated:NO];
+    
+    if ([str isEqualToString:@"Chinese"])
     {
-        ForeignerTabBarController *foreVC = [[ForeignerTabBarController alloc]init];
-        self.hidesBottomBarWhenPushed = YES;
-        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-        [self.navigationController pushViewController:foreVC animated:NO];
+        talkVC.identity = CHINESEUSER;
     }
-    
-    
-    
+    else
+    {
+        talkVC.identity = FOREINERUSER;
+    }
 }
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     

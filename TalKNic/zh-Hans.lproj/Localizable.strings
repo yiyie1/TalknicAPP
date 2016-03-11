@@ -89,6 +89,7 @@
 //Login Signup
 "AppSignup" = "注册";
 "AppLogin" = "登入";
+"AppLogout" = "退出";
 "AppCreateAccount" = "创建账户";
 "AppCellNum" = "手机号";
 "AppSend" = "发送";

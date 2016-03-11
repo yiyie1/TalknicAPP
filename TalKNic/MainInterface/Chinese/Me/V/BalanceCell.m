@@ -2,7 +2,7 @@
 //  BalanceCell.m
 //  TalKNic
 //
-//  Created by ldy on 16/1/11.
+//  Created by Talknic on 16/1/11.
 //  Copyright © 2016年 TalKNik. All rights reserved.
 //
 

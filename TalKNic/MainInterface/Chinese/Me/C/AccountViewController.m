@@ -9,11 +9,13 @@
 #import "AccountViewController.h"
 #import "Setting.h"
 #import "ForgetPasswordViewController.h"
+#import "ChoosePeopleViewController.h"
 @interface AccountViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *_tableView;
     NSArray *_allSetting;
 }
+
 @end
 
 @implementation AccountViewController
@@ -34,8 +36,47 @@
 
     [self layouLeftBtn];
     [self layouTableView];
+    
+    [self layoutLogoutBtn];
     // Do any additional setup after loading the view.
 }
+
+-(void)logoutAction
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
+    if (str) {
+        [ud removeObjectForKey:kChooese_ChineseOrForeigner];
+    }
+    
+    NSString *userId = [ud objectForKey:@"userId"];
+    if (userId) {
+        [ud removeObjectForKey:@"userId"];
+    }
+    
+    NSString *FirstUseApp = [ud objectForKey:@"FirstUseApp"];
+    if (FirstUseApp) {
+        [ud removeObjectForKey:@"FirstUseApp"];
+    }
+    
+    ChoosePeopleViewController *chooseVC = [[ChoosePeopleViewController alloc]init];
+    [self.navigationController pushViewController:chooseVC animated:NO];
+    //UINavigationController *naVC = [[UINavigationController alloc]initWithRootViewController:chooseVC];
+    //self.window.rootViewController = naVC;
+
+}
+
+-(void)layoutLogoutBtn
+{
+    self.logoutBT =  [[UIButton alloc]init];
+    _logoutBT.frame = CGRectMake(self.view.frame.origin.x + 50, self.view.frame.origin.y +274, self.view.frame.size.width /1.36, 50);
+    [_logoutBT setTitle:AppLogout forState:(UIControlStateNormal)];
+    [_logoutBT setBackgroundImage:[UIImage imageNamed:@"login_btn_lg_a.png"] forState:(UIControlStateNormal)];
+    [_logoutBT addTarget:self action:@selector(logoutAction) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.view addSubview:_logoutBT];
+}
+
+
 -(void)layouLeftBtn
 {
     self.leftBT = [[UIButton alloc]init];
@@ -101,7 +142,7 @@
 {
     if (indexPath.section == 0) {
         ForgetPasswordViewController *f = [[ForgetPasswordViewController alloc]init];
-        [self.navigationController pushViewController:f animated:YES];
+        [self.navigationController pushViewController:f animated:NO];
     }
 }
 -(void)leftAction

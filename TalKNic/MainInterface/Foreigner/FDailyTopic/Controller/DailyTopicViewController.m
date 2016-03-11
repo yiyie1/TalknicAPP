@@ -2,7 +2,7 @@
 //  DailyTopicViewController.m
 //  TalKNic
 //
-//  Created by 罗大勇 on 15/12/9.
+//  Created by Talknic on 15/12/9.
 //  Copyright © 2015年 TalkNic. All rights reserved.
 //
 
@@ -300,40 +300,23 @@
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
-
 {
-    
     CGFloat componentWidth = 0.0;
-    
-    
     if (component == 0)
-        
-        componentWidth = kWidth / 375 * 30.0; // 第一个组键的宽度
-    
+        componentWidth = KWidthScaled(30); // 第一个组键的宽度
     else if (component == 1)
-        
-        componentWidth = kWidth / 375 * 80.0; // 第2个组键的宽度
+        componentWidth = KWidthScaled(80); // 第2个组键的宽度
     else if (component == 2)
-        
-        componentWidth = kWidth / 375 * 30.0; // 第2个组键的宽度
+        componentWidth = KWidthScaled(30); // 第2个组键的宽度
     else if (component == 3)
-        
-        componentWidth = kWidth / 375 * 60.0; // 第2个组键的宽度
+        componentWidth = KWidthScaled(60); // 第2个组键的宽度
     return componentWidth;
-    
 }
-
-
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
-
 {
-    
-    return kHeight / 667 * 40;
-    
+    return KHeightScaled(40);
 }
-
-
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {

@@ -2,7 +2,7 @@
 //  ForeignerMeViewController.m
 //  TalKNic
 //
-//  Created by ldy on 15/11/27.
+//  Created by Talknic on 15/11/27.
 //  Copyright © 2015年 TalKNic. All rights reserved.
 //
 
@@ -413,9 +413,17 @@
 }
 -(void)setuptheAction
 {
+    self.isClickFeeds = NO;
+    self.isClickFollowed = NO;
+    self.isClickFollowing = NO;
+    
+    self.backview.hidden = YES;
+    //self.searchBarView.hidden = YES;
+    
     SettingViewController *setVC = [[SettingViewController alloc]init];
     [self.navigationController pushViewController:setVC animated:NO];
 }
+
 -(void)editprofileAction
 {
     if (btnstare) {
@@ -462,10 +470,7 @@
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             TalkLog(@"修改资料失败 -- %@",error);
         }];
-        
-        
-        
-        NSLog(@"DOne");
+        NSLog(@"Done");
     }else
     {
         [self.editBtn setTitle:@"Done" forState:(UIControlStateNormal)];
@@ -613,10 +618,10 @@
 //头像点击方法
 -(void)editPortrait:(UITapGestureRecognizer *)tap
 {
-    
     UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:kAlertOurceFile delegate:self cancelButtonTitle:kAlertCancel destructiveButtonTitle:nil otherButtonTitles:kAlertCamera,kAlertLocal, nil];
     [actionSheet showInView:self.view];
 }
+
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     TalkLog(@"buttonIndex = [%ld]",(long)buttonIndex);
@@ -646,6 +651,7 @@
             break;
     }
 }
+
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
     if ([[info objectForKey:UIImagePickerControllerMediaType]isEqualToString:(__bridge NSString *)kUTTypeImage]) {
@@ -654,10 +660,12 @@
     }
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
+
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
+
 -(void)saveImage:(UIImage *)image
 {
     BOOL success;
@@ -675,9 +683,10 @@
     UIImage *selfPhoto = [UIImage imageWithContentsOfFile:imageFilePath];
     self.photoView.image = selfPhoto;
     
-    [self shangchuan];
+    [self uploadImage];
 }
--(void)shangchuan
+
+-(void)uploadImage
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     formatter.dateFormat =@"yyyyMMddHHmmss";
@@ -699,12 +708,13 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSString *str =[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
-        TalkLog(@"asdasd ---- %@",str);
+        TalkLog(@"Succeed to upload image ---- %@",str);
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
 }
+
 //改变图像的尺寸，方便上传服务器
 -(UIImage *)scaleFromImage:(UIImage *)image toSize:(CGSize)size
 {
@@ -714,6 +724,7 @@
     UIGraphicsEndImageContext();
     return newImage;
 }
+
 - (UIImage *)thumbnailWithImageWithoutScale:(UIImage *)image size:(CGSize)asize
 {
     UIImage *newimage;
@@ -745,9 +756,6 @@
     }
     return newimage;
 }
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

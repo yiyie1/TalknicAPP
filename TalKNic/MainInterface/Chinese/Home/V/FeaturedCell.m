@@ -2,7 +2,7 @@
 //  FeaturedCell.m
 //  TalkNic
 //
-//  Created by ldy on 15/10/29.
+//  Created by Talknic on 15/10/29.
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
 

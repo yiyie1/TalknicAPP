@@ -2,7 +2,7 @@
 //  LdyAccount.h
 //  TalKNic
 //
-//  Created by 罗大勇 on 15/12/17.
+//  Created by Talknic on 15/12/17.
 //  Copyright © 2015年 TalKNik. All rights reserved.
 //
 

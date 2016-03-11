@@ -2,7 +2,7 @@
 //  MeHeadViewController.h
 //  TalKNic
 //
-//  Created by 罗大勇 on 15/12/15.
+//  Created by Talknic on 15/12/15.
 //  Copyright © 2015年 TalKNik. All rights reserved.
 //
 

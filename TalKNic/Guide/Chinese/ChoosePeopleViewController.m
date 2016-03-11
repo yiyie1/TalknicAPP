@@ -2,7 +2,7 @@
 //  ChoosePeopleViewController.m
 //  TalKNic
 //
-//  Created by ldy on 15/11/4.
+//  Created by Talknic on 15/11/4.
 //  Copyright (c) 2015年 TalKNic. All rights reserved.
 //
 
@@ -36,13 +36,10 @@
 }
 -(void)chooseView
 {
-    
     self.navigationController.navigationBar.hidden = YES;
     self.imageView = [[UIImageView alloc]initWithFrame:kCGRectMake(0, 0, 375, 667)];
     self.imageView.image = [UIImage imageNamed:kLoginBg];
     [self.view addSubview:_imageView];
-    
-    
     
     self.chineSe = [[UIButton alloc]init];
     _chineSe.frame = kCGRectMake( 37 , 602.5 , 140, 55.5);
@@ -74,15 +71,14 @@
         [ud removeObjectForKey:kChooese_ChineseOrForeigner];
     }
     [ud setObject:@"Chinese" forKey:kChooese_ChineseOrForeigner];
-    NSString *str1 = @"0";
-    TalkLog(@"身份标识符 --- %@",str1);
 //    //登录
 //    [EaseMobSDK easeMobLoginAppWithAccount:@"1233" password:@"1234" isAutoLogin:YES HUDShowInView:self.view];
     
     LoginViewController *loginVC =[[LoginViewController alloc]init];
-    loginVC.identity = str1 ;
+    loginVC.identity = CHINESEUSER ;
     [self.navigationController pushViewController:loginVC animated:NO];
 }
+
 -(void)foreignerAction:(UIButton *)button
 {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
@@ -91,21 +87,15 @@
         [ud removeObjectForKey:kChooese_ChineseOrForeigner];
     }
     [ud setObject:@"Foreigner" forKey:kChooese_ChineseOrForeigner];
-    TalkLog(@"启动选择 -- ud = %@  -- str = %@",ud,str);
-
-    NSString *str1 = @"1";
-    TalkLog(@"身份标识符 --- %@",str1);
-
+    
     LoginViewController *loginVC =[[LoginViewController alloc]init];
-    loginVC.identity = str1;
+    loginVC.identity = FOREINERUSER;
     [self.navigationController pushViewController:loginVC animated:NO];
 }
-
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     self.navigationController.navigationBar.hidden = NO;
-    
 }
 
 

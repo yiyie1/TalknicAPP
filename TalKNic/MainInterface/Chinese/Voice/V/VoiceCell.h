@@ -2,7 +2,7 @@
 //  VoiceCell.h
 //  TalKNic
 //
-//  Created by ldy on 15/11/19.
+//  Created by Talknic on 15/11/19.
 //  Copyright (c) 2015年 TalKNic. All rights reserved.
 //
 

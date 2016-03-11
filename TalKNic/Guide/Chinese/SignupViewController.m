@@ -2,7 +2,7 @@
 //  SignupViewController.m
 //  TalkNic
 //
-//  Created by ldy on 15/10/9.
+//  Created by Talknic on 15/10/9.
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
 
@@ -23,9 +23,10 @@
 #import "AppDelegate.h"
 #import "EaseMobSDK.h"
 #import "TalkTabBarViewController.h"
-#import "ForeignerTabBarController.h"
 #import "InformationViewController.h"
 #import "Foreigner0ViewController.h"
+#import "ChoosePeopleViewController.h"
+
 #define kMobilewF 275
 #define KHuanxin @"12345678"
 
@@ -185,7 +186,7 @@
 {
     self.loginBtn = [[UIButton alloc]init];
     _loginBtn.frame = kCGRectMake( 36, 211.5, 302.5, 56.5);
-    [_loginBtn setTitle:AppLogin forState:(UIControlStateNormal)];
+    [_loginBtn setTitle:AppSignup forState:(UIControlStateNormal)];
     [_loginBtn setBackgroundImage:[UIImage imageNamed:@"login_btn_lg_a.png"] forState:(UIControlStateNormal)];
     [_loginBtn addTarget:self action:@selector(loginupAciton) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:_loginBtn];
@@ -206,7 +207,7 @@
     self.facebookBt = [[UIButton alloc]init];
     _facebookBt.frame = kCGRectMake( 120, 318, 60, 60);
     [_facebookBt setBackgroundImage:[UIImage imageNamed:@"login_fb.png"] forState:(UIControlStateNormal)];
-    [_facebookBt setBackgroundImage:[UIImage imageNamed:@"login_fb_a.png"] forState:(UIControlStateHighlighted)];
+    [_facebookBt setBackgroundImage:[UIImage imageNamed:@"login_fb.png"] forState:(UIControlStateHighlighted)];
     [self.view addSubview:_facebookBt];
 }
 -(void)weixinbt
@@ -220,9 +221,6 @@
 }
 -(void)weibobt
 {
-    
-    
-    
     self.weiboBt = [[UIButton alloc]init];
     _weiboBt.frame = kCGRectMake( 280, 318, 60, 60);
     [_weiboBt setBackgroundImage:[UIImage imageNamed:@"login_weibo.png"] forState:(UIControlStateNormal)];
@@ -269,10 +267,8 @@
 -(void)sendAction
 {
     
-    if (mobile == YES) {
-        
-        
-        
+    if (mobile == YES)
+    {
         NSString *userphoneText = _mobilenoTF.text;
         if (userphoneText.length != 0) {
             //判断电话号码
@@ -368,13 +364,8 @@
 //    }
 }
 
-
-
-
 -(void)loginupAciton
 {
-    
-    
     if ([_mobilenoTF.placeholder isEqualToString:AppEmail]) {
         if (![_mobilenoTF.text containsString:@"@"]) {
             //            [MBProgressHUD showError:kAlertEmailError];
@@ -466,7 +457,9 @@
             NSLog(@"error%@",error);
         }];
         
-    }else{
+    }
+    else
+    {
         NSString *codeText = self.codeTF.text;
         if (codeText.length == 0 ) {
             [MBProgressHUD showError:kAlertCode];
@@ -501,11 +494,7 @@
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"error:%@",error);
         }];
-        
     }
-    
-    
-    
 }
 
 //-(void)sendAction
@@ -730,6 +719,8 @@
 //    
 //    
 //}
+
+
 -(void)weixinLogin
 {
     [ShareSDK getUserInfo:(SSDKPlatformTypeWechat) onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
@@ -766,37 +757,22 @@
                         //注册环信
                         [EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
                     }
-                    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-                    NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
-                    
-                    
+
+                    if([self initTalkViewControllerByThirdPlatform] == -1)
+                        return;
+
                     NSData * usData = [_uid dataUsingEncoding:NSUTF8StringEncoding];
-                    
                     NSUserDefaults *uid = [NSUserDefaults standardUserDefaults];
                     [uid setObject:usData forKey:@"ccUID"];
-                     [uid setObject:_uid forKey:@"userId"];
+                    [uid setObject:_uid forKey:@"userId"];
                     [uid synchronize];
 
-                    if ([_weiboId isEqualToString:@"0"])  // 0 means Chinese account
-                    {
-                        [ud setObject:@"Chinese" forKey:kChooese_ChineseOrForeigner];
-                        TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
-                        [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
-                        TalkLog(@"Chinese Home -- ID -- %@",talkVC.ud);
-                        // [self.navigationController pushViewController:talkVC animated:NO];
-                        [self presentViewController:talkVC animated:YES completion:nil];
-                    }
-                    else
-                    {
-                        [ud setObject:@"Foreigner" forKey:kChooese_ChineseOrForeigner];
-                        ForeignerTabBarController *foreVC = [[ForeignerTabBarController alloc]init];
-                        [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
-                        [self presentViewController:foreVC animated:YES completion:nil];
-                    }
+                }
+                else if (([(NSNumber *)[_dicc objectForKey:@"code"] intValue] == 5))
+                {
                     
-                }else if (([(NSNumber *)[_dicc objectForKey:@"code"] intValue] == 5)){
-                    
-                    NSDictionary *dict = [_dicc objectForKey:@"result"];                   _uid = [NSString stringWithFormat:@"%@",[dict objectForKey:@"uid"]];
+                    NSDictionary *dict = [_dicc objectForKey:@"result"];
+                    _uid = [NSString stringWithFormat:@"%@",[dict objectForKey:@"uid"]];
                     _weiboId = [NSString stringWithFormat:@"%@",[dict objectForKey:@"identity"]];
                     if (_uid !=nil) {
                         NSLog(@"------------%@",_uid);
@@ -815,8 +791,6 @@
                     // 修改
                     [[NSUserDefaults standardUserDefaults] setObject:_uid forKey:@"my_id"];
                     
-                    
-                    
                     TalkLog(@"UID == %@",_uid);
                     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
                     NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
@@ -826,17 +800,15 @@
                         
                         [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
                         inforVC.uID = _uid;
-                        TalkLog(@"UID == %@",_uid);
                         [self.navigationController pushViewController:inforVC animated:NO];
-                        
-                    }else
+                    }
+                    else
                     {
                         Foreigner0ViewController *foreigVC = [[Foreigner0ViewController alloc]init];
                         
                         [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
                         foreigVC.uID = _uid;
                         [self.navigationController pushViewController:foreigVC animated:NO];
-                        
                     }
                 }
 
@@ -847,12 +819,13 @@
         
         }else
         {
-            TalkLog(@"123456");
+            TalkLog(@"Wechat Failure");
             TalkLog(@"%@",error);
         }
 
     }];
 }
+
 -(void)weiboLogin
 {
     [ShareSDK getUserInfo:(SSDKPlatformTypeSinaWeibo) onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
@@ -867,7 +840,7 @@
             }
 
             TalkLog(@"uid = %@  %@  token = %@ nickname = %@",user.uid,user.credential,user.credential.token,user.nickname);
-            TalkLog(@"微博用户信息 --- %@",user.rawData);
+            TalkLog(@"Weibo user information: %@",user.rawData);
             AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
             manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
             NSMutableDictionary *dic = [NSMutableDictionary dictionary];
@@ -879,7 +852,7 @@
             [manager POST:PATH_GET_LOGIN parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
                 
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                TalkLog(@"微博 -- %@",responseObject);
+                TalkLog(@"Weibo -- %@",responseObject);
                 _dicc = [solveJsonData changeType:responseObject];
                 
         if (([(NSNumber *)[_dicc objectForKey:@"code"] intValue] == 2)) //2 mean already signed
@@ -891,40 +864,24 @@
                 //注册环信
                 [EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
             }
+
+            if ([self initTalkViewControllerByThirdPlatform] == -1)
+                return;
             
-            NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
             NSData * usData = [_uid dataUsingEncoding:NSUTF8StringEncoding];
-            
             NSUserDefaults *uid = [NSUserDefaults standardUserDefaults];
             [uid setObject:usData forKey:@"ccUID"];
-             [uid setObject:_uid forKey:@"userId"];
+            [uid setObject:_uid forKey:@"userId"];
             [uid synchronize];
-
-            if ([_weiboId isEqualToString:@"0"])  // 0 means Chinese account
-            {
-                [ud setObject:@"Chinese" forKey:kChooese_ChineseOrForeigner];
-                TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
-                [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
-                TalkLog(@"Chinese Home -- ID -- %@",talkVC.ud);
-                // [self.navigationController pushViewController:talkVC animated:NO];
-                [self presentViewController:talkVC animated:YES completion:nil];
-            }
-            else
-            {
-                [ud setObject:@"Foreigner" forKey:kChooese_ChineseOrForeigner];
-                ForeignerTabBarController *foreVC = [[ForeignerTabBarController alloc]init];
-                [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
-                [self presentViewController:foreVC animated:YES completion:nil];
-            }
-            
         }
-        else if (([(NSNumber *)[_dicc objectForKey:@"code"] intValue] == 5))    //5 means first sign
+        else if (([(NSNumber *)[_dicc objectForKey:@"code"] intValue] == 5))    //5 means first sign up
         {
             
-            NSDictionary *dict = [_dicc objectForKey:@"result"];_uid = [NSString stringWithFormat:@"%@",[dict objectForKey:@"uid"]];
+            NSDictionary *dict = [_dicc objectForKey:@"result"];
+            _uid = [NSString stringWithFormat:@"%@",[dict objectForKey:@"uid"]];
             _weiboId = [NSString stringWithFormat:@"%@",[dict objectForKey:@"identity"]];
             if (_uid !=nil) {
-                NSLog(@"------------%@",_uid);
+                NSLog(@"uid = %@",_uid);
                 //注册环信
                 [EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
                 
@@ -934,22 +891,21 @@
             
             NSUserDefaults *uid = [NSUserDefaults standardUserDefaults];
             [uid setObject:usData forKey:@"ccUID"];
-             [uid setObject:_uid forKey:@"userId"];
+            [uid setObject:_uid forKey:@"userId"];
             [uid synchronize];
             
             // 修改
             [[NSUserDefaults standardUserDefaults] setObject:_uid forKey:@"my_id"];
-            
-            TalkLog(@"UID == %@",_uid);
+
             NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
             NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
             
-            if ([str isEqualToString:@"Chinese"]&&[_weiboId isEqualToString:@"0"]) {
+            if ([str isEqualToString:@"Chinese"]&&[_weiboId isEqualToString:@"0"])
+            {
                 InformationViewController *inforVC = [[InformationViewController alloc]init];
                 
                 [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
                 inforVC.uID = _uid;
-                TalkLog(@"UID == %@",_uid);
                 [self.navigationController pushViewController:inforVC animated:NO];
                 
             }else
@@ -963,16 +919,51 @@
             }
         }
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                TalkLog(@"微博失败 -- %@",error);
+                TalkLog(@"Failed to login Weibo -- %@",error);
             }];
 
-        }else
+        }
+        else
         {
-            TalkLog(@"123456");
+            TalkLog(@"Weibo Failure");
             TalkLog(@"%@",error);
         }
     }];
 }
+
+-(int) initTalkViewControllerByThirdPlatform
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
+    
+    
+    if ([_weiboId isEqualToString:@"0"] && [str isEqualToString:@"Chinese"])  // 0 means Chinese account
+    {
+        //talkVC.identity = CHINESEUSER;
+        //TalkLog(@"Chinese Home -- ID -- %@",talkVC.uid);
+    }
+    else if([_weiboId isEqualToString:@"1"] && [str isEqualToString:@"Foreigner"])
+    {
+        //talkVC.identity = FOREINERUSER;
+        //TalkLog(@"Foreigner Home -- ID -- %@",talkVC.uid);
+    }
+    else
+    {
+        [ud removeObjectForKey:@"FirstUseApp"];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:kAlertPrompt message:kAlertAccountNotMatchID delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil, nil];
+        [alert show];
+        //ChoosePeopleViewController *choosePeopleVC = [[ChoosePeopleViewController alloc]init];
+        return -1;
+    }
+    
+    TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
+    talkVC.uid = _uid;
+    [self presentViewController:talkVC animated:YES completion:nil];
+    [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
+    
+    return 0;
+}
+
 -(void)emailBtAction
 {
     mobile = mobile ? NO : YES;

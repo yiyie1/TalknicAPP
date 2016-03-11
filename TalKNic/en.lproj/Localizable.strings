@@ -80,7 +80,6 @@
 "alert.noTime" = "has not choose time";
 "alert.noProject" = "has not choose item";
 
-
 //APP language
 "AppForeigner" = "Foreigner";
 "AppChinese"   = "Chinese";
@@ -90,7 +89,8 @@
 "AppCancel" = "Cancel";
 //Login Signup
 "AppSignup" = "Sign Up";
-"AppLogin" = "Login In";
+"AppLogin" = "Log In";
+"AppLogout" = "Log Out";
 "AppCreateAccount" = "Create An Account";
 "AppCellNum" = "Mobile No.";
 "AppSend" = "Send";

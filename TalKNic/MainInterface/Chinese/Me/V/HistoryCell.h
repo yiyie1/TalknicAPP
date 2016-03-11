@@ -2,7 +2,7 @@
 //  HistoryCell.h
 //  TalKNic
 //
-//  Created by ldy on 15/11/30.
+//  Created by Talknic on 15/11/30.
 //  Copyright © 2015年 TalKNic. All rights reserved.
 //
 

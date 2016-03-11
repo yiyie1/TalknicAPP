@@ -2,7 +2,7 @@
 //  RightcellTableViewCell.m
 //  TalKNic
 //
-//  Created by ldy on 15/12/14.
+//  Created by Talknic on 15/12/14.
 //  Copyright © 2015年 TalKNic. All rights reserved.
 //
 

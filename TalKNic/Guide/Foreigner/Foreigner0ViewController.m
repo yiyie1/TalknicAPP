@@ -2,7 +2,7 @@
 //  Foreigner0ViewController.m
 //  TalKNic
 //
-//  Created by 罗大勇 on 15/12/8.
+//  Created by Talknic on 15/12/8.
 //  Copyright © 2015年 TalkNic. All rights reserved.
 //
 
@@ -276,10 +276,10 @@
 }
 -(void)editPortrait:(UITapGestureRecognizer *)tap
 {
-    
     UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:kAlertOurceFile delegate:self cancelButtonTitle:kAlertCancel destructiveButtonTitle:nil otherButtonTitles:kAlertCamera,kAlertLocal, nil];
     [actionSheet showInView:self.view];
 }
+
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     TalkLog(@"buttonIndex = [%ld]",(long)buttonIndex);

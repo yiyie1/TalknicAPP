@@ -2,7 +2,7 @@
 //  ForeignerDailyTopicViewController.m
 //  TalKNic
 //
-//  Created by ldy on 15/11/27.
+//  Created by Talknic on 15/11/27.
 //  Copyright © 2015年 TalKNic. All rights reserved.
 //
 
@@ -204,25 +204,16 @@
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
-
 {
-    
     CGFloat componentWidth = 0.0;
-    
-    
     if (component == 0)
-        
-        componentWidth = kWidth / 375 * 30.0; // 第一个组键的宽度
-    
+        componentWidth = KWidthScaled(30); // 第一个组键的宽度
     else if (component == 1)
-        
-        componentWidth = kWidth / 375 * 80.0; // 第2个组键的宽度
+        componentWidth = KWidthScaled(80); // 第2个组键的宽度
     else if (component == 2)
-        
-        componentWidth = kWidth / 375 * 30.0; // 第2个组键的宽度
+        componentWidth = KWidthScaled(30); // 第2个组键的宽度
     else if (component == 3)
-        
-        componentWidth = kWidth / 375 * 60.0; // 第2个组键的宽度
+        componentWidth = KWidthScaled(60); // 第2个组键的宽度
     return componentWidth;
     
 }

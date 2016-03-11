@@ -2,7 +2,7 @@
 //  Header.h
 //  TalkNic
 //
-//  Created by ldy on 15/10/10.
+//  Created by Talknic on 15/10/10.
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
 

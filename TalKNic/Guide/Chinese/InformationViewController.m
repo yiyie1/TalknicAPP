@@ -2,7 +2,7 @@
 //  InformationViewController.m
 //  TalkNic
 //
-//  Created by ldy on 15/10/9.
+//  Created by Talknic on 15/10/9.
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
 
@@ -150,7 +150,8 @@
     
 }
 -(void)nextAction
-{  _unameID = _usernameTf.text;
+{
+    _unameID = _usernameTf.text;
     if (self.usernameTf.text.length ==0) {
         [MBProgressHUD showError:kAlertUsernamecannotbeEmpty];
         return;
@@ -218,6 +219,7 @@
     
     self.bUploadPhoto = YES;
 }
+
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     TalkLog(@"buttonIndex = [%ld]",(long)buttonIndex);

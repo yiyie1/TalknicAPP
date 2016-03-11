@@ -2,7 +2,7 @@
 //  ForgetPasswordViewController.m
 //  TalkNic
 //
-//  Created by ldy on 15/10/19.
+//  Created by Talknic on 15/10/19.
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
 

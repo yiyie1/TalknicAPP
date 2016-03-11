@@ -2,7 +2,7 @@
 //  HomeShowPicturwCell.m
 //  TalKNic
 //
-//  Created by ldy on 16/1/10.
+//  Created by Talknic on 16/1/10.
 //  Copyright © 2016年 TalKNik. All rights reserved.
 //
 

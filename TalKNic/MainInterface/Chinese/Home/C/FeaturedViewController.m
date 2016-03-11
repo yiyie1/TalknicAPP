@@ -2,7 +2,7 @@
 //  FeaturedViewController.m
 //  TalkNic
 //
-//  Created by ldy on 15/10/30.
+//  Created by Talknic on 15/10/30.
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
 
@@ -49,8 +49,6 @@ static NSString *const ID = @"featured";
     
     [self loadData];
     
-    
-    
     FeaturedLayout *layout = [[FeaturedLayout alloc]init];
     layout.delegate = self;
     
@@ -68,9 +66,6 @@ static NSString *const ID = @"featured";
     
     [self.collectionView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(loadMoreData:)];
 //    self.collectionView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData:)];
-    
-    
-
     
 }
 -(void)loadData
@@ -112,16 +107,14 @@ static NSString *const ID = @"featured";
                     
                     
                 }
-                
-                
+            
                 [self.collectionView reloadData];
-               
-                
                 
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 
             }];
 }
+
 -(void)loadMoreData:(MJRefreshFooter *)footer
 {
     [footer endRefreshing];

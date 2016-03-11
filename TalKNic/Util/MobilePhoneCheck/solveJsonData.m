@@ -2,8 +2,8 @@
 //  solveJsonData.m
 //  
 //
-//  Created by ldy on 15/12/18.
-//  Copyright © 2015年 ldyD. All rights reserved.
+//  Created by Talknic on 15/12/18.
+//  Copyright © 2015年 TalknicD. All rights reserved.
 //
 
 #import "solveJsonData.h"

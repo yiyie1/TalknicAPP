@@ -2,7 +2,7 @@
 //  PopupView.h
 //  TalKNic
 //
-//  Created by ldy on 15/11/7.
+//  Created by Talknic on 15/11/7.
 //  Copyright (c) 2015年 TalKNic. All rights reserved.
 //
 

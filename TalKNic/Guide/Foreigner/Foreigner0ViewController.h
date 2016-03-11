@@ -2,7 +2,7 @@
 //  Foreigner0ViewController.h
 //  TalKNic
 //
-//  Created by 罗大勇 on 15/12/8.
+//  Created by Talknic on 15/12/8.
 //  Copyright © 2015年 TalkNic. All rights reserved.
 //
 

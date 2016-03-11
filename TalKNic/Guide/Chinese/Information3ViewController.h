@@ -2,7 +2,7 @@
 //  Information3ViewController.h
 //  TalkNic
 //
-//  Created by ldy on 15/11/2.
+//  Created by Talknic on 15/11/2.
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
 

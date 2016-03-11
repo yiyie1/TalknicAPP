@@ -2,7 +2,7 @@
 //  TalkTabBarViewController.h
 //  TalkNic
 //
-//  Created by ldy on 15/10/22.
+//  Created by Talknic on 15/10/22.
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
 
@@ -10,5 +10,6 @@
 
 
 @interface TalkTabBarViewController : UITabBarController
-@property (nonatomic,copy)NSString *ud;
+@property (nonatomic,copy)NSString *uid;
+@property (nonatomic,copy)NSString *identity;
 @end

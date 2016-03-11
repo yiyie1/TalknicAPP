@@ -30,7 +30,7 @@
     NSString *topic;
     NSString *user_pic;
     NSString *username;
-
+    
     NSString *userid;
     NSMutableArray *searChArr;//搜索结果数组
     NSDictionary * _dicP;//接受匹配信息的通知
@@ -39,8 +39,8 @@
 }
 //{
 //     UISearchBar *searchBar;
-//    
-//    
+//
+//
 //}
 @property (nonatomic,strong)UISegmentedControl *segmentControl;
 @property (nonatomic,strong)UINavigationBar *bar;
@@ -64,7 +64,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO; 
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     [self resignFirstResponder];
     self.homecollectview.delegate = self;
     self.homecollectview.dataSource = self;
@@ -79,12 +79,12 @@
         [self requestDataMethod:titleArr[self.segmentControl.selectedSegmentIndex]];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
-//    // 头部的刷新
-//    self.homecollectview.header = [MJRefreshHeader headerWithRefreshingBlock:^{
-//        NSArray *titleArr = @[@"featured",@"latest",@"popular"];
-//        [self requestDataMethod:titleArr[self.segmentControl.selectedSegmentIndex]];
-//    }];
-
+    //    // 头部的刷新
+    //    self.homecollectview.header = [MJRefreshHeader headerWithRefreshingBlock:^{
+    //        NSArray *titleArr = @[@"featured",@"latest",@"popular"];
+    //        [self requestDataMethod:titleArr[self.segmentControl.selectedSegmentIndex]];
+    //    }];
+    
     //注册通知
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"tongzhi" object:nil];
@@ -96,7 +96,7 @@
     TalkLog(@"接受匹配信息 -- %@",dic);
     TalkLog(@"%@",dic.userInfo);
     dataArray = (NSMutableArray *)dic.userInfo;
-   
+    
     [self.homecollectview reloadData];
     
 }
@@ -123,7 +123,7 @@
     cell.nickNameLb.text = [NSString stringWithFormat:@"Nick：%@",dataArray[indexPath.item][@"username"]];
     cell.dianzanLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"praise"]];
     cell.pingfenLb.text = @"0.0";
-
+    
     return cell;
     
 }
@@ -182,8 +182,8 @@
     NSData *usData = [userD objectForKey:@"ccUID"];
     NSString *idU = [[NSString alloc]initWithData:usData encoding:NSUTF8StringEncoding];
     
-   // NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-//    NSString *userId = [ud objectForKey:kLogin_user_information];
+    // NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    //    NSString *userId = [ud objectForKey:kLogin_user_information];
     NSDictionary *parmeDic = @{@"cmd":@"15",@"user_id":self.dataDic[@"uid"],@"praise_id":idU};
     TalkLog(@"点赞的 --- %@",parmeDic);
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
@@ -212,14 +212,14 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
-
+    
     
     
 }
 - (void)pingfenBtn:(id)sender
 {
     TalkLog(@"没有接口");
-
+    
 }
 - (void)cancelBtn:(id)sender
 {
@@ -237,7 +237,7 @@
 }
 - (void)sureBtn:(id)sender
 {
-//    UIButton *btn = (UIButton *)sender;
+    //    UIButton *btn = (UIButton *)sender;
     
     self.seletedCount ++;
     if (self.seletedCount % 2 == 1) {
@@ -246,7 +246,7 @@
         // 优惠券和支付价格选择
         [self.youhuiquanBtn addTarget:self action:@selector(youhuiquanBtn:) forControlEvents:(UIControlEventTouchUpInside)];
         [self.priceBtn addTarget:self action:@selector(priceBtn:) forControlEvents:(UIControlEventTouchUpInside)];
-
+        
     }
     if (self.seletedCount % 2 == 0) {
         //进入支付页面
@@ -254,24 +254,24 @@
         self.zhedangbanview.hidden = YES;
         TalkLog(@"聊天界面UID -- %@",userid);
         [YGPayByAliTool payByAliWithSubjects:ALI_PAY_SUBJECT body:nil price:0.01 orderId:@"10001" partner:ALI_PARTNER_ID seller:ALI_SELLER_ID privateKey:ALI_PRIVATE_KEY success:^(NSDictionary *info) {
-                                         // 手机没有安装支付宝自动调用网页版
-                                         // 支付完成后调用  打印查看是否支付成功
-                                         NSLog(@"info = %@",info);
-                                         
-                                     }];
+            // 手机没有安装支付宝自动调用网页版
+            // 支付完成后调用  打印查看是否支付成功
+            NSLog(@"info = %@",info);
+            
+        }];
         
-
-//        [EaseMobSDK createOneChatViewWithConversationChatter:userid onNavigationController:self.navigationController];
         
-//        
-//        NSData *dataUid = [userid dataUsingEncoding:NSUTF8StringEncoding];
-//        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-//        [user setObject:dataUid forKey:@"ForeignerID"];
-//        
-//        NSDate *payDate = [NSDate date];
-//        [user setObject:payDate forKey:@"payTime"];
-//        
-//        TalkLog(@"外教ID -- %@",user);
+        //        [EaseMobSDK createOneChatViewWithConversationChatter:userid onNavigationController:self.navigationController];
+        
+        //
+        //        NSData *dataUid = [userid dataUsingEncoding:NSUTF8StringEncoding];
+        //        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+        //        [user setObject:dataUid forKey:@"ForeignerID"];
+        //
+        //        NSDate *payDate = [NSDate date];
+        //        [user setObject:payDate forKey:@"payTime"];
+        //
+        //        TalkLog(@"外教ID -- %@",user);
         
         
         AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
@@ -294,7 +294,7 @@
             [user setObject:payDate forKey:@"payTime"];
             NSDictionary *dic = [solveJsonData changeType:responseObject];
             NSLog(@"%@",dic);
-
+            
             // 修改
             if ([[dic objectForKey:@"code" ] isEqualToString:@"2"]) {
                 
@@ -323,7 +323,7 @@
                 }];
                 NSLog(@"Skip payment");
                 [EaseMobSDK createOneChatViewWithConversationChatter:userid Name:self.nameLb.text onNavigationController:self.navigationController];
-
+                
                 
                 
             }
@@ -331,11 +331,11 @@
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             
-        }];        
+        }];
         
     }
     
-
+    
 }
 
 - (void)charge{
@@ -363,7 +363,7 @@
             
             // 充值成功
             NSLog(@"充值成功");
-//            [self getData];
+            //            [self getData];
             [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"chatDuration"];
             
         }
@@ -408,17 +408,25 @@
     if (self.bar == nil) {
         [self.navigationController setNavigationBarHidden:YES];
         
-        self.bar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height / 6)];
-        UIImage * img= [UIImage imageNamed:@"discover_top_bg.png"];
+        self.bar = [[UINavigationBar alloc]initWithFrame:kCGRectMake(0, 0, self.view.frame.size.width, 129 / 2)];
+        UIImage * img= [UIImage imageNamed:@"nav_bg.png"];
         img = [img stretchableImageWithLeftCapWidth:1 topCapHeight:1];
         
         [_bar setBackgroundImage:img forBarMetrics:(UIBarMetricsDefault)];
         UILabel *label = [[UILabel alloc]init];
-        label.frame = CGRectMake(self.view.frame.size.width/2.4, _bar.frame.size.height / 4.4, 80, 30) ;
+        label.frame = kCGRectMake(self.view.frame.size.width/2.4, 30, 80, 30) ;
         label.text = AppDiscover;
         label.textAlignment = NSTextAlignmentCenter;
         label.textColor = [UIColor whiteColor];
         label.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:17.0];
+        
+        //UILabel *title = [[UILabel alloc] initWithFrame:kCGRectMake(0, 129/4, 100, 44)];
+        //title.text = AppDiscover;
+        //title.textAlignment = NSTextAlignmentCenter;
+        //title.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
+        //title.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:17.0];
+        //self.navigationItem.titleView = title;
+        
         [_bar addSubview:label];
         [self.view addSubview:_bar];
     }
@@ -442,31 +450,31 @@
     [self.view addSubview:_featuredView.view];
     
     /*self.latestView = [[LatestViewController alloc]init];
-    _latestView.view.frame = CGRectMake(0, self.view.frame.size.height /6 +44, self.view.frame.size.width, self.view.frame.size.height);
-    
-    [self.view addSubview:_latestView.view];
-    
-    self.popularView = [[PopularViewController alloc]init];
-    _popularView.view.frame = CGRectMake(0, self.view.frame.size.height/6 +44, self.view.frame.size.width, self.view.frame.size.height);
-    
-    [self.view addSubview:_popularView.view];*/
+     _latestView.view.frame = CGRectMake(0, self.view.frame.size.height /6 +44, self.view.frame.size.width, self.view.frame.size.height);
+     
+     [self.view addSubview:_latestView.view];
+     
+     self.popularView = [[PopularViewController alloc]init];
+     _popularView.view.frame = CGRectMake(0, self.view.frame.size.height/6 +44, self.view.frame.size.width, self.view.frame.size.height);
+     
+     [self.view addSubview:_popularView.view];*/
 }
 
 -(void)searchBarView
 {
-    UISearchBar *searchbar = [[UISearchBar alloc]initWithFrame:kCGRectMake(0, 667/6, 375, 44)];
+    UISearchBar *searchbar = [[UISearchBar alloc]initWithFrame:kCGRectMake(0, 129/2, 375, 44)];
     UITextField *searchField = [searchbar valueForKey:@"_searchField"];
     searchField.textColor = [UIColor colorWithRed:125/255.0 green:194/255.0 blue:232/255.0 alpha:0.5f];
     [searchField setValue:[UIColor colorWithRed:125/255.0 green:194/255.0 blue:232/255.0 alpha:0.5f] forKeyPath:@"_placeholderLabel.textColor"];
     searchbar.delegate = self;
     searchbar.placeholder = AppSearch;
-
+    
     self.searchBar.delegate = self;
     self.searchBar = searchbar;
     [self.view addSubview:searchbar];
     
-//    [self.searchBar setSearchFieldBackgroundImage:
-//     [UIImage imageNamed:@"search_icon.png"]forState:UIControlStateNormal];
+    //    [self.searchBar setSearchFieldBackgroundImage:
+    //     [UIImage imageNamed:@"search_icon.png"]forState:UIControlStateNormal];
     self.searchController = [[UISearchDisplayController alloc]initWithSearchBar:searchbar contentsController:self];
     self.searchController.searchResultsTableView.tableFooterView = [[UIView alloc]init];
     _searchController.searchResultsDataSource =self;
@@ -476,7 +484,7 @@
 }
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-//    searchBar.hidden = YES;
+    //    searchBar.hidden = YES;
 }
 
 -(void)segmentAction:(UISegmentedControl *)segment
@@ -490,14 +498,14 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self.homecollectview reloadData];
-        self.navigationController.navigationBar.translucent = YES;
-        self.navigationController.navigationBar.hidden = YES;
-//    self.tabBarController.tabBar.translucent = YES;
-//    self.tabBarController.tabBar.hidden = YES;
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.hidden = YES;
+    //    self.tabBarController.tabBar.translucent = YES;
+    //    self.tabBarController.tabBar.hidden = YES;
     [self initNavigationBar];
     
-    [self segment];
-    
+    //[self segment];
+
     if (self.searchBar == nil) {
         [self searchBarView];
     }
@@ -507,10 +515,10 @@
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
-        self.navigationController.navigationBar.translucent = NO;
-        self.navigationController.navigationBarHidden = NO;
-//    self.tabBarController.tabBar.translucent = NO;
-//    self.tabBarController.tabBar.hidden = NO;
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBarHidden = NO;
+    //    self.tabBarController.tabBar.translucent = NO;
+    //    self.tabBarController.tabBar.hidden = NO;
 }
 
 #define mark ------ UISearchDisplayController的布局
@@ -568,10 +576,10 @@
     //确定进入下一步+
     [self.sureBtn addTarget:self action:@selector(sureBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.cancelBtn addTarget:self action:@selector(cancelBtn:) forControlEvents:(UIControlEventTouchUpInside)];
-
+    
     tableView.hidden = YES;
     
-    self.searchBar.frame = kCGRectMake(0, 667 / 6, 375, 44);
+    self.searchBar.frame = kCGRectMake(0, 129 / 2, 375, 44);
     _featuredView.view.frame = kCGRectMake(0, 667 / 6 + 44, 375, 667 - 667 / 6 + 44);
     //_latestView.view.frame = kCGRectMake(0, 667 / 6 + 44, 375, 667 - 667 / 6 + 44);
     //_popularView.view.frame = kCGRectMake(0, 667 / 6 + 44, 375, 667 - 667 / 6 + 44);
@@ -582,7 +590,7 @@
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
-    self.searchBar.frame = kCGRectMake(0, 667 / 6, 375, 44);
+    self.searchBar.frame = kCGRectMake(0, 129 / 2, 375, 44);
     _featuredView.view.frame = kCGRectMake(0, 70, 375, 667 - 70);
     //_latestView.view.frame = kCGRectMake(0, 70, 375, 667 - 70);
     //_popularView.view.frame = kCGRectMake(0, 70, 375, 667 - 70);
@@ -592,11 +600,11 @@
 }
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
-    self.searchBar.frame = kCGRectMake(0, 667 / 6, 375, 44);
-    _featuredView.view.frame = kCGRectMake(0, 667 / 6 + 44, 375, 667 - 667 / 6 + 44);
+    self.searchBar.frame = kCGRectMake(0, 129 / 2, 375, 44);
+    _featuredView.view.frame = kCGRectMake(0, 129 / 2 + 44, 375, 667 - 129 / 2 + 44);
     //_latestView.view.frame = kCGRectMake(0, 667 / 6 + 44, 375, 667 - 667 / 6 + 44);
     //_popularView.view.frame = kCGRectMake(0, 667 / 6 + 44, 375, 667 - 667 / 6 + 44);
-    self.searchBar.alpha = 0.5f;
+    self.searchBar.alpha = 1.0f;
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
@@ -623,9 +631,9 @@
     TalkLog(@"搜索库 ＝＝ %@",searChArr);
     TalkLog(@"搜索的数据 ＝＝ %@",strSearch);
     
-   
+    
     [self.searchController.searchResultsTableView reloadData];
-
+    
 }
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
@@ -650,7 +658,7 @@
     }
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-
+    
     [session POST:PATH_GET_LOGIN parameters:parmesDic1 progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -730,18 +738,18 @@
     self.priceBtn.hidden = noBool;
     self.couponsLb.hidden = noBool;
     self.rmbLb.hidden = noBool;
-
+    
 }
 
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

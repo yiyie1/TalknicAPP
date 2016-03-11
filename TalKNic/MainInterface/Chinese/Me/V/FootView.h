@@ -2,7 +2,7 @@
 //  FootView.h
 //  TalKNic
 //
-//  Created by ldy on 15/12/4.
+//  Created by Talknic on 15/12/4.
 //  Copyright © 2015年 TalKNic. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  Information3ViewController.m
 //  TalkNic
 //
-//  Created by ldy on 15/11/2.
+//  Created by Talknic on 15/11/2.
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
 
@@ -115,7 +115,7 @@
             [parames setObject:arr[i] forKey:[NSString stringWithFormat:@"%@",arr[i]]];
         }
     }
-    TalkLog(@"选中的btn -- %@",parames);
+    TalkLog(@"Selected btn -- %@",parames);
     if(parames.count == 0)
     {
         [MBProgressHUD showError:kAlertTopic];
@@ -137,7 +137,7 @@
     [session POST:PATH_GET_LOGIN parameters:parame progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        TalkLog(@"上传成功 -- %@",responseObject);
+        TalkLog(@"Upload data succeeds -- %@",responseObject);
         ScrollViewController *scroll = [[ScrollViewController alloc]init];
         scroll.uid = user;
         [self.navigationController pushViewController:scroll animated:NO];

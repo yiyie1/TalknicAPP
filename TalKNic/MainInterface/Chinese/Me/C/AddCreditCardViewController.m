@@ -2,7 +2,7 @@
 //  AddCreditCardViewController.m
 //  TalKNic
 //
-//  Created by 罗大勇 on 16/1/25.
+//  Created by Talknic on 16/1/25.
 //  Copyright © 2016年 TalKNik. All rights reserved.
 //
 
@@ -161,10 +161,12 @@
         
     }];
 }
+
 -(void)popAction
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [_holdername resignFirstResponder];

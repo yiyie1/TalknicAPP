@@ -2,7 +2,7 @@
 //  TalkTabBarViewController.m
 //  TalkNic
 //
-//  Created by ldy on 15/10/22.
+//  Created by Talknic on 15/10/22.
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
 
@@ -20,6 +20,10 @@
 #import "Header.h"
 #import "MeViewController.h"
 #import "MBProgressHUD+MJ.h"
+#import "FeedsViewController.h"
+#import "ForeignerVoiceViewController.h"
+#import "ForeignerDailyTopicViewController.h"
+#import "ForeignerMeViewController.h"
 
 
 @interface TalkTabBarViewController ()<TalkTabBarDelegate>
@@ -32,6 +36,7 @@
 @property(nonatomic,assign)NSInteger choseNum1;// 选择第几个
 @property(nonatomic,assign)NSInteger choseNum2;
 @property(nonatomic,strong)NSMutableArray *dataArray;
+
 @end
 
 @implementation TalkTabBarViewController
@@ -42,33 +47,62 @@
     self.choseNum1 = -1;
     self.choseNum2 = -1;
     
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString* role = [ud objectForKey:kChooese_ChineseOrForeigner];
+
+    if([role isEqualToString:@"Chinese"])
+    {
+        self.identity = CHINESEUSER;
+        // 1.初始化子控制器
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
+        HomeViewController *home = [storyboard instantiateViewControllerWithIdentifier:@"homeViewController"];
+        [self addChildVc:home title:AppHome image:kHOMEImage selectedImage:KHOMeSelected];
     
-    // 1.初始化子控制器
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
-    HomeViewController *home = [storyboard instantiateViewControllerWithIdentifier:@"homeViewController"];
-    [self addChildVc:home title:AppHome image:kHOMEImage selectedImage:KHOMeSelected];
+        VoiceViewController *voice = [[VoiceViewController alloc] init];
+        [self addChildVc:voice title:AppVoice image:kVoiceImage selectedImage:kVoiceSelected];
     
-    VoiceViewController *voice = [[VoiceViewController alloc] init];
-    [self addChildVc:voice title:AppVoice image:kVoiceImage selectedImage:kVoiceSelected];
+        FeedsViewController *feeds = [[FeedsViewController alloc] init];
+        [self addChildVc:feeds title:AppFeeds image:kFeeds selectedImage:kFeedsSelected];
     
-    FeedsViewController *feeds = [[FeedsViewController alloc] init];
-    [self addChildVc:feeds title:AppFeeds image:kFeeds selectedImage:kFeedsSelected];
-    
-    //    MeViewController *me = [[MeViewController alloc] init];
-    UIStoryboard *storyboard1 = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];        MeViewController *me = [storyboard1 instantiateViewControllerWithIdentifier:@"meVC"];
-    [self addChildVc:me title:AppMe image:kMEImage selectedImage:kMEImageSelected];
-    me.uid = _ud;
-    TalkLog(@"tabbar的UID -- %@",_ud);
-    // 2.更换系统自带的tabbar
-    //    self.tabBar = [[HWTabBar alloc] init];
-    TalkTabBar *tabBar = [[TalkTabBar alloc] init];
-    tabBar.delegate = self;
-    [self setValue:tabBar forKeyPath:@"tabBar"];
-    
-    
+        //    MeViewController *me = [[MeViewController alloc] init];
+        UIStoryboard *storyboard1 = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
+        MeViewController *me = [storyboard1 instantiateViewControllerWithIdentifier:@"meVC"];
+        [self addChildVc:me title:AppMe image:kMEImage selectedImage:kMEImageSelected];
+        me.uid = _uid;
+        
+        // 2.更换系统自带的tabbar
+        //    self.tabBar = [[HWTabBar alloc] init];
+        TalkTabBar *tabBar = [[TalkTabBar alloc] init];
+        tabBar.delegate = self;
+        [self setValue:tabBar forKeyPath:@"tabBar"];
+    }
+    else
+    {
+        self.identity = FOREINERUSER;
+        FeedsViewController *feeds = [[FeedsViewController alloc] init];
+        [self addChildVc:feeds title:AppFeeds image:kFeeds selectedImage:kFeedsSelected];
+        
+        ForeignerVoiceViewController *voice = [[ForeignerVoiceViewController alloc] init];
+        [self addChildVc:voice title:AppVoice image:kVoiceImage selectedImage:kVoiceSelected];
+        
+        ForeignerDailyTopicViewController *dailyVC = [[ForeignerDailyTopicViewController alloc]init];
+        [self addChildVc:dailyVC title:AppVoice image:kDailyTopicImage selectedImage:kDailyTopicSelected];
+        
+        //    ForeignerMeViewController *meVC = [[ForeignerMeViewController alloc]init];
+        //    meVC.title = @"Me";
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
+        ForeignerMeViewController *me = [storyboard instantiateViewControllerWithIdentifier:@"fmeVC"];
+        [self addChildVc:me title:AppMe image:kMEImage selectedImage:kMEImageSelected];
+        me.uid = _uid;
+
+    }
+    self.selectedIndex = 0;
 }
+
 -(void)viewDidAppear:(BOOL)animated
 {
+    if([self.identity isEqualToString: FOREINERUSER])
+        return;
     CGRect rect = kCGRectMake(0, 0, 375, 667);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -83,8 +117,6 @@
     img2 = [img2 stretchableImageWithLeftCapWidth:1 topCapHeight:1];
     [self.tabBar setBackgroundImage:img2];
     
-    
-    
     UIImageView *imageView = [[UIImageView alloc]init];
     imageView.frame = CGRectMake(0, 0, self.view.frame.size.width, 1);
     imageView.image = [UIImage imageNamed:@"discover_split_line_blue_foot.png"];
@@ -97,7 +129,6 @@
     childVc.title = title;
     // 设置子控制器的图片
     childVc.tabBarItem.image = [[UIImage imageNamed:image]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    //    childVc.tabBarItem.image = [UIImage imageNamed:image];
     childVc.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImage]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     // 设置文字的样式
@@ -108,7 +139,6 @@
     
     [childVc.tabBarItem setTitleTextAttributes:textAttrs forState:UIControlStateNormal];
     [childVc.tabBarItem setTitleTextAttributes:selectTextAttrs forState:UIControlStateSelected];
-    
     
     // 先给外面传进来的小控制器 包装 一个导航控制器
     TalkNavigationController *nav = [[TalkNavigationController alloc] initWithRootViewController:childVc];

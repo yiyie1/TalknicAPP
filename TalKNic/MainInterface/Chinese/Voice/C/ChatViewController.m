@@ -2,7 +2,7 @@
 //  ChatViewController.m
 //  TalKNic
 //
-//  Created by 罗大勇 on 15/12/7.
+//  Created by Talknic on 15/12/7.
 //  Copyright © 2015年 TalkNic. All rights reserved.
 //
 

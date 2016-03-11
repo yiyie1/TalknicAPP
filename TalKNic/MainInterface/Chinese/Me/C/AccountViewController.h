@@ -11,5 +11,5 @@
 @interface AccountViewController : UIViewController
 
 @property (strong,nonatomic) UIButton *leftBT;
-
+@property (nonatomic,strong) UIButton *logoutBT;
 @end

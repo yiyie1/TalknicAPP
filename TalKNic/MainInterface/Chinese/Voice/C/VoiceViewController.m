@@ -2,7 +2,7 @@
 //  VoiceViewController.m
 //  TalkNic
 //
-//  Created by ldy on 15/10/20.
+//  Created by Talknic on 15/10/20.
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
 
@@ -59,16 +59,12 @@
 //    
 //}
 
-
-
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    UILabel *title = [[UILabel alloc] initWithFrame:kCGRectMake(0, 0, 100, 44)];
     
-    title.text = AppVoice;
+    title.text = @"Audio Message";//AppVoice;
     
     title.textAlignment = NSTextAlignmentCenter;
     
@@ -364,8 +360,9 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 88.5;
+    return KHeightScaled(88.5);
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     
