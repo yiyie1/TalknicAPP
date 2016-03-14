@@ -10,7 +10,6 @@
 #import "ForeignerViewController.h"
 #import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
-#import "Header.h"
 #import "solveJsonData.h"
 #import "MeHeadViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
@@ -410,24 +409,24 @@
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
     
     
-    if (HEIGHT == 568) {
+    if (kHeight == 568) {
         
         if (textField == _nationalityTF){
-            self.view.frame = CGRectMake(0, -(textField.frame.origin.y-200), WIDTH, HEIGHT*1.5);
+            self.view.frame = CGRectMake(0, -(textField.frame.origin.y-200), kWidth, kHeight*1.5);
         }else if (textField == _occupationTF){
-            self.view.frame = CGRectMake(0, -(textField.frame.origin.y-200), WIDTH,HEIGHT*1.5);
+            self.view.frame = CGRectMake(0, -(textField.frame.origin.y-200), kWidth,kHeight*1.5);
         }else if (textField == _biographyTF){
-            self.view.frame = CGRectMake(0, -(textField.frame.origin.y-200), WIDTH, HEIGHT*1.5);
+            self.view.frame = CGRectMake(0, -(textField.frame.origin.y-200), kWidth, kHeight*1.5);
             
         }
         
     }else{
         if (textField == _nationalityTF){
-            self.view.frame = CGRectMake(0, -(textField.frame.origin.y-300), WIDTH, HEIGHT*1.5);
+            self.view.frame = CGRectMake(0, -(textField.frame.origin.y-300), kWidth, kHeight*1.5);
         }else if (textField == _occupationTF){
-            self.view.frame = CGRectMake(0, -(textField.frame.origin.y-300), WIDTH,HEIGHT*1.5);
+            self.view.frame = CGRectMake(0, -(textField.frame.origin.y-300), kWidth,kHeight*1.5);
         }else if (textField == _biographyTF){
-            self.view.frame = CGRectMake(0, -(textField.frame.origin.y-300), WIDTH, HEIGHT*1.5);
+            self.view.frame = CGRectMake(0, -(textField.frame.origin.y-300), kWidth, kHeight*1.5);
             
         }
         
@@ -435,13 +434,13 @@
     
 }
 -(void)textFieldDidEndEditing:(UITextField *)textField{
-    self.view.frame = CGRectMake(0, 0, WIDTH, HEIGHT);
+    self.view.frame = CGRectMake(0, 0, kWidth, kHeight);
     
 }
 -(void)initFeedText{
     
     //在弹出的键盘上面加一个view来放置退出键盘的Done按钮
-    UIToolbar * topView = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 40)];
+    UIToolbar * topView = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, kWidth, 40)];
     [topView setBarStyle:UIBarStyleDefault];
     UIBarButtonItem * btnSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     UIBarButtonItem * doneButton = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(dismissKeyBoard)];
@@ -457,7 +456,7 @@
 }
 -(void)dismissKeyBoard{
     
-    self.view.frame=CGRectMake(0, 0, WIDTH, HEIGHT);
+    self.view.frame=CGRectMake(0, 0, kWidth, kHeight);
     
     [_usernameTf resignFirstResponder];
     [_nationalityTF resignFirstResponder];

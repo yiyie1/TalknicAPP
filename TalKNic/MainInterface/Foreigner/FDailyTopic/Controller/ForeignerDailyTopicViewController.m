@@ -21,7 +21,7 @@
 }
 
 @property (nonatomic,strong)UIButton *editorBtn;
-@property (nonatomic,strong)UIButton *rightBtn;
+@property (nonatomic,strong)UIBarButtonItem *rightBtn;//UIButton *rightBtn;
 
 @property (nonatomic,strong)NSMutableArray *clickArr;
 @property (nonatomic)BOOL isEditing;
@@ -37,13 +37,13 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    [_datePicker removeFromSuperview];
-    for (int i = 0 ; i< 8; i++) {
-        UIButton *btn = (UIButton *)[self.view viewWithTag:(100+i)];
-        [btn removeFromSuperview];
-    }
-    [self layoutEightBtn];
-    [self layoutDate];
+    //[_datePicker removeFromSuperview];
+    //for (int i = 0 ; i< 8; i++) {
+    //    UIButton *btn = (UIButton *)[self.view viewWithTag:(100+i)];
+    //    [btn removeFromSuperview];
+    //}
+    //[self layoutEightBtn];
+    //[self layoutDate];
 }
 
 - (void)viewDidLoad {
@@ -60,14 +60,16 @@
     
     self.navigationItem.titleView = title;
     
+    NSArray *arr = FOREIGNER_TOPIC;
+    self.nameArr = (NSMutableArray *)arr;
     
     [self layouBTN];
     
     [self layouView];
     
-//    [self layoutEightBtn];
+    [self layoutEightBtn];
 //    
-//    [self layoutDate];
+    [self layoutDate];
     
     [self layoutTextviewAndBackgroup];
     
@@ -106,9 +108,9 @@
     [_editorBtn addTarget:self action:@selector(leftAction:) forControlEvents:(UIControlEventTouchUpInside)];
     UIBarButtonItem *leftI = [[UIBarButtonItem alloc]initWithCustomView:_editorBtn];
     self.navigationItem.leftBarButtonItem = leftI;
-    UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightAction:)];
-    right.tintColor = [UIColor whiteColor];
-    self.navigationItem.rightBarButtonItem = right;
+    self.rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightAction:)];
+    _rightBtn.tintColor = [UIColor whiteColor];
+    self.navigationItem.rightBarButtonItem = _rightBtn;
 }
 -(void)layouView
 {
@@ -221,13 +223,9 @@
 
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
-
 {
-    
-    return kHeight / 667 * 40;
-    
+    return KHeightScaled(40);
 }
-
 
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
@@ -251,20 +249,19 @@
 }
 -(void)layoutEightBtn
 {
-    _clickArr = nil;
-    _nameArr = nil;
+    //_clickArr = nil;
+    //_nameArr = nil;
     if (!self.clickArr) {
         self.clickArr = [NSMutableArray array];
     }
     if (!self.nameArr) {
         self.nameArr = [NSMutableArray array];
     }
-    NSArray *arr = @[@"travel",@"sports",@"design",@"cook",@"film",@"tech",@"arts",@"book"];
-    self.nameArr = (NSMutableArray *)arr;
-    for (int i = 0 ; i< arr.count; i++) {
+
+    for (int i = 0 ; i< _nameArr.count; i++) {
         UIButton *btn1 = [[UIButton alloc]initWithFrame:kCGRectMake(15 + 90 * (i % 4), 110 + 90 * (i / 4), 151/2, 151/2)];
         btn1.tag = 100 + i;
-        [btn1 setTitle:arr[i]forState:UIControlStateNormal];
+        [btn1 setTitle:_nameArr[i]forState:UIControlStateNormal];
         btn1.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0];
         NSString *a = @"0";
         [self.clickArr addObject:a];
@@ -294,12 +291,6 @@
 
 -(void)leftAction:(id)sender
 {
-//    for (NSString *str in _clickArr) {
-//        if ([str isEqualToString:@"1"]) {
-//            return;
-//        }
-//    }
-    
     self.isEditing = !self.isEditing;
     
     if (self.isEditing) {
@@ -307,11 +298,15 @@
         self.editorBtn.frame = kCGRectMake(0, 10, 7, 23/2);
         [_editorBtn setBackgroundImage:[UIImage imageNamed:@"nav_back.png"] forState:(UIControlStateNormal)];
         
+        self.rightBtn.enabled = NO;
+        
     }else
     {
         self.backView.hidden = YES;
         self.editorBtn.frame = kCGRectMake(0, 0, 41/2, 41/2);
         [_editorBtn setBackgroundImage:[UIImage imageNamed:@"topic_write_icon.png"] forState:(UIControlStateNormal)];
+        
+        self.rightBtn.enabled = YES;
         
     }
     
@@ -320,59 +315,55 @@
 {
     int count = 0;
     
-    if (self.isEditing) {
+    /*if (self.isEditing) {
         self.backView.hidden = YES;
         self.isEditing = NO;
-        
-        NSArray *arr = @[@"travel",@"sports",@"design",@"cook",@"film",@"tech",@"arts",@"book"];
-        NSMutableDictionary *parames = [NSMutableDictionary dictionary];
-        for (int i = 0; i < self.clickArr.count; i ++) {
+
+        for (int i = 0; i < self.clickArr.count; i ++)
+        {
             // 被选中的Btn 下标i
-            if ([self.clickArr[i] isEqualToString:@"1"]) {
-                [parames setObject:arr[i] forKey:[NSString stringWithFormat:@"%@",arr[i]]];
+            if ([self.clickArr[i] isEqualToString:@"1"])
+            {
+                [self.chooseBtnArr addObject:_nameArr[i]];
             }
         }
-        if (self.textview.text.length > 108) {
+        if (self.textview.text.length > 108)
+        {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:kAlertPrompt message:kAlert108 delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil, nil];
             [alert show];
             return;
         }
-        
-        UIStoryboard *story = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
-        DailyTopicViewController *detailvc = [story instantiateViewControllerWithIdentifier:@"topic"];
-        detailvc.editingStr = self.textview.text;
-        detailvc.time = _newstr;
-        [self.navigationController pushViewController:detailvc animated:YES];
-        
-    }else
-    {
-        // 没有选择任何一个btn
-       
-
+    }
+    else*/
+    //{
         for (NSString *str in _clickArr) {
             if ([str isEqualToString:@"1"]) {
                 count ++;
             }
         }
-        if (count == 0) {
-            
-        }else
+        if (count == 0 && self.textview.text.length == 0)
         {
-            for (int i = 0; i < _clickArr.count; i ++) {
-                if ([_clickArr[i] isEqualToString:@"1"]) {
+            [MBProgressHUD showError:kAlertTopic];
+            return;
+        }
+        else
+        {
+            for (int i = 0; i < _clickArr.count; i ++)
+            {
+                if ([_clickArr[i] isEqualToString:@"1"])
+                {
                     [self.chooseBtnArr addObject:_nameArr[i]];
                 }
             }
-                        UIStoryboard *story = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
-            DailyTopicViewController *detailvc = [story instantiateViewControllerWithIdentifier:@"topic"];
-            detailvc.chooeseBtnArr = self.chooseBtnArr;
-            detailvc.time = _newstr;
-            [self.navigationController pushViewController:detailvc animated:YES];
         }
-        
-    }
+    //}
     
-    
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
+    DailyTopicViewController *detailvc = [story instantiateViewControllerWithIdentifier:@"topic"];
+    detailvc.chooeseBtnArr = self.chooseBtnArr;
+    detailvc.editingStr = self.textview.text;
+    detailvc.time = _newstr;
+    [self.navigationController pushViewController:detailvc animated:YES];
     
 }
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

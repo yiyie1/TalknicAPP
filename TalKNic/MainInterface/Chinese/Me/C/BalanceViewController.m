@@ -12,12 +12,11 @@
 #import "BalanceTableViewCell.h"
 #import "Balance2ViewController.h"
 #import "CreditCardViewController.h"
-#import "Header.h"
 #import "YGPayByAliTool.h"
 #import "SDCycleScrollView.h"
 #import "solveJsonData.h"
 #import "AFNetworking.h"
-
+#import "CouponViewController.h"
 
 
 @interface BalanceViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate>
@@ -183,94 +182,105 @@
     cell.textLabel.font = [UIFont fontWithName:kHelveticaLight size:14.0];
     cell.textLabel.textColor = [UIColor colorWithRed:85/255.0 green:85/255.0 blue:85/255.0 alpha:1.0];
     
-    if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
+    if (indexPath.section == 0)
+    {
+        if (indexPath.row == 0)
+        {
             BalanceTableViewCell *cell1 = [[BalanceTableViewCell alloc] initWithFrame:kCGRectMake(0, 0, 375, 231 / 2)];
             cell1.label.text = [NSString stringWithFormat:@"￥%@",self.sources[0]];
             return cell1;
-        }else if (indexPath.row == 1) {
+        }
+        else if (indexPath.row == 1)
+        {
 //            cell.detailTextLabel.text = @"￥0.00";
             cell.detailTextLabel.text = [NSString stringWithFormat:@"￥%@",self.sources[1]];
-
             cell.detailTextLabel.textColor = [UIColor blueColor];
-            
-        }else if (indexPath.row == 2) {
-//            cell.detailTextLabel.text = @"￥0.00";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"￥%@",self.sources[2]];
-
-            cell.detailTextLabel.textColor = [UIColor blueColor];
-            
-            
-        }else{
-//            cell.detailTextLabel.text = @"￥203";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",self.sources[3]];
-
-            cell.detailTextLabel.textColor = [UIColor blueColor];
-            
             
         }
-    }else if (indexPath.section == 1)
+        else if (indexPath.row == 2)
+        {
+//            cell.detailTextLabel.text = @"￥0.00";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"￥%@",self.sources[2]];
+            cell.detailTextLabel.textColor = [UIColor blueColor];
+
+        }
+        else
+        {
+//            cell.detailTextLabel.text = @"￥203";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",self.sources[3]];
+            cell.detailTextLabel.textColor = [UIColor blueColor];
+        }
+    }
+    else if (indexPath.section == 1)
     {
-        if (indexPath.row == 0) {
+        if (indexPath.row == 0)
+        {
             
             cell.imageView.image = [UIImage imageNamed:@"me_alipay_icon.png"];
             cell.backgroundColor = [UIColor groupTableViewBackgroundColor];
-        }else if (indexPath.row == 1) {
+        }
+        else if (indexPath.row == 1)
+        {
             cell.imageView.image = [UIImage imageNamed:@"me_card_icon.png"];
             cell.backgroundColor = [UIColor groupTableViewBackgroundColor];
             
-        }else
+        }
+        else
         {
             cell.imageView.image = [UIImage imageNamed:@"me_promotion_icon.png"];
             cell.backgroundColor = [UIColor groupTableViewBackgroundColor];
             
         }
     }
-    
-    
     return cell;
-    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0 && indexPath.row == 0)
+    if (indexPath.section == 0)
     {
-        self.hidesBottomBarWhenPushed=YES;
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
-        Balance2ViewController *baVC = [storyboard instantiateViewControllerWithIdentifier:@"balance2ViewController"];
-        //        [self.navigationController presentViewController:baVC animated:YES completion:nil];
-        [self.navigationController pushViewController:baVC animated:YES];
-        self.hidesBottomBarWhenPushed=NO;
+        if(indexPath.row == 0)
+        {
+            self.hidesBottomBarWhenPushed=YES;
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
+            Balance2ViewController *baVC = [storyboard instantiateViewControllerWithIdentifier:@"balance2ViewController"];
+            //        [self.navigationController presentViewController:baVC animated:YES completion:nil];
+            [self.navigationController pushViewController:baVC animated:YES];
+            self.hidesBottomBarWhenPushed=NO;
+        }
     }
     
 #warning 支付修改开始 10.1
-    if (indexPath.section == 1 && indexPath.row == 0){
+    else if (indexPath.section == 1)
+    {
+        if(indexPath.row == 0)
+        {
+            NSString *orderId = [self generateTradeNO];
         
-        NSString *orderId = [self generateTradeNO];
-        
-        [YGPayByAliTool payByAliWithSubjects:ALI_PAY_SUBJECT body:nil price:0.01 orderId:orderId partner:ALI_PARTNER_ID seller:ALI_SELLER_ID privateKey:ALI_PRIVATE_KEY success:^(NSDictionary *info) {
-            NSLog(@"网页版 = %@",info);
-            NSString *result = info[@"result"];
-            NSLog(@"-----------heheh");
+            [YGPayByAliTool payByAliWithSubjects:ALI_PAY_SUBJECT body:nil price:0.01 orderId:orderId partner:ALI_PARTNER_ID seller:ALI_SELLER_ID privateKey:ALI_PRIVATE_KEY success:^(NSDictionary *info) {
+                NSString *result = info[@"result"];
 
-            if (result.length) {
-                
+                if (result.length)
+                {
 //                [self charge];
-                
-//                NSLog(@"-----------heheh");
-                
-                
-            }
-            
-        }];
-        
-        [self charge];
+                }
+            }];
+        //[self charge];
+        }
+        else if(indexPath.row == 1)
+        {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
+            CreditCardViewController *creditVC = [storyboard instantiateViewControllerWithIdentifier:@"creditCard"];
+            //creditVC.uid = _uid;
+            [self.navigationController pushViewController:creditVC animated:YES];
 
-        
+        }
+        else if(indexPath.row == 2)
+        {
+            CouponViewController *couponVC = [[CouponViewController alloc]init];
+            [self.navigationController pushViewController:couponVC animated:YES];
+        }
     }
-    
-
 }
 
 - (void)charge{

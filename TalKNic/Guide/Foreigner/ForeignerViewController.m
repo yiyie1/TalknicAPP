@@ -9,7 +9,6 @@
 #import "ForeignerViewController.h"
 #import "Foreigner2ViewController.h"
 #import "AFNetworking.h"
-#import "Header.h"
 #import "MBProgressHUD+MJ.h"
 #import "solveJsonData.h"
 @interface ForeignerViewController ()
@@ -43,7 +42,7 @@
 -(void)labeltitleView
 {
     self.labelTitle = [[UILabel alloc]init];
-    _labelTitle.frame = CGRectMake(15, 84, WIDTH-30, 20);
+    _labelTitle.frame = CGRectMake(15, 84, kWidth-30, 20);
     _labelTitle.text = @"First time for your topic choosing:";
     _labelTitle.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0];
     _labelTitle.numberOfLines =0;
@@ -51,7 +50,7 @@
     [self.view addSubview:_labelTitle];
     
     self.labelTitle2 = [[UILabel alloc]init];
-    _labelTitle2.frame =CGRectMake(15, 104, WIDTH-30, 15);
+    _labelTitle2.frame =CGRectMake(15, 104, kWidth-30, 15);
     _labelTitle2.text =@"(maximum 3 chosen)";
     _labelTitle2.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10.0];
     _labelTitle2.textAlignment = NSTextAlignmentCenter;
@@ -78,10 +77,10 @@
         
         
     }
-    NSArray *arr = @[@"travel",@"film",@"sports",@"tech",@"design",@"arts",@"cooking",@"book"];
+    NSArray *arr = FOREIGNER_TOPIC;
     
-    for (int i = 0; i < 8 ;i ++) {
-        UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(30 + ((WIDTH-90)/2+30 )* (i % 2), 135 + 70 * (i / 2), (WIDTH-90)/2, 55)];
+    for (int i = 0; i < arr.count ;i ++) {
+        UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(30 + ((kWidth-90)/2+30 )* (i % 2), 135 + 70 * (i / 2), (kWidth-90)/2, 55)];
         btn1.tag = 100 + i;
         [btn1 setTitle:arr[i]forState:UIControlStateNormal];
         btn1.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0];
@@ -114,7 +113,7 @@
 
 -(void)rightAction
 {
-    NSArray *arr = @[@"travel",@"film",@"sports",@"tech",@"design",@"arts",@"cooking",@"book"];
+    NSArray *arr = FOREIGNER_TOPIC;
     NSMutableDictionary *parames = [NSMutableDictionary dictionary];
     for (int i = 0; i < self.clickArr.count; i ++) {
         // 被选中的Btn 下标i

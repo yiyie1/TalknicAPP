@@ -10,7 +10,6 @@
 #import "Information3ViewController.h"
 #import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
-#import "Header.h"
 #import "solveJsonData.h"
 @interface Information2ViewController ()
 {

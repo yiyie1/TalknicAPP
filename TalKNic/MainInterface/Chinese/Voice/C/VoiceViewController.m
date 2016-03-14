@@ -64,7 +64,7 @@
     
     UILabel *title = [[UILabel alloc] initWithFrame:kCGRectMake(0, 0, 100, 44)];
     
-    title.text = @"Audio Message";//AppVoice;
+    title.text = AppVoice;
     
     title.textAlignment = NSTextAlignmentCenter;
     

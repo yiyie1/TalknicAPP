@@ -9,6 +9,7 @@
 #import "CouponViewController.h"
 
 @interface CouponViewController ()
+@property (nonatomic,strong)UIButton *leftBT;
 
 @end
 
@@ -16,9 +17,35 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    
+    title.text = AppCoupon;
+    
+    title.textAlignment = NSTextAlignmentCenter;
+    
+    title.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
+    title.font = [UIFont fontWithName:kHelveticaRegular size:17.0];
+    
+    self.navigationItem.titleView = title;
 
+    [self layoutLeftBtn];
 
+}
 
+-(void)layoutLeftBtn
+{
+    self.leftBT = [[UIButton alloc]init];
+    _leftBT.frame = CGRectMake(0, 10, 7, 23/2);
+    [_leftBT setBackgroundImage:[UIImage imageNamed:@"nav_back.png"] forState:(UIControlStateNormal)];
+    [_leftBT addTarget:self action:@selector(leftAction) forControlEvents:(UIControlEventTouchUpInside)];
+    UIBarButtonItem *leftI = [[UIBarButtonItem alloc]initWithCustomView:_leftBT];
+    self.navigationItem.leftBarButtonItem = leftI;
+}
+
+- (void)leftAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

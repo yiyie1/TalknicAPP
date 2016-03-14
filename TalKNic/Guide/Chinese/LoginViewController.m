@@ -9,7 +9,6 @@
 #import "LoginViewController.h"
 #import "ForgetPasswordViewController.h"
 #import "InformationViewController.h"
-#import "Header.h"
 #import "SignupViewController.h"
 #import "Foreigner0ViewController.h"
 #import "Check.h"
@@ -507,7 +506,7 @@
 
                 NSDictionary *dict = [dic objectForKey:@"result"];
                 _uid = [NSString stringWithFormat:@"%@",[dict objectForKey:@"uid"]];
-                 NSString *identity = [NSString stringWithFormat:@"%@",[dict objectForKey:@"identity"]];
+                //NSString *identity = [NSString stringWithFormat:@"%@",[dict objectForKey:@"identity"]];
                 NSData * usData = [_uid dataUsingEncoding:NSUTF8StringEncoding];
 
                 NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];

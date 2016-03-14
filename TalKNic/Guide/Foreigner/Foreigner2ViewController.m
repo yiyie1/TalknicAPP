@@ -9,7 +9,6 @@
 #import "Foreigner2ViewController.h"
 #import "DailysettingViewController.h"
 #import "AFNetworking.h"
-#import "Header.h"
 #import "MBProgressHUD+MJ.h"
 #import "Check.h"
 #import "solveJsonData.h"
@@ -60,7 +59,7 @@
 -(void)layoutView
 {
     self.label = [[UILabel alloc]init];
-    _label.frame = CGRectMake(0, 84, WIDTH, 20);
+    _label.frame = CGRectMake(0, 84, kWidth, 20);
     _label.text = @"Bank section:";
     _label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0];
     _label.numberOfLines =0;

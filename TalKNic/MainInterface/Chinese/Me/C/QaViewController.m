@@ -51,7 +51,8 @@
     
     self.RightBT = [[UIButton alloc]init];
     _RightBT.frame = CGRectMake(0, 10, 45, 31/2);
-    [_RightBT setBackgroundImage:[UIImage imageNamed:@"login_btn_send"] forState:(UIControlStateNormal)];
+    [_RightBT setTitle:@"Send" forState:(UIControlStateNormal)];//setBackgroundImage:[UIImage imageNamed:@"login_btn_send"] forState:(UIControlStateNormal)];
+    _RightBT.font = [UIFont fontWithName:kHelveticaRegular size:17.0];
     [_RightBT addTarget:self action:@selector(RightAction) forControlEvents:(UIControlEventTouchUpInside)];
     UIBarButtonItem *RightI = [[UIBarButtonItem alloc]initWithCustomView:_RightBT];
     self.navigationItem.rightBarButtonItem = RightI;
@@ -64,7 +65,7 @@
     _textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 273)];
     [self.view addSubview:_textView];
     UILabel* numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 273, self.view.frame.size.width, 20)];
-    numberLabel.text = @"400";
+    numberLabel.text = @"    400";
     numberLabel.textColor = [UIColor grayColor];
     numberLabel.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:numberLabel];
@@ -75,7 +76,7 @@
     
     self.EmailFeild = [[UITextField alloc] initWithFrame:CGRectMake(0, line_1.frame.origin.y+2, self.view.frame.size.width, 87/2)];
     _EmailFeild.backgroundColor = [UIColor whiteColor];
-    self.EmailFeild.placeholder = @"Email";
+    self.EmailFeild.placeholder = @"    Email";
     [self.view addSubview:self.EmailFeild];
     
     UIView* line_2 = [[UIView alloc] initWithFrame:CGRectMake(0, self.EmailFeild.frame.origin.y+self.EmailFeild.frame.size.height, self.view.frame.size.width, 1)];
@@ -83,7 +84,7 @@
     [self.view addSubview:line_2];
     
     self.NameFeild = [[UITextField alloc] initWithFrame:CGRectMake(0, line_2.frame.origin.y+line_2.frame.size.height, self.view.frame.size.width, 87/2)];
-    self.NameFeild.placeholder = @"Name";
+    self.NameFeild.placeholder = @"    Name";
     [self.view addSubview:self.NameFeild];
     _NameFeild.backgroundColor = [UIColor whiteColor];
     
@@ -91,11 +92,6 @@
     UIView* line_3 = [[UIView alloc] initWithFrame:CGRectMake(0, self.NameFeild.frame.origin.y+self.NameFeild.frame.size.height, self.view.frame.size.width, 1)];
     line_3.backgroundColor = [UIColor grayColor];
     [self.view addSubview:line_3];
-    
-    
-    
-    
-    
 }
 
 

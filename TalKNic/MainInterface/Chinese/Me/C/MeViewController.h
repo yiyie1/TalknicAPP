@@ -14,4 +14,5 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *searchTable;
 @property (nonatomic,copy)NSString *uid;
+@property (nonatomic,copy)NSString *role;
 @end

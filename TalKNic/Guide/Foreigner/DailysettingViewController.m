@@ -12,7 +12,7 @@
 #import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
 #import "solveJsonData.h"
-#import "Header.h"
+
 @interface DailysettingViewController ()
 {
     KTSelectDatePicker *_kePicker;
@@ -112,11 +112,11 @@
         
         
     }
-    NSArray *arr = @[AppTravel,AppFilm,AppSports,AppTech,AppDesign,AppArts,AppCooking,AppBook];
+    NSArray *arr = FOREIGNER_TOPIC;
     
-    for (int i = 0; i < 8 ;i ++) {
+    for (int i = 0; i < arr.count ;i ++) {
    
-        UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(30 + ((WIDTH-90)/2+30 )* (i % 2), 280 + 70 * (i / 2), (WIDTH-90)/2, 55)];
+        UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(30 + ((kWidth-90)/2+30 )* (i % 2), 280 + 70 * (i / 2), (kWidth-90)/2, 55)];
         btn1.tag = 100 + i;
         [btn1 setTitle:arr[i]forState:UIControlStateNormal];
         btn1.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0];
@@ -175,8 +175,7 @@
 }
 -(void)rightAction
 {
-    
-    NSArray *arr = @[@"travel",@"film",@"sports",@"tech",@"design",@"arts",@"cooking",@"book"];
+    NSArray *arr = FOREIGNER_TOPIC;
     NSMutableDictionary *click = [NSMutableDictionary dictionary];
     for (int i = 0; i < self.clickArr.count; i ++) {
         // 被选中的Btn 下标i

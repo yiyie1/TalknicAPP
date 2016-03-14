@@ -9,6 +9,7 @@
 #import "DailyTopicViewController.h"
 #import "AFNetworking.h"
 #import "solveJsonData.h"
+#import "ViewControllerUtil.h"
 
 @interface DailyTopicViewController ()<UIPickerViewDataSource,UIPickerViewDelegate,UIAlertViewDelegate>
 {
@@ -37,6 +38,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    ViewControllerUtil *util = [[ViewControllerUtil alloc]init];
+    self.navigationItem.titleView = [util SetTitle:@"Topic"];
+    
     [self layoutView];
     
     [self pickerView];
@@ -62,16 +66,19 @@
     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightAction:)];
     right.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = right;
-    if (self.editingStr) {
+    if ([self.editingStr isEqualToString:@""])
+    {
+        self.editingLb.hidden = YES;
+    }
+    else
+    {
         [self.chooseBtn setTitle:AppOther forState:(UIControlStateNormal)];
         self.editingLb.text = self.editingStr;
-        
-        return;
     }
     TalkLog(@"选择的按钮 -- %@",_chooeseBtnArr);
     if (self.chooeseBtnArr) {
         
-        self.editingLb.hidden = YES;
+        
         self.chooseBtn.hidden = YES;
         
         // 根据个数创建按钮
@@ -190,11 +197,14 @@
             [alert show];
             
         }
+        [self showHint:kAlertSuccess];
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [self hideHud];
+        [self showHint:kAlertFail];
     }];
     
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*-(void)pickerView

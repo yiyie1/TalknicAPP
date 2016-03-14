@@ -9,10 +9,7 @@
 #import "HomeViewController.h"
 
 #import "FeaturedViewController.h"
-//#import "LatestViewController.h"
-//#import "PopularViewController.h"
 #import "AFNetworking.h"
-#import "Header.h"
 #import "solveJsonData.h"
 #import "Featured.h"
 #import "HomeShowPicturwCell.h"
@@ -559,17 +556,17 @@
     [self.detailimage1 sd_setImageWithURL:url placeholderImage:nil];
     self.nameLb.text = searChArr[indexPath.row][@"username"];
     
-    self.addressLb.text = @"无字段";
-    self.pingfenLb.text = @"无";
+    self.addressLb.text = @"";
+    self.pingfenLb.text = @"";
     self.dianzaiLb.text = [NSString stringWithFormat:@"%@",searChArr[indexPath.row][@"praise"]];
     uid = searChArr[indexPath.row][@"uid"];
-    self.addressLb.text = @"无字段";
-    self.bioLb.text = @"无字段";
+    self.addressLb.text = @"";
+    self.bioLb.text = @"";
     self.topicLb.text = dataDic[@"topic"];
     
     // 点赞、评分
     self.dianzaiLb.text = dataDic[@"praise"];
-    self.pingfenLb.text = @"无字段";
+    self.pingfenLb.text = @"";
     [self.dianzangBtn addTarget:self action:@selector(dianzangBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.pingfenBtn addTarget:self action:@selector(pingfenBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     
@@ -596,7 +593,6 @@
     //_popularView.view.frame = kCGRectMake(0, 70, 375, 667 - 70);
     
     self.searchBar.alpha = 1.0f;
-    NSLog(@"_+++++)((");
 }
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {

@@ -60,7 +60,7 @@
     }
     
     ChoosePeopleViewController *chooseVC = [[ChoosePeopleViewController alloc]init];
-    [self.navigationController pushViewController:chooseVC animated:NO];
+    [self.navigationController pushViewController:chooseVC animated:YES];
     //UINavigationController *naVC = [[UINavigationController alloc]initWithRootViewController:chooseVC];
     //self.window.rootViewController = naVC;
 
@@ -122,7 +122,7 @@
     {
         UILabel *label = [[UILabel alloc]init];
         label.frame = kCGRectMake(150, 110, 100, 20);
-        label.text = @"linked";
+        label.text = @"";
         label.textAlignment = NSTextAlignmentRight;
         
         cell.accessoryView = label;

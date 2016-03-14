@@ -26,8 +26,7 @@
     
     NSString * _weekDateTime;
     
-    NSString *uid;
-    NSString *fUid;
+    NSString *_uid;
     NSDictionary *dic;
     
     NSString *userNam;

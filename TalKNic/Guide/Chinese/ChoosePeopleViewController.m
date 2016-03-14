@@ -10,7 +10,6 @@
 #import "ChoosePeopleViewController.h"
 #import "ForeignerViewController.h"
 #import "LoginViewController.h"
-#import "Header.h"
 #import "EaseMobSDK.h"
 #define kEaseKey @"bws#talknic"
 

@@ -9,8 +9,6 @@
 #import "CreditCardViewController.h"
 #import "CreditCardCell.h"
 #import "AFNetworking.h"
-#import "Header.h"
-
 #import "AddCreditCardViewController.h"
 @interface CreditCardViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -55,7 +53,7 @@
     if (!self.arr) {
         self.arr = [NSMutableArray array];
     }
-    NSString *uid = [[NSUserDefaults standardUserDefaults] objectForKey:kLogin_user_information];
+    //NSString *uid = [[NSUserDefaults standardUserDefaults] objectForKey:kLogin_user_information];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -88,13 +86,12 @@
     UIBarButtonItem *leftI = [[UIBarButtonItem alloc]initWithCustomView:_leftBT];
     self.navigationItem.leftBarButtonItem = leftI;
 }
+
 -(void)layoutView
 {
-    
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.separatorStyle = NO;
-    
     
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -191,11 +188,12 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-
 -(void)leftAction
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    //[self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

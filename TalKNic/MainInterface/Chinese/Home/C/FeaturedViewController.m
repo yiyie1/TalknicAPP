@@ -16,7 +16,7 @@
 #import "PopupView1.h"
 #import "AFNetworking.h"
 #import "solveJsonData.h"
-#import "Header.h"
+
 @interface FeaturedViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,FeaturedLayoutDelegate>
 {
     NSArray *arr;

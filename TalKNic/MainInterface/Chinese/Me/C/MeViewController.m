@@ -11,6 +11,7 @@
 #import "BalanceViewController.h"
 #import "CreditCardViewController.h"
 #import "HistoryViewController.h"
+#import "ForeignerHistoryViewController.h"
 #import "QaViewController.h"
 #import "AboutViewController.h"
 #import "SettingViewController.h"
@@ -28,9 +29,7 @@
 #import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
 #import "solveJsonData.h"
-#import "Header.h"
 
-#import "solveJsonData.h"
 #define ORIGINAL_MAX_WIDTH 640.0f
 //#import "UMSocial.h"
 @interface MeViewController ()<UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,MeImageCropperDelegate,UITextViewDelegate,UIPickerViewAccessibilityDelegate,UINavigationControllerDelegate>
@@ -293,7 +292,7 @@
             _city = [NSString stringWithFormat:@"%@",[dict objectForKey:@"city"]];
             _nationality = [NSString stringWithFormat:@",%@",[dict objectForKey:@"nationality"]];
             _nameLabel.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"username"]];
-            _countries.text = @"China";  //Chinese user //[_city stringByAppendingString:_nationality];
+            _countries.text = [_city stringByAppendingString:_nationality];
             _followed1Label.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"fans"]];
             _following1Label.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"praise"]];
             _about.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"topic"]];
@@ -329,8 +328,8 @@
 #pragma mark - 图片剪辑
 ////图片裁剪
 //-(UIImage *)getImageFromImage:(UIImage*) superImage subImageSize:(CGSize)subImageSize subImageRect:(CGRect)subImageRect {
-//    // CGSize subImageSize = CGSizeMake(WIDTH, HEIGHT); //定义裁剪的区域相对于原图片的位置
-//    // CGRect subImageRect = CGRectMake(START_X, START_Y, WIDTH, HEIGHT);
+//    // CGSize subImageSize = CGSizeMake(kWidth, kHeight); //定义裁剪的区域相对于原图片的位置
+//    // CGRect subImageRect = CGRectMake(START_X, START_Y, kWidth, kHeight);
 //    CGImageRef imageRef = superImage.CGImage;
 //    CGImageRef subImageRef = CGImageCreateWithImageInRect(imageRef, subImageRect);
 //    UIGraphicsBeginImageContext(subImageSize);
@@ -480,8 +479,14 @@
     [_tableView setScrollEnabled:NO];
     [self.view addSubview:_tableView];
     
+    NSArray *GeneralGroup = nil;
+    if([_role isEqualToString:CHINESEUSER])
+        GeneralGroup = @[AppInviteFriends, AppQA,AppAbout];
+    else
+        GeneralGroup = @[AppInviteFriends,AppAbout];
+    
     _allMesetup =@[[MeSetup mesetupWithHeader:AppPayment group:@[AppBalance,AppCreditCard,AppHistory]],
-            [MeSetup mesetupWithHeader:AppGeneral group:@[AppInviteFriends, AppQA,AppAbout]]];
+            [MeSetup mesetupWithHeader:AppGeneral group:GeneralGroup]];
     
     
 }
@@ -517,7 +522,16 @@
         cell.textLabel.text = mesetup.grouping[indexPath.row];
         cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0];
         cell.textLabel.textColor = [UIColor colorWithRed:85.0/255.0 green:85.0/255.0 blue:85.0/255.0 alpha:1.0];
-        NSArray *arr = @[@[@"me_balance_icon.png",@"me_card_icon.png",@"me_history_icon.png"],@[@"me_invite_icon.png",@"me_qa_icon.png",@"me_about_icon.png"]];
+        
+        NSArray *arr = nil;
+        if([_role isEqualToString:CHINESEUSER])
+        {
+        arr = @[@[@"me_balance_icon.png",@"me_card_icon.png",@"me_history_icon.png"],@[@"me_invite_icon.png",@"me_qa_icon.png",@"me_about_icon.png"]];
+        }
+        else
+        {
+            arr = @[@[@"me_balance_icon.png",@"me_card_icon.png",@"me_history_icon.png"],@[@"me_invite_icon.png",@"me_about_icon.png"]];
+        }
         cell.imageView.image = [UIImage imageNamed:arr[indexPath.section][indexPath.row]];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
@@ -530,16 +544,16 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    return  40;
+    return  KHeightScaled(40);
     
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 20;
+    return KHeightScaled(20);
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 0.01;
+    return KHeightScaled(0.01);
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -573,7 +587,7 @@
     self.searchBarView.hidden = YES;
     
     SettingViewController *setVC = [[SettingViewController alloc]init];
-    [self.navigationController pushViewController:setVC animated:NO];
+    [self.navigationController pushViewController:setVC animated:YES];
 }
 
 -(void)editprofileAction
@@ -741,17 +755,25 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if ([cell.textLabel.text isEqualToString:AppBalance]) {
         BalanceViewController *balanceVC = [[BalanceViewController alloc]init];
-        [self.navigationController pushViewController:balanceVC animated:NO];
+        [self.navigationController pushViewController:balanceVC animated:YES];
     }
     if ([cell.textLabel.text isEqualToString:AppCreditCard]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
         CreditCardViewController *creditVC = [storyboard instantiateViewControllerWithIdentifier:@"creditCard"];
         creditVC.uid = _uid;
-        [self.navigationController pushViewController:creditVC animated:NO];
+        [self.navigationController pushViewController:creditVC animated:YES];
     }
     if ([cell.textLabel.text isEqualToString:AppHistory]) {
-        HistoryViewController *historyVC = [[HistoryViewController alloc]init];
-        [self.navigationController pushViewController:historyVC animated:NO];
+        if([_role isEqualToString:CHINESEUSER])
+        {
+            HistoryViewController *historyVC = [[HistoryViewController alloc]init];
+            [self.navigationController pushViewController:historyVC animated:YES];
+        }
+        else
+        {
+            ForeignerHistoryViewController *historyVC = [[ForeignerHistoryViewController alloc]init];
+            [self.navigationController pushViewController:historyVC animated:YES];
+        }
     }
     if ([cell.textLabel.text isEqualToString:AppInviteFriends])
     {
@@ -763,11 +785,11 @@
     }
     if ([cell.textLabel.text isEqualToString:AppQA]) {
         QaViewController *qaVC = [[QaViewController alloc]init];
-        [self.navigationController pushViewController:qaVC animated:NO];
+        [self.navigationController pushViewController:qaVC animated:YES];
     }
     if ([cell.textLabel.text isEqualToString:AppAbout]) {
         AboutViewController *aboutVC= [[AboutViewController alloc]init];
-        [self.navigationController pushViewController:aboutVC animated:NO];
+        [self.navigationController pushViewController:aboutVC animated:YES];
     }
     
 }

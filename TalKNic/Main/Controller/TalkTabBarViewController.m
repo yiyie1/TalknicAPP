@@ -17,13 +17,11 @@
 #import "DaView.h"
 #import "AFNetworking.h"
 #import "solveJsonData.h"
-#import "Header.h"
 #import "MeViewController.h"
 #import "MBProgressHUD+MJ.h"
 #import "FeedsViewController.h"
 #import "ForeignerVoiceViewController.h"
 #import "ForeignerDailyTopicViewController.h"
-#import "ForeignerMeViewController.h"
 
 
 @interface TalkTabBarViewController ()<TalkTabBarDelegate>
@@ -64,12 +62,11 @@
         FeedsViewController *feeds = [[FeedsViewController alloc] init];
         [self addChildVc:feeds title:AppFeeds image:kFeeds selectedImage:kFeedsSelected];
     
-        //    MeViewController *me = [[MeViewController alloc] init];
         UIStoryboard *storyboard1 = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
         MeViewController *me = [storyboard1 instantiateViewControllerWithIdentifier:@"meVC"];
         [self addChildVc:me title:AppMe image:kMEImage selectedImage:kMEImageSelected];
         me.uid = _uid;
-        
+        me.role = CHINESEUSER;
         // 2.更换系统自带的tabbar
         //    self.tabBar = [[HWTabBar alloc] init];
         TalkTabBar *tabBar = [[TalkTabBar alloc] init];
@@ -87,13 +84,12 @@
         
         ForeignerDailyTopicViewController *dailyVC = [[ForeignerDailyTopicViewController alloc]init];
         [self addChildVc:dailyVC title:AppVoice image:kDailyTopicImage selectedImage:kDailyTopicSelected];
-        
-        //    ForeignerMeViewController *meVC = [[ForeignerMeViewController alloc]init];
-        //    meVC.title = @"Me";
+
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
-        ForeignerMeViewController *me = [storyboard instantiateViewControllerWithIdentifier:@"fmeVC"];
+        MeViewController *me = [storyboard instantiateViewControllerWithIdentifier:@"meVC"];
         [self addChildVc:me title:AppMe image:kMEImage selectedImage:kMEImageSelected];
         me.uid = _uid;
+        me.role = FOREINERUSER;
 
     }
     self.selectedIndex = 0;
@@ -200,7 +196,7 @@
     
     NSArray *titlesArr2 = @[AppTravel,AppFilm,AppSports,AppTech,AppDesign,AppArts,AppCooking,AppBook,AppOther];
     
-    for (int i = 0; i < 9; i ++) {
+    for (int i = 0; i < titlesArr2.count; i ++) {
         UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(_daView.secondBtn.x -1+ (_daView.secondBtn.width + 10 ) * (i % 3), _daView.secondBtn.y + (_daView.secondBtn.height + 10) * (i / 3), _daView.secondBtn.width, _daView.secondBtn.height)];
         btn.tag = 200 + i;
         NSString *a = @"0";
@@ -312,7 +308,6 @@
     NSArray *titlesArr1 = @[@"15",@"20",@"30"];
     NSArray *titlesArr2 = @[@"sports",@"travel",@"film",@"china",@"design",@"stock",@"stars",@"learning",@"others"];
     
-    
     NSMutableArray *favoriteArr = [NSMutableArray array];
     NSString *timeStr;
     NSString *str = nil;
@@ -331,7 +326,7 @@
     }
     
     NSData *dta = [NSJSONSerialization dataWithJSONObject:favoriteArr options:NSJSONWritingPrettyPrinted error:Nil];
-    NSString *yangStr = [[NSString alloc]initWithData:dta encoding:NSUTF8StringEncoding];
+    //NSString *yangStr = [[NSString alloc]initWithData:dta encoding:NSUTF8StringEncoding];
     
     if (timeStr.length == 0) {
         [MBProgressHUD showError:kAlertNoTime];
@@ -351,7 +346,7 @@
     NSMutableDictionary *parmes = [NSMutableDictionary dictionary];
     parmes[@"time"] = timeStr;
     
-    NSString *strUrl = [yangStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    //NSString *strUrl = [yangStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     
     NSMutableString *muItemString = [NSMutableString string];
     for (NSString *str in favoriteArr) {

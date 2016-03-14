@@ -14,7 +14,6 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "UIImageView+WebCache.h"
 #import "AFNetworking.h"
-#import "Header.h"
 #import "MBProgressHUD+MJ.h"
 #import "solveJsonData.h"
 #import "Information2ViewController.h"

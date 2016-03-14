@@ -8,7 +8,6 @@
 
 #import "ForgetPasswordViewController.h"
 #import "AFNetworking.h"
-#import "Header.h"
 #import "solveJsonData.h"
 #import "MBProgressHUD+MJ.h"
 #import "Check.h"

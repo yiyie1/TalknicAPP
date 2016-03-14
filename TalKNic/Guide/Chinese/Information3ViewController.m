@@ -10,7 +10,6 @@
 #import "ScrollViewController.h"
 #import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
-#import "Header.h"
 #import "LoginViewController.h"
 @interface Information3ViewController ()
 {
@@ -72,9 +71,9 @@
         
         
     }
-    NSArray *arr = @[AppTravel,AppFilm,AppSports,AppTech,AppDesign,AppArts,AppCooking,AppBook];
+    NSArray *arr = FOREIGNER_TOPIC;
     
-    for (int i = 0; i < 8 ;i ++) {
+    for (int i = 0; i < arr.count ;i ++) {
         UIButton *btn1 = [[UIButton alloc]initWithFrame:kCGRectMake(35 + 170 * (i % 2), 110 + 70 * (i / 2), 140, 55)];
         btn1.tag = 100 + i;
         [btn1 setTitle:arr[i]forState:UIControlStateNormal];
@@ -107,7 +106,7 @@
 
 -(void)rightAction
 {
-    NSArray *arr = @[@"travel",@"film",@"sports",@"tech",@"design",@"arts",@"cooking",@"book"];
+    NSArray *arr = FOREIGNER_TOPIC;
     NSMutableDictionary *parames = [NSMutableDictionary dictionary];
     for (int i = 0; i < self.clickArr.count; i ++) {
         // 被选中的Btn 下标i

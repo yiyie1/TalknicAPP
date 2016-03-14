@@ -9,7 +9,6 @@
 #import "SignupViewController.h"
 #import "LoginViewController.h"
 #import "ForgetPasswordViewController.h"
-#import "Header.h"
 #import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
 #import "solveJsonData.h"

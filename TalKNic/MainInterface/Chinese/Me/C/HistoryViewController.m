@@ -66,6 +66,9 @@
 {
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     NSData *data = [user objectForKey:@"ForeignerID"];
+    if ([data isEqual:@""])
+        return;
+    
     fUid = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
     TalkLog(@"取出的外教 ID -- %@",fUid);
     
@@ -104,8 +107,10 @@
 {
     
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-    
     NSData *data = [userD objectForKey:@"currDate"];
+    if ([data isEqual:@""])
+        return;
+    
     _dateTim = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
     TalkLog(@"取出时间 -- %@",_dateTim);
     if (_dateTim.length < 1) {
@@ -300,7 +305,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 90;
+    return KHeightScaled(88.5);
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
