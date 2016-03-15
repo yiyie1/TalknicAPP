@@ -79,6 +79,7 @@
 "alert.6" = "Password length can not less than 6";
 "alert.noTime" = "has not choose time";
 "alert.noProject" = "has not choose item";
+"alert.AliPayFail" = "AliPay Failed";
 
 //APP language
 "AppForeigner" = "Foreigner";

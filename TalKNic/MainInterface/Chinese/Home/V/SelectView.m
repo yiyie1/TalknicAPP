@@ -40,7 +40,7 @@
         [self addSubview:_label5];
         
         self.label6 = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_label4.frame) + 1, 1, self.frame.size.width / 2 - 20.5, (self.frame.size.height - 3) / 2)];
-        _label6.text = @"20%ff ";
+        _label6.text = @"20%off ";
         _label6.textAlignment = NSTextAlignmentCenter;
         _label6.font = [UIFont systemFontOfSize:14];
         [self addSubview:_label6];

@@ -7,10 +7,10 @@
 //
 
 #import "ForeignerHistoryViewController.h"
-#import "HistoryCell.h"
+#import "VoiceCell.h"
 #import "AFNetworking.h"
 #import "solveJsonData.h"
-#import "FVoiceCell.h"
+#import "VoiceCell.h"
 @interface ForeignerHistoryViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 {
     //时间
@@ -85,7 +85,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
-    [_tableView registerNib:[UINib nibWithNibName:@"HistoryCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"HistoryCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"VoiceCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"VoiceCell"];
     
 }
 -(void)afnusername
@@ -121,7 +121,7 @@
 -(void)messageView
 {
     self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:(UITableViewStylePlain)];
-    [self.tableView registerNib:[UINib nibWithNibName:@"FVoiceCell" bundle:nil] forCellReuseIdentifier:@"cell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"VoiceCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     _tableView.dataSource = self;
     _tableView.delegate = self;
     // _tableView.backgroundColor = [UIColor blueColor];
@@ -314,13 +314,13 @@
         
 //        FVoiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
 #warning 6教师端修改开始
-        FVoiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        VoiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
         if (!cell){
-            cell = [[FVoiceCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+            cell = [[VoiceCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         }
         
 #warning 6教师端修改结束
-        cell.userFName.text = userNam;
+        cell.userName.text = userNam;
         cell.date.text = _weekDateTime;
         [cell.userImage sd_setImageWithURL:[NSURL URLWithString:strPic]];
         TalkLog(@"cell头像 -- %@",cell.userImage);

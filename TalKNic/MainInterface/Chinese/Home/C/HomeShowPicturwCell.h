@@ -16,5 +16,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLb;
 @property (weak, nonatomic) IBOutlet UILabel *dianzanLb;
 @property (weak, nonatomic) IBOutlet UILabel *pingfenLb;
-
+@property (weak, nonatomic) IBOutlet UILabel *occupationLb;
 @end

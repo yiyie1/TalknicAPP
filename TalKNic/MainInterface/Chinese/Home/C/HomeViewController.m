@@ -7,8 +7,7 @@
 //
 
 #import "HomeViewController.h"
-
-#import "FeaturedViewController.h"
+#import "CouponViewController.h"
 #import "AFNetworking.h"
 #import "solveJsonData.h"
 #import "Featured.h"
@@ -17,6 +16,7 @@
 #import "MJRefresh.h"
 #import "EaseMobSDK.h"
 #import "YGPayByAliTool.h"
+#import "MBProgressHUD+MJ.h"
 
 @interface HomeViewController ()<UISearchBarDelegate,UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,UISearchDisplayDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
@@ -24,15 +24,15 @@
     NSMutableDictionary *dataDic_1;
     NSString *praise;
     NSString *uid;
+    NSString *foreigner_uid;
     NSString *topic;
     NSString *user_pic;
     NSString *username;
     
-    NSString *userid;
+    //NSString *userid;
     NSMutableArray *searChArr;//搜索结果数组
     NSDictionary * _dicP;//接受匹配信息的通知
     NSMutableArray *_piArr;//存放匹配信息
-    
 }
 //{
 //     UISearchBar *searchBar;
@@ -41,19 +41,13 @@
 //}
 @property (nonatomic,strong)UISegmentedControl *segmentControl;
 @property (nonatomic,strong)UINavigationBar *bar;
-
-@property (nonatomic,strong)FeaturedViewController *featuredView;
-//@property (nonatomic,strong)LatestViewController *latestView;
-//@property (nonatomic,strong)PopularViewController *popularView;
-
 @property (nonatomic,strong)UISearchDisplayController *searchController;
 @property (nonatomic,strong)UISearchBar *searchBar;
 
 //@property (nonatomic,strong)NSMutableArray *searchDataArr;   //搜索结果数组
 @property(nonatomic,strong)NSMutableDictionary *dataDic;
-
-
 @property(nonatomic)NSInteger seletedCount;
+@property(nonatomic)float   price;
 @end
 
 @implementation HomeViewController
@@ -70,10 +64,10 @@
     self.zhedangbanview.hidden = YES;
     self.seletedCount = 0;
     [self.homecollectview addLegendHeaderWithRefreshingBlock:^{
-        NSArray *titleArr = @[@"featured"];//,AppLatest,AppPopular];
-        
+
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [self requestDataMethod:titleArr[self.segmentControl.selectedSegmentIndex]];
+        //FIXME use other words than featured
+        [self requestDataMethod:@"featured"];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
     //    // 头部的刷新
@@ -85,9 +79,8 @@
     //注册通知
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"tongzhi" object:nil];
-    
-    
 }
+
 -(void)tongzhi:(NSNotification *)dic
 {
     TalkLog(@"接受匹配信息 -- %@",dic);
@@ -119,8 +112,8 @@
     cell.titlelb.text = [NSString stringWithFormat:@"Topic：%@",dataArray[indexPath.item][@"topic"]];
     cell.nickNameLb.text = [NSString stringWithFormat:@"Nick：%@",dataArray[indexPath.item][@"username"]];
     cell.dianzanLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"praise"]];
-    cell.pingfenLb.text = @"0.0";
-    
+    cell.pingfenLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"star"]];;
+    cell.occupationLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"occupation"]];
     return cell;
     
 }
@@ -140,6 +133,10 @@
 //点击cell触发事件
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    //init 2 pop page
+    self.seletedCount = 0;
+    [self showViewFrom:NO];
+    
     NSDictionary *dataDic = dataArray[indexPath.item];
     self.dataDic = [NSDictionary dictionaryWithDictionary:dataDic];
     
@@ -152,18 +149,17 @@
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",dataDic[@"user_pic"]]];
     [self.detailimage1 sd_setImageWithURL:url placeholderImage:nil];
-    self.nameLb.text = dataArray[indexPath.item][@"username"];
-    self.addressLb.text = @"";
-    self.pingfenLb.text = @"";
-    self.dianzaiLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"praise"]];
-    uid = dataArray[indexPath.item][@"uid"];
-    self.addressLb.text = @"";
+    self.nameLb.text = dataDic[@"username"];
+    self.addressLb.text = dataDic[@"nationality"];
+    foreigner_uid = dataDic[@"uid"];
+    
+    //FIXME to add bio in server database
     self.bioLb.text = @"";
     self.topicLb.text = dataDic[@"topic"];
     
     // 点赞、评分
     self.dianzaiLb.text = dataDic[@"praise"];
-    self.pingfenLb.text = @"";
+    self.pingfenLb.text = dataDic[@"star"];
     [self.dianzangBtn addTarget:self action:@selector(dianzangBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.pingfenBtn addTarget:self action:@selector(pingfenBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     
@@ -172,7 +168,7 @@
     [self.cancelBtn addTarget:self action:@selector(cancelBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     
 }
-
+//FIXME to cancel the praise when clicking again
 - (void)dianzangBtn:(id)sender
 {
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
@@ -193,26 +189,28 @@
         if([dic[@"code"] isEqualToString:@"2"])
         {
             // 点赞成功
-            int dianzanCount = [self.dataDic[@"praise"] intValue] + 1;
-            self.dianzaiLb.text = [NSString stringWithFormat:@"%d",dianzanCount];
-            
-        }else if([dic[@"code"] isEqualToString:@"3"])
+            int praiseCount = [self.dataDic[@"praise"] intValue] + 1;
+            self.dianzaiLb.text = [NSString stringWithFormat:@"%d",praiseCount];
+        }
+        else if([dic[@"code"] isEqualToString:@"3"])
         {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"已点赞" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
-        }else if ([dic[@"code"] isEqualToString:@"4"])
+            TalkLog(@"Praise succeeds return 3");
+            //UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"已点赞" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            //[alert show];
+        }
+        else if ([dic[@"code"] isEqualToString:@"4"])
         {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"点赞失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
-            
+            TalkLog(@"Praise fails returns 4");
+            //UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"点赞失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            //[alert show];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        TalkLog(@"Praise fails");
     }];
     
-    
-    
 }
+
+//FIXME points cannot be hit in this step
 - (void)pingfenBtn:(id)sender
 {
     TalkLog(@"没有接口");
@@ -220,41 +218,67 @@
 }
 - (void)cancelBtn:(id)sender
 {
-    self.zhedangbanview.hidden = YES;
-    self.seletedCount = 0;
+    if (self.seletedCount % 2 == 1)
+    {
+        [self showViewFrom:NO];
+        self.seletedCount --;
+    }
+    else if (self.seletedCount % 2 == 0)
+    {
+        self.zhedangbanview.hidden = YES;
+        [self showViewFrom:NO];
+        self.seletedCount = 0;
+        [self requestDataMethod:@"featured"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self requestDataMethod:@"featured"];
+        });
+    }
     
-    [self showViewFrom:NO];
     
-    NSArray *titleArr = @[@"featured"];//, AppLatest,AppPopular];
-    [self requestDataMethod:titleArr[self.segmentControl.selectedSegmentIndex]];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        //NSArray *titleArr = @[AppFeatured];//, AppLatest,AppPopular];
-        [self requestDataMethod:titleArr[self.segmentControl.selectedSegmentIndex]];
-    });
 }
+
 - (void)sureBtn:(id)sender
 {
     //    UIButton *btn = (UIButton *)sender;
     
     self.seletedCount ++;
-    if (self.seletedCount % 2 == 1) {
+    //1st page
+    if (self.seletedCount % 2 == 1)
+    {
         [self showViewFrom:YES];
         
         // 优惠券和支付价格选择
-        [self.youhuiquanBtn addTarget:self action:@selector(youhuiquanBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+        [self.youhuiquanBtn addTarget:self action:@selector(CouponAction:) forControlEvents:(UIControlEventTouchUpInside)];
         [self.priceBtn addTarget:self action:@selector(priceBtn:) forControlEvents:(UIControlEventTouchUpInside)];
         
     }
-    if (self.seletedCount % 2 == 0) {
+    //2nd page
+    else if (self.seletedCount % 2 == 0)
+    {
+        self.price = [self.priceBtn.titleLabel.text floatValue];
         //进入支付页面
-        userid = uid ;
         self.zhedangbanview.hidden = YES;
-        TalkLog(@"聊天界面UID -- %@",userid);
-        [YGPayByAliTool payByAliWithSubjects:ALI_PAY_SUBJECT body:nil price:0.01 orderId:@"10001" partner:ALI_PARTNER_ID seller:ALI_SELLER_ID privateKey:ALI_PRIVATE_KEY success:^(NSDictionary *info) {
-            // 手机没有安装支付宝自动调用网页版
-            // 支付完成后调用  打印查看是否支付成功
+        TalkLog(@"foreigner UID = %@",foreigner_uid);
+        
+        NSString *orderId = [self generateTradeNO];
+        
+        [YGPayByAliTool payByAliWithSubjects:ALI_PAY_SUBJECT body:nil price:self.price orderId:orderId partner:ALI_PARTNER_ID seller:ALI_SELLER_ID privateKey:ALI_PRIVATE_KEY success:^(NSDictionary *info) {
             NSLog(@"info = %@",info);
+
+            NSString *resultStatus = info[@"resultStatus"];
+            NSString *result = info[@"result"];
             
+            if(result.length > 0 && [resultStatus isEqualToString: @"9000"] )
+            {
+                
+                [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController];
+            }
+            else
+            {
+                [MBProgressHUD showError:kAlertAliPayFail];
+                TalkLog(@"Alipay fails");
+                return;
+            }
         }];
         
         
@@ -274,18 +298,17 @@
         AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
         session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
         NSMutableDictionary *parmes = [NSMutableDictionary dictionary];
-        parmes[@"theory_time"] = @(15);
+        parmes[@"theory_time"] = @(DEFAULT_VOICE_MSG_DURATION);
         NSString *my_id = [[NSUserDefaults standardUserDefaults] objectForKey:@"my_id"];
         
         parmes[@"student_id"] = [NSNumber numberWithInt:[my_id intValue]];
-        parmes[@"teacher_id"] = [NSNumber numberWithInt:[userid intValue]];
-        NSLog(@"student_id%@  teacher_id%@",parmes[@"student_id"], parmes[@"teacher_id"]);
+        parmes[@"teacher_id"] = [NSNumber numberWithInt:[foreigner_uid intValue]];
+        NSLog(@"student_id: %@  teacher_id: %@",parmes[@"student_id"], parmes[@"teacher_id"]);
         [session POST:PATH_GET_ORDER parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
-            
-            
+        
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-            NSData *dataUid = [userid dataUsingEncoding:NSUTF8StringEncoding];
+            NSData *dataUid = [foreigner_uid dataUsingEncoding:NSUTF8StringEncoding];
             NSDate *payDate = [NSDate date];
             [user setObject:dataUid forKey:@"ForeignerID"];
             [user setObject:payDate forKey:@"payTime"];
@@ -293,46 +316,35 @@
             NSLog(@"%@",dic);
             
             // 修改
-            if ([[dic objectForKey:@"code" ] isEqualToString:@"2"]) {
-                
+            if ([[dic objectForKey:@"code" ] isEqualToString:@"2"])
+            {
                 [[NSUserDefaults standardUserDefaults] setObject:[dic objectForKey:@"order_id"] forKey:@"order_id"];
-                NSLog(@"%@",[dic objectForKey:@"order_id"]);
-                NSLog(@"%@",dic);
-                [EaseMobSDK createOneChatViewWithConversationChatter:userid Name:self.nameLb.text onNavigationController:self.navigationController];
-            }else if([[dic objectForKey:@"code" ] isEqualToString:@"5"]){//
-                
+            }
+            else if([[dic objectForKey:@"code" ] isEqualToString:@"5"])
+            {//
                 // 支付差额
-                NSString *orderId = [self generateTradeNO];
+                /*NSString *orderId = [self generateTradeNO];
                 
-                [YGPayByAliTool payByAliWithSubjects:ALI_PAY_SUBJECT body:nil price:0.01 orderId:orderId partner:ALI_PARTNER_ID seller:ALI_SELLER_ID privateKey:ALI_PRIVATE_KEY success:^(NSDictionary *info) {
+                [YGPayByAliTool payByAliWithSubjects:ALI_PAY_SUBJECT body:nil price:self.price orderId:orderId partner:ALI_PARTNER_ID seller:ALI_SELLER_ID privateKey:ALI_PRIVATE_KEY success:^(NSDictionary *info) {
                     NSLog(@"网页版 = %@",info);
                     NSString *result = info[@"result"];
-                    NSLog(@"-----------heheh");
                     
                     if (result.length) {
                         // 支付成功通知
                         [self charge];
                         // 继续聊天
-                        [EaseMobSDK createOneChatViewWithConversationChatter:userid Name:self.nameLb.text onNavigationController:self.navigationController];
+                        [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController];
                         
                     }
                     
-                }];
-                NSLog(@"Skip payment");
-                [EaseMobSDK createOneChatViewWithConversationChatter:userid Name:self.nameLb.text onNavigationController:self.navigationController];
-                
-                
-                
+                }];*/
             }
-            
-            
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             
         }];
         
     }
-    
-    
+
 }
 
 - (void)charge{
@@ -389,9 +401,12 @@
 }
 
 
-- (void)youhuiquanBtn:(id)sender
+- (void)CouponAction:(id)sender
 {
-    TalkLog(@"没有数据接口");
+    self.zhedangbanview.hidden = YES;
+    CouponViewController *couponVC = [[CouponViewController alloc]init];
+    [self.navigationController pushViewController:couponVC animated:YES];
+    //TalkLog(@"没有数据接口");
 }
 
 - (void)priceBtn:(id)sender
@@ -439,23 +454,6 @@
         [self.view addSubview:_segmentControl];
     }
 }
--(void)layoutViews
-{
-    self.featuredView = [[FeaturedViewController alloc]init];
-    _featuredView.view.frame = CGRectMake(0, self.view.frame.size.height /6 +44, self.view.frame.size.width, self.view.frame.size.height) ;
-    
-    [self.view addSubview:_featuredView.view];
-    
-    /*self.latestView = [[LatestViewController alloc]init];
-     _latestView.view.frame = CGRectMake(0, self.view.frame.size.height /6 +44, self.view.frame.size.width, self.view.frame.size.height);
-     
-     [self.view addSubview:_latestView.view];
-     
-     self.popularView = [[PopularViewController alloc]init];
-     _popularView.view.frame = CGRectMake(0, self.view.frame.size.height/6 +44, self.view.frame.size.width, self.view.frame.size.height);
-     
-     [self.view addSubview:_popularView.view];*/
-}
 
 -(void)searchBarView
 {
@@ -486,8 +484,8 @@
 
 -(void)segmentAction:(UISegmentedControl *)segment
 {
-    NSArray *titleArr = @[@"featured"];//, @"latest",@"popular"];
-    [self requestDataMethod:titleArr[segment.selectedSegmentIndex]];
+    //NSArray *titleArr = @[@"featured"];//, @"latest",@"popular"];
+    [self requestDataMethod:@"featured"];
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
@@ -543,7 +541,6 @@
     NSDictionary *dataDic = searChArr[indexPath.row];
     self.dataDic = [NSMutableDictionary dictionaryWithDictionary:dataDic];
     
-    
     self.zhedangbanview.hidden = NO;
     
     self.detailimage1.layer.masksToBounds = YES;
@@ -556,17 +553,14 @@
     [self.detailimage1 sd_setImageWithURL:url placeholderImage:nil];
     self.nameLb.text = searChArr[indexPath.row][@"username"];
     
-    self.addressLb.text = @"";
-    self.pingfenLb.text = @"";
-    self.dianzaiLb.text = [NSString stringWithFormat:@"%@",searChArr[indexPath.row][@"praise"]];
-    uid = searChArr[indexPath.row][@"uid"];
-    self.addressLb.text = @"";
+    foreigner_uid = searChArr[indexPath.row][@"uid"];
+    self.addressLb.text = dataDic[@"nationality"];
     self.bioLb.text = @"";
     self.topicLb.text = dataDic[@"topic"];
     
     // 点赞、评分
     self.dianzaiLb.text = dataDic[@"praise"];
-    self.pingfenLb.text = @"";
+    self.pingfenLb.text = dataDic[@"star"];
     [self.dianzangBtn addTarget:self action:@selector(dianzangBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.pingfenBtn addTarget:self action:@selector(pingfenBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     
@@ -577,10 +571,6 @@
     tableView.hidden = YES;
     
     self.searchBar.frame = kCGRectMake(0, 129 / 2, 375, 44);
-    _featuredView.view.frame = kCGRectMake(0, 667 / 6 + 44, 375, 667 - 667 / 6 + 44);
-    //_latestView.view.frame = kCGRectMake(0, 667 / 6 + 44, 375, 667 - 667 / 6 + 44);
-    //_popularView.view.frame = kCGRectMake(0, 667 / 6 + 44, 375, 667 - 667 / 6 + 44);
-    
     self.searchBar.alpha = 0.5f;
     [self.searchBar resignFirstResponder];
 }
@@ -588,18 +578,11 @@
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
     self.searchBar.frame = kCGRectMake(0, 129 / 2, 375, 44);
-    _featuredView.view.frame = kCGRectMake(0, 70, 375, 667 - 70);
-    //_latestView.view.frame = kCGRectMake(0, 70, 375, 667 - 70);
-    //_popularView.view.frame = kCGRectMake(0, 70, 375, 667 - 70);
-    
     self.searchBar.alpha = 1.0f;
 }
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
     self.searchBar.frame = kCGRectMake(0, 129 / 2, 375, 44);
-    _featuredView.view.frame = kCGRectMake(0, 129 / 2 + 44, 375, 667 - 129 / 2 + 44);
-    //_latestView.view.frame = kCGRectMake(0, 667 / 6 + 44, 375, 667 - 667 / 6 + 44);
-    //_popularView.view.frame = kCGRectMake(0, 667 / 6 + 44, 375, 667 - 667 / 6 + 44);
     self.searchBar.alpha = 1.0f;
 }
 

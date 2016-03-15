@@ -7,10 +7,9 @@
 //
 
 #import "HistoryViewController.h"
-#import "HistoryCell.h"
 #import "AFNetworking.h"
 #import "solveJsonData.h"
-#import "FVoiceCell.h"
+#import "VoiceCell.h"
 @interface HistoryViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     //时间
@@ -109,12 +108,21 @@
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     NSData *data = [userD objectForKey:@"currDate"];
     if ([data isEqual:@""])
-        return;
-    
+    {
+        vieww = [[UIView alloc]init];
+        vieww.frame = kCGRectMake(0, 0, kWidth, kHeight);
+        vieww.backgroundColor = [UIColor grayColor];
+        
+        [self.tableView addSubview:vieww];
+        UIAlertView *alert =[ [UIAlertView alloc]initWithTitle:kAlertPrompt message:kAlertSee delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil];
+        [alert show];
+        
+    }
+    else
+    {
     _dateTim = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
     TalkLog(@"取出时间 -- %@",_dateTim);
     if (_dateTim.length < 1) {
-        TalkLog(@"asdasdasdasdasdasdas------");
         vieww = [[UIView alloc]init];
         vieww.frame = kCGRectMake(0, 0, 375, 667);
         vieww.backgroundColor = [UIColor grayColor];
@@ -160,7 +168,7 @@
         NSLog(@"星期 %@",currentDateStr);
     }
     
-    
+    }
     
 }
 -(void)GetTime
@@ -286,7 +294,7 @@
 {
     
     self.tableView = [[UITableView alloc]initWithFrame:kCGRectMake(0, 0, 375, 667) style:(UITableViewStylePlain)];
-    [self.tableView registerNib:[UINib nibWithNibName:@"FVoiceCell" bundle:nil] forCellReuseIdentifier:@"cell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"VoiceCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     _tableView.dataSource =self;
     _tableView.delegate = self;
     
@@ -294,6 +302,7 @@
     [self.view addSubview:_tableView];
     
 }
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -311,14 +320,15 @@
 {
     
     if (tableView == self.tableView) {
-        FVoiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-        cell.userFName.text = userNam;
+        VoiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+        cell.userName.text = userNam;
         cell.date.text = _weekDateTime;
         [cell.userImage sd_setImageWithURL:[NSURL URLWithString:strPic]];
         cell.backgroundColor = [UIColor whiteColor];
         cell.selectedBackgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"msg_select_area_bg.png"]];
         
         return cell;
+        
         
     }else
     {

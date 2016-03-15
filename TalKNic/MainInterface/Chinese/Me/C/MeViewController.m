@@ -289,8 +289,12 @@
         dic = [solveJsonData changeType:responseObject];
         if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2)) {
             NSDictionary *dict = [dic objectForKey:@"result"];
+            //FIXME to upload city and nationality for Chinese user
             _city = [NSString stringWithFormat:@"%@",[dict objectForKey:@"city"]];
-            _nationality = [NSString stringWithFormat:@",%@",[dict objectForKey:@"nationality"]];
+            if([_role isEqualToString:CHINESEUSER])
+                _nationality = @"China";
+            else
+                _nationality = [NSString stringWithFormat:@",%@",[dict objectForKey:@"nationality"]];
             _nameLabel.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"username"]];
             _countries.text = [_city stringByAppendingString:_nationality];
             _followed1Label.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"fans"]];
@@ -618,32 +622,30 @@
             
             dica = [solveJsonData changeType:responseObject];
             if (([(NSNumber *)[dica objectForKey:@"code"]intValue] == 2)) {
-                if (![_nameText.text isEqualToString:@""]) {
-                     _nameLabel.text = _nameText.text;
-                }
-                if (![_topText.text isEqualToString:@""]) {
-                    _about.text = _topText.text;
-                }
 
-               
-                
-                _nameText.hidden = YES;
-                _topText.hidden = YES;
                 [MBProgressHUD showSuccess:kAlertModifyDatassSuccessful];
                 TalkLog(@"修改资料成功 %@ -- %@",_nameLabel.text,_about.text);
-                
-            }else
+            }
+            else
             {
                 [MBProgressHUD showError:kAlertModifyDataFailure];
-                return ;
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             TalkLog(@"修改资料失败 -- %@",error);
         }];
         
+        //FIXME to handle modify data failure
+        if (![_nameText.text isEqualToString:@""]) {
+            _nameLabel.text = _nameText.text;
+        }
+        if (![_topText.text isEqualToString:@""]) {
+            _about.text = _topText.text;
+        }
         
+        _nameText.hidden = YES;
+        _topText.hidden = YES;
         
-        NSLog(@"DOne");
+        NSLog(@"Done");
     }else
     {
         [self.editBtn setTitle:AppDone forState:(UIControlStateNormal)];

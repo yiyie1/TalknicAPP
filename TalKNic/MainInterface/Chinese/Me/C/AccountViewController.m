@@ -43,7 +43,8 @@
 
 -(void)logoutAction
 {
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    /*NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    
     NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
     if (str) {
         [ud removeObjectForKey:kChooese_ChineseOrForeigner];
@@ -57,7 +58,10 @@
     NSString *FirstUseApp = [ud objectForKey:@"FirstUseApp"];
     if (FirstUseApp) {
         [ud removeObjectForKey:@"FirstUseApp"];
-    }
+    }*/
+    
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
     
     ChoosePeopleViewController *chooseVC = [[ChoosePeopleViewController alloc]init];
     [self.navigationController pushViewController:chooseVC animated:YES];

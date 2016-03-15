@@ -7,8 +7,8 @@
 //
 
 #import "ForeignerVoiceViewController.h"
-#import "FVoice.h"
-#import "FVoiceCell.h"
+#import "Voice.h"
+#import "VoiceCell.h"
 #import "EaseMobSDK.h"
 #import "AFNetworking.h"
 #define EaseMobb @"https://a1.easemob.com/bws/talknic"
@@ -120,7 +120,7 @@
 -(void)messageView
 {
     self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:(UITableViewStylePlain)];
-    [self.tableView registerNib:[UINib nibWithNibName:@"FVoiceCell" bundle:nil] forCellReuseIdentifier:@"cell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"VoiceCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     _tableView.dataSource = self;
     _tableView.delegate = self;
    // _tableView.backgroundColor = [UIColor blueColor];
@@ -308,8 +308,8 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == self.tableView) {
-        FVoiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-        cell.userFName.text = userNam;
+        VoiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+        cell.userName.text = userNam;
         cell.date.text = _weekDateTime;
         [cell.userImage sd_setImageWithURL:[NSURL URLWithString:strPic]];
         TalkLog(@"cell头像 -- %@",cell.userImage);

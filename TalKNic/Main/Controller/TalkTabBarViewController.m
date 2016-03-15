@@ -174,16 +174,17 @@
     
     NSArray *titlesArr1 = @[@"15 min",@"20 min",@"30 min"];
     
-    for (int i = 0; i < 3; i ++) {
+    for (int i = 0; i < titlesArr1.count; i ++) {
         UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(_daView.fristBtn.x -1+ ( _daView.fristBtn.width + 10 ) * i, _daView.fristBtn.y , _daView.fristBtn.width, _daView.fristBtn.height)];
         btn.tag = 100 + i;
         NSString *a = @"0";
         [self.clickToLineArr addObject:a];
         [btn setTitle:titlesArr1[i] forState:(UIControlStateNormal)];
+        btn.titleLabel.font = [UIFont fontWithName:kHelveticaRegular size:10.0];
         [btn addTarget:self action:@selector(clickToLine:) forControlEvents:(UIControlEventTouchUpInside)];
         [btn setBackgroundImage:[UIImage imageNamed:@"discover_match_choose_dark"] forState:(UIControlStateNormal)];
         [btn setTitleColor:[UIColor colorWithRed:109/255.0 green:110/255.0 blue:113/255.0 alpha:1.0] forState:(UIControlStateNormal)];
-        btn.titleLabel.font = [UIFont fontWithName:kHelveticaLight size:10];
+        btn.titleLabel.font = [UIFont fontWithName:kHelveticaRegular size:10.0];
         [_daView addSubview:btn];
         
     }
@@ -201,8 +202,7 @@
         btn.tag = 200 + i;
         NSString *a = @"0";
         [self.clickToLineArr2 addObject:a];
-        
-        btn.titleLabel.font = [UIFont fontWithName:kHelveticaRegular size:8];
+
         [btn setTitle:titlesArr2[i] forState:(UIControlStateNormal)];
         [btn addTarget:self action:@selector(click:) forControlEvents:(UIControlEventTouchUpInside)];
         
@@ -362,7 +362,7 @@
     
     TalkLog(@"匹配的数据 — %@",parmes);
     
-    [session POST:@"http://115.47.28.121/Talknic1.0/admin.php/api/index" parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
+    [session POST:PATH_GET_LOGIN parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         TalkLog(@"匹配 — %@",responseObject);

@@ -79,6 +79,7 @@
 "alert.noProject" = "没有选择项目";
 "alert.EnglishLevel" = "请选择您的英语水平";
 "alert.topic" = "请选择您感兴趣的话题";
+"alert.AliPayFail" = "未能成功使用支付宝支付";
 
 //APP language
 "AppForeigner" = "老外";
