@@ -24,6 +24,29 @@
     return title;
 }
 
+-(UINavigationBar* )ConfigNavigationBar:(NSString*)titleStr NavController: (UINavigationController *)NavController NavBar: (UINavigationBar*)NavBar
+{
+    [NavController setNavigationBarHidden:YES];
+    if (NavBar == nil) {
+        NavBar = [[UINavigationBar alloc]initWithFrame:kCGRectMake(0, 0, 750/2, 129.0/2)];
+        UIImage * img= [UIImage imageNamed:@"nav_bg.png"];
+        img = [img stretchableImageWithLeftCapWidth:1 topCapHeight:1];
+        
+        [NavBar setBackgroundImage:img forBarMetrics:(UIBarMetricsDefault)];
+        
+        UILabel *label = [[UILabel alloc]init];
+        label.frame = NavBar.frame;
+        label.text = titleStr;
+        label.textAlignment = NSTextAlignmentCenter;
+        label.textColor = [UIColor whiteColor];
+        label.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:17.0];
+        
+        [NavBar addSubview:label];
+        //[self.view addSubview:_bar];
+    }
+    return NavBar;
+}
+
 -(NSString*)CheckRole
 {
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
@@ -32,5 +55,15 @@
         return CHINESEUSER;
     else
         return FOREINERUSER;
+}
+
+-(BOOL)CheckPaid
+{
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    NSString *payTime = [user objectForKey:@"payTime"];
+    if(payTime)
+        return YES;
+    else
+        return NO;
 }
 @end

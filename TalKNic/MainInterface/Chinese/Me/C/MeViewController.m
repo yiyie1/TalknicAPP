@@ -80,7 +80,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    UILabel *title = [[UILabel alloc] initWithFrame:kCGRectMake(0, 0, 100, 44)];
     
     title.text = AppMe;
     
@@ -91,10 +91,11 @@
     
     self.navigationItem.titleView = title;
     
-    UIImageView *imageViewH = [[UIImageView alloc]init];
-    imageViewH.frame = kCGRectMake(0, 64, 375, 2);
-    imageViewH.image = [UIImage imageNamed:@"me_line_bold_long.png"];
-    [self.view addSubview:imageViewH];
+    //UIImageView *imageViewH = [[UIImageView alloc]init];
+    //imageViewH.frame = CGRectMake(0, 129.0/2, KWidthScaled(375), KHeightScaled(3.0/2));
+    //NSLog(@"My view frame: %@", NSStringFromCGRect(imageViewH.frame));
+    //imageViewH.image = [UIImage imageNamed:@"me_line_bold_long.png"];
+    //[self.view addSubview:imageViewH];
     
     [self loadId];
     
@@ -231,7 +232,7 @@
 -(UIImage *)scaleFromImage:(UIImage *)image toSize:(CGSize)size
 {
     UIGraphicsBeginImageContext(size);
-    [image drawInRect:CGRectMake(0, 0, 37, 37)];
+    [image drawInRect:kCGRectMake(0, 0, 37, 37)];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return newImage;
@@ -260,7 +261,7 @@
         UIGraphicsBeginImageContext(asize);
         CGContextRef context = UIGraphicsGetCurrentContext();
         CGContextSetFillColorWithColor(context, [[UIColor clearColor] CGColor]);
-        UIRectFill(CGRectMake(0, 0, asize.width, asize.height));//clear background
+        UIRectFill(kCGRectMake(0, 0, asize.width, asize.height));//clear background
         [image drawInRect:rect];
         newimage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
@@ -315,7 +316,7 @@
     self.isClickFollowing = NO;
     
     
-    UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.imageViewBar.frame), kWidth, kHeight - CGRectGetMaxY(self.imageViewBar.frame))];
+    UIView *backView = [[UIView alloc]initWithFrame:kCGRectMake(0, CGRectGetMaxY(self.imageViewBar.frame), kWidth, kHeight - CGRectGetMaxY(self.imageViewBar.frame))];
     [backView setBackgroundColor:[UIColor grayColor]];
     backView.alpha = 0.4;
     
@@ -333,7 +334,7 @@
 ////图片裁剪
 //-(UIImage *)getImageFromImage:(UIImage*) superImage subImageSize:(CGSize)subImageSize subImageRect:(CGRect)subImageRect {
 //    // CGSize subImageSize = CGSizeMake(kWidth, kHeight); //定义裁剪的区域相对于原图片的位置
-//    // CGRect subImageRect = CGRectMake(START_X, START_Y, kWidth, kHeight);
+//    // CGRect subImageRect = kCGRectMake(START_X, START_Y, kWidth, kHeight);
 //    CGImageRef imageRef = superImage.CGImage;
 //    CGImageRef subImageRef = CGImageCreateWithImageInRect(imageRef, subImageRect);
 //    UIGraphicsBeginImageContext(subImageSize);
@@ -356,7 +357,10 @@
 -(void)LayoutProfile
 {
     self.imageViewBar = [[UIImageView alloc]init];
-    _imageViewBar.frame = kCGRectMake(0, 66, 375, 191.5);
+    //FIXME a gap btw top_bar and nav bar
+    //_imageViewBar.frame = CGRectMake(0, 129.0/2 + KHeightScaled(3.0/2), KWidthScaled(375), KHeightScaled(191.5));
+    _imageViewBar.frame = CGRectMake(0, 64, KWidthScaled(375), KHeightScaled(191.5));
+    NSLog(@"_imageViewBar view frame: %@", NSStringFromCGRect(_imageViewBar.frame));
     _imageViewBar.image = [UIImage imageNamed:@"me_top_bar.png"];
     _imageViewBar.userInteractionEnabled = YES;
     [self.view addSubview:_imageViewBar];
@@ -477,7 +481,7 @@
 }
 -(void)TableView
 {
-    self.tableView = [[UITableView alloc]initWithFrame: kCGRectMake(0,265, 375, 667-191.5-50) style:(UITableViewStyleGrouped)];
+    self.tableView = [[UITableView alloc]initWithFrame: CGRectMake(0,129.0/2 + KHeightScaled(191.5), kWidth, KHeightScaled(kHeight-191.5-50)) style:(UITableViewStyleGrouped)];
     _tableView.dataSource =self;
     _tableView.delegate = self;
     [_tableView setScrollEnabled:NO];

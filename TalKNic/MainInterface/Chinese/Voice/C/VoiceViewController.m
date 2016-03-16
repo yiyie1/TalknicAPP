@@ -18,6 +18,8 @@
 #import "EMConversation.h"
 #import "EaseMessageViewController.h"
 #import "solveJsonData.h"
+#import "ViewControllerUtil.h"
+
 @interface VoiceViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,UISearchDisplayDelegate,IChatManagerDelegate>
 {
     //时间
@@ -39,11 +41,12 @@
     UIImage *photo;
     NSString *strPic;
 }
-
+@property (nonatomic,strong)UINavigationBar *bar;
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,copy)NSString *dateTimm;
-
 @property (nonatomic,strong)NSMutableArray *array;
+@property (nonatomic,strong)UISearchDisplayController *searchController;
+@property (nonatomic,strong)UISearchBar *searchBar;
 @end
 
 @implementation VoiceViewController
@@ -63,29 +66,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UILabel *title = [[UILabel alloc] initWithFrame:kCGRectMake(0, 0, 100, 44)];
+    //ViewControllerUtil *vc = [[ViewControllerUtil alloc]init];
+    //self.navigationItem.titleView = [vc SetTitle:AppVoice];
     
-    title.text = AppVoice;
-    
-    title.textAlignment = NSTextAlignmentCenter;
-    
-    title.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
-    title.font = [UIFont fontWithName:kHelveticaRegular size:17.0];
-    
-    self.navigationItem.titleView = title;
+    ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
+    self.bar = [vcUtil ConfigNavigationBar:AppVoice NavController: self.navigationController NavBar:self.bar];
+    [self.view addSubview:self.bar];
     
     self.array = [NSMutableArray array];
     
-
     [self dateTIme];
     [self foreignerId];
     
-    [self messageView];
-    //    self.view.backgroundColor = [UIColor grayColor];
-    
-    // [self searchBarView];
+    if([vcUtil CheckPaid] == NO)
+    {
+        self.view.backgroundColor = [UIColor grayColor];
+    }
+    else
+    {
+        [self messageView];
+        if (self.searchBar == nil) {
+            [self searchBarView];
+        }
+    }
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newMessage:) name:@"chineseNewMessage" object:nil];
     
     //NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
@@ -95,7 +99,6 @@
       //  [EaseMobSDK createOneChatViewWithConversationChatter:fUid Name:_fuserName onNavigationController:self.navigationController];
     
 }
-
 
 -(void)foreignerId
 {
@@ -136,6 +139,9 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.hidden = YES;
+    
     [self foreignerId];
     [self.tableView reloadData];
 }
@@ -258,95 +264,87 @@
 }
 
 -(NSString*)getweek:(NSInteger)week
-
 {
-    
     NSString*weekStr=nil;
-    
     if(week==1)
-        
     {
-        
         weekStr=@"Sun";
         
-    }else if(week==2){
-        
+    }
+    else if(week==2)
+    {
         weekStr=@"Mon";
-        
-        
-        
-    }else if(week==3){
-        
+ 
+    }
+    else if(week==3)
+    {
         weekStr=@"Tue";
-        
-        
-        
-    }else if(week==4){
-        
+    }
+    else if(week==4)
+    {
         weekStr=@"Wed";
-        
-        
-        
-    }else if(week==5){
-        
+
+    }
+    else if(week==5)
+    {
         weekStr=@"Thu";
         
-        
-        
-    }else if(week==6){
-        
-        weekStr=@"Fri";
-        
-        
-        
-    }else if(week==7){
-        
-        weekStr=@"Sat";
-        
-        
-        
     }
-    
+    else if(week==6)
+    {
+        weekStr=@"Fri";
+    }
+    else if(week==7)
+    {
+        weekStr=@"Sat";
+    }
     return weekStr;
-    
 }
-
 
 -(void)messageView
 {
-    self.tableView = [[UITableView alloc]initWithFrame:kCGRectMake(0, 0, 375, 667) style:(UITableViewStylePlain)];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 129.0/2 + KHeightScaled(44), kWidth, kHeight) style:(UITableViewStylePlain)];
     [self.tableView registerNib:[UINib nibWithNibName:@"VoiceCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     _tableView.dataSource =self;
     _tableView.delegate = self;
     
     [self foreignerId];
     [self.view addSubview:_tableView];
-    
 }
 
-//-(void)searchBarView
-//{
-//
-//    UISearchBar *searchbar = [[UISearchBar alloc]initWithFrame:kCGRectMake(0, 64, 375, 44)];
-//    UITextField *searchField = [searchbar valueForKey:@"_searchField"];
-//    searchField.textColor = [UIColor colorWithRed:125/255.0 green:194/255.0 blue:232/255.0 alpha:0.5f];
-//    [searchField setValue:[UIColor colorWithRed:125/255.0 green:194/255.0 blue:232/255.0 alpha:0.5f] forKeyPath:@"_placeholderLabel.textColor"];
-//    searchbar.delegate = self;
-//    searchbar.placeholder = @"搜索";
-//
-//    self.searchBar.delegate = self;
-//    self.searchBar = searchbar;
-//    [self.view addSubview:searchbar];
-//
-//    //    [self.searchBar setSearchFieldBackgroundImage:
-//    //     [UIImage imageNamed:@"search_icon.png"]forState:UIControlStateNormal];
-//    self.searchController = [[UISearchDisplayController alloc]initWithSearchBar:searchbar contentsController:self];
-//    self.searchController.searchResultsTableView.tableFooterView = [[UIView alloc]init];
-//    _searchController.searchResultsDataSource =self;
-//    _searchController.searchResultsDelegate =self;
-//
-//
-//}
+
+-(void)searchBarView
+{
+    UISearchBar *searchbar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 129.0/2, KWidthScaled(375),KHeightScaled(44))];
+    UITextField *searchField = [searchbar valueForKey:@"_searchField"];
+    searchField.textColor = [UIColor colorWithRed:125/255.0 green:194/255.0 blue:232/255.0 alpha:0.5f];
+    [searchField setValue:[UIColor colorWithRed:125/255.0 green:194/255.0 blue:232/255.0 alpha:0.5f] forKeyPath:@"_placeholderLabel.textColor"];
+    searchbar.delegate = self;
+    searchbar.placeholder = AppSearch;
+    
+    self.searchBar.delegate = self;
+    self.searchBar = searchbar;
+    [self.view addSubview:searchbar];
+    
+    //    [self.searchBar setSearchFieldBackgroundImage:
+    //     [UIImage imageNamed:@"search_icon.png"]forState:UIControlStateNormal];
+    self.searchController = [[UISearchDisplayController alloc]initWithSearchBar:searchbar contentsController:self];
+    self.searchController.searchResultsTableView.tableFooterView = [[UIView alloc]init];
+    _searchController.searchResultsDataSource =self;
+    _searchController.searchResultsDelegate =self;
+}
+
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    self.searchBar.frame = CGRectMake(0, 129.0 / 2, KWidthScaled(375), KHeightScaled(44));
+    self.searchBar.alpha = 1.0f;
+}
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    self.searchBar.frame = CGRectMake(0, 129.0 / 2, KWidthScaled(375), KHeightScaled(44));
+    self.searchBar.alpha = 1.0f;
+}
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return  1;

@@ -18,6 +18,7 @@
 #import "EaseMobSDK.h"
 #import "YGPayByAliTool.h"
 #import "MBProgressHUD+MJ.h"
+#import "ViewControllerUtil.h"
 
 @interface HomeViewController ()<UISearchBarDelegate,UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,UISearchDisplayDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
@@ -34,13 +35,14 @@
     NSMutableArray *searChArr;//搜索结果数组
     NSDictionary * _dicP;//接受匹配信息的通知
     NSMutableArray *_piArr;//存放匹配信息
+    
 }
 //{
 //     UISearchBar *searchBar;
 //
 //
 //}
-@property (nonatomic,strong)UISegmentedControl *segmentControl;
+//@property (nonatomic,strong)UISegmentedControl *segmentControl;
 @property (nonatomic,strong)UINavigationBar *bar;
 @property (nonatomic,strong)UISearchDisplayController *searchController;
 @property (nonatomic,strong)UISearchBar *searchBar;
@@ -58,6 +60,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     [self resignFirstResponder];
     self.homecollectview.delegate = self;
@@ -83,6 +86,8 @@
     //    }];
     
     //注册通知
+    
+    [self requestDataMethod:@"featured"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"tongzhi" object:nil];
 }
@@ -242,8 +247,6 @@
             [self requestDataMethod:@"featured"];
         });
     }
-    
-    
 }
 
 - (void)sureBtn:(id)sender
@@ -440,32 +443,24 @@
 {
     [self.navigationController setNavigationBarHidden:YES];
     if (self.bar == nil) {
-        [self.navigationController setNavigationBarHidden:YES];
-        
-        self.bar = [[UINavigationBar alloc]initWithFrame:kCGRectMake(0, 0, self.view.frame.size.width, 129 / 2)];
+        self.bar = [[UINavigationBar alloc]initWithFrame:kCGRectMake(0, 0, 750/2, 129.0/2)];
         UIImage * img= [UIImage imageNamed:@"nav_bg.png"];
         img = [img stretchableImageWithLeftCapWidth:1 topCapHeight:1];
         
         [_bar setBackgroundImage:img forBarMetrics:(UIBarMetricsDefault)];
+        
         UILabel *label = [[UILabel alloc]init];
-        label.frame = kCGRectMake(self.view.frame.size.width/2.4, 30, 80, 30) ;
+        label.frame = self.bar.frame;
         label.text = AppDiscover;
         label.textAlignment = NSTextAlignmentCenter;
         label.textColor = [UIColor whiteColor];
         label.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:17.0];
-        
-        //UILabel *title = [[UILabel alloc] initWithFrame:kCGRectMake(0, 129/4, 100, 44)];
-        //title.text = AppDiscover;
-        //title.textAlignment = NSTextAlignmentCenter;
-        //title.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
-        //title.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:17.0];
-        //self.navigationItem.titleView = title;
-        
+
         [_bar addSubview:label];
         [self.view addSubview:_bar];
     }
 }
--(void)segment
+/*-(void)segment
 {
     if (self.segmentControl == nil) {
         self.segmentControl = [[UISegmentedControl alloc]initWithItems:@[AppFeatured]];//, AppLatest,AppPopular]];
@@ -475,11 +470,11 @@
         [_segmentControl addTarget:self action:@selector(segmentAction:) forControlEvents:(UIControlEventValueChanged)];
         [self.view addSubview:_segmentControl];
     }
-}
+}*/
 
 -(void)searchBarView
 {
-    UISearchBar *searchbar = [[UISearchBar alloc]initWithFrame:kCGRectMake(0, 129/2, 375, 44)];
+    UISearchBar *searchbar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 129.0/2, KWidthScaled(375),KHeightScaled(44))];
     UITextField *searchField = [searchbar valueForKey:@"_searchField"];
     searchField.textColor = [UIColor colorWithRed:125/255.0 green:194/255.0 blue:232/255.0 alpha:0.5f];
     [searchField setValue:[UIColor colorWithRed:125/255.0 green:194/255.0 blue:232/255.0 alpha:0.5f] forKeyPath:@"_placeholderLabel.textColor"];
@@ -517,12 +512,16 @@
     [self.homecollectview reloadData];
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.navigationBar.hidden = YES;
-    //    self.tabBarController.tabBar.translucent = YES;
-    //    self.tabBarController.tabBar.hidden = YES;
-    [self initNavigationBar];
     
-    //[self segment];
-
+    //self.tabBarController.tabBar.translucent = YES;
+    //self.tabBarController.tabBar.hidden = YES;
+    //[self initNavigationBar];
+    
+    //FIXME strange behavior in viewdidload
+    ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
+    self.bar = [vcUtil ConfigNavigationBar:AppDiscover NavController: self.navigationController NavBar:self.bar];
+    [self.view addSubview:self.bar];
+    
     if (self.searchBar == nil) {
         [self searchBarView];
     }
@@ -532,7 +531,8 @@
     [self showViewForm:_bShowViewForm];
     
     // 界面出现时，显示featured的collectview
-    [self requestDataMethod:@"featured"];
+    //FIXME crash on plus
+    //[self requestDataMethod:@"featured"];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -604,12 +604,12 @@
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
-    self.searchBar.frame = kCGRectMake(0, 129 / 2, 375, 44);
+    self.searchBar.frame = CGRectMake(0, 129.0 / 2, KWidthScaled(375), KHeightScaled(44));
     self.searchBar.alpha = 1.0f;
 }
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
-    self.searchBar.frame = kCGRectMake(0, 129 / 2, 375, 44);
+    self.searchBar.frame = CGRectMake(0, 129.0 / 2, KWidthScaled(375), KHeightScaled(44));
     self.searchBar.alpha = 1.0f;
 }
 

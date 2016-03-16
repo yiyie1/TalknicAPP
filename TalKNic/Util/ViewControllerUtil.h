@@ -9,5 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface ViewControllerUtil : NSObject
-- (UILabel *)SetTitle:(NSString *)titleStr;
+-(UILabel *)SetTitle:(NSString *)titleStr;
+-(NSString*)CheckRole;
+-(BOOL)CheckPaid;
+-(UINavigationBar* )ConfigNavigationBar:(NSString*)titleStr NavController: (UINavigationController *)NavController NavBar: (UINavigationBar*)NavBar;
 @end
