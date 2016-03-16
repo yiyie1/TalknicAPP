@@ -85,6 +85,12 @@
 "AppForeigner" = "老外";
 "AppChinese"   = "中国人";
 
+"AppPraised"    = "已点赞";
+"AppPraiseFail"    = "未点赞";
+
+"AppConChat" = "聊天时间到,如果您想继续聊天,请重新购买支付";
+"AppSure"   = "确定";
+
 "AppDone" = "完成";
 "AppCancel" = "取消";
 //Login Signup

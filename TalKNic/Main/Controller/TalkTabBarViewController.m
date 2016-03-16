@@ -22,7 +22,7 @@
 #import "FeedsViewController.h"
 #import "ForeignerVoiceViewController.h"
 #import "ForeignerDailyTopicViewController.h"
-
+#import "CouponViewController.h"
 
 @interface TalkTabBarViewController ()<TalkTabBarDelegate>
 @property (nonatomic,assign)BOOL isClickTabbarBtn;
@@ -67,6 +67,10 @@
         [self addChildVc:me title:AppMe image:kMEImage selectedImage:kMEImageSelected];
         me.uid = _uid;
         me.role = CHINESEUSER;
+        
+        //CouponViewController *couponVc = [[CouponViewController alloc]init];
+        //[self addChildVc:couponVc title:AppCoupon image:kMEImage selectedImage:kMEImageSelected];
+        
         // 2.更换系统自带的tabbar
         //    self.tabBar = [[HWTabBar alloc] init];
         TalkTabBar *tabBar = [[TalkTabBar alloc] init];

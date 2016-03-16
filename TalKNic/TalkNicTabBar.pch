@@ -223,6 +223,13 @@
 #define  kAlertNerverSignup NSLocalizedString(@"alert.neverSignup",@"")
 #define  kAlertAliPayFail   NSLocalizedString(@"alert.AliPayFail",@"")
 
+#define  AppPraised NSLocalizedString(@"AppPraised",@"")
+#define  AppPraiseFail NSLocalizedString(@"AppPraiseFail",@"")
+
+#define AppNotify   NSLocalizedString(@"AppNotify",@"")
+#define AppConChat  NSLocalizedString(@"AppConChat",@"")
+#define AppSure     NSLocalizedString(@"AppSure",@"")
+
 //APP language
 #define AppDone  NSLocalizedString(@"AppDone",@"")
 #define AppCancel  NSLocalizedString(@"AppCancel",@"")

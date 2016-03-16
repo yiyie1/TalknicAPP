@@ -406,7 +406,7 @@
 		A385C2071C7C91C700FB44D8 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A385C2021C7C91C700FB44D8 /* AccountViewController.m */; };
 		A385C2081C7C91C700FB44D8 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A385C2041C7C91C700FB44D8 /* NotificationViewController.m */; };
 		A385C2091C7C91C700FB44D8 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A385C2061C7C91C700FB44D8 /* SettingViewController.m */; };
-		AC5C61081C97067600F2EB3F /* ForeignerHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5C61071C97067600F2EB3F /* ForeignerHistoryViewController.m */; settings = {ASSET_TAGS = (); }; };
+		AC5C53A51C98F6D3009D7BBA /* ForeignerHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5C53A41C98F6D3009D7BBA /* ForeignerHistoryViewController.m */; settings = {ASSET_TAGS = (); }; };
 		AC5C610D1C97251600F2EB3F /* ViewControllerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5C610C1C97251600F2EB3F /* ViewControllerUtil.m */; settings = {ASSET_TAGS = (); }; };
 		DFB50C831C3E04CD0022AD95 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFB50C851C3E04CD0022AD95 /* Localizable.strings */; };
 		DFD052D01C3CE9A8000E034F /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = DFD052CC1C3CE9A8000E034F /* MBProgressHUD+MJ.m */; };
@@ -1223,8 +1223,8 @@
 		A385C2041C7C91C700FB44D8 /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
 		A385C2051C7C91C700FB44D8 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		A385C2061C7C91C700FB44D8 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
-		AC5C61061C97067600F2EB3F /* ForeignerHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForeignerHistoryViewController.h; sourceTree = "<group>"; };
-		AC5C61071C97067600F2EB3F /* ForeignerHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForeignerHistoryViewController.m; sourceTree = "<group>"; };
+		AC5C53A31C98F6D3009D7BBA /* ForeignerHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForeignerHistoryViewController.h; sourceTree = "<group>"; };
+		AC5C53A41C98F6D3009D7BBA /* ForeignerHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForeignerHistoryViewController.m; sourceTree = "<group>"; };
 		AC5C610B1C97251600F2EB3F /* ViewControllerUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewControllerUtil.h; sourceTree = "<group>"; };
 		AC5C610C1C97251600F2EB3F /* ViewControllerUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerUtil.m; sourceTree = "<group>"; };
 		AC725C231C91DA1200D1E684 /* TalkNicTabBar.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkNicTabBar.pch; sourceTree = "<group>"; };
@@ -2175,8 +2175,8 @@
 		368182621BDF617F009814FE /* C */ = {
 			isa = PBXGroup;
 			children = (
-				AC5C61061C97067600F2EB3F /* ForeignerHistoryViewController.h */,
-				AC5C61071C97067600F2EB3F /* ForeignerHistoryViewController.m */,
+				AC5C53A31C98F6D3009D7BBA /* ForeignerHistoryViewController.h */,
+				AC5C53A41C98F6D3009D7BBA /* ForeignerHistoryViewController.m */,
 				36B8550F1BF48D320060F676 /* MeViewController.h */,
 				36B855101BF48D320060F676 /* MeViewController.m */,
 				36B6EC0B1BF9835000B881BE /* BalanceViewController.h */,
@@ -4390,7 +4390,6 @@
 				DFD054E91C3CED10000E034F /* EaseChineseToPinyin.m in Sources */,
 				36E036761BD8CF38001E327D /* UIView+Extension.m in Sources */,
 				368182541BDF5FA7009814FE /* MatchViewController.m in Sources */,
-				AC5C61081C97067600F2EB3F /* ForeignerHistoryViewController.m in Sources */,
 				36E036771BD8CF38001E327D /* UIBarButtonItem+Extension.m in Sources */,
 				36F9066E1BE2059E0017F5AA /* UIImageView+HighlightedWebCache.m in Sources */,
 				36F906651BE2059E0017F5AA /* SDWebImageDecoder.m in Sources */,
@@ -4451,6 +4450,7 @@
 				3647CCD31C482D9C00F1598A /* HomeShowPicturwCell.m in Sources */,
 				DFD055061C3CED10000E034F /* EaseFacialView.m in Sources */,
 				368E2B5A1C55E95E00C9AAFB /* AddCreditCardViewController.m in Sources */,
+				AC5C53A51C98F6D3009D7BBA /* ForeignerHistoryViewController.m in Sources */,
 				DFD054B01C3CED10000E034F /* MJRefreshGifFooter.m in Sources */,
 				DFD054F81C3CED10000E034F /* EaseMessageCell.m in Sources */,
 				DFD055091C3CED10000E034F /* EaseConversationCell.m in Sources */,

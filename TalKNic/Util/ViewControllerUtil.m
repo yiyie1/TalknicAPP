@@ -24,4 +24,13 @@
     return title;
 }
 
+-(NSString*)CheckRole
+{
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    NSString *role = [user objectForKey:kChooese_ChineseOrForeigner];
+    if([role isEqualToString:@"Chinese"])
+        return CHINESEUSER;
+    else
+        return FOREINERUSER;
+}
 @end

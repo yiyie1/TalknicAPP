@@ -85,6 +85,12 @@
 "AppForeigner" = "Foreigner";
 "AppChinese"   = "Chinese";
 
+"AppPraised"    = "Already praised";
+"AppPraiseFail"    = "Praise failed";
+
+"AppConChat" = "Recharging if you want to continue chatting";
+"AppSure"   = "Sure";
+
 //APP language
 "AppDone" = "Done";
 "AppCancel" = "Cancel";

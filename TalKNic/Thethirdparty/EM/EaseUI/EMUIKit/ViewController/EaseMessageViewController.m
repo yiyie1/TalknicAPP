@@ -1824,9 +1824,6 @@
                 
                 // 修改
                 if ([dic[@"code"] isEqual:@(2)]) {
-                    
-                    NSLog(@"已经结束了");
-                    
                     NSLog(@"%@",dic);
                 }else{
                     NSLog(@"%@",dic);
@@ -1840,10 +1837,11 @@
             }];
             
             
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"聊天时间到,如果您想继续聊天,请重新购买支付." delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppConChat delegate:self cancelButtonTitle:AppSure otherButtonTitles:nil];
             [alert show];
 #warning---
 
+            //FXIME each chat should have his own chat duration
             //Clear payment and chat duration
             [user removeObjectForKey:@"payTime"];
             [user removeObjectForKey:@"chatDuration"];
