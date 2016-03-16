@@ -710,7 +710,9 @@
 -(void)optionsAction:(id)sender
 {
     self.searchBarView.hidden = NO;
-    self.backview.hidden = NO;
+    //self.backview.hidden = NO;
+    [self.view setBackgroundColor:[UIColor grayColor]];
+    self.tableView.hidden = YES;
     if (sender == self.feedsBtn) {
         self.isClickFeeds = !self.isClickFeeds;
         self.isClickFollowed = NO;
@@ -748,7 +750,10 @@
     }
     if (!self.isClickFeeds && !self.isClickFollowed && !self.isClickFollowing) {
         self.searchBarView.hidden = YES;
-        self.backview.hidden = YES;
+        self.tableView.hidden = NO;
+        [self.view setBackgroundColor:[UIColor whiteColor]];
+        
+        //self.backview.hidden = YES;
     }
 }
 
@@ -810,10 +815,31 @@
     self.isClickFeeds = NO;
     self.isClickFollowed = NO;
     self.isClickFollowing = NO;
+    
+    self.tableView.hidden = NO;
+    [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    //self.navigationController.navigationBar.translucent = NO;
+    //self.navigationController.navigationBarHidden = NO;
+    
+    self.searchBarView.hidden = YES;
+    self.tableView.hidden = NO;
+    self.backview.hidden = YES;
+
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    
+    
+    self.isClickFeeds = NO;
+    self.isClickFollowed = NO;
+    self.isClickFollowing = NO;
+    
 }
 
 /*

@@ -7,7 +7,6 @@
 //
 
 #import "ForeignerHistoryViewController.h"
-#import "VoiceCell.h"
 #import "AFNetworking.h"
 #import "solveJsonData.h"
 #import "VoiceCell.h"
@@ -337,7 +336,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 88.5;
+    return KHeightScaled(88.5);
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

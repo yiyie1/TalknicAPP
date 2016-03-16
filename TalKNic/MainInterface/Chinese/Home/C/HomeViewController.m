@@ -6,6 +6,7 @@
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
 
+#import "VoiceViewController.h"
 #import "HomeViewController.h"
 #import "CouponViewController.h"
 #import "AFNetworking.h"
@@ -48,6 +49,8 @@
 @property(nonatomic,strong)NSMutableDictionary *dataDic;
 @property(nonatomic)NSInteger seletedCount;
 @property(nonatomic)float   price;
+@property(nonatomic)BOOL    bMaskHidden;
+@property(nonatomic)BOOL    bShowViewForm;
 @end
 
 @implementation HomeViewController
@@ -60,9 +63,12 @@
     self.homecollectview.delegate = self;
     self.homecollectview.dataSource = self;
     // 把遮挡板放在当前window最外层
+
     [[UIApplication sharedApplication].keyWindow addSubview:self.zhedangbanview];
-    self.zhedangbanview.hidden = YES;
+    self.bMaskHidden = YES;
+    self.zhedangbanview.hidden = _bMaskHidden;
     self.seletedCount = 0;
+    self.bShowViewForm = NO;
     [self.homecollectview addLegendHeaderWithRefreshingBlock:^{
 
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -135,12 +141,14 @@
 {
     //init 2 pop page
     self.seletedCount = 0;
-    [self showViewFrom:NO];
+    self.bShowViewForm = NO;
+    [self showViewForm:_bShowViewForm];
     
     NSDictionary *dataDic = dataArray[indexPath.item];
     self.dataDic = [NSDictionary dictionaryWithDictionary:dataDic];
     
-    self.zhedangbanview.hidden = NO;
+    self.bMaskHidden = NO;
+    self.zhedangbanview.hidden = self.bMaskHidden;
     
     self.detailimage1.layer.masksToBounds = YES;
     self.detailimage1.layer.cornerRadius = 50 / 2 * (kWidth / 320);
@@ -161,7 +169,7 @@
     self.dianzaiLb.text = dataDic[@"praise"];
     self.pingfenLb.text = dataDic[@"star"];
     [self.dianzangBtn addTarget:self action:@selector(dianzangBtn:) forControlEvents:(UIControlEventTouchUpInside)];
-    [self.pingfenBtn addTarget:self action:@selector(pingfenBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+    //[self.pingfenBtn addTarget:self action:@selector(pingfenBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     
     //确定进入下一步
     [self.sureBtn addTarget:self action:@selector(sureBtn:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -195,14 +203,12 @@
         else if([dic[@"code"] isEqualToString:@"3"])
         {
             TalkLog(@"Praise succeeds return 3");
-            //UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"已点赞" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            //[alert show];
+            [MBProgressHUD showError:AppPraised];
         }
         else if ([dic[@"code"] isEqualToString:@"4"])
         {
             TalkLog(@"Praise fails returns 4");
-            //UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"点赞失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            //[alert show];
+            [MBProgressHUD showError:AppPraiseFail];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         TalkLog(@"Praise fails");
@@ -211,22 +217,25 @@
 }
 
 //FIXME points cannot be hit in this step
-- (void)pingfenBtn:(id)sender
-{
-    TalkLog(@"没有接口");
-    
-}
+//- (void)pingfenBtn:(id)sender
+//{
+  //  TalkLog(@"没有接口");
+//}
+
 - (void)cancelBtn:(id)sender
 {
     if (self.seletedCount % 2 == 1)
     {
-        [self showViewFrom:NO];
+        self.bShowViewForm = NO;
+        [self showViewForm:_bShowViewForm];
         self.seletedCount --;
     }
     else if (self.seletedCount % 2 == 0)
     {
-        self.zhedangbanview.hidden = YES;
-        [self showViewFrom:NO];
+        self.bMaskHidden = YES;
+        self.zhedangbanview.hidden = _bMaskHidden;
+        self.bShowViewForm = NO;
+        [self showViewForm:_bShowViewForm];
         self.seletedCount = 0;
         [self requestDataMethod:@"featured"];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -239,25 +248,27 @@
 
 - (void)sureBtn:(id)sender
 {
-    //    UIButton *btn = (UIButton *)sender;
-    
     self.seletedCount ++;
     //1st page
     if (self.seletedCount % 2 == 1)
     {
-        [self showViewFrom:YES];
+        self.bShowViewForm = YES;
+        [self showViewForm:_bShowViewForm];
         
         // 优惠券和支付价格选择
         [self.youhuiquanBtn addTarget:self action:@selector(CouponAction:) forControlEvents:(UIControlEventTouchUpInside)];
-        [self.priceBtn addTarget:self action:@selector(priceBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+        //[self.priceBtn addTarget:self action:@selector(priceBtn:) forControlEvents:(UIControlEventTouchUpInside)];
         
     }
     //2nd page
     else if (self.seletedCount % 2 == 0)
     {
+        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+        
         self.price = [self.priceBtn.titleLabel.text floatValue];
         //进入支付页面
-        self.zhedangbanview.hidden = YES;
+        self.bMaskHidden = YES;
+        self.zhedangbanview.hidden = _bMaskHidden;
         TalkLog(@"foreigner UID = %@",foreigner_uid);
         
         NSString *orderId = [self generateTradeNO];
@@ -270,8 +281,19 @@
             
             if(result.length > 0 && [resultStatus isEqualToString: @"9000"] )
             {
+                NSData* data = [user objectForKey:@"payTime"];
+                if(data)
+                    [user removeObjectForKey:@"payTime"];
                 
+                 NSDate *payDate = [NSDate date];
+                [user setObject:payDate forKey:@"payTime"];
+                
+                //VoiceViewController *voiceVC = [[VoiceViewController alloc]init];
+                //voiceVC.fUid = foreigner_uid;
+                //voiceVC.fuserName = self.nameLb.text;
+                //[self.navigationController pushViewController: voiceVC animated:YES];
                 [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController];
+                self.navigationController.tabBarItem.badgeValue = nil;
             }
             else
             {
@@ -307,11 +329,10 @@
         [session POST:PATH_GET_ORDER parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
         
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+
             NSData *dataUid = [foreigner_uid dataUsingEncoding:NSUTF8StringEncoding];
-            NSDate *payDate = [NSDate date];
             [user setObject:dataUid forKey:@"ForeignerID"];
-            [user setObject:payDate forKey:@"payTime"];
+
             NSDictionary *dic = [solveJsonData changeType:responseObject];
             NSLog(@"%@",dic);
             
@@ -403,16 +424,17 @@
 
 - (void)CouponAction:(id)sender
 {
-    self.zhedangbanview.hidden = YES;
+    //Do not record bMaskHidden here to show the mask after return back
+    //self.bMaskHidden = YES;
+    self.zhedangbanview.hidden = YES;//_bMaskHidden;
     CouponViewController *couponVC = [[CouponViewController alloc]init];
     [self.navigationController pushViewController:couponVC animated:YES];
-    //TalkLog(@"没有数据接口");
 }
 
-- (void)priceBtn:(id)sender
-{
-    TalkLog(@"没有数据接口");
-}
+//- (void)priceBtn:(id)sender
+//{
+  //  TalkLog(@"没有数据接口");
+//}
 
 -(void)initNavigationBar
 {
@@ -505,6 +527,10 @@
         [self searchBarView];
     }
     
+    //Keep previous state
+    self.zhedangbanview.hidden = _bMaskHidden;
+    [self showViewForm:_bShowViewForm];
+    
     // 界面出现时，显示featured的collectview
     [self requestDataMethod:@"featured"];
 }
@@ -541,7 +567,8 @@
     NSDictionary *dataDic = searChArr[indexPath.row];
     self.dataDic = [NSMutableDictionary dictionaryWithDictionary:dataDic];
     
-    self.zhedangbanview.hidden = NO;
+    self.bMaskHidden = NO;
+    self.zhedangbanview.hidden = _bMaskHidden;
     
     self.detailimage1.layer.masksToBounds = YES;
     self.detailimage1.layer.cornerRadius = 50 / 2 * (kWidth / 320);
@@ -562,7 +589,7 @@
     self.dianzaiLb.text = dataDic[@"praise"];
     self.pingfenLb.text = dataDic[@"star"];
     [self.dianzangBtn addTarget:self action:@selector(dianzangBtn:) forControlEvents:(UIControlEventTouchUpInside)];
-    [self.pingfenBtn addTarget:self action:@selector(pingfenBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+    //[self.pingfenBtn addTarget:self action:@selector(pingfenBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     
     //确定进入下一步+
     [self.sureBtn addTarget:self action:@selector(sureBtn:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -701,7 +728,7 @@
 }
 
 // 布局时，根据不同按钮，展示不同控件
-- (void)showViewFrom:(BOOL)isBool
+- (void)showViewForm:(BOOL)isBool
 {
     BOOL noBool = !isBool;
     self.jieshaoLb.hidden = isBool;

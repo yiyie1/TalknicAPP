@@ -7,6 +7,7 @@
 //
 
 #import "CouponViewController.h"
+#import "HomeViewController.h"
 
 @interface CouponViewController ()
 @property (nonatomic,strong)UIButton *leftBT;

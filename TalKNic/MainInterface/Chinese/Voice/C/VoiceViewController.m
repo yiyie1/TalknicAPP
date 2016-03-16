@@ -42,6 +42,7 @@
 
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,copy)NSString *dateTimm;
+
 @property (nonatomic,strong)NSMutableArray *array;
 @end
 
@@ -86,6 +87,12 @@
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newMessage:) name:@"chineseNewMessage" object:nil];
+    
+    //NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    //NSData* payData = [user objectForKey:@"payTime"];
+    
+    //if(payData)
+      //  [EaseMobSDK createOneChatViewWithConversationChatter:fUid Name:_fuserName onNavigationController:self.navigationController];
     
 }
 
@@ -385,10 +392,15 @@
     NSDate *dateNow = [NSDate date];
     NSTimeInterval timeBetween = [dateNow timeIntervalSinceDate:payDate];
     
-    if (timeBetween > 60*60*24) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"时间到了！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    if (timeBetween > DEFAULT_MAX_CHAT_DURATION) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppConChat delegate:self cancelButtonTitle:AppSure otherButtonTitles:nil];
         [alert show];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        
+        //FXIME each chat should have his own chat duration
+        //Clear payment and chat duration
+        [user removeObjectForKey:@"payTime"];
+        [user removeObjectForKey:@"chatDuration"];
     }
     else
     {
