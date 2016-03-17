@@ -17,7 +17,7 @@
 #import "solveJsonData.h"
 #import "AFNetworking.h"
 #import "CouponViewController.h"
-
+#import "MBProgressHUD+MJ.h"
 
 @interface BalanceViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate>
 {
@@ -96,7 +96,9 @@
         //            [self.tableview reloadData];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        NSLog(@"error%@",error);
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
 
 }
@@ -112,7 +114,7 @@
 }
 -(void)layoutView
 {
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 64 + 35 / 2, 375, 1)];
+    UILabel *label = [[UILabel alloc] initWithFrame:kCGRectMake(0, 64 + 35 / 2, 375, 1)];
     label.backgroundColor = [UIColor grayColor];
     [self.view addSubview:label];
     self.tableView = [[UITableView alloc]initWithFrame:kCGRectMake(0, 65 + 35 / 2, 375, 497.5 + 65 + 35 / 2 +15) style:(UITableViewStylePlain)];
@@ -120,7 +122,7 @@
     _tableView.dataSource = self;
     [_tableView setScrollEnabled:NO];
     
-    FootView *foot = [[FootView alloc] initWithFrame:kCGRectMake(0, 0, kWidth, 240 )];
+    FootView *foot = [[FootView alloc] initWithFrame:kCGRectMake(0, 0, 375, 240 )];
     
     
     self.tableView.tableFooterView = foot;
@@ -315,7 +317,9 @@
         
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        NSLog(@"error%@",error);
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
 
 }

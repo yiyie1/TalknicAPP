@@ -180,16 +180,24 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
      
-        NSString *str =[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
-        TalkLog(@"Upload Data succeeds --%@",str);
-        Information3ViewController *inforView3 = [[Information3ViewController alloc]init];
-        inforView3.userID = _usID;
-        
-        
-        [self.navigationController pushViewController:inforView3 animated:NO];
+        NSDictionary* dic = [solveJsonData changeType:responseObject];
+        if (([(NSNumber *)[dic objectForKey:@"code"]intValue] == 2)) {
+            
+            NSString *str =[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
+            TalkLog(@"Upload Data succeeds --%@",str);
+            Information3ViewController *inforView3 = [[Information3ViewController alloc]init];
+            inforView3.userID = _usID;
+            [self.navigationController pushViewController:inforView3 animated:NO];
+        }
+        else
+        {
+            [MBProgressHUD showError:kAlertModifyDataFailure];
+        }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         TalkLog(@"Failed to upload data ---%@",error);
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
     
 }

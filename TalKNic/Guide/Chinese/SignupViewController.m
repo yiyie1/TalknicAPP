@@ -27,7 +27,6 @@
 #import "ChoosePeopleViewController.h"
 
 #define kMobilewF 275
-#define KHuanxin @"12345678"
 
 #define kWidth2  [UIScreen mainScreen].bounds.size.width/320
 #define kHeight2 [UIScreen mainScreen].bounds.size.height/480
@@ -315,6 +314,8 @@
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSLog(@"code00:%@",error);
             NSLog(@"失败");
+            [MBProgressHUD showError:kAlertNetworkError];
+            return;
         }];
         
     }else{
@@ -357,6 +358,8 @@
                 
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 NSLog(@"error%@",error);
+                [MBProgressHUD showError:kAlertNetworkError];
+                return;
             }];
             
         }
@@ -454,6 +457,8 @@
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"error%@",error);
+            [MBProgressHUD showError:kAlertNetworkError];
+            return;
         }];
         
     }
@@ -491,7 +496,9 @@
             [self.navigationController pushViewController:loginVC animated:NO];
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"error:%@",error);
+            NSLog(@"error%@",error);
+            [MBProgressHUD showError:kAlertNetworkError];
+            return;
         }];
     }
 }
@@ -812,7 +819,9 @@
                 }
 
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                
+                NSLog(@"error%@",error);
+                [MBProgressHUD showError:kAlertNetworkError];
+                return;
             }];
             
         
@@ -918,7 +927,9 @@
             }
         }
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                TalkLog(@"Failed to login Weibo -- %@",error);
+                NSLog(@"error%@",error);
+                [MBProgressHUD showError:kAlertNetworkError];
+                return;
             }];
 
         }

@@ -200,8 +200,9 @@
         [self showHint:kAlertSuccess];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error%@",error);
         [self hideHud];
-        [self showHint:kAlertFail];
+        [self showHint:kAlertNetworkError];
     }];
     
     [self.navigationController popViewControllerAnimated:YES];

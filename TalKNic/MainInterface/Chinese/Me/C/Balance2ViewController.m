@@ -11,6 +11,7 @@
 #import "AFNetworking.h"
 #import "solveJsonData.h"
 #import "OrderRecorder.h"
+#import "MBProgressHUD+MJ.h"
 
 @interface Balance2ViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
@@ -205,7 +206,9 @@
 
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        NSLog(@"error%@",error);
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        [self.tableview reloadData];

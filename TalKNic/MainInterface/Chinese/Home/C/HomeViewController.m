@@ -216,7 +216,9 @@
             [MBProgressHUD showError:AppPraiseFail];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        TalkLog(@"Praise fails");
+        NSLog(@"error%@",error);
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
     
 }
@@ -364,7 +366,9 @@
                 }];*/
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            
+            NSLog(@"error%@",error);
+            [MBProgressHUD showError:kAlertNetworkError];
+            return;
         }];
         
     }
@@ -403,7 +407,9 @@
         
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        NSLog(@"error%@",error);
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
     
 }
@@ -438,12 +444,12 @@
 //{
   //  TalkLog(@"没有数据接口");
 //}
-
+/*
 -(void)initNavigationBar
 {
     [self.navigationController setNavigationBarHidden:YES];
     if (self.bar == nil) {
-        self.bar = [[UINavigationBar alloc]initWithFrame:kCGRectMake(0, 0, 750/2, 129.0/2)];
+        self.bar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, kWidth, 129.0/2)];
         UIImage * img= [UIImage imageNamed:@"nav_bg.png"];
         img = [img stretchableImageWithLeftCapWidth:1 topCapHeight:1];
         
@@ -474,7 +480,7 @@
 
 -(void)searchBarView
 {
-    UISearchBar *searchbar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 129.0/2, KWidthScaled(375),KHeightScaled(44))];
+    UISearchBar *searchbar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 129.0/2, kWidth, KHeightScaled(44))];
     UITextField *searchField = [searchbar valueForKey:@"_searchField"];
     searchField.textColor = [UIColor colorWithRed:125/255.0 green:194/255.0 blue:232/255.0 alpha:0.5f];
     [searchField setValue:[UIColor colorWithRed:125/255.0 green:194/255.0 blue:232/255.0 alpha:0.5f] forKeyPath:@"_placeholderLabel.textColor"];
@@ -597,19 +603,19 @@
     
     tableView.hidden = YES;
     
-    self.searchBar.frame = kCGRectMake(0, 129 / 2, 375, 44);
+    self.searchBar.frame = CGRectMake(0, 129.0/2, kWidth, KHeightScaled(44));
     self.searchBar.alpha = 0.5f;
     [self.searchBar resignFirstResponder];
 }
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
-    self.searchBar.frame = CGRectMake(0, 129.0 / 2, KWidthScaled(375), KHeightScaled(44));
+    self.searchBar.frame = CGRectMake(0, 129.0 / 2, kWidth, KHeightScaled(44));
     self.searchBar.alpha = 1.0f;
 }
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
-    self.searchBar.frame = CGRectMake(0, 129.0 / 2, KWidthScaled(375), KHeightScaled(44));
+    self.searchBar.frame = CGRectMake(0, 129.0 / 2, kWidth, KHeightScaled(44));
     self.searchBar.alpha = 1.0f;
 }
 
@@ -673,7 +679,9 @@
             dataDic_1 = (NSMutableDictionary *)dic;
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        NSLog(@"error%@",error);
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.homecollectview reloadData];
@@ -717,8 +725,16 @@
             
             [self.homecollectview reloadData];
         }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        else if ([[dic objectForKey:@"code"]isEqualToString:@"3"])
+        {
+            [MBProgressHUD showError:kAlertdataFailure];
+            return;
+        }
         
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error%@",error);
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.homecollectview reloadData];

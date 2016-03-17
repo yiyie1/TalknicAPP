@@ -56,11 +56,12 @@
 "alert.IDWrong" = "User ID is wrong";
 "alert.EnglishLevel" = "Please choose your English level";
 "alert.cardEmpty" = "Bank card number cannot be empty";
-"alert.dataSuccess" = "Modify data successfully";
-"alert.dataFailure" = "Modify data failure";
+"alert.dataSuccess" = "Load data successfully";
+"alert.dataFailure" = "Load data failure";
 "alert.passtouch" = "The two passwords don't match";
 "alert.passwordChangeSuccess" = "Password is changed";
 "alert.sex" = "Please select a gender";
+"alert.networkError"    = "Network Error";
 "alert.passwordWrong" = "Password is wrong";
 "alert.sourceFile" = "Please select a source file";
 "alert.cancel" = "cancel";

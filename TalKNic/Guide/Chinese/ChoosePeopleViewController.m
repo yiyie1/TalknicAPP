@@ -36,7 +36,7 @@
 -(void)chooseView
 {
     self.navigationController.navigationBar.hidden = YES;
-    self.imageView = [[UIImageView alloc]initWithFrame:kCGRectMake(0, 0, 375, 667)];
+    self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight)];
     self.imageView.image = [UIImage imageNamed:kLoginBg];
     [self.view addSubview:_imageView];
     

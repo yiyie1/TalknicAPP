@@ -10,6 +10,8 @@
 #import "AFNetworking.h"
 #import "solveJsonData.h"
 #import "VoiceCell.h"
+#import "MBProgressHUD+MJ.h"
+
 @interface ForeignerHistoryViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 {
     //时间
@@ -111,7 +113,9 @@
         }
     }
           failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              
+              NSLog(@"error%@",error);
+              [MBProgressHUD showError:kAlertNetworkError];
+              return;
           }];
     TalkLog(@"%@",_uid);
     
@@ -150,9 +154,9 @@
         _dateTim = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
         TalkLog(@"取出时间 -- %@",_dateTim);
         if (_dateTim.length < 1) {
-            TalkLog(@"asdasdasdasdasdasdas------");
+            //TalkLog(@"asdasdasdasdasdasdas------");
             vieww = [[UIView alloc]init];
-            vieww.frame = kCGRectMake(0, 0, 375, 667);
+            vieww.frame = CGRectMake(0, 0, kWidth, kHeight);
             //        vieww.backgroundColor = [UIColor yellowColor];
             
             [self.tableView addSubview:vieww];

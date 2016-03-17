@@ -19,6 +19,7 @@
 #import "EaseMessageViewController.h"
 #import "solveJsonData.h"
 #import "ViewControllerUtil.h"
+#import "MBProgressHUD+MJ.h"
 
 @interface VoiceViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,UISearchDisplayDelegate,IChatManagerDelegate>
 {
@@ -131,7 +132,9 @@
                 
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            
+            NSLog(@"error%@",error);
+            [MBProgressHUD showError:kAlertNetworkError];
+            return;
         }];
         
     }
@@ -152,7 +155,7 @@
     if ([data isEqual:@""])
     {
         vieww = [[UIView alloc]init];
-        vieww.frame = kCGRectMake(0, 0, kWidth, kHeight);
+        vieww.frame = CGRectMake(0, 0, kWidth, kHeight);
         vieww.backgroundColor = [UIColor grayColor];
         
         [self.tableView addSubview:vieww];
@@ -166,7 +169,7 @@
         if (_dateTim.length < 1)
         {
             vieww = [[UIView alloc]init];
-            vieww.frame = kCGRectMake(0, 0, 375, 667);
+            vieww.frame = CGRectMake(0, 0, kWidth, kHeight);
             vieww.backgroundColor = [UIColor grayColor];
             
             [self.tableView addSubview:vieww];

@@ -116,7 +116,7 @@
     
     for (int i = 0; i < arr.count ;i ++) {
    
-        UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(30 + ((kWidth-90)/2+30 )* (i % 2), 280 + 70 * (i / 2), (kWidth-90)/2, 55)];
+        UIButton *btn1 = [[UIButton alloc]initWithFrame:kCGRectMake(30 + ((375-90)/2+30 )* (i % 2), 280 + 70 * (i / 2), (375-90)/2, 55)];
         btn1.tag = 100 + i;
         [btn1 setTitle:arr[i]forState:UIControlStateNormal];
         btn1.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0];
@@ -199,7 +199,9 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         TalkLog(@"上传时间 -- %@",responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        NSLog(@"error%@",error);
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
     
     

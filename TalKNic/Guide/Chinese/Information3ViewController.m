@@ -141,7 +141,9 @@
         scroll.uid = user;
         [self.navigationController pushViewController:scroll animated:NO];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        NSLog(@"error%@",error);
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
 }
 -(void)leftAction

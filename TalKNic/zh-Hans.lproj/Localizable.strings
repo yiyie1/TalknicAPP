@@ -55,8 +55,9 @@
 "alert.uploadFail" = "上传失败";
 "alert.IDWrong" = "用户ID错误";
 "alert.cardEmpty" = "银行卡号不能为空";
-"alert.dataSuccess" = "修改资料成功";
-"alert.dataFailure" = "修改资料失败";
+"alert.dataSuccess" = "加载数据成功";
+"alert.dataFailure" = "加载数据失败";
+"alert.networkError"    = "网络连接失败";
 "alert.passtouch" = "两次密码不一致";
 "alert.passwordChangeSuccess" = "密码修改成功";
 "alert.sex" = "请选择性别";

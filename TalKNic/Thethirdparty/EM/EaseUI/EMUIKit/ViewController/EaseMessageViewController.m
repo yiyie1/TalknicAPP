@@ -8,7 +8,7 @@
 
 #import "EaseMessageViewController.h"
 #import "solveJsonData.h"
-
+#import "MBProgressHUD+MJ.h"
 #import "NSObject+EaseMob.h"
 #import "NSDate+Category.h"
 #import "EaseUsersListViewController.h"
@@ -1827,12 +1827,14 @@
                     NSLog(@"%@",dic);
                 }else{
                     NSLog(@"%@",dic);
-
+                    [MBProgressHUD showError:kAlertdataFailure];
                 }
                 
                 
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                NSLog(@"failure");
+                NSLog(@"error%@",error);
+                [MBProgressHUD showError:kAlertNetworkError];
+                return;
 
             }];
             

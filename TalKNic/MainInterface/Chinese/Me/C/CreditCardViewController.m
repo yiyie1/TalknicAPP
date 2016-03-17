@@ -9,7 +9,9 @@
 #import "CreditCardViewController.h"
 #import "CreditCardCell.h"
 #import "AFNetworking.h"
+#import "MBProgressHUD+MJ.h"
 #import "AddCreditCardViewController.h"
+
 @interface CreditCardViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -71,7 +73,9 @@
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error:%@",error);
+        NSLog(@"error%@",error);
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
     
     
@@ -141,7 +145,7 @@
     {
         AddCreditCardViewController *addVC = [[AddCreditCardViewController alloc]init];
         addVC.uid = _uid;
-        [self.navigationController pushViewController:addVC animated:NO];
+        [self.navigationController pushViewController:addVC animated:YES];
     }
 }
 
@@ -165,7 +169,9 @@
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             TalkLog(@"删除银行卡成功 -- %@",responseObject);
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            
+            NSLog(@"error%@",error);
+            [MBProgressHUD showError:kAlertNetworkError];
+            return;
         }];
         
         NSLog(@"%ld",indexPath.row);

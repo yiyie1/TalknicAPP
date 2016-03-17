@@ -169,6 +169,8 @@
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"code00:%@",error);
         NSLog(@"失败");
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
 }
 
@@ -215,7 +217,8 @@
         [self.navigationController popViewControllerAnimated:YES];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         TalkLog(@"失败 ＝＝ %@ ",error);
-        
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
 }
 - (void)didReceiveMemoryWarning {

@@ -224,7 +224,8 @@
         TalkLog(@"Succeed to upload image ---- %@",str);
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
 }
 
@@ -288,7 +289,8 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         TalkLog(@"个人中心 -- %@",responseObject);
         dic = [solveJsonData changeType:responseObject];
-        if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2)) {
+        if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
+        {
             NSDictionary *dict = [dic objectForKey:@"result"];
             //FIXME to upload city and nationality for Chinese user
             _city = [NSString stringWithFormat:@"%@",[dict objectForKey:@"city"]];
@@ -304,9 +306,20 @@
             NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@",[dict objectForKey:@"pic"]]];
             [self.photoView sd_setImageWithURL:url placeholderImage:nil];
         }
+        else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 4))
+        {
+            [MBProgressHUD showError:kAlertIDwrong];
+            return;
+        }
+        else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 3))
+        {
+            [MBProgressHUD showError:kAlertdataFailure];
+            return;
+        }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
 }
 -(void)layoutClickBtnGetSearchBar
@@ -316,7 +329,7 @@
     self.isClickFollowing = NO;
     
     
-    UIView *backView = [[UIView alloc]initWithFrame:kCGRectMake(0, CGRectGetMaxY(self.imageViewBar.frame), kWidth, kHeight - CGRectGetMaxY(self.imageViewBar.frame))];
+    UIView *backView = [[UIView alloc]initWithFrame:kCGRectMake(0, CGRectGetMaxY(self.imageViewBar.frame), 375, 667 - CGRectGetMaxY(self.imageViewBar.frame))];
     [backView setBackgroundColor:[UIColor grayColor]];
     backView.alpha = 0.4;
     
@@ -359,7 +372,7 @@
     self.imageViewBar = [[UIImageView alloc]init];
     //FIXME a gap btw top_bar and nav bar
     //_imageViewBar.frame = CGRectMake(0, 129.0/2 + KHeightScaled(3.0/2), KWidthScaled(375), KHeightScaled(191.5));
-    _imageViewBar.frame = CGRectMake(0, 64, KWidthScaled(375), KHeightScaled(191.5));
+    _imageViewBar.frame = CGRectMake(0, 64, kWidth, KHeightScaled(191.5));
     NSLog(@"_imageViewBar view frame: %@", NSStringFromCGRect(_imageViewBar.frame));
     _imageViewBar.image = [UIImage imageNamed:@"me_top_bar.png"];
     _imageViewBar.userInteractionEnabled = YES;
@@ -627,7 +640,7 @@
             dica = [solveJsonData changeType:responseObject];
             if (([(NSNumber *)[dica objectForKey:@"code"]intValue] == 2)) {
 
-                [MBProgressHUD showSuccess:kAlertModifyDatassSuccessful];
+                //[MBProgressHUD showSuccess:kAlertModifyDatassSuccessful];
                 TalkLog(@"修改资料成功 %@ -- %@",_nameLabel.text,_about.text);
             }
             else
@@ -636,6 +649,8 @@
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             TalkLog(@"修改资料失败 -- %@",error);
+            [MBProgressHUD showError:kAlertNetworkError];
+            //return;
         }];
         
         //FIXME to handle modify data failure
@@ -655,25 +670,30 @@
         [self.editBtn setTitle:AppDone forState:(UIControlStateNormal)];
         self.nameLabel.hidden = YES;
         self.about.hidden = YES;
-        _nameText = [[UITextView alloc]initWithFrame:kCGRectMake(112.5, 10, 150, 25)];
+        _nameText = [[UITextView alloc]init];//WithFrame:kCGRectMake(112.5, 10, 150, 25)];
+        _nameText.frame = _nameLabel.frame;
         _nameText.delegate = self;       //设置代理方法的实现类
         _nameText.font=[UIFont fontWithName:@"HelveticaNeue-Regular" size:14.0];
         _nameText.keyboardType = UIKeyboardTypeDefault;
         _nameText.textAlignment = NSTextAlignmentLeft;
-        _nameText.alpha = 0.5;
-        
-         _nameText.backgroundColor = [UIColor colorWithWhite:1.f alpha:1];
+        _nameText.backgroundColor = [UIColor clearColor];
         _nameText.textColor = [UIColor blackColor];
+        _nameText.text =_nameLabel.text;
+        
         [_imageViewBar addSubview:_nameText];
-        _topText = [[UITextView alloc]initWithFrame:kCGRectMake(112.5, 95, 232.5, 38)];
+        
+        _topText = [[UITextView alloc]init];//WithFrame:kCGRectMake(112.5, 95, 232.5, 38)];
+        _topText.frame = _about.frame;
         _topText.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:9.0];
         _topText.delegate = self;
-        _nameText.text =_nameLabel.text;
         _topText.text =_about.text;
-        _topText.alpha = 0.5;
-        _topText.backgroundColor = [UIColor colorWithWhite:1.f alpha:1];
+        _topText.keyboardType = UIKeyboardTypeDefault;
+        _topText.backgroundColor = [UIColor clearColor];
+        _topText.textColor = [UIColor blackColor];
         _topText.textAlignment = NSTextAlignmentLeft;
+        
         [_imageViewBar addSubview:_topText];
+        
         NSLog(@"Edit");
     }
     btnstare = !btnstare;

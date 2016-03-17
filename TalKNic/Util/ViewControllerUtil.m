@@ -28,7 +28,7 @@
 {
     [NavController setNavigationBarHidden:YES];
     if (NavBar == nil) {
-        NavBar = [[UINavigationBar alloc]initWithFrame:kCGRectMake(0, 0, 750/2, 129.0/2)];
+        NavBar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, kWidth, 129.0/2)];
         UIImage * img= [UIImage imageNamed:@"nav_bg.png"];
         img = [img stretchableImageWithLeftCapWidth:1 topCapHeight:1];
         

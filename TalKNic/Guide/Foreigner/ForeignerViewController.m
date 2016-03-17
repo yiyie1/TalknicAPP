@@ -42,7 +42,7 @@
 -(void)labeltitleView
 {
     self.labelTitle = [[UILabel alloc]init];
-    _labelTitle.frame = CGRectMake(15, 84, kWidth-30, 20);
+    _labelTitle.frame = kCGRectMake(15, 84, 375-30, 20);
     _labelTitle.text = @"First time for your topic choosing:";
     _labelTitle.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0];
     _labelTitle.numberOfLines =0;
@@ -50,7 +50,7 @@
     [self.view addSubview:_labelTitle];
     
     self.labelTitle2 = [[UILabel alloc]init];
-    _labelTitle2.frame =CGRectMake(15, 104, kWidth-30, 15);
+    _labelTitle2.frame =kCGRectMake(15, 104, 375-30, 15);
     _labelTitle2.text =@"(maximum 3 chosen)";
     _labelTitle2.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10.0];
     _labelTitle2.textAlignment = NSTextAlignmentCenter;
@@ -80,7 +80,7 @@
     NSArray *arr = FOREIGNER_TOPIC;
     
     for (int i = 0; i < arr.count ;i ++) {
-        UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(30 + ((kWidth-90)/2+30 )* (i % 2), 135 + 70 * (i / 2), (kWidth-90)/2, 55)];
+        UIButton *btn1 = [[UIButton alloc]initWithFrame:kCGRectMake(30 + ((375-90)/2+30 )* (i % 2), 135 + 70 * (i / 2), (375-90)/2, 55)];
         btn1.tag = 100 + i;
         [btn1 setTitle:arr[i]forState:UIControlStateNormal];
         btn1.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0];
@@ -140,10 +140,22 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        NSString *str =[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
-        TalkLog(@"上传成功 -- %@",str);
+        NSDictionary* dic = [solveJsonData changeType:responseObject];
+        if (([(NSNumber *)[dic objectForKey:@"code"]intValue] == 2)) {
+            
+            //[MBProgressHUD showSuccess:kAlertModifyDatassSuccessful];
+            NSString *str =[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
+            TalkLog(@"上传成功 -- %@",str);
+        }
+        else
+        {
+            [MBProgressHUD showError:kAlertModifyDataFailure];
+        }
+
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         TalkLog(@"上传失败 -- %@",error);
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
     Foreigner2ViewController *foreigner2VC =[[Foreigner2ViewController alloc]init];
     foreigner2VC.iD = _usID;

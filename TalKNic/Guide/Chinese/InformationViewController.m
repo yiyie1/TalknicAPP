@@ -303,7 +303,9 @@
         TalkLog(@"asdasd ---- %@",str);
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        NSLog(@"error%@",error);
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
 }
 //改变图像的尺寸，方便上传服务器

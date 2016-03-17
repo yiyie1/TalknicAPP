@@ -10,6 +10,9 @@
 #import "AFNetworking.h"
 #import "solveJsonData.h"
 #import "VoiceCell.h"
+#import "ViewControllerUtil.h"
+#import "MBProgressHUD+MJ.h"
+
 @interface HistoryViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     //时间
@@ -42,23 +45,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
-    
-    title.text = AppHistory;
-    
-    title.textAlignment = NSTextAlignmentCenter;
-    
-    title.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
-    title.font = [UIFont fontWithName:kHelveticaRegular size:17.0];
-    
-    self.navigationItem.titleView = title;
-    
+
+    ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
+    self.navigationItem.titleView = [vcUtil SetTitle:AppHistory];
+    if([vcUtil CheckPaid] == NO)
+    {
+        self.view.backgroundColor = [UIColor grayColor];
+    }
+    else
+    {
+        [self layoutTableView];
+    }
+
     [self layoutLeftBT];
     self.array = [NSMutableArray array];
     
     [self dateTIme];
     [self foreignerId];
-    [self layoutTableView];
+    
 
 }
 -(void)foreignerId
@@ -94,7 +98,9 @@
             
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        NSLog(@"error%@",error);
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -110,7 +116,7 @@
     if ([data isEqual:@""])
     {
         vieww = [[UIView alloc]init];
-        vieww.frame = kCGRectMake(0, 0, kWidth, kHeight);
+        vieww.frame = CGRectMake(0, 0, kWidth, kHeight);
         vieww.backgroundColor = [UIColor grayColor];
         
         [self.tableView addSubview:vieww];
@@ -124,7 +130,7 @@
     TalkLog(@"取出时间 -- %@",_dateTim);
     if (_dateTim.length < 1) {
         vieww = [[UIView alloc]init];
-        vieww.frame = kCGRectMake(0, 0, 375, 667);
+        vieww.frame = CGRectMake(0, 0, kWidth, kHeight);
         vieww.backgroundColor = [UIColor grayColor];
         
         [self.tableView addSubview:vieww];
@@ -293,7 +299,7 @@
 -(void)layoutTableView
 {
     
-    self.tableView = [[UITableView alloc]initWithFrame:kCGRectMake(0, 0, 375, 667) style:(UITableViewStylePlain)];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight) style:(UITableViewStylePlain)];
     [self.tableView registerNib:[UINib nibWithNibName:@"VoiceCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     _tableView.dataSource =self;
     _tableView.delegate = self;

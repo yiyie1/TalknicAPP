@@ -31,14 +31,14 @@
         [self.contentView addSubview:self.imageview];
         
         self.titleLabel = [[UILabel alloc] initWithFrame:kCGRectMake(0, 0, 375, 231 / 6)];
-//        _titleLabel.center = CGPointMake(375 / 2, 231 / 6);
+//        _titleLabel.center = CGPointMake(kWidth / 2, 231 / 6);
         _titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14.0];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.text = AppBalance;
         [self.contentView addSubview:_titleLabel];
         
         self.label = [[UILabel alloc] initWithFrame:kCGRectMake(0, CGRectGetMaxY(_titleLabel.frame) +10, 375, 231 / 4 )];
-//        _label.center = CGPointMake(375 / 2, 231 / 4 + 231 / 8);
+//        _label.center = CGPointMake(kWidth/2 / 2, 231 / 4 + 231 / 8);
         _label.textAlignment = NSTextAlignmentCenter;
         _label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:35.0];
         _label.text = @"￥20.00";

@@ -241,7 +241,9 @@
             return;
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        NSLog(@"error%@",error);
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
     
     
@@ -363,7 +365,9 @@
         TalkLog(@"asdasd ---- %@",str);
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        NSLog(@"error%@",error);
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
 }
 //改变图像的尺寸，方便上传服务器
@@ -440,7 +444,7 @@
 -(void)initFeedText{
     
     //在弹出的键盘上面加一个view来放置退出键盘的Done按钮
-    UIToolbar * topView = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, kWidth, 40)];
+    UIToolbar * topView = [[UIToolbar alloc] initWithFrame:kCGRectMake(0, 0, 375, 40)];
     [topView setBarStyle:UIBarStyleDefault];
     UIBarButtonItem * btnSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     UIBarButtonItem * doneButton = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(dismissKeyBoard)];

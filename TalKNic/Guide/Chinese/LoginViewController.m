@@ -25,7 +25,6 @@
 #import "ChoosePeopleViewController.h"
 #define kMobilewF 275
 
-#define KHuanxin @"12345678"
 @interface LoginViewController ()
 {
     NSDictionary *dic;
@@ -285,7 +284,9 @@
                 }
 
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                
+                NSLog(@"error%@",error);
+                [MBProgressHUD showError:kAlertNetworkError];
+                return;
             }];
             
             
@@ -375,7 +376,9 @@
                 }
 
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                
+                NSLog(@"error%@",error);
+                [MBProgressHUD showError:kAlertNetworkError];
+                return;
             }];
         }else
         {
@@ -516,6 +519,8 @@
                     InformationViewController *inforVC = [[InformationViewController alloc]init];
                     inforVC.uID = _uid;
                     
+                    //
+                    
                     [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
                     TalkLog(@"UID == %@",_uid);
                     [self.navigationController pushViewController:inforVC animated:NO];
@@ -576,8 +581,10 @@
                 talkVC.uid = _uid;
                 TalkLog(@"User ID: %@",talkVC.uid);
                 [self presentViewController:talkVC animated:YES completion:nil];
+                //FIXME refine the login / signup
                 [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
-
+                //[EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
+                
                 NSUserDefaults *uid = [NSUserDefaults standardUserDefaults];
                 if (![_oldId isEqualToString:@""]) {
                     if (_oldId != _uid) {
@@ -595,7 +602,8 @@
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"失败 ＝＝ %@",error);
-            
+            [MBProgressHUD showError:kAlertNetworkError];
+            return;
         }];
         
     }
@@ -732,6 +740,8 @@
                 }
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 NSLog(@"error:%@",error);
+                [MBProgressHUD showError:kAlertNetworkError];
+                return;
             }];
             
         }

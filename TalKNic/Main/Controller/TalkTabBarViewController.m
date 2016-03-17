@@ -103,7 +103,7 @@
 {
     if([self.identity isEqualToString: FOREINERUSER])
         return;
-    CGRect rect = kCGRectMake(0, 0, 375, 667);
+    CGRect rect = CGRectMake(0, 0, kWidth, kHeight);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetFillColorWithColor(context, [[UIColor clearColor] CGColor]);
@@ -113,12 +113,18 @@
     [self.tabBar setBackgroundImage:img];
     [self.tabBar setShadowImage:img];
     
+    //FIXME overlap in tab bar
     UIImage * img2= [UIImage imageNamed:@"discover_foot_bg.png"];
-    img2 = [img2 stretchableImageWithLeftCapWidth:1 topCapHeight:1];
+    img2 = [img2 stretchableImageWithLeftCapWidth:1 topCapHeight:0];
     [self.tabBar setBackgroundImage:img2];
     
+    //UIImageView *imageViewBlueFoot = [[UIImageView alloc]init];
+    //imageViewBlueFoot.frame = kCGRectMake(0, 0, 375, 111.0/2);
+    //imageViewBlueFoot.image = [UIImage imageNamed:@"discover_foot_bg.png"];
+    //[self.tabBar addSubview:imageViewBlueFoot];
+    
     UIImageView *imageView = [[UIImageView alloc]init];
-    imageView.frame = CGRectMake(0, 0, self.view.frame.size.width, 1);
+    imageView.frame = kCGRectMake(0, 0, 375, 1);
     imageView.image = [UIImage imageNamed:@"discover_split_line_blue_foot.png"];
     [self.tabBar addSubview:imageView];
     
@@ -387,7 +393,9 @@
             
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        NSLog(@"error%@",error);
+        [MBProgressHUD showError:kAlertNetworkError];
+        //return;
     }];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         

@@ -95,3 +95,15 @@ libssl.a
 *.xcindexdb-wal
 
 *.modulevalidation
+
+*.xcuserstate
+
+*.plist
+
+*.xcuserstate
+
+*.xcuserstate
+
+TalkNic.xcodeproj/project.xcworkspace/xcuserdata/lingyi.xcuserdatad/UserInterfaceState.xcuserstate
+
+*.xcuserstate

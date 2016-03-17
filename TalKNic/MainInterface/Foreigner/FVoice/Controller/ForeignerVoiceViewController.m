@@ -15,6 +15,8 @@
 #import "EMMessage.h"
 #import "EMConversation.h"
 #import "solveJsonData.h"
+#import "MBProgressHUD+MJ.h"
+
 @interface ForeignerVoiceViewController ()<UITableViewDataSource,UITableViewDelegate,IChatManagerDelegate>
 {
     
@@ -111,7 +113,9 @@
         }
     }
           failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              
+              NSLog(@"error%@",error);
+              [MBProgressHUD showError:kAlertNetworkError];
+              return;
           }];
     TalkLog(@"%@",_uid);
    
@@ -151,7 +155,7 @@
     if (_dateTim.length < 1) {
         TalkLog(@"asdasdasdasdasdasdas------");
         vieww = [[UIView alloc]init];
-        vieww.frame = kCGRectMake(0, 0, 375, 667);
+        vieww.frame = CGRectMake(0, 0, kWidth, kHeight);
 //        vieww.backgroundColor = [UIColor yellowColor];
         
         [self.tableView addSubview:vieww];

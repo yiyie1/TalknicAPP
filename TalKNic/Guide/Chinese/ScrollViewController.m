@@ -272,7 +272,7 @@
 - (void)pageAction:(UIPageControl *)pageControl
 {
     
-    self.scrollView.contentOffset = CGPointMake(375 * pageControl.currentPage, 0);
+    self.scrollView.contentOffset = CGPointMake(kWidth * pageControl.currentPage, 0);
     NSLog(@"scrollView %long",pageControl.currentPage);
 }
 

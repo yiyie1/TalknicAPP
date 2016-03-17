@@ -59,7 +59,7 @@
 -(void)layoutView
 {
     self.label = [[UILabel alloc]init];
-    _label.frame = CGRectMake(0, 84, kWidth, 20);
+    _label.frame = kCGRectMake(0, 84, 375, 20);
     _label.text = @"Bank section:";
     _label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0];
     _label.numberOfLines =0;
@@ -158,7 +158,8 @@
         TalkLog(@"上传银行卡信息成功 -- %@",dic);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         TalkLog(@"上传银行卡信息失败 -- %@",error);
-        
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
     
     

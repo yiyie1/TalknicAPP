@@ -9,6 +9,8 @@
 #import "QaViewController.h"
 #import "AFNetworking.h"
 #import "solveJsonData.h"
+#import "MBProgressHUD+MJ.h"
+
 @interface QaViewController ()
 @property (nonatomic,strong)UIButton *leftBT;
 @property (nonatomic,strong)UIButton *RightBT;
@@ -145,7 +147,9 @@
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"上床问题失败%@****%@",error,dic);
+        [MBProgressHUD showError:kAlertNetworkError];
+        NSLog(@"error%@",error);
+        //return;
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"填写有误或内容为空。" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
         

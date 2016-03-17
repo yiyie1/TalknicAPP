@@ -16,7 +16,7 @@
     if (self) {
         self.backgroundColor = [UIColor lightGrayColor];
         self.titleLabel = [[UILabel alloc] initWithFrame:kCGRectMake(0, -20, self.frame.size.width , 14)];
-        _titleLabel.center = CGPointMake(375 / 2.3, 20);
+        _titleLabel.center = CGPointMake(kWidth / 2.3, 20);
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14.0];
        

@@ -21,7 +21,7 @@
 #import "UIImage+HKExtension.h"
 #import "Foreigner0ViewController.h"
 //#import "UMSocial.h"
-#define kEaseKey @"bws#talknic"
+
 #import "HomeViewController.h"
 #import "FeedsViewController.h"
 @interface AppDelegate ()
@@ -115,13 +115,13 @@
             {
                 talkVC.identity = CHINESEUSER;
                 HomeViewController *home = [[HomeViewController alloc]init];
-                [EaseMobSDK easeMobLoginAppWithAccount:uid password:@"12345678" isAutoLogin:NO HUDShowInView:home.view];
+                [EaseMobSDK easeMobLoginAppWithAccount:uid password:KHuanxin isAutoLogin:NO HUDShowInView:home.view];
             }
             else
             {
                 talkVC.identity = FOREINERUSER;
                 FeedsViewController *feeds = [[FeedsViewController alloc]init];
-                [EaseMobSDK easeMobLoginAppWithAccount:uid password:@"12345678" isAutoLogin:NO HUDShowInView:feeds.view];
+                [EaseMobSDK easeMobLoginAppWithAccount:uid password:KHuanxin isAutoLogin:NO HUDShowInView:feeds.view];
             }
             self.window.rootViewController = talkVC;
 
