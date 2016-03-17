@@ -186,8 +186,11 @@
                     
                     NSLog(@"self.dataArray.count%lu",(unsigned long)self.dataArray.count);
 
-                }else{
-                    for (NSDictionary *dict in results) {
+                }
+                else
+                {
+                    for (NSDictionary *dict in results)
+                    {
                         
                         OrderRecorder *order = [[OrderRecorder alloc]init];
                         order.order_price = [dict objectForKey:@"order_price"];

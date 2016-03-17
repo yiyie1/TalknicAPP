@@ -175,12 +175,7 @@
     infor2VC.sexID = _sex;
     
     TalkLog(@"usid = %@ -nameid = %@ - sexid = %@ ",uuID,_unameID,_sex);
-        [self.navigationController pushViewController:infor2VC animated:NO];
-    
-    
-    
-    
-    
+    [self.navigationController pushViewController:infor2VC animated:YES];
 }
 
 -(void)popAction
@@ -276,9 +271,10 @@
     UIImage *selfPhoto = [UIImage imageWithContentsOfFile:imageFilePath];
     self.imagePhoto.image = selfPhoto;
     
-    [self shangchuan];
+    [self uploadPhoto];
 }
--(void)shangchuan
+
+-(void)uploadPhoto
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     formatter.dateFormat =@"yyyyMMddHHmmss";
@@ -294,13 +290,18 @@
     [session.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil]];
     [session POST:PATH_GET_LOGIN parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         NSData *data = UIImageJPEGRepresentation(image, 0.5);
-        NSLog(@"上传头像 -- %@",data);
+        NSLog(@"Image data -- %@",data);
         [formData appendPartWithFileData:data name:@"file" fileName:fileName mimeType:@"image/jpeg"];
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSString *str =[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
-        TalkLog(@"asdasd ---- %@",str);
+        TalkLog(@"return value ---- %@",str);
+        if (![str containsString:@"2"])
+        {
+            [MBProgressHUD showError:kAlertdataFailure];
+            return;
+        }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error%@",error);
@@ -308,6 +309,7 @@
         return;
     }];
 }
+
 //改变图像的尺寸，方便上传服务器
 -(UIImage *)scaleFromImage:(UIImage *)image toSize:(CGSize)size
 {

@@ -43,23 +43,6 @@
 
 -(void)logoutAction
 {
-    /*NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    
-    NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
-    if (str) {
-        [ud removeObjectForKey:kChooese_ChineseOrForeigner];
-    }
-    
-    NSString *userId = [ud objectForKey:@"userId"];
-    if (userId) {
-        [ud removeObjectForKey:@"userId"];
-    }
-    
-    NSString *FirstUseApp = [ud objectForKey:@"FirstUseApp"];
-    if (FirstUseApp) {
-        [ud removeObjectForKey:@"FirstUseApp"];
-    }*/
-    
     NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
     

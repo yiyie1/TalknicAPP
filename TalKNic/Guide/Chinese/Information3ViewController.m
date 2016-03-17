@@ -136,10 +136,19 @@
     [session POST:PATH_GET_LOGIN parameters:parame progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        TalkLog(@"Upload data succeeds -- %@",responseObject);
-        ScrollViewController *scroll = [[ScrollViewController alloc]init];
-        scroll.uid = user;
-        [self.navigationController pushViewController:scroll animated:NO];
+        NSString *str =[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
+        TalkLog(@"return value ---- %@",str);
+        if ([str containsString:@"2"])
+        {
+            ScrollViewController *scroll = [[ScrollViewController alloc]init];
+            scroll.uid = user;
+            [self.navigationController pushViewController:scroll animated:YES];
+        }
+        else
+        {
+            [MBProgressHUD showError:kAlertModifyDataFailure];
+            return;
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error%@",error);
         [MBProgressHUD showError:kAlertNetworkError];

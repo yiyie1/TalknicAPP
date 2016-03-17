@@ -20,6 +20,7 @@
 #import "EaseMobSDK.h"
 #import "UIImage+HKExtension.h"
 #import "Foreigner0ViewController.h"
+#import "InformationViewController.h"
 //#import "UMSocial.h"
 
 #import "HomeViewController.h"
@@ -77,7 +78,6 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
-    
     //集成分享登陆功能
     [self addShareSDKWithapplication:application didFinishLaunchingWithOptions:launchOptions];
     
@@ -90,16 +90,16 @@
     TalkLog(@"uid: %@, role: %@", uid, str);
     TalkLog(@"Server Address: %@", PATH_GET_CODE);
 
-    if (![user boolForKey:@"FirstUseApp"])    //1st time to use APP, and never choose the role
+    if (![user boolForKey:@"UseApp"])
     {
-            ChoosePeopleViewController *chooseVC = [[ChoosePeopleViewController alloc]init];
-            UINavigationController *naVC = [[UINavigationController alloc]initWithRootViewController:chooseVC];
-            self.window.rootViewController = naVC;
+        ChoosePeopleViewController *chooseVC = [[ChoosePeopleViewController alloc]init];
+        UINavigationController *naVC = [[UINavigationController alloc]initWithRootViewController:chooseVC];
+        self.window.rootViewController = naVC;
     }
     else
     {
             
-        if (uid.length == 0)    //Users never login, no user id
+        if (uid.length == 0)
         {
             LoginViewController  *loginVC = [[LoginViewController alloc]init];
             UINavigationController *naVC = [[UINavigationController alloc]initWithRootViewController:loginVC];

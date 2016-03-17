@@ -162,8 +162,7 @@
         [MBProgressHUD showError:kAlertEnglishLevel];
         return;
     }
- 
-    
+
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     session.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -181,17 +180,23 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
      
         NSDictionary* dic = [solveJsonData changeType:responseObject];
-        if (([(NSNumber *)[dic objectForKey:@"code"]intValue] == 2)) {
-            
-            NSString *str =[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
-            TalkLog(@"Upload Data succeeds --%@",str);
-            Information3ViewController *inforView3 = [[Information3ViewController alloc]init];
-            inforView3.userID = _usID;
-            [self.navigationController pushViewController:inforView3 animated:NO];
+        NSString *str =[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
+        TalkLog(@"return value ---- %@",str);
+        if (![str containsString:@"2"])
+        {
+            [MBProgressHUD showError:kAlertModifyDataFailure];
+            return;
         }
         else
         {
-            [MBProgressHUD showError:kAlertModifyDataFailure];
+            if ([dic count] != 0 && ([(NSNumber *)[dic objectForKey:@"code"]intValue] == 2)) {
+            
+                NSString *str =[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
+                TalkLog(@"Upload Data succeeds --%@",str);
+                Information3ViewController *inforView3 = [[Information3ViewController alloc]init];
+                inforView3.userID = _usID;
+                [self.navigationController pushViewController:inforView3 animated:YES];
+            }
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
