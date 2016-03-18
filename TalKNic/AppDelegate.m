@@ -5,8 +5,6 @@
 //  Created by Talknic on 15/10/9.
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
-#import "ScrollViewController.h"
-
 //#import <AlipaySDK/AlipaySDK.h>
 #import "AppDelegate.h"
 #import "ChoosePeopleViewController.h"
@@ -16,13 +14,11 @@
 #import "RootViewController.h"
 #import "MeViewController.h"
 #import "AppDelegate+ShareSDK.h"
-
 #import "EaseMobSDK.h"
 #import "UIImage+HKExtension.h"
 #import "Foreigner0ViewController.h"
 #import "InformationViewController.h"
-//#import "UMSocial.h"
-
+#import "ViewControllerUtil.h"
 #import "HomeViewController.h"
 #import "FeedsViewController.h"
 @interface AppDelegate ()
@@ -30,47 +26,6 @@
 @end
 
 @implementation AppDelegate
-//- (void)showLoginView
-//{
-//    //跳到登陆界面
-//    __weak AppDelegate *weakSelf = self;
-//    
-//    LoginViewController *aLoginViewController = [[LoginViewController alloc] init];
-//    
-//    switch (weakSelf.mainTabBarController.selectedIndex) {
-//        case 0:
-//        {
-//            [weakSelf.iHomePageViewController presentViewController:aLoginViewController animated:YES completion:^{
-//                
-//            }];
-//        }
-//            break;
-//        case 1:
-//        {
-//            [weakSelf.iLoanlistsViewController presentViewController:aLoginViewController animated:YES completion:^{
-//                
-//            }];
-//        }
-//            break;
-//        case 2:
-//        {
-//            [weakSelf.iMyAssetsController presentViewController:aLoginViewController animated:YES completion:^{
-//                
-//            }];
-//        }
-//            break;
-//        case 3:
-//        {
-//            [weakSelf.iMoreViewController presentViewController:aLoginViewController animated:YES completion:^{
-//                
-//            }];
-//        }
-//            break;
-//            
-//        default:
-//            break;
-//    }
-//}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 //    [[UIApplication sharedApplication] setStatusBarHidden:NO];
@@ -84,13 +39,14 @@
     //环信注册
     [EaseMobSDK easeMobRegisterSDKWithAppKey:kEaseKey apnsCertName:nil application:application didFinishLaunchingWithOptions:launchOptions];
     
-    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-    NSString *uid = [user objectForKey:@"userId"];
-    NSString *str = [user objectForKey:kChooese_ChineseOrForeigner];
-    TalkLog(@"uid: %@, role: %@", uid, str);
+    ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
+    
+    NSString *role = [vcUtil CheckRole];
+    NSString *uid = [vcUtil GetUid];
+    TalkLog(@"uid: %@, role: %@", uid, role);
     TalkLog(@"Server Address: %@", PATH_GET_CODE);
 
-    if (![user boolForKey:@"UseApp"])
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"UseApp"])
     {
         ChoosePeopleViewController *chooseVC = [[ChoosePeopleViewController alloc]init];
         UINavigationController *naVC = [[UINavigationController alloc]initWithRootViewController:chooseVC];
@@ -98,7 +54,6 @@
     }
     else
     {
-            
         if (uid.length == 0)
         {
             LoginViewController  *loginVC = [[LoginViewController alloc]init];
@@ -107,24 +62,42 @@
         }
         else
         {
-
-            TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
-            talkVC.uid = uid;
-                    
-            if ([str isEqualToString:@"Chinese"])
+            if([vcUtil CheckFinishedInformation])
             {
-                talkVC.identity = CHINESEUSER;
-                HomeViewController *home = [[HomeViewController alloc]init];
-                [EaseMobSDK easeMobLoginAppWithAccount:uid password:KHuanxin isAutoLogin:NO HUDShowInView:home.view];
+                TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
+                talkVC.uid = uid;
+                talkVC.identity = role;
+
+                if ([role isEqualToString:CHINESEUSER])
+                {
+                    HomeViewController *home = [[HomeViewController alloc]init];
+                    [EaseMobSDK easeMobLoginAppWithAccount:uid password:KHuanxin isAutoLogin:NO HUDShowInView:home.view];
+                }
+                else
+                {
+                    FeedsViewController *feeds = [[FeedsViewController alloc]init];
+                    [EaseMobSDK easeMobLoginAppWithAccount:uid password:KHuanxin isAutoLogin:NO HUDShowInView:feeds.view];
+                }
+                self.window.rootViewController = talkVC;
             }
             else
             {
-                talkVC.identity = FOREINERUSER;
-                FeedsViewController *feeds = [[FeedsViewController alloc]init];
-                [EaseMobSDK easeMobLoginAppWithAccount:uid password:KHuanxin isAutoLogin:NO HUDShowInView:feeds.view];
+                if ([role isEqualToString:CHINESEUSER])
+                {
+                    InformationViewController *info = [[InformationViewController alloc]init];
+                    info.uID = uid;
+                    UINavigationController *naVC = [[UINavigationController alloc]initWithRootViewController:info];
+                    self.window.rootViewController = naVC;
+                }
+                else
+                {
+                    Foreigner0ViewController *fInfo = [[Foreigner0ViewController alloc]init];
+                    fInfo.uID = uid;
+                    UINavigationController *naVC = [[UINavigationController alloc]initWithRootViewController:fInfo];
+                    self.window.rootViewController = naVC;
+                }
+                
             }
-            self.window.rootViewController = talkVC;
-
         }
     }
     

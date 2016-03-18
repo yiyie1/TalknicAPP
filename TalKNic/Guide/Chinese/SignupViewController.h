@@ -10,4 +10,5 @@
 
 @interface SignupViewController : UIViewController
 @property (nonatomic,copy)NSString *identitt;
+@property BOOL mobile;
 @end

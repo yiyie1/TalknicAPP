@@ -10,7 +10,13 @@
 
 @interface ViewControllerUtil : NSObject
 -(UILabel *)SetTitle:(NSString *)titleStr;
+
+-(UINavigationBar* )ConfigNavigationBar:(NSString*)titleStr NavController: (UINavigationController *)NavController NavBar: (UINavigationBar*)NavBar;
+
+
+//UserDefault
+-(NSString*)GetUid;
 -(NSString*)CheckRole;
 -(BOOL)CheckPaid;
--(UINavigationBar* )ConfigNavigationBar:(NSString*)titleStr NavController: (UINavigationController *)NavController NavBar: (UINavigationBar*)NavBar;
+-(BOOL)CheckFinishedInformation;
 @end

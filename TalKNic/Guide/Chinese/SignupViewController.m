@@ -25,6 +25,7 @@
 #import "InformationViewController.h"
 #import "Foreigner0ViewController.h"
 #import "ChoosePeopleViewController.h"
+#import "ViewControllerUtil.h"
 
 #define kMobilewF 275
 
@@ -35,7 +36,7 @@
     NSDictionary *_dic;
     NSString *captcha;
     UITextField *_mobilenoTF;
-    BOOL mobile;
+    
     NSString *_yanZhen;//邮箱验证码
     NSString * _uid;
     NSDictionary *_dicc;
@@ -60,18 +61,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    mobile = YES;
+    //_mobile = YES; get from login
     _dic = [NSDictionary dictionary];
-    
     [self createanView];
-    
-    
+}
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    [self mobileTF];
 }
 
 -(void)createanView
 {
-    [self mobileTF];
     [self sendbt];
     [self codebt];
     [self emailbt];
@@ -99,10 +100,9 @@
 
 -(void)mobileTF
 {
-    
     _mobilenoTF = [[UITextField alloc]init];
     _mobilenoTF.frame = kCGRectMake( 36, 89,302.5 , 56.5) ;
-    _mobilenoTF.placeholder = AppCellNum;
+    _mobilenoTF.placeholder = _mobile ? AppCellNum : AppEmail;
     _mobilenoTF.delegate = self;
     _mobilenoTF.textAlignment = NSTextAlignmentCenter;
     [_mobilenoTF setBackground:[UIImage imageNamed:kInputLg]];
@@ -267,22 +267,27 @@
 -(void)sendAction
 {
     
-    if (mobile == YES)
+    if (self.mobile == YES)
     {
         NSString *userphoneText = _mobilenoTF.text;
         if (userphoneText.length != 0) {
             //判断电话号码
-            if (_mobilenoTF.text.length != 11) {
+            if (_mobilenoTF.text.length != 11)
+            {
                 [MBProgressHUD showError:kAlertPhoneNumberNotCorrect];
                 return;
-            }else {
+            }
+            else
+            {
                 Check *checkNum = [[Check alloc]init];
                 if (![checkNum isMobileNumber:_mobilenoTF.text]) {
                     [MBProgressHUD showError:kAlertPhoneNumberFormatWrong];
                     return;
                 }
             }
-        }else {
+        }
+        else
+        {
             [MBProgressHUD showError:kAlertEnterThePhoneNumber];
             return;
         }
@@ -301,13 +306,15 @@
             NSLog(@"%@",responseObject);
             //        //取出验证码
             NSDictionary *dic = [solveJsonData changeType:responseObject];
-            if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2) )  {
+            if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2) )
+            {
                 NSDictionary *dict = [dic objectForKey:@"result"];
                 captcha = [NSString stringWithFormat:@"%@",[dict objectForKey:@"captcha"]];
                 NSLog(@"%@",captcha);
                 [MBProgressHUD showSuccess:kAlertverificationSent];
             }
-            if (([[dic objectForKey:@"code"] isEqualToString:@"4"]) ) {
+            else if (([[dic objectForKey:@"code"] isEqualToString:@"4"]) )
+            {
                 [MBProgressHUD showError:kAlertregisteredPhoneNumber];
             }
             
@@ -320,7 +327,9 @@
             return;
         }];
         
-    }else{
+    }
+    else
+    {
         
 #warning 判断邮箱格式
         NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
@@ -380,22 +389,12 @@
         }
     }
     
-    //存储用户选择身份
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
-    NSString *identity;
-    if ([str isEqualToString:@"Chinese"]) {
-        identity = @"0";
-        TalkLog(@"用户身份3 -- %@",identity);
-    }else
-    {
-        identity = @"1";
-        TalkLog(@"用户身份4 -- %@",identity);
-    }
-    TalkLog(@"用户身份 -- %@",identity);
+    ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
+    NSString *identity = [vcUtil CheckRole];
+    TalkLog(@"Role -- %@",identity);
     
-    if (mobile == YES) {
-        
+    if (self.mobile == YES)
+    {
         NSString *codeText = self.codeTF.text;
         if (codeText.length == 0 ) {
             [MBProgressHUD showError:kAlertYan];
@@ -426,21 +425,22 @@
         TalkLog(@"用户身份2 == %@",params);
         [session GET:PATH_GET_CODE parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NSMutableDictionary *dic = [solveJsonData changeType:responseObject];
-            NSLog(@"--.......%@",dic);
-            if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2)) {
-                
+            NSLog(@"Result: %@",dic);
+            if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
+            {
                 NSDictionary *dict = [dic objectForKey:@"result"];
                 _uid = [NSString stringWithFormat:@"%@",[dict objectForKey:@"uid"]];
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kAlertPrompt message:kAlertRegister delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil, nil];
-                if (_uid !=nil) {
+                if (_uid !=nil)
+                {
                     //注册环信
                     [EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
                 }
                 
-                
                 LoginViewController *loginVC = [[LoginViewController alloc]init];
                 loginVC.telNum = _mobilenoTF.text;
-                [self.navigationController pushViewController:loginVC animated:NO];
+                loginVC.mobile = self.mobile;
+                [self.navigationController pushViewController:loginVC animated:YES];
                 
             }
             if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 3)) {
@@ -861,8 +861,8 @@
 
 -(void)emailBtAction
 {
-    mobile = mobile ? NO : YES;
-    if(mobile)
+    _mobile = _mobile ? NO : YES;
+    if(_mobile)
     {
         _mobilenoTF.placeholder = AppCellNum;
     }
@@ -884,8 +884,11 @@
 
 -(void)popAction
 {
+    //FIXME don't alloc new login view
+    //LoginViewController *loginView = [[LoginViewController alloc]init];
+    //loginView.uid = _uid;
+    //loginView.mobile = _mobile;
     [self.navigationController popViewControllerAnimated:YES];
-    //[self.navigationController popToRootViewControllerAnimated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

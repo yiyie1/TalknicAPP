@@ -11,7 +11,6 @@
 #import "ForeignerViewController.h"
 #import "LoginViewController.h"
 #import "EaseMobSDK.h"
-#define kEaseKey @"bws#talknic"
 
 @interface ChoosePeopleViewController ()
 @property (nonatomic,strong)UIImageView *imageView;
@@ -75,7 +74,7 @@
     
     LoginViewController *loginVC =[[LoginViewController alloc]init];
     loginVC.identity = CHINESEUSER ;
-    [self.navigationController pushViewController:loginVC animated:NO];
+    [self.navigationController pushViewController:loginVC animated:YES];
 }
 
 -(void)foreignerAction:(UIButton *)button

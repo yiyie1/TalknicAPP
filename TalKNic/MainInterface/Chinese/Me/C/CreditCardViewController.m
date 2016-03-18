@@ -39,15 +39,18 @@
     [self layoutLeftBT];
     
     // 获取数据
-    [self requestData];
+    //[self requestData];
     
     [self layoutView];
 //    // 例：dataArr;
 //    self.arr = [NSMutableArray arrayWithObjects:@"1234 5678 ●●●● 1234",@"1234 5678 ●●●● 1234",@"1234 5678 ●●●● 1234",@"1234 5678 ●●●● 1234",@"Add New Credit Card",nil];
     self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:239/255.0 alpha:1.0];
-    
-    
-    
+
+}
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    [self requestData];
 }
 
 - (void)requestData
@@ -174,7 +177,7 @@
             return;
         }];
         
-        NSLog(@"%ld",indexPath.row);
+        NSLog(@"%ld",(long)indexPath.row);
         // 删除对应银行卡
         [self.arr removeObjectAtIndex:indexPath.row];
 

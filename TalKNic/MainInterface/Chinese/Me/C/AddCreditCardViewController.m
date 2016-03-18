@@ -139,29 +139,31 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         TalkLog(@"添加银行卡 -- %@",responseObject);
         NSMutableDictionary *dicq = [solveJsonData changeType:responseObject];
-        if (([(NSNumber *)[dicq objectForKey:@"code"] intValue] == 2)) {
-            
+        if (([(NSNumber *)[dicq objectForKey:@"code"] intValue] == 2))
+        {
             [MBProgressHUD showSuccess:kAlertUpSecEmpty];
-            
         }
-        if (([(NSNumber *)[dicq objectForKey:@"code"] intValue] == 3)) {
+        else if (([(NSNumber *)[dicq objectForKey:@"code"] intValue] == 3))
+        {
             [MBProgressHUD showError:kAlertUpFailEmpty];//验证码错误
-            return ;
         }
-        if (([(NSNumber *)[dicq objectForKey:@"code"] intValue] == 4)) {
+        else if (([(NSNumber *)[dicq objectForKey:@"code"] intValue] == 4))
+        {
             [MBProgressHUD showError:kAlertUseridWrongEmpty];
-            return;
         }
-        if (([(NSNumber *)[dicq objectForKey:@"code"] intValue] == 5)) {
+        else if (([(NSNumber *)[dicq objectForKey:@"code"] intValue] == 5))
+        {
             [MBProgressHUD showError:kAlertCardnumberExists];
-            return;
         }
+        [self popAction];
 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error%@",error);
         [MBProgressHUD showError:kAlertNetworkError];
         return;
     }];
+    
+    
 }
 
 -(void)popAction

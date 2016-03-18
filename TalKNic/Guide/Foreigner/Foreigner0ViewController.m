@@ -362,7 +362,9 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSString *str =[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
-        TalkLog(@"asdasd ---- %@",str);
+        TalkLog(@"Succeed to upload image ---- %@",str);
+        if(![str containsString:@"2"])
+            [MBProgressHUD showError:kAlertdataFailure];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error%@",error);

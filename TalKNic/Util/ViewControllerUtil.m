@@ -49,21 +49,24 @@
 
 -(NSString*)CheckRole
 {
-    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-    NSString *role = [user objectForKey:kChooese_ChineseOrForeigner];
-    if([role isEqualToString:@"Chinese"])
+    if([[[NSUserDefaults standardUserDefaults] objectForKey:kChooese_ChineseOrForeigner] isEqualToString:@"Chinese"])
         return CHINESEUSER;
     else
         return FOREINERUSER;
 }
 
+-(NSString*)GetUid
+{
+    return [[NSUserDefaults standardUserDefaults]objectForKey:@"userId"];
+}
+
+-(BOOL)CheckFinishedInformation
+{
+    return ([[[NSUserDefaults standardUserDefaults] objectForKey:@"FinishedInformation"] isEqualToString:@"Done"]);
+}
+
 -(BOOL)CheckPaid
 {
-    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-    NSString *payTime = [user objectForKey:@"payTime"];
-    if(payTime)
-        return YES;
-    else
-        return NO;
+    return ([[NSUserDefaults standardUserDefaults] objectForKey:@"payTime"] != nil);
 }
 @end

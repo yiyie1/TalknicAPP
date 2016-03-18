@@ -57,14 +57,10 @@
     self.tabBarController.tabBar.hidden = YES;
     
     [self getData];
-    
-    
-
 }
 
-- (void)getData{
-    
-    NSLog(@"哥哥走了一遍");
+- (void)getData
+{
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSMutableDictionary *parmes = [NSMutableDictionary dictionary];
@@ -80,7 +76,8 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         NSDictionary *dic = [solveJsonData changeType:responseObject];
-        if ([[dic objectForKey:@"code"] isEqualToString:@"2"]) {
+        if ([[dic objectForKey:@"code"] isEqualToString:@"2"])
+        {
             self.sources = [NSMutableArray array];
             NSDictionary *result = [dic objectForKey:@"result"];
             
@@ -90,10 +87,11 @@
             [self.sources addObject:[result objectForKey:@"score"]];
             [self.tableView reloadData];
             NSLog(@"%@",result);
-            
         }
-        
-        //            [self.tableview reloadData];
+        else
+        {
+            [MBProgressHUD showError:kAlertdataFailure];
+        }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error%@",error);
@@ -189,27 +187,36 @@
         if (indexPath.row == 0)
         {
             BalanceTableViewCell *cell1 = [[BalanceTableViewCell alloc] initWithFrame:kCGRectMake(0, 0, 375, 231 / 2)];
-            cell1.label.text = [NSString stringWithFormat:@"￥%@",self.sources[0]];
+            if(self.sources[0] == nil || [self.sources[0] isEqualToString: @""])
+                cell1.label.text = @"￥0.00";
+            else
+                cell1.label.text = [NSString stringWithFormat:@"￥%@",self.sources[0]];
             return cell1;
         }
         else if (indexPath.row == 1)
         {
-//            cell.detailTextLabel.text = @"￥0.00";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"￥%@",self.sources[1]];
+            if(self.sources[1] == nil || [self.sources[1] isEqualToString: @""])
+                cell.detailTextLabel.text = @"￥0.00";
+            else
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"￥%@",self.sources[1]];
             cell.detailTextLabel.textColor = [UIColor blueColor];
             
         }
         else if (indexPath.row == 2)
         {
-//            cell.detailTextLabel.text = @"￥0.00";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"￥%@",self.sources[2]];
+            if(self.sources[2] == nil || [self.sources[2] isEqualToString: @""])
+                cell.detailTextLabel.text = @"￥0.00";
+            else
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"￥%@",self.sources[2]];
             cell.detailTextLabel.textColor = [UIColor blueColor];
 
         }
         else
         {
-//            cell.detailTextLabel.text = @"￥203";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",self.sources[3]];
+            if(self.sources[3] == nil|| [self.sources[3] isEqualToString: @""])
+                cell.detailTextLabel.text = @"0";
+            else
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",self.sources[3]];
             cell.detailTextLabel.textColor = [UIColor blueColor];
         }
     }
@@ -217,7 +224,6 @@
     {
         if (indexPath.row == 0)
         {
-            
             cell.imageView.image = [UIImage imageNamed:@"me_alipay_icon.png"];
             cell.backgroundColor = [UIColor groupTableViewBackgroundColor];
         }
@@ -225,13 +231,11 @@
         {
             cell.imageView.image = [UIImage imageNamed:@"me_card_icon.png"];
             cell.backgroundColor = [UIColor groupTableViewBackgroundColor];
-            
         }
         else
         {
             cell.imageView.image = [UIImage imageNamed:@"me_promotion_icon.png"];
             cell.backgroundColor = [UIColor groupTableViewBackgroundColor];
-            
         }
     }
     return cell;
@@ -262,12 +266,12 @@
             [YGPayByAliTool payByAliWithSubjects:ALI_PAY_SUBJECT body:nil price:0.01 orderId:orderId partner:ALI_PARTNER_ID seller:ALI_SELLER_ID privateKey:ALI_PRIVATE_KEY success:^(NSDictionary *info) {
                 NSString *result = info[@"result"];
 
+                TalkLog(@"Alipay result: %@", result);
                 if (result.length)
                 {
-//                [self charge];
+                    [self charge];
                 }
             }];
-        //[self charge];
         }
         else if(indexPath.row == 1)
         {

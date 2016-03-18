@@ -11,6 +11,8 @@
 #import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
 #import "LoginViewController.h"
+#import "solveJsonData.h"
+
 @interface Information3ViewController ()
 {
     NSString *user;
@@ -136,10 +138,15 @@
     [session POST:PATH_GET_LOGIN parameters:parame progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSString *str =[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
-        TalkLog(@"return value ---- %@",str);
-        if ([str containsString:@"2"])
+        //NSString *str =[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
+        TalkLog(@"return value ---- %@",responseObject);
+        NSDictionary* dic = [solveJsonData changeType:responseObject];
+
+        if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2) )
+        //if ([str containsString:@"2"])
         {
+            NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+            [ud setObject:@"Done" forKey:@"FinishedInformation"];
             ScrollViewController *scroll = [[ScrollViewController alloc]init];
             scroll.uid = user;
             [self.navigationController pushViewController:scroll animated:YES];

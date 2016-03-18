@@ -222,7 +222,9 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSString *str =[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
         TalkLog(@"Succeed to upload image ---- %@",str);
-        
+        if(![str containsString:@"2"])
+            [MBProgressHUD showError:kAlertdataFailure];
+
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [MBProgressHUD showError:kAlertNetworkError];
         return;
@@ -638,34 +640,31 @@
             TalkLog(@"修改资料 -- %@",responseObject);
             
             dica = [solveJsonData changeType:responseObject];
-            if (([(NSNumber *)[dica objectForKey:@"code"]intValue] == 2)) {
-
-                //[MBProgressHUD showSuccess:kAlertModifyDatassSuccessful];
+            if (([(NSNumber *)[dica objectForKey:@"code"]intValue] == 2))
+            {
+                [MBProgressHUD showSuccess:kAlertModifyDatassSuccessful];
                 TalkLog(@"修改资料成功 %@ -- %@",_nameLabel.text,_about.text);
+                _nameLabel.text = _nameText.text;
+                _about.text = _topText.text;
             }
             else
             {
                 [MBProgressHUD showError:kAlertModifyDataFailure];
             }
+            
+            _nameText.hidden = YES;
+            _topText.hidden = YES;
+            
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             TalkLog(@"修改资料失败 -- %@",error);
             [MBProgressHUD showError:kAlertNetworkError];
             //return;
         }];
-        
-        //FIXME to handle modify data failure
-        if (![_nameText.text isEqualToString:@""]) {
-            _nameLabel.text = _nameText.text;
-        }
-        if (![_topText.text isEqualToString:@""]) {
-            _about.text = _topText.text;
-        }
-        
-        _nameText.hidden = YES;
-        _topText.hidden = YES;
+
         
         NSLog(@"Done");
-    }else
+    }
+    else
     {
         [self.editBtn setTitle:AppDone forState:(UIControlStateNormal)];
         self.nameLabel.hidden = YES;

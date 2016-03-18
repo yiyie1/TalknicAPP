@@ -8,6 +8,8 @@
 
 #import "ScrollViewController.h"
 #import "TalkTabBarViewController.h"
+#import "ViewControllerUtil.h"
+
 @interface ScrollViewController ()<UIScrollViewDelegate>
 
 @property(nonatomic,strong)UIPageControl *pageControl;
@@ -259,9 +261,6 @@
         
         }
         
-        
-        
-        
         [_scrollView addSubview:view];
         
     }
@@ -271,7 +270,6 @@
 
 - (void)pageAction:(UIPageControl *)pageControl
 {
-    
     self.scrollView.contentOffset = CGPointMake(kWidth * pageControl.currentPage, 0);
     NSLog(@"scrollView %long",pageControl.currentPage);
 }
@@ -283,22 +281,14 @@
 
 - (void)tapAction
 {
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
+    ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
     TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
     talkVC.uid = _uid;
+    talkVC.identity = [vcUtil CheckRole];
+    
     self.hidesBottomBarWhenPushed = YES;
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    [self.navigationController pushViewController:talkVC animated:NO];
-    
-    if ([str isEqualToString:@"Chinese"])
-    {
-        talkVC.identity = CHINESEUSER;
-    }
-    else
-    {
-        talkVC.identity = FOREINERUSER;
-    }
+    [self.navigationController pushViewController:talkVC animated:YES];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -308,13 +298,9 @@
     [self.pageControl removeFromSuperview];
 }
 
-
-
 - (void)didReceiveMemoryWarning
 {
-    
     [super didReceiveMemoryWarning];
-    
 }
 
 /*

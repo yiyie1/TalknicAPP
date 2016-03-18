@@ -1228,6 +1228,7 @@
 		AC5C610B1C97251600F2EB3F /* ViewControllerUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewControllerUtil.h; sourceTree = "<group>"; };
 		AC5C610C1C97251600F2EB3F /* ViewControllerUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerUtil.m; sourceTree = "<group>"; };
 		AC725C231C91DA1200D1E684 /* TalkNicTabBar.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkNicTabBar.pch; sourceTree = "<group>"; };
+		ACAEE5C21C9BF75F007F0DA4 /* CommonHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonHeader.h; sourceTree = "<group>"; };
 		DFB50C841C3E04CD0022AD95 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DFD052CB1C3CE9A8000E034F /* MBProgressHUD+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+MJ.h"; sourceTree = "<group>"; };
 		DFD052CC1C3CE9A8000E034F /* MBProgressHUD+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+MJ.m"; sourceTree = "<group>"; };
@@ -2980,6 +2981,7 @@
 				36AEDAF81C2937C4002416AC /* UserImage */,
 				AC5C610B1C97251600F2EB3F /* ViewControllerUtil.h */,
 				AC5C610C1C97251600F2EB3F /* ViewControllerUtil.m */,
+				ACAEE5C21C9BF75F007F0DA4 /* CommonHeader.h */,
 			);
 			path = Util;
 			sourceTree = "<group>";

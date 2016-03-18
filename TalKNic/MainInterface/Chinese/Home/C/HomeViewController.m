@@ -604,19 +604,21 @@
     tableView.hidden = YES;
     
     self.searchBar.frame = CGRectMake(0, 129.0/2, kWidth, KHeightScaled(44));
-    self.searchBar.alpha = 0.5f;
-    [self.searchBar resignFirstResponder];
+    self.searchBar.alpha = 1.0f;
+    //[self.searchBar resignFirstResponder];
+    [self.searchController setActive:NO];
+    
 }
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
     self.searchBar.frame = CGRectMake(0, 129.0 / 2, kWidth, KHeightScaled(44));
-    self.searchBar.alpha = 1.0f;
+    //self.searchBar.alpha = 1.0f;
 }
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
-    self.searchBar.frame = CGRectMake(0, 129.0 / 2, kWidth, KHeightScaled(44));
-    self.searchBar.alpha = 1.0f;
+    //self.searchBar.frame = CGRectMake(0, 129.0 / 2, kWidth, KHeightScaled(44));
+    //self.searchBar.alpha = 1.0f;
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
@@ -650,8 +652,9 @@
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
-    
+    TalkLog(@"cancel");
 }
+
 - (void)setImage:(nullable UIImage *)iconImage forSearchBarIcon:(UISearchBarIcon)icon state:(UIControlState)state
 {
     [self.searchBar setSearchFieldBackgroundImage:
@@ -698,7 +701,8 @@
     
     if (!dataArray) {
         dataArray = [NSMutableArray array];
-    }else
+    }
+    else
     {
         [dataArray removeAllObjects];
     }

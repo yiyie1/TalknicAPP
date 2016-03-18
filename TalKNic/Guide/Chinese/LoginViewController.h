@@ -13,4 +13,5 @@
 @property (nonatomic,copy)NSString *mobbile;
 @property (nonatomic,strong)NSString *telNum;
 @property (nonatomic,copy)NSString *identity;
+@property BOOL mobile;//是否是手机登陆
 @end

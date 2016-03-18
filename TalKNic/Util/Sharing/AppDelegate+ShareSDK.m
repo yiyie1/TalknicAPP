@@ -69,7 +69,7 @@
      *
      *  @param onConfiguration appkey的相关配置
      */
-    [ShareSDK registerApp:@"df197355c170" activePlatforms:platformArray
+    [ShareSDK registerApp:AppShareSDKKey activePlatforms:platformArray
                  onImport:^(SSDKPlatformType platformType) {
                      
                      switch (platformType)

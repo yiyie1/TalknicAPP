@@ -153,19 +153,38 @@
     [session POST:PATH_GET_LOGIN parameters:parame progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *dic = [solveJsonData changeType:responseObject];
+        TalkLog(@"添加银行卡 -- %@",responseObject);
+        NSMutableDictionary *dicq = [solveJsonData changeType:responseObject];
+        if (([(NSNumber *)[dicq objectForKey:@"code"] intValue] == 2))
+        {
+            [MBProgressHUD showSuccess:kAlertUpSecEmpty];
+        }
+        else if (([(NSNumber *)[dicq objectForKey:@"code"] intValue] == 3))
+        {
+            [MBProgressHUD showError:kAlertUpFailEmpty];//验证码错误
+        }
+        else if (([(NSNumber *)[dicq objectForKey:@"code"] intValue] == 4))
+        {
+            [MBProgressHUD showError:kAlertUseridWrongEmpty];
+        }
+        else if (([(NSNumber *)[dicq objectForKey:@"code"] intValue] == 5))
+        {
+            [MBProgressHUD showError:kAlertCardnumberExists];
+        }
         
-        TalkLog(@"上传银行卡信息成功 -- %@",dic);
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        [ud setObject:@"FinishedInformation" forKey:@"Done"];
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         TalkLog(@"上传银行卡信息失败 -- %@",error);
         [MBProgressHUD showError:kAlertNetworkError];
-        return;
+        //return;
     }];
     
     
     DailysettingViewController *dailyVC = [[DailysettingViewController alloc]init];
     dailyVC.iD = _iD;
-    [self.navigationController pushViewController:dailyVC animated:NO];
+    [self.navigationController pushViewController:dailyVC animated:YES];
 }
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     
