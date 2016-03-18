@@ -8,7 +8,6 @@
 
 #import "InformationViewController.h"
 #import "Information2ViewController.h"
-#import "ForeignerViewController.h"
 #import "LoginViewController.h"
 #import "MeHeadViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
@@ -17,7 +16,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "solveJsonData.h"
 #import "Information2ViewController.h"
-#define ORIGINAL_MAX_WIDTH 640.0f
+
 @interface InformationViewController ()<UIImagePickerControllerDelegate,UIActionSheetDelegate,MeImageCropperDelegate,UINavigationControllerDelegate,UIPickerViewAccessibilityDelegate>
 {
     UIAlertController *_alert;
@@ -151,7 +150,8 @@
 -(void)nextAction
 {
     _unameID = _usernameTf.text;
-    if (self.usernameTf.text.length ==0) {
+    if (self.usernameTf.text.length ==0)
+    {
         [MBProgressHUD showError:kAlertUsernamecannotbeEmpty];
         return;
     }
@@ -207,11 +207,8 @@
 //头像点击方法
 -(void)editPortrait:(UITapGestureRecognizer *)tap
 {
-
     UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:kAlertOurceFile delegate:self cancelButtonTitle:kAlertCancel destructiveButtonTitle:nil otherButtonTitles:kAlertCamera,kAlertLocal, nil];
     [actionSheet showInView:self.view];
-    
-    self.bUploadPhoto = YES;
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -302,6 +299,8 @@
             [MBProgressHUD showError:kAlertdataFailure];
             return;
         }
+        
+        self.bUploadPhoto = YES;
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error%@",error);

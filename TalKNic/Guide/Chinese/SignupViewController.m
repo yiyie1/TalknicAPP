@@ -26,6 +26,7 @@
 #import "Foreigner0ViewController.h"
 #import "ChoosePeopleViewController.h"
 #import "ViewControllerUtil.h"
+#import "LoginViewController.h"
 
 #define kMobilewF 275
 
@@ -61,18 +62,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //_mobile = YES; get from login
+    //_mobile = YES; //get from login
     _dic = [NSDictionary dictionary];
     [self createanView];
 }
 
 -(void) viewWillAppear:(BOOL)animated
 {
-    [self mobileTF];
+    _mobilenoTF.placeholder = _mobile ? AppCellNum : AppEmail;
 }
 
 -(void)createanView
 {
+    [self mobileTF];
     [self sendbt];
     [self codebt];
     [self emailbt];
@@ -84,7 +86,6 @@
 }
 -(void)imageviewD
 {
-    
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
     
     title.text = AppCreateAccount;
@@ -505,229 +506,6 @@
     }
 }
 
-//-(void)sendAction
-//{
-//    
-//    if (mobile == YES) {
-//        Check *checkNum = [[Check alloc]init];
-//        if (![checkNum isMobileNumber:_mobilenoTF.text]) {
-//            [MBProgressHUD showError:kAlertPhoneNumberFormatWrong];
-//            return;
-//        }
-//        //判断电话号码
-//        if (_mobilenoTF.text.length != 11 ) {
-//            
-//            [MBProgressHUD showError:kAlertPhoneNumberNotCorrect];
-//            return;
-//        }
-//        
-//        NSString *userphoneText = _mobilenoTF.text;
-//        if (userphoneText.length == 0) {
-//            [MBProgressHUD showError:kAlertEnterThePhoneNumber];
-//            return;
-//        }
-//        [MBProgressHUD showSuccess:kAlertverificationSent];
-//        //1.请求管理者
-//        
-//        AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
-//        session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-//        
-//        //2.拼接请求参数
-//        NSMutableDictionary *params = [NSMutableDictionary dictionary];
-//        params[@"cmd"] = @"1";
-//        params[@"tel"] = _mobilenoTF.text;
-//        
-//        [session GET:PATH_GET_CODE parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-//            //        //取出验证码
-//            NSDictionary *dic = [solveJsonData changeType:responseObject];
-//            if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2) )  {
-//                NSDictionary *dict = [dic objectForKey:@"result"];
-//                captcha = [NSString stringWithFormat:@"%@",[dict objectForKey:@"captcha"]];
-//                NSLog(@"%@",captcha);
-//                
-//            }
-//            if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 4) ) {
-//                [MBProgressHUD showError:kAlertregisteredPhoneNumber];
-//            }
-//            NSLog(@"成功 = %@",dic);
-//            
-//        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//            NSLog(@"code00:%@",error);
-//            NSLog(@"失败");
-//        }];
-//        
-//    }else{
-//        
-//        
-//        if (_mobilenoTF.text.length == 0) {
-//            [MBProgressHUD showError:kAlertenterEmailAddress];
-//            
-//        }else{
-//            [MBProgressHUD showSuccess:kAlertverificationSent];
-//            
-//            //1.请求管理者
-//            
-//            AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
-//            session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-//            
-//            //2.拼接请求参数
-//            
-//            NSDictionary *dic = @{@"cmd":@"12",
-//                                  @"email":_mobilenoTF.text,};
-//            
-//            [session POST:PATH_GET_CODE parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
-//                
-//            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//                NSLog(@"success%@",responseObject);
-//                NSDictionary *youDic = [responseObject objectForKey:@"result"];
-//                _yanZhen = [youDic objectForKey:@"captcha"];
-//                
-//            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//                NSLog(@"error%@",error);
-//            }];
-//            
-//        }
-//        
-//        
-//        
-//    }
-//    
-//    
-//    
-//}
-//
-//
-//
-//
-//-(void)loginupAciton
-//{
-//    
-//    
-//    if ([_mobilenoTF.placeholder isEqualToString:@"Email No."]) {
-//        if (![_mobilenoTF.text containsString:@"@"]) {
-//            //            [MBProgressHUD showError:kAlertEmailError];
-//            UIAlertView *alert = [[UIAlertView alloc]
-//                                  initWithTitle:kAlertPrompt message:kAlertEmailError delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil, nil];
-//            [alert show];
-//            return;
-//        }
-//    }
-//    
-//    //存储用户选择身份
-//    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-//    NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
-//    NSString *identity;
-//    if ([str isEqualToString:@"Chinese"]) {
-//        identity = @"0";
-//        TalkLog(@"用户身份3 -- %@",identity);
-//    }else
-//    {
-//        identity = @"1";
-//        TalkLog(@"用户身份4 -- %@",identity);
-//    }
-//    TalkLog(@"用户身份 -- %@",identity);
-//    
-//    if (mobile == YES) {
-//        NSString *codeText = self.codeTF.text;
-//        if (codeText.length == 0 ) {
-//            [MBProgressHUD showError:kAlertYan];
-//            return;
-//        }
-//        if (codeText != captcha) {
-//            [MBProgressHUD showError:kAlertYan];
-//            return;
-//        }
-//        //        else
-//        //        {
-//        //            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"注册成功" message:@"注册成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//        //            [alert show];
-//        //        }
-//        
-//        AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
-//        session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-//        NSMutableDictionary *params = [NSMutableDictionary dictionary];
-//        params[@"cmd"] = @"2";
-//        params[@"tel"] = _mobilenoTF.text;
-//        params[@"captcha"] = captcha;
-//        params[@"identity"] = identity;
-//        TalkLog(@"用户身份2 == %@",params);
-//        [session GET:PATH_GET_CODE parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//            NSMutableDictionary *dic = [solveJsonData changeType:responseObject];
-//            if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2)) {
-//               
-//                NSDictionary *dict = [dic objectForKey:@"result"];
-//                _uid = [NSString stringWithFormat:@"%@",[dict objectForKey:@"uid"]];
-//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kAlertPrompt message:kAlertRegister delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil, nil];
-//                if (_uid !=nil) {
-//                    //注册环信
-//                   [EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
-//                }
-//                
-//                
-//                LoginViewController *loginVC = [[LoginViewController alloc]init];
-//                [self.navigationController pushViewController:loginVC animated:NO];
-//
-//            }
-//            if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 3)) {
-//                [MBProgressHUD showError:@"Verification code error"];//验证码错误
-//                return ;
-//            }
-//            if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 4)) {
-//                [MBProgressHUD showError:@"Mobile phone number has been registered"];
-//                return;
-//            }
-//            if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 5)) {
-//                [MBProgressHUD showError:@"Registration failed"];
-//                return;
-//            }
-//            NSLog(@"success%@",responseObject);
-//            
-//        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//            NSLog(@"error%@",error);
-//        }];
-//        
-//    }else{
-//        NSString *codeText = self.codeTF.text;
-//        if (codeText.length == 0 ) {
-//            [MBProgressHUD showError:kAlertCode];
-//            return;
-//        }
-//        if (codeText != _yanZhen) {
-//            [MBProgressHUD showError:kAlertCodeFail];
-//            return;
-//        }else
-//        {
-//            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:kAlertRegister message:kAlertRegister delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil, nil];
-//            [alert show];
-//        }
-//        
-//        AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
-//        session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-//
-//        
-//        NSDictionary *dic = @{@"cmd":@"13",
-//                              @"email":_mobilenoTF.text,
-//                              @"captcha":codeText,
-//                              @"identity":identity,
-//                              };
-//        NSLog(@"----->>>>%@",codeText);
-//        [session POST:PATH_GET_CODE parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
-//            
-//        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//            NSLog(@"success:%@",responseObject);
-//            LoginViewController *loginVC = [[LoginViewController alloc]init];
-//            [self.navigationController pushViewController:loginVC animated:NO];
-//            
-//        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//            NSLog(@"error:%@",error);
-//        }];
-//        
-//    }
-//    
-//    
-//    
-//}
-
 -(void)loginFrom3rdPlatform:(id) sender
 {
     UIButton *btn = sender;
@@ -793,14 +571,6 @@
                     [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
                     
                     NSData * usData = [_uid dataUsingEncoding:NSUTF8StringEncoding];
-                    //if (![_oldId isEqualToString:@""])
-                    //{
-                      //  if (_oldId != _uid)
-                        //{
-                          //  [ud setObject:@"" forKey:@"ForeignerID"];
-                          //  [ud setObject:@"" forKey:@"currDate"];
-                        //}
-                    //}
                     [ud setObject:_uid forKey:@"userId"];
                     [ud setObject:usData forKey:@"ccUID"];
                     [ud synchronize];
@@ -861,19 +631,10 @@
 
 -(void)emailBtAction
 {
-    _mobile = _mobile ? NO : YES;
-    if(_mobile)
-    {
-        _mobilenoTF.placeholder = AppCellNum;
-    }
-    else
-    {
-        _mobilenoTF.placeholder = AppEmail;
-    }
-    
-    //Check *checkEm = [[Check alloc]init];
-    
+    _mobile = !_mobile;
+    _mobilenoTF.placeholder = _mobile ? AppCellNum : AppEmail;
 }
+
 //键盘回收
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     
@@ -881,18 +642,17 @@
     [_mobilenoTF resignFirstResponder];
 }
 
-
 -(void)popAction
 {
-    //FIXME don't alloc new login view
-    //LoginViewController *loginView = [[LoginViewController alloc]init];
-    //loginView.uid = _uid;
-    //loginView.mobile = _mobile;
-    [self.navigationController popViewControllerAnimated:YES];
+    //Make login and signup consistent
+    self.loginVC.mobile = self.mobile;
+    self.loginVC.loginmobileTF.text = _mobilenoTF.text;
+    [self.navigationController popToViewController:self.loginVC animated:YES];
 }
-- (void)didReceiveMemoryWarning {
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
-    
 }
 
 /*

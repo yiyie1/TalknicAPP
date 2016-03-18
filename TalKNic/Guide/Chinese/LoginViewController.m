@@ -35,7 +35,6 @@
     NSString *_weiboId;
     NSString *_oldId;
 }
-@property (nonatomic,strong)UITextField *loginmobileTF;
 @property (nonatomic,strong)UITextField *passpordTF;
 @property (nonatomic,strong)UIButton *loginBT, *signupBT,*forgetPasspord,*emailBT,*facebookBT,*weixinBT,*weiboBT;
 @property (nonatomic,strong)UIImageView *image1;
@@ -68,11 +67,12 @@
 
 -(void) viewWillAppear:(BOOL)animated
 {
-    [self loginmobile];
+    _loginmobileTF.placeholder = _mobile ? AppCellNum : AppEmail;
 }
 
 -(void)loginvieww
 {
+    [self loginmobile];
     [self passpord];
     [self loginbtt];
     [self signupbtt];
@@ -270,6 +270,8 @@
                         return;
                     }
                     
+                    [ud setObject:@"Done" forKey:@"FinishedInformation"];
+                    
                     TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
                     talkVC.uid = _uid;
                     [self presentViewController:talkVC animated:YES completion:nil];
@@ -351,15 +353,14 @@
 
 -(void)signUP
 {
-    SignupViewController *createVC = [[SignupViewController alloc]init];
-    createVC.identitt = self.identity;
-    createVC.mobile = self.mobile;
-    [self.navigationController pushViewController:createVC animated:YES];
+    SignupViewController *signupVC = [[SignupViewController alloc]init];
+    signupVC.mobile = self.mobile;
+    signupVC.loginVC = self;
+    [self.navigationController pushViewController:signupVC animated:YES];
 }
 
 -(void)loginAction:(id)sender
 {
-    
     if (_mobile == YES)
     {
         Check *checkNum = [[Check alloc]init];
@@ -402,6 +403,7 @@
         [session POST:PATH_GET_LOGIN parameters:parmas success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             dic = [solveJsonData changeType:responseObject];
             NSLog(@"result %@",dic);
+            ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
             if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 7) )
             {
                 [MBProgressHUD showError:kAlertPasswordWrong];
@@ -418,16 +420,15 @@
                 NSDictionary *dict = [dic objectForKey:@"result"];
                 _uid = [NSString stringWithFormat:@"%@",[dict objectForKey:@"uid"]];
                 NSData * usData = [_uid dataUsingEncoding:NSUTF8StringEncoding];
-                ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
-
-                if ([[vcUtil CheckRole] isEqualToString:CHINESEUSER]) {
+                
+                if ([[vcUtil CheckRole] isEqualToString:CHINESEUSER])
+                {
                     InformationViewController *inforVC = [[InformationViewController alloc]init];
                     inforVC.uID = _uid;
 
                     [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
                     TalkLog(@"UID == %@",_uid);
                     [self.navigationController pushViewController:inforVC animated:YES];
-                    
                 }
                 else
                 {
@@ -462,16 +463,16 @@
                 _uid = [NSString stringWithFormat:@"%@",[dict objectForKey:@"uid"]];
                 NSString *identity = [NSString stringWithFormat:@"%@",[dict objectForKey:@"identity"]];
                 NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-                NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
+                //NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
                 NSData * usData = [_uid dataUsingEncoding:NSUTF8StringEncoding];
 
                 //FIXME ugly code
                 //User choice doesn't match with role in server
-                if ([str isEqualToString:@"Chinese"] && [identity isEqualToString:@"0"])
+                if ([[vcUtil CheckRole] isEqualToString:CHINESEUSER] && [identity isEqualToString:CHINESEUSER])
                 {
                     //talkVC.identity = CHINESEUSER;
                 }
-                else  if ([str isEqualToString:@"Foreigner"] && [identity isEqualToString:@"1"])
+                else  if ([[vcUtil CheckRole] isEqualToString:FOREINERUSER] && [identity isEqualToString:FOREINERUSER])
                 {
                     //talkVC.identity = FOREINERUSER;
                 }

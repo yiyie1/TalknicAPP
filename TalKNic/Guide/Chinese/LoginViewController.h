@@ -10,8 +10,9 @@
 
 @interface LoginViewController : UIViewController
 @property (copy,nonatomic)NSString *uid;
-@property (nonatomic,copy)NSString *mobbile;
 @property (nonatomic,strong)NSString *telNum;
 @property (nonatomic,copy)NSString *identity;
+@property (nonatomic,strong)UITextField *loginmobileTF;
+
 @property BOOL mobile;//是否是手机登陆
 @end

@@ -56,12 +56,12 @@
     title.font = [UIFont fontWithName:kHelveticaRegular size:17.0];
     
     self.navigationItem.titleView = title;
-
     
     [self layoutLeftBT];
     
     [self layoutTableView];
 }
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [self afnusername];
@@ -77,18 +77,19 @@
     UIBarButtonItem *leftI = [[UIBarButtonItem alloc]initWithCustomView:_leftBT];
     self.navigationItem.leftBarButtonItem = leftI;
     
-    
     self.view.backgroundColor = [UIColor colorWithRed:214/255.0 green:214/255.0 blue:214/255.0 alpha:1.0];
 }
+
 -(void)layoutTableView
 {
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 45) style:(UITableViewStylePlain)];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    [self.view addSubview:_tableView];
-    [_tableView registerNib:[UINib nibWithNibName:@"VoiceCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"VoiceCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"VoiceCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"cell"];
     
+    [self.view addSubview:_tableView];
 }
+
 -(void)afnusername
 {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -157,7 +158,7 @@
             //TalkLog(@"asdasdasdasdasdasdas------");
             vieww = [[UIView alloc]init];
             vieww.frame = CGRectMake(0, 0, kWidth, kHeight);
-            //        vieww.backgroundColor = [UIColor yellowColor];
+            vieww.backgroundColor = [UIColor grayColor];
             
             [self.tableView addSubview:vieww];
             

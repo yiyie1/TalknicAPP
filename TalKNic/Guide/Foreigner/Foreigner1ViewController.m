@@ -6,12 +6,12 @@
 //  Copyright (c) 2015年 TalKNic. All rights reserved.
 //
 
-#import "ForeignerViewController.h"
+#import "Foreigner1ViewController.h"
 #import "Foreigner2ViewController.h"
 #import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
 #import "solveJsonData.h"
-@interface ForeignerViewController ()
+@interface Foreigner1ViewController ()
 @property (nonatomic,strong)UILabel *labelTitle;
 @property (nonatomic,strong)UILabel *labelTitle2;
 @property (nonatomic,strong)UIButton *leftBT;
@@ -19,7 +19,7 @@
 
 @end
 
-@implementation ForeignerViewController
+@implementation Foreigner1ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -121,6 +121,13 @@
             [parames setObject:arr[i] forKey:[NSString stringWithFormat:@"%@",arr[i]]];
         }
     }
+
+    if(parames.count == 0)
+    {
+        [MBProgressHUD showError:kAlertTopic];
+        return;
+    }
+    
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     session.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -139,13 +146,16 @@
     [session POST:PATH_GET_LOGIN parameters:parame progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-        NSDictionary* dic = [solveJsonData changeType:responseObject];
-        if (([(NSNumber *)[dic objectForKey:@"code"]intValue] == 2)) {
-            
+        NSString *str =[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
+        //NSDictionary* dic = [solveJsonData changeType:responseObject];
+
+        //if([(NSNumber *)[dic objectForKey:@"code"]intValue] == 2)
+        if([str containsString:@"2"])
+        {
             //[MBProgressHUD showSuccess:kAlertModifyDatassSuccessful];
-            NSString *str =[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
-            TalkLog(@"上传成功 -- %@",str);
+            Foreigner2ViewController *foreigner2VC =[[Foreigner2ViewController alloc]init];
+            foreigner2VC.iD = _usID;
+            [self.navigationController pushViewController:foreigner2VC animated:YES];
         }
         else
         {
@@ -157,10 +167,6 @@
         [MBProgressHUD showError:kAlertNetworkError];
         return;
     }];
-    Foreigner2ViewController *foreigner2VC =[[Foreigner2ViewController alloc]init];
-    foreigner2VC.iD = _usID;
-    [self.navigationController pushViewController:foreigner2VC animated:NO];
-    
 }
 
 -(void)popAction

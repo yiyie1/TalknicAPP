@@ -7,13 +7,14 @@
 //
 
 #import "Foreigner0ViewController.h"
-#import "ForeignerViewController.h"
+#import "Foreigner1ViewController.h"
 #import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
 #import "solveJsonData.h"
 #import "MeHeadViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "UIImageView+WebCache.h"
+
 @interface Foreigner0ViewController ()<UIImagePickerControllerDelegate,UIActionSheetDelegate,MeImageCropperDelegate,UINavigationControllerDelegate,UIPickerViewAccessibilityDelegate,UITextFieldDelegate>
 {
     NSString *_sex;
@@ -29,7 +30,7 @@
 @property (nonatomic,strong)UITextField *nationalityTF;
 @property (nonatomic,strong)UITextField *occupationTF;
 @property (nonatomic,strong)UITextField *biographyTF;
-
+@property (nonatomic) BOOL bUploadPhoto; //default NO;
 @end
 
 @implementation Foreigner0ViewController
@@ -48,13 +49,11 @@
     title.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:17.0];
     
     self.navigationItem.titleView = title;
-    
+    self.bUploadPhoto = NO;
     
     [self informationView];
     [self initFeedText];
-    
-    
-    
+
 }
 
 -(void)informationView
@@ -119,10 +118,9 @@
     _biographyTF.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_biographyTF];
 }
+
 -(void)chooseView
 {
-    
-    
     self.chooseImage = [[UIImageView alloc]init];
     _chooseImage.frame = kCGRectMake(50, 327.6, 277.77, 60);
     _chooseImage.image = [UIImage imageNamed:@"login_input_lg.png"];
@@ -155,14 +153,11 @@
     felabel.text = @"Female";
     felabel.textColor = [UIColor colorWithRed:193/255.0 green:193/255.0 blue:193/255.0 alpha:1.0];
     [self.view addSubview:felabel];
-    
-    
-    
+
 }
+
 -(void)nextbtt
 {
-    
-    
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"Next" style:(UIBarButtonItemStylePlain) target:self action:@selector(nextAction)];
     rightItem.tintColor =[UIColor whiteColor];
     
@@ -198,6 +193,12 @@
         [MBProgressHUD showError:kAlertPerson];
         return;
     }
+    if(_bUploadPhoto == NO)
+    {
+        [MBProgressHUD showError:kAlertPhoto];
+        return;
+    }
+    
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSMutableDictionary *dic =[NSMutableDictionary dictionary];
@@ -210,18 +211,19 @@
     dic[@"nationality"] = _nationalityTF.text;
     dic[@"occupation"] = _occupationTF.text;
     dic[@"biography"] = _biographyTF.text;
-    TalkLog(@"asdas %@",dic);
+    TalkLog(@"%@",dic);
 
     [session GET:PATH_GET_LOGIN parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
         
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        TalkLog(@"上传成功 -- %@",responseObject);
+        TalkLog(@"%@",responseObject);
         NSMutableDictionary *dicc = [solveJsonData changeType:responseObject];
-        if (([(NSNumber *)[dicc objectForKey:@"code"] intValue] == 2)) {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:kAlertPrompt message:kAlertSuccess delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil, nil];
-            [alert show];
-            ForeignerViewController *foreVC = [[ForeignerViewController alloc]init];
+        if (([(NSNumber *)[dicc objectForKey:@"code"] intValue] == 2))
+        {
+            //UIAlertView *alert = [[UIAlertView alloc]initWithTitle:kAlertPrompt message:kAlertSuccess delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil, nil];
+            //[alert show];
+            Foreigner1ViewController *foreVC = [[Foreigner1ViewController alloc]init];
             foreVC.usID = _uID;
             foreVC.usName = _usernameTf.text;
             foreVC.sex = _sex;
@@ -229,14 +231,15 @@
             foreVC.occup = _occupationTF.text;
             foreVC.biogra = _biographyTF.text;
             
-            [self.navigationController pushViewController:foreVC animated:NO];
-            TalkLog(@"dicc -- %@",dicc);
+            [self.navigationController pushViewController:foreVC animated:YES];
         }
-        if (([(NSNumber *)[dicc objectForKey:@"code"] intValue] == 3)) {
+        else if (([(NSNumber *)[dicc objectForKey:@"code"] intValue] == 3))
+        {
             [MBProgressHUD showError:kAlertUploadFail];
             return ;
         }
-        if (([(NSNumber *)[dicc objectForKey:@"code"] intValue] == 4)) {
+        else if (([(NSNumber *)[dicc objectForKey:@"code"] intValue] == 4))
+        {
             [MBProgressHUD showError:kAlertIDwrong];
             return;
         }
@@ -338,9 +341,10 @@
     UIImage *selfPhoto = [UIImage imageWithContentsOfFile:imageFilePath];
     self.imagePhoto.image = selfPhoto;
     
-    [self shangchuan];
+    [self uploadPhoto];
 }
--(void)shangchuan
+
+-(void)uploadPhoto
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     formatter.dateFormat =@"yyyyMMddHHmmss";
@@ -356,15 +360,20 @@
     [session.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil]];
     [session POST:PATH_GET_LOGIN parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         NSData *data = UIImageJPEGRepresentation(image, 0.5);
-        NSLog(@"上传头像 -- %@",data);
+        NSLog(@"Image data -- %@",data);
         [formData appendPartWithFileData:data name:@"file" fileName:fileName mimeType:@"image/jpeg"];
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSString *str =[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
-        TalkLog(@"Succeed to upload image ---- %@",str);
-        if(![str containsString:@"2"])
+        TalkLog(@"return value ---- %@",str);
+        if (![str containsString:@"2"])
+        {
             [MBProgressHUD showError:kAlertdataFailure];
+            return;
+        }
+        
+        self.bUploadPhoto = YES;
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error%@",error);
@@ -372,6 +381,7 @@
         return;
     }];
 }
+
 //改变图像的尺寸，方便上传服务器
 -(UIImage *)scaleFromImage:(UIImage *)image toSize:(CGSize)size
 {
@@ -449,7 +459,7 @@
     UIToolbar * topView = [[UIToolbar alloc] initWithFrame:kCGRectMake(0, 0, 375, 40)];
     [topView setBarStyle:UIBarStyleDefault];
     UIBarButtonItem * btnSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    UIBarButtonItem * doneButton = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(dismissKeyBoard)];
+    UIBarButtonItem * doneButton = [[UIBarButtonItem alloc] initWithTitle:AppDone style:UIBarButtonItemStyleDone target:self action:@selector(dismissKeyBoard)];
     NSArray * buttonsArray = [NSArray arrayWithObjects:btnSpace, doneButton, nil];
     [topView setItems:buttonsArray];
     

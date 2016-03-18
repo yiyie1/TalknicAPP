@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ForeignerViewController : UIViewController
+@interface Foreigner1ViewController : UIViewController
 
 @property (nonatomic,copy)NSString *usID;
 @property (nonatomic,copy)NSString *usName;

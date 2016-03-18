@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@class LoginViewController;
 
 @interface SignupViewController : UIViewController
-@property (nonatomic,copy)NSString *identitt;
 @property BOOL mobile;
+@property (nonatomic,strong)LoginViewController *loginVC;
 @end

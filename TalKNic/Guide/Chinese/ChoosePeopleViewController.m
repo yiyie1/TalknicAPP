@@ -8,7 +8,6 @@
 
 
 #import "ChoosePeopleViewController.h"
-#import "ForeignerViewController.h"
 #import "LoginViewController.h"
 #import "EaseMobSDK.h"
 
@@ -65,13 +64,12 @@
 {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
-    if (str) {
+    if (str)
+    {
         [ud removeObjectForKey:kChooese_ChineseOrForeigner];
     }
     [ud setObject:@"Chinese" forKey:kChooese_ChineseOrForeigner];
-//    //登录
-//    [EaseMobSDK easeMobLoginAppWithAccount:@"1233" password:@"1234" isAutoLogin:YES HUDShowInView:self.view];
-    
+
     LoginViewController *loginVC =[[LoginViewController alloc]init];
     loginVC.identity = CHINESEUSER ;
     [self.navigationController pushViewController:loginVC animated:YES];
@@ -81,14 +79,15 @@
 {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
-    if (str) {
+    if (str)
+    {
         [ud removeObjectForKey:kChooese_ChineseOrForeigner];
     }
     [ud setObject:@"Foreigner" forKey:kChooese_ChineseOrForeigner];
     
     LoginViewController *loginVC =[[LoginViewController alloc]init];
     loginVC.identity = FOREINERUSER;
-    [self.navigationController pushViewController:loginVC animated:NO];
+    [self.navigationController pushViewController:loginVC animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

@@ -183,7 +183,14 @@
             [click setObject:arr[i] forKey:[NSString stringWithFormat:@"%@",arr[i]]];
         }
     }
-    TalkLog(@"选中的btn -- %@",click);
+
+    TalkLog(@"Selected btn -- %@",click);
+    if(click.count == 0)
+    {
+        [MBProgressHUD showError:kAlertTopic];
+        return;
+    }
+    
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
@@ -197,16 +204,22 @@
     [session POST:PATH_GET_LOGIN parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary* dic = [solveJsonData changeType:responseObject];
         TalkLog(@"上传时间 -- %@",responseObject);
+        if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2) )
+        {
+            ScrollViewController *scroviewVC = [[ScrollViewController alloc]init];
+            [self.navigationController pushViewController:scroviewVC animated:YES];
+        }
+        else
+        {
+            [MBProgressHUD showError:kAlertdataFailure];
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error%@",error);
         [MBProgressHUD showError:kAlertNetworkError];
         return;
     }];
-    
-    
-     ScrollViewController *scroviewVC = [[ScrollViewController alloc]init];
-    [self.navigationController pushViewController:scroviewVC animated:NO];
     
 }
 //- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
@@ -224,6 +237,7 @@
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

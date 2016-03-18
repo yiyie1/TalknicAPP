@@ -123,17 +123,10 @@
         return;
     }
 
-    user = _userID;
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSDictionary *parame ;
-    parame = @{@"cmd":@"8",@"user_id":user,@"identity":@"0",@"start_time":@"nil",@"end_time":@"nil",@"favorite":parames};
-//    parame[@"cmd"] = @"8";
-//    parame[@"user_id"] = user;
-//    parame[@"identity"] = @"0";
-//    parame[@"start_time"] = nil;
-//    parame[@"end_time"] = nil;
-//    parame[@"favorite"] = parames;
+    parame = @{@"cmd":@"8",@"user_id":_userID,@"identity":@"0",@"start_time":@"nil",@"end_time":@"nil",@"favorite":parames};
     
     [session POST:PATH_GET_LOGIN parameters:parame progress:^(NSProgress * _Nonnull uploadProgress) {
         
@@ -148,7 +141,7 @@
             NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
             [ud setObject:@"Done" forKey:@"FinishedInformation"];
             ScrollViewController *scroll = [[ScrollViewController alloc]init];
-            scroll.uid = user;
+            scroll.uid = _userID;
             [self.navigationController pushViewController:scroll animated:YES];
         }
         else

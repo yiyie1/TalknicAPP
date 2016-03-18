@@ -43,7 +43,7 @@
 		36474AAD1C40F08000C12D2C /* DailysettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474AA61C40F08000C12D2C /* DailysettingViewController.m */; };
 		36474AAE1C40F08000C12D2C /* Foreigner0ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474AA81C40F08000C12D2C /* Foreigner0ViewController.m */; };
 		36474AAF1C40F08000C12D2C /* Foreigner2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474AAA1C40F08000C12D2C /* Foreigner2ViewController.m */; };
-		36474AB01C40F08000C12D2C /* ForeignerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474AAC1C40F08000C12D2C /* ForeignerViewController.m */; };
+		36474AB01C40F08000C12D2C /* Foreigner1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474AAC1C40F08000C12D2C /* Foreigner1ViewController.m */; };
 		36474AC41C40F10500C12D2C /* ChoosePeopleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474AB21C40F10500C12D2C /* ChoosePeopleViewController.m */; };
 		36474AC51C40F10500C12D2C /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474AB41C40F10500C12D2C /* SignupViewController.m */; };
 		36474AC61C40F10500C12D2C /* ForgetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474AB61C40F10500C12D2C /* ForgetPasswordViewController.m */; };
@@ -675,8 +675,8 @@
 		36474AA81C40F08000C12D2C /* Foreigner0ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Foreigner0ViewController.m; sourceTree = "<group>"; };
 		36474AA91C40F08000C12D2C /* Foreigner2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Foreigner2ViewController.h; sourceTree = "<group>"; };
 		36474AAA1C40F08000C12D2C /* Foreigner2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Foreigner2ViewController.m; sourceTree = "<group>"; };
-		36474AAB1C40F08000C12D2C /* ForeignerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForeignerViewController.h; sourceTree = "<group>"; };
-		36474AAC1C40F08000C12D2C /* ForeignerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForeignerViewController.m; sourceTree = "<group>"; };
+		36474AAB1C40F08000C12D2C /* Foreigner1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Foreigner1ViewController.h; sourceTree = "<group>"; };
+		36474AAC1C40F08000C12D2C /* Foreigner1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Foreigner1ViewController.m; sourceTree = "<group>"; };
 		36474AB11C40F10500C12D2C /* ChoosePeopleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoosePeopleViewController.h; sourceTree = "<group>"; };
 		36474AB21C40F10500C12D2C /* ChoosePeopleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoosePeopleViewController.m; sourceTree = "<group>"; };
 		36474AB31C40F10500C12D2C /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
@@ -1722,8 +1722,8 @@
 				36474AA81C40F08000C12D2C /* Foreigner0ViewController.m */,
 				36474AA91C40F08000C12D2C /* Foreigner2ViewController.h */,
 				36474AAA1C40F08000C12D2C /* Foreigner2ViewController.m */,
-				36474AAB1C40F08000C12D2C /* ForeignerViewController.h */,
-				36474AAC1C40F08000C12D2C /* ForeignerViewController.m */,
+				36474AAB1C40F08000C12D2C /* Foreigner1ViewController.h */,
+				36474AAC1C40F08000C12D2C /* Foreigner1ViewController.m */,
 			);
 			path = Foreigner;
 			sourceTree = "<group>";
@@ -4335,7 +4335,7 @@
 				DFD054A61C3CED10000E034F /* amrFileCodec.mm in Sources */,
 				DFD054DD1C3CED10000E034F /* PSTGridLayoutSection.m in Sources */,
 				364C56101BC761AC00DECAC8 /* AppDelegate.m in Sources */,
-				36474AB01C40F08000C12D2C /* ForeignerViewController.m in Sources */,
+				36474AB01C40F08000C12D2C /* Foreigner1ViewController.m in Sources */,
 				366D27391BFDAD5600110B3B /* VoiceCell.m in Sources */,
 				DFD054C01C3CED10000E034F /* DACircularProgressView.m in Sources */,
 				36474ACB1C40F10500C12D2C /* LoginViewController.m in Sources */,

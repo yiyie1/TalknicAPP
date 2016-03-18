@@ -108,9 +108,9 @@
     [self foreignerId];
     [self.tableView reloadData];
 }
+
 -(void)dateTIme
 {
-    
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     NSData *data = [userD objectForKey:@"currDate"];
     if ([data isEqual:@""])
@@ -289,16 +289,12 @@
     [_leftBT addTarget:self action:@selector(leftAction) forControlEvents:(UIControlEventTouchUpInside)];
     UIBarButtonItem *leftI = [[UIBarButtonItem alloc]initWithCustomView:_leftBT];
     self.navigationItem.leftBarButtonItem = leftI;
-    
-    
     self.view.backgroundColor = [UIColor colorWithRed:214/255.0 green:214/255.0 blue:214/255.0 alpha:1.0];
-    
-    
-    
+
 }
+
 -(void)layoutTableView
 {
-    
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight) style:(UITableViewStylePlain)];
     [self.tableView registerNib:[UINib nibWithNibName:@"VoiceCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     _tableView.dataSource =self;
@@ -306,7 +302,6 @@
     
     [self foreignerId];
     [self.view addSubview:_tableView];
-    
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -351,7 +346,7 @@
 
 -(void)leftAction
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
