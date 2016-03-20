@@ -399,7 +399,6 @@
 		36F906701BE2059E0017F5AA /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F9065F1BE2059E0017F5AA /* UIView+WebCacheOperation.m */; };
 		36F906711BE2059E0017F5AA /* 使用说明.txt in Resources */ = {isa = PBXBuildFile; fileRef = 36F906601BE2059E0017F5AA /* 使用说明.txt */; };
 		36F937571BF9F6A800913570 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F937561BF9F6A800913570 /* HistoryViewController.m */; };
-		36F9375A1BF9F6B500913570 /* InviteFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F937591BF9F6B500913570 /* InviteFriendsViewController.m */; };
 		36F9375D1BF9F6BD00913570 /* QaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F9375C1BF9F6BD00913570 /* QaViewController.m */; };
 		36F937601BF9F6C400913570 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F9375F1BF9F6C400913570 /* AboutViewController.m */; };
 		A375C8CD1C75CF140085E8ED /* OrderRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = A375C8CC1C75CF140085E8ED /* OrderRecorder.m */; };
@@ -1209,8 +1208,6 @@
 		36F937521BF9F69600913570 /* CreditCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditCardViewController.h; sourceTree = "<group>"; };
 		36F937551BF9F6A800913570 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		36F937561BF9F6A800913570 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
-		36F937581BF9F6B500913570 /* InviteFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteFriendsViewController.h; sourceTree = "<group>"; };
-		36F937591BF9F6B500913570 /* InviteFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteFriendsViewController.m; sourceTree = "<group>"; };
 		36F9375B1BF9F6BD00913570 /* QaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QaViewController.h; sourceTree = "<group>"; };
 		36F9375C1BF9F6BD00913570 /* QaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QaViewController.m; sourceTree = "<group>"; };
 		36F9375E1BF9F6C400913570 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
@@ -2188,8 +2185,6 @@
 				36AF36DF1C5B2A7A00FAE6E9 /* CreditCardViewController.m */,
 				36F937551BF9F6A800913570 /* HistoryViewController.h */,
 				36F937561BF9F6A800913570 /* HistoryViewController.m */,
-				36F937581BF9F6B500913570 /* InviteFriendsViewController.h */,
-				36F937591BF9F6B500913570 /* InviteFriendsViewController.m */,
 				36F9375B1BF9F6BD00913570 /* QaViewController.h */,
 				36F9375C1BF9F6BD00913570 /* QaViewController.m */,
 				36F9375E1BF9F6C400913570 /* AboutViewController.h */,
@@ -4541,7 +4536,6 @@
 				DFD054DC1C3CED10000E034F /* PSTGridLayoutRow.m in Sources */,
 				36614C001C56004E00302EDE /* VoiceViewController.m in Sources */,
 				DFD055591C3CF160000E034F /* EMChatViewController.m in Sources */,
-				36F9375A1BF9F6B500913570 /* InviteFriendsViewController.m in Sources */,
 				36F937571BF9F6A800913570 /* HistoryViewController.m in Sources */,
 				DFD054CB1C3CED10000E034F /* UIImage+EMGIF.m in Sources */,
 				363AA0501C730BFA001373F1 /* DailyTopicViewController.m in Sources */,

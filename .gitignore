@@ -107,3 +107,9 @@ libssl.a
 TalkNic.xcodeproj/project.xcworkspace/xcuserdata/lingyi.xcuserdatad/UserInterfaceState.xcuserstate
 
 *.xcuserstate
+
+*.xcbkptlist
+
+*.xcbkptlist
+
+*.xcuserstate

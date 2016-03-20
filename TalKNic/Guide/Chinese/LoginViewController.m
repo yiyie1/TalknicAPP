@@ -35,7 +35,7 @@
     NSString *_weiboId;
     NSString *_oldId;
 }
-@property (nonatomic,strong)UITextField *passpordTF;
+
 @property (nonatomic,strong)UIButton *loginBT, *signupBT,*forgetPasspord,*emailBT,*facebookBT,*weixinBT,*weiboBT;
 @property (nonatomic,strong)UIImageView *image1;
 @property (nonatomic,strong)UIImageView *image2;
@@ -85,7 +85,6 @@
 {
     self.loginmobileTF = [[UITextField alloc]init];
     _loginmobileTF.frame = CGRectMake(self.view.frame.origin.x + 50, self.view.frame.origin.y + 84, self.view.frame.size.width/1.36, 50);
-    _loginmobileTF.text = _telNum;
     _loginmobileTF.placeholder = _mobile ? AppCellNum : AppEmail;
     _loginmobileTF.textAlignment = NSTextAlignmentCenter;
     [_loginmobileTF setBackground:[UIImage imageNamed:@"login_input_lg.png"]];
@@ -94,16 +93,16 @@
 
 -(void)passpord
 {
-    self.passpordTF = [[UITextField alloc]init];
-    _passpordTF.frame = CGRectMake(self.view.frame.origin.x + 50, self.view.frame.origin.y +144, self.view.frame.size.width /1.36, 50);
-    _passpordTF.secureTextEntry = YES;
-    _passpordTF.layer.cornerRadius = 25;
-    _passpordTF.textAlignment = NSTextAlignmentCenter;
-    [_passpordTF setBackground:[UIImage imageNamed:@"login_input_lg.png"]];
-    // _passpordTF.backgroundColor = [UIColor redColor];
-    [self.view addSubview:_passpordTF];
+    self.passwordTF = [[UITextField alloc]init];
+    _passwordTF.frame = CGRectMake(self.view.frame.origin.x + 50, self.view.frame.origin.y +144, self.view.frame.size.width /1.36, 50);
+    _passwordTF.secureTextEntry = YES;
+    _passwordTF.layer.cornerRadius = 25;
+    _passwordTF.textAlignment = NSTextAlignmentCenter;
+    [_passwordTF setBackground:[UIImage imageNamed:@"login_input_lg.png"]];
+    // _passwordTF.backgroundColor = [UIColor redColor];
+    [self.view addSubview:_passwordTF];
     
-    _passpordTF.placeholder=AppPassword;
+    _passwordTF.placeholder=AppPassword;
 }
 
 -(void)loginbtt
@@ -248,11 +247,11 @@
                 
                 if (([(NSNumber *)[_weibo objectForKey:@"code"] intValue] == 2))    //Not the first time to login/signup
                 {
-                    if (_uid !=nil)
-                    {
+                    //if (_uid !=nil)
+                    //{
                         //注册环信
-                        [EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
-                    }
+                    //    [EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
+                    //}
 
                     if ([_weiboId isEqualToString:CHINESEUSER] && [identity isEqualToString:CHINESEUSER])  // 0 means Chinese account
                     {
@@ -267,6 +266,8 @@
                         [ud removeObjectForKey:@"UseApp"];
                         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:kAlertPrompt message:kAlertAccountNotMatchID delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil, nil];
                         [alert show];
+                        ChoosePeopleViewController *choosePeopleVC = [[ChoosePeopleViewController alloc]init];
+                        [self.navigationController pushViewController:choosePeopleVC animated:YES];
                         return;
                     }
                     
@@ -275,6 +276,7 @@
                     TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
                     talkVC.uid = _uid;
                     [self presentViewController:talkVC animated:YES completion:nil];
+                    //[EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
                     [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
                     
                     NSData * usData = [_uid dataUsingEncoding:NSUTF8StringEncoding];
@@ -321,6 +323,7 @@
                         foreigVC.uID = _uid;
                         [self.navigationController pushViewController:foreigVC animated:YES];
                     }
+                    //[ud setObject:@"Done" forKey:@"FinishedInformation"];
                 }
                 else
                 {
@@ -365,7 +368,7 @@
     {
         Check *checkNum = [[Check alloc]init];
         
-        if (_loginmobileTF.text.length == 0 | _passpordTF.text.length ==0)
+        if (_loginmobileTF.text.length == 0 | _passwordTF.text.length ==0)
         {
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:kAlertPrompt message:kAlertCodeEmpty delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil, nil];
@@ -378,28 +381,26 @@
             [alert show];
             return;
         }
-        if (_passpordTF.text.length < 6)
+        else if (_passwordTF.text.length < 6)
         {
-            //            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"密码长度不能小于6位" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            //            [alert show];
             [MBProgressHUD showError:kAlert6];
             return;
             
         }
-        if (_passpordTF.text.length > 16)
+        else if (_passwordTF.text.length > 16)
         {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:kAlertPrompt message:kAlert16 delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil, nil];
             [alert show];
             return;
         }
         
-        [_passpordTF.text md5String];
+        [_passwordTF.text md5String];
         AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
         session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
         NSMutableDictionary *parmas = [NSMutableDictionary dictionary];
         parmas[@"cmd"] = @"3";
         parmas[@"tel"] = _loginmobileTF.text;
-        parmas[@"password"] = _passpordTF.text;
+        parmas[@"password"] = _passwordTF.text;
         [session POST:PATH_GET_LOGIN parameters:parmas success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             dic = [solveJsonData changeType:responseObject];
             NSLog(@"result %@",dic);
@@ -414,12 +415,18 @@
                 [MBProgressHUD showError:kAlertPasswordWrong];
                 return;
             }
-            else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 5))
+            else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 5)) // First time login
             {
 
                 NSDictionary *dict = [dic objectForKey:@"result"];
                 _uid = [NSString stringWithFormat:@"%@",[dict objectForKey:@"uid"]];
                 NSData * usData = [_uid dataUsingEncoding:NSUTF8StringEncoding];
+                
+                if (_uid != nil)
+                {
+                    //注册环信
+                    [EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
+                }
                 
                 if ([[vcUtil CheckRole] isEqualToString:CHINESEUSER])
                 {
@@ -441,6 +448,8 @@
                 }
                 
                 NSUserDefaults *uid = [NSUserDefaults standardUserDefaults];
+                //[uid setObject:@"Done" forKey:@"FinishedInformation"];
+                
                 if (![_oldId isEqualToString:@""])
                 {
                     if (_oldId != _uid)
@@ -457,7 +466,7 @@
                 [[NSUserDefaults standardUserDefaults] setObject:_uid forKey:@"my_id"];
 
             }
-            else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
+            else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2)) // not the first time
             {
                 NSDictionary *dict = [dic objectForKey:@"result"];
                 _uid = [NSString stringWithFormat:@"%@",[dict objectForKey:@"uid"]];
@@ -481,7 +490,8 @@
                     [ud removeObjectForKey:@"FirstUseApp"];
                     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:kAlertPrompt message:kAlertAccountNotMatchID delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil, nil];
                     [alert show];
-                    //ChoosePeopleViewController *choosePeopleVC = [[ChoosePeopleViewController alloc]init];
+                    ChoosePeopleViewController *choosePeopleVC = [[ChoosePeopleViewController alloc]init];
+                    [self.navigationController pushViewController:choosePeopleVC animated:YES];
                     return;
                 }
                 TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
@@ -493,6 +503,8 @@
                 //[EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
                 
                 NSUserDefaults *uid = [NSUserDefaults standardUserDefaults];
+                [uid setObject:@"Done" forKey:@"FinishedInformation"];
+
                 if (![_oldId isEqualToString:@""])
                 {
                     if (_oldId != _uid)
@@ -523,34 +535,28 @@
         NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
         NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
         // 邮箱登录
-        if (![emailTest evaluateWithObject:_loginmobileTF.text]) {
+        if (![emailTest evaluateWithObject:_loginmobileTF.text])
+        {
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:kAlertPrompt message:kAlertEmailError delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil, nil];
             [alert show];
             return;
         }
-        
-//        // 邮箱登录
-//        if (![_loginmobileTF.text containsString:@"@"]) {
-//            UIAlertView *alert = [[UIAlertView alloc]
-//                                  initWithTitle:kAlertPrompt message:kAlertEmailError delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil, nil];
-//            [alert show];
-//            return;
-        
-        
-        
-        if (_loginmobileTF.text.length == 0 | _passpordTF.text.length ==0) {
+        else if (_loginmobileTF.text.length == 0 | _passwordTF.text.length ==0)
+        {
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:kAlertPrompt message:kAlertCodeEmpty delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil, nil];
             [alert show];
             
-        }else{
-            [_passpordTF.text md5String];
+        }
+        else
+        {
+            [_passwordTF.text md5String];
             AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
             session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
             NSDictionary *dic1 = @{@"cmd":@"14",
                                    @"email":_loginmobileTF.text,
-                                   @"password":_passpordTF.text,
+                                   @"password":_passwordTF.text,
                                    
                                    };
             
@@ -561,17 +567,24 @@
                 NSLog(@"success:%@",dic);
                 if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
                 {
+                    NSDictionary *dict = [dic objectForKey:@"result"];
+                    _uid = [NSString stringWithFormat:@"%@",[dict objectForKey:@"uid"]];
+
                     NSData * usData = [_uid dataUsingEncoding:NSUTF8StringEncoding];
                     
                     NSUserDefaults *uid = [NSUserDefaults standardUserDefaults];
-                    if (![_oldId isEqualToString:@""]) {
-                        if (_oldId != _uid) {
+                    if (![_oldId isEqualToString:@""])
+                    {
+                        if (_oldId != _uid)
+                        {
                             [uid setObject:@"" forKey:@"ForeignerID"];
                             [uid setObject:@"" forKey:@"currDate"];
                         }
                     }
                     
                     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+                    [uid setObject:@"Done" forKey:@"FinishedInformation"];
+
                     NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
                     
                     if ([str isEqualToString:@"Chinese"])
@@ -587,15 +600,22 @@
                         [ud removeObjectForKey:@"UseApp"];
                         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:kAlertPrompt message:kAlertAccountNotMatchID delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil, nil];
                         [alert show];
-                        //ChoosePeopleViewController *choosePeopleVC = [[ChoosePeopleViewController alloc]init];
+                        ChoosePeopleViewController *choosePeopleVC = [[ChoosePeopleViewController alloc]init];
+                        [self.navigationController pushViewController:choosePeopleVC animated:YES];
                         return;
                     }
                     
                     TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
                     talkVC.uid = _uid;
                     [self.navigationController presentViewController:talkVC animated:NO completion:nil];
+                    //if (_uid != nil)
+                    //{
+                        //注册环信
+                    //    [EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
+                    //}
+                    
                     //登陆环信
-                    [EaseMobSDK easeMobLoginAppWithAccount:_loginmobileTF.text password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
+                    [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
                     
                     [uid setObject:_uid forKey:@"userId"];
                     [uid setObject:usData forKey:@"ccUID"];
@@ -611,8 +631,12 @@
                     NSData * usData = [_uid dataUsingEncoding:NSUTF8StringEncoding];
                     
                     NSUserDefaults *uid = [NSUserDefaults standardUserDefaults];
-                    if (![_oldId isEqualToString:@""]) {
-                        if (_oldId != _uid) {
+                    //[uid setObject:@"Done" forKey:@"FinishedInformation"];
+
+                    if (![_oldId isEqualToString:@""])
+                    {
+                        if (_oldId != _uid)
+                        {
                             [uid setObject:@"" forKey:@"ForeignerID"];
                             [uid setObject:@"" forKey:@"currDate"];
                         }
@@ -626,7 +650,14 @@
                     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
                     NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
                     
-                    if ([str isEqualToString:@"Chinese"]) {
+                    if (_uid != nil)
+                    {
+                        //注册环信
+                        [EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
+                    }
+                    
+                    if ([str isEqualToString:@"Chinese"])
+                    {
                         InformationViewController *inforVC = [[InformationViewController alloc]init];
                         inforVC.uID = _uid;
                       
@@ -657,18 +688,15 @@
     }
 }
 
-//-(void)popAction
-//{
-//    [self.navigationController popViewControllerAnimated:YES];
-//}
-
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [_loginmobileTF resignFirstResponder];
-    [_passpordTF resignFirstResponder];
+    [_passwordTF resignFirstResponder];
 }
 -(void)forgetPassword
 {
     ForgetPasswordViewController *password = [[ForgetPasswordViewController alloc]init];
+    password.loginVC = self;
+    password.telMailNum = self.loginmobileTF.text;
     [self.navigationController pushViewController:password animated:YES];
 }
 

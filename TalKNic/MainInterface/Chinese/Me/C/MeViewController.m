@@ -294,8 +294,7 @@
         if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
         {
             NSDictionary *dict = [dic objectForKey:@"result"];
-            //FIXME to upload city and nationality for Chinese user
-            _city = [NSString stringWithFormat:@"%@",[dict objectForKey:@"city"]];
+            //_city = [NSString stringWithFormat:@"%@",[dict objectForKey:@"city"]]; //should be occupation
             if([_role isEqualToString:CHINESEUSER])
                 _nationality = @"China";
             else
@@ -669,7 +668,7 @@
         [self.editBtn setTitle:AppDone forState:(UIControlStateNormal)];
         self.nameLabel.hidden = YES;
         self.about.hidden = YES;
-        _nameText = [[UITextView alloc]init];//WithFrame:kCGRectMake(112.5, 10, 150, 25)];
+        _nameText = [[UITextView alloc]initWithFrame:_nameLabel.frame];
         _nameText.frame = _nameLabel.frame;
         _nameText.delegate = self;       //设置代理方法的实现类
         _nameText.font=[UIFont fontWithName:@"HelveticaNeue-Regular" size:14.0];
@@ -681,9 +680,9 @@
         
         [_imageViewBar addSubview:_nameText];
         
-        _topText = [[UITextView alloc]init];//WithFrame:kCGRectMake(112.5, 95, 232.5, 38)];
+        _topText = [[UITextView alloc]initWithFrame:_about.frame];
         _topText.frame = _about.frame;
-        _topText.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:9.0];
+        _topText.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0];
         _topText.delegate = self;
         _topText.text =_about.text;
         _topText.keyboardType = UIKeyboardTypeDefault;

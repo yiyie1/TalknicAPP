@@ -71,11 +71,14 @@
                 if ([role isEqualToString:CHINESEUSER])
                 {
                     HomeViewController *home = [[HomeViewController alloc]init];
+                    [EaseMobSDK easeMobRegisterAppWithAccount:uid password:KHuanxin HUDShowInView:home.view];
                     [EaseMobSDK easeMobLoginAppWithAccount:uid password:KHuanxin isAutoLogin:NO HUDShowInView:home.view];
+
                 }
                 else
                 {
                     FeedsViewController *feeds = [[FeedsViewController alloc]init];
+                    [EaseMobSDK easeMobRegisterAppWithAccount:uid password:KHuanxin HUDShowInView:feeds.view];
                     [EaseMobSDK easeMobLoginAppWithAccount:uid password:KHuanxin isAutoLogin:NO HUDShowInView:feeds.view];
                 }
                 self.window.rootViewController = talkVC;

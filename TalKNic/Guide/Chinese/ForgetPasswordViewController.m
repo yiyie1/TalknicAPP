@@ -11,6 +11,8 @@
 #import "solveJsonData.h"
 #import "MBProgressHUD+MJ.h"
 #import "Check.h"
+#import "LoginViewController.h"
+
 @interface ForgetPasswordViewController ()
 {
     UITextField *_mobileTF;
@@ -65,8 +67,8 @@
 {
     _mobileTF = [[UITextField alloc]init];
     _mobileTF.frame = kCGRectMake(45,  84, 275, 50);
-    _mobileTF.placeholder =AppCellOrEmail;
-//    _mobileTF.secureTextEntry = YES;
+    _mobileTF.placeholder = AppCellNum;//AppCellOrEmail;
+    _mobileTF.text = self.telMailNum;
     _mobileTF.textAlignment = NSTextAlignmentCenter;
     [_mobileTF setBackground:[UIImage imageNamed:@"login_input_lg.png"]];
     [self.view addSubview:_mobileTF];
@@ -115,16 +117,27 @@
     [self.view addSubview:_confirmPassword];
 }
 
-
-
-
 -(void)sendBtnAction
 {
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     
     Check *checkNum = [[Check alloc]init];
-    if (![checkNum isMobileNumber:_mobileTF.text]) {
-        [MBProgressHUD showError:kAlertPhoneNumberFormatWrong];
+    if ([checkNum isMobileNumber:_mobileTF.text])
+    {
+        _mobile = YES;
+    }
+    else if ([emailTest evaluateWithObject:_mobileTF.text])
+    {
+        _mobile = NO;
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:kAlertPrompt message:kAlertEmailError delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil, nil];
+        [alert show];
         return;
+
     }
     //判断电话号码
     if (_mobileTF.text.length != 11 ) {
@@ -138,29 +151,37 @@
         [MBProgressHUD showError:kAlertEnterThePhoneNumber];
         return;
     }
+    
     //1.请求管理者
     
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
+    if(_mobile)
+    {
     //2.拼接请求参数
     NSMutableDictionary *parmas = [NSMutableDictionary dictionary];
     parmas[@"cmd"] = @"4";
     parmas[@"tel"] = _mobileTF.text;
     
     [session GET:PATH_GET_LOGIN parameters:parmas success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSLog(@"!!!!!%@",responseObject);
+        NSLog(@"result: %@",responseObject);
         //        //取出验证码
         NSDictionary *dic = [solveJsonData changeType:responseObject];
-        if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2) )  {
+        if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2) )
+        {
             NSDictionary *dict = [dic objectForKey:@"result"];
             captcha = [NSString stringWithFormat:@"%@",[dict objectForKey:@"captcha"]];
             [MBProgressHUD showSuccess:kAlertverificationSent];
             NSLog(@"%@",captcha);
             
-        }else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 4) ) {
+        }
+        else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 4) )
+        {
             [MBProgressHUD showError:kAlertunregisteredPhoneNumber];
-        }else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 3)){
+        }
+        else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 3))
+        {
             [MBProgressHUD showError:kAlertfaildePhoneNumber];
             
         }
@@ -172,15 +193,21 @@
         [MBProgressHUD showError:kAlertNetworkError];
         return;
     }];
+    }
+    else
+    {
+        //TODO mail
+    }
 }
-
-
-
 
 -(void)leftAction
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    self.loginVC.loginmobileTF.text = _mobileTF.text;
+    self.loginVC.passwordTF.text = _ewPassword.text;
+    self.loginVC.mobile = _mobile;
+    [self.navigationController popToViewController:self.loginVC animated:YES];
 }
+
 -(void)rightAction
 {
     NSString *codeText = _codeTF.text;
@@ -212,9 +239,19 @@
     dic[@"repassword"] = _confirmPassword.text;
     
     [session POST:PATH_GET_LOGIN parameters:dic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        TalkLog(@"成功 ＝＝ %@",responseObject);
-        [MBProgressHUD showSuccess:kAlertPassChangeSuccess];
-        [self.navigationController popViewControllerAnimated:YES];
+        TalkLog(@"result ＝ %@",responseObject);
+        NSDictionary *dic = [solveJsonData changeType:responseObject];
+        if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2) )
+        {
+            [MBProgressHUD showSuccess:kAlertPassChangeSuccess];
+            [self leftAction];
+        }
+        else
+        {
+            [MBProgressHUD showError:kAlertdataFailure];
+            return;
+        }
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         TalkLog(@"失败 ＝＝ %@ ",error);
         [MBProgressHUD showError:kAlertNetworkError];

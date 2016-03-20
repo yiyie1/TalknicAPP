@@ -12,4 +12,5 @@
 @interface SignupViewController : UIViewController
 @property BOOL mobile;
 @property (nonatomic,strong)LoginViewController *loginVC;
+
 @end
