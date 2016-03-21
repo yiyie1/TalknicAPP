@@ -11,6 +11,7 @@
 
 @interface ForgetPasswordViewController : UIViewController
 @property (nonatomic,strong)NSString *telMailNum;
+@property (nonatomic,strong)NSString *titleText;
 @property BOOL mobile;//是否是手机登陆
 @property (nonatomic,strong)LoginViewController *loginVC;
 @end

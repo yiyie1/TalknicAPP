@@ -151,8 +151,9 @@
 
 #endif
 
-#define DEFAULT_VOICE_MSG_DURATION      (15 * 60)
-#define DEFAULT_MAX_CHAT_DURATION       (60 * 60 * 24)
+#define DEFAULT_VOICE_MSG_DURATION_MINS      (15)
+#define DEFAULT_MAX_CHAT_DURATION_MINS       (60 * 24)
+#define RMB_PER_MIN                          (1)
 
 #define ALI_PAY_SUBJECT @"TALKNIC PAY ACCOUNT"
 //聊天
@@ -289,6 +290,7 @@
 #define AppOtherFastLogin  NSLocalizedString(@"AppOtherFastLogin",@"")
 #define AppCellOrEmail  NSLocalizedString(@"AppCellOrEmail",@"")
 #define AppConfirmPassword    NSLocalizedString(@"AppConfirmPassword",@"")
+#define AppChangePassword  NSLocalizedString(@"AppChangePassword",@"")
 
 //Information
 #define AppInformation1  NSLocalizedString(@"AppInformation1",@"")

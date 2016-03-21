@@ -89,6 +89,8 @@
 "AppPraised"    = "已点赞";
 "AppPraiseFail"    = "未点赞";
 
+"AppChangePassword" = "修改密码";
+
 "AppConChat" = "聊天时间到,如果您想继续聊天,请重新购买支付";
 "AppSure"   = "确定";
 

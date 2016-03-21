@@ -58,6 +58,9 @@
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     [self messageView];
     [self afnusername];
+    
+    //[EaseMobSDK easeMobLoginAppWithAccount:self.uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
+    
      //[self dateTIme];
 }
 - (void)newMessage:(NSNotification *)notification

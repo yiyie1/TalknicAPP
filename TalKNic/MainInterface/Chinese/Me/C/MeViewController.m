@@ -289,7 +289,7 @@
     [session POST:PATH_GET_LOGIN parameters:parme progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        TalkLog(@"个人中心 -- %@",responseObject);
+        TalkLog(@"Me result: %@",responseObject);
         dic = [solveJsonData changeType:responseObject];
         if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
         {
@@ -298,11 +298,12 @@
             if([_role isEqualToString:CHINESEUSER])
                 _nationality = @"China";
             else
-                _nationality = [NSString stringWithFormat:@",%@",[dict objectForKey:@"nationality"]];
+                _nationality = [dict objectForKey:@"nationality"];//[NSString stringWithFormat:@",%@",[dict objectForKey:@"nationality"]];
             _nameLabel.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"username"]];
-            _countries.text = [_city stringByAppendingString:_nationality];
+            _countries.text = _nationality;//[_city stringByAppendingString:_nationality];
             _followed1Label.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"fans"]];
             _following1Label.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"praise"]];
+            //FIXME topic and bio are wrong
             _about.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"topic"]];
             NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@",[dict objectForKey:@"pic"]]];
             [self.photoView sd_setImageWithURL:url placeholderImage:nil];
@@ -328,7 +329,6 @@
     self.isClickFeeds = NO;
     self.isClickFollowed = NO;
     self.isClickFollowing = NO;
-    
     
     UIView *backView = [[UIView alloc]initWithFrame:kCGRectMake(0, CGRectGetMaxY(self.imageViewBar.frame), 375, 667 - CGRectGetMaxY(self.imageViewBar.frame))];
     [backView setBackgroundColor:[UIColor grayColor]];

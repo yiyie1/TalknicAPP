@@ -48,15 +48,12 @@
     
     ChoosePeopleViewController *chooseVC = [[ChoosePeopleViewController alloc]init];
     [self.navigationController pushViewController:chooseVC animated:YES];
-    //UINavigationController *naVC = [[UINavigationController alloc]initWithRootViewController:chooseVC];
-    //self.window.rootViewController = naVC;
-
 }
 
 -(void)layoutLogoutBtn
 {
     self.logoutBT =  [[UIButton alloc]init];
-    _logoutBT.frame = CGRectMake(self.view.frame.origin.x + 50, self.view.frame.origin.y +274, self.view.frame.size.width /1.36, 50);
+    _logoutBT.frame = kCGRectMake(self.view.frame.origin.x + 50, self.view.frame.origin.y +374, self.view.frame.size.width /1.36, 50);
     [_logoutBT setTitle:AppLogout forState:(UIControlStateNormal)];
     [_logoutBT setBackgroundImage:[UIImage imageNamed:@"login_btn_lg_a.png"] forState:(UIControlStateNormal)];
     [_logoutBT addTarget:self action:@selector(logoutAction) forControlEvents:(UIControlEventTouchUpInside)];
@@ -81,7 +78,7 @@
     _tableView.dataSource = self;
     [_tableView setScrollEnabled:NO];
     [self.view addSubview:_tableView];
-    _allSetting = @[[Setting settingWithGroup:@[@"Change password"]],[Setting settingWithGroup:@[@"Mobile",@"Wechat"]]];
+    _allSetting = @[[Setting settingWithGroup:@[@"Change password"]],[Setting settingWithGroup:@[@"Mobile", @"Email", @"Wechat", @"Weibo"]]];
     
 //    UIButton *logout = [UIButton buttonWithType:UIButtonTypeCustom];
 //    logout setFrame:CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
@@ -101,8 +98,6 @@
     Setting *set = _allSetting[indexPath.section];
     cell.textLabel.text = set.grouping[indexPath.row];
     
-    
-    
     if ( [cell.textLabel.text isEqual:@"Change password"]) {
         cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
     }else
@@ -119,7 +114,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 25;
+    return KHeightScaled(25);
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -127,15 +122,18 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0)
+    {
         ForgetPasswordViewController *f = [[ForgetPasswordViewController alloc]init];
-        [self.navigationController pushViewController:f animated:NO];
+        f.titleText = AppChangePassword;
+        [self.navigationController pushViewController:f animated:YES];
     }
 }
 -(void)leftAction
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -82,6 +82,7 @@
 "alert.noProject" = "has not choose item";
 "alert.AliPayFail" = "AliPay Failed";
 
+
 //APP language
 "AppForeigner" = "Foreigner";
 "AppChinese"   = "Chinese";
@@ -92,6 +93,7 @@
 "AppConChat" = "Recharging if you want to continue chatting";
 "AppSure"   = "Sure";
 
+"AppChangePassword" = "Change Password";
 //APP language
 "AppDone" = "Done";
 "AppCancel" = "Cancel";

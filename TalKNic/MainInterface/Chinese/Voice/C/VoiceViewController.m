@@ -66,13 +66,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    //ViewControllerUtil *vc = [[ViewControllerUtil alloc]init];
-    //self.navigationItem.titleView = [vc SetTitle:AppVoice];
-    
+
     ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
     self.bar = [vcUtil ConfigNavigationBar:AppVoice NavController: self.navigationController NavBar:self.bar];
     [self.view addSubview:self.bar];
+    
+    //[EaseMobSDK easeMobLoginAppWithAccount:uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
     
     self.array = [NSMutableArray array];
     
@@ -92,12 +91,6 @@
     }
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newMessage:) name:@"chineseNewMessage" object:nil];
-    
-    //NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-    //NSData* payData = [user objectForKey:@"payTime"];
-    
-    //if(payData)
-      //  [EaseMobSDK createOneChatViewWithConversationChatter:fUid Name:_fuserName onNavigationController:self.navigationController];
     
 }
 
@@ -393,7 +386,7 @@
     NSDate *dateNow = [NSDate date];
     NSTimeInterval timeBetween = [dateNow timeIntervalSinceDate:payDate];
     
-    if (timeBetween > DEFAULT_MAX_CHAT_DURATION) {
+    if (timeBetween > DEFAULT_MAX_CHAT_DURATION_MINS * 60) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppConChat delegate:self cancelButtonTitle:AppSure otherButtonTitles:nil];
         [alert show];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];

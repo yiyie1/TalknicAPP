@@ -1778,7 +1778,7 @@
         TalkLog(@"Total voice msg duration = %ld", (long)chatDuration);
         TalkLog(@"Voice msg this time = %ld", (long)duration);
         //within 24 hours && (Chinese && within voice msg duration)
-        if (timeBetween < DEFAULT_MAX_CHAT_DURATION && [role isEqualToString:@"Chinese"] && chatDuration < DEFAULT_VOICE_MSG_DURATION)
+        if (timeBetween < DEFAULT_MAX_CHAT_DURATION_MINS * 60 && [role isEqualToString:@"Chinese"] && chatDuration < DEFAULT_VOICE_MSG_DURATION_MINS * 60)
         {
             //record voice msg duration each time in charDuration
             chatDuration += duration;
@@ -1810,7 +1810,7 @@
             AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
             session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
             NSMutableDictionary *parmes = [NSMutableDictionary dictionary];
-            parmes[@"theory_time"] = @(DEFAULT_VOICE_MSG_DURATION);
+            parmes[@"theory_time"] = @(DEFAULT_VOICE_MSG_DURATION_MINS);//FIXME user choose time
             NSString *order_id = [[NSUserDefaults standardUserDefaults] objectForKey:@"order_id"];
             
             parmes[@"order_id"] = [NSNumber numberWithInt:[order_id intValue]];

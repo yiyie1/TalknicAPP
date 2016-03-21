@@ -696,6 +696,7 @@
 {
     ForgetPasswordViewController *password = [[ForgetPasswordViewController alloc]init];
     password.loginVC = self;
+    password.titleText = AppForgetPassword;
     password.telMailNum = self.loginmobileTF.text;
     [self.navigationController pushViewController:password animated:YES];
 }

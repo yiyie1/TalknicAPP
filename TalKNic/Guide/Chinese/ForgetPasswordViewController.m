@@ -32,7 +32,7 @@
     [super viewDidLoad];
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
     
-    title.text = @"Forget Password";
+    title.text = self.titleText;//@"Forget Password";
     
     title.textAlignment = NSTextAlignmentCenter;
     
@@ -202,10 +202,15 @@
 
 -(void)leftAction
 {
-    self.loginVC.loginmobileTF.text = _mobileTF.text;
-    self.loginVC.passwordTF.text = _ewPassword.text;
-    self.loginVC.mobile = _mobile;
-    [self.navigationController popToViewController:self.loginVC animated:YES];
+    if(self.loginVC)
+    {
+        self.loginVC.loginmobileTF.text = _mobileTF.text;
+        self.loginVC.passwordTF.text = _ewPassword.text;
+        self.loginVC.mobile = _mobile;
+        [self.navigationController popToViewController:self.loginVC animated:YES];
+    }
+    else
+        [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)rightAction
