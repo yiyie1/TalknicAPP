@@ -35,10 +35,7 @@
 
 }
 @property (nonatomic,strong)UIButton *leftBT;
-
 @property (nonatomic,strong)UITableView *tableView;
-@property (nonatomic,copy)NSString *uid;
-
 @end
 
 @implementation ForeignerHistoryViewController

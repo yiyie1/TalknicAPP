@@ -363,6 +363,7 @@
     detailvc.chooeseBtnArr = self.chooseBtnArr;
     detailvc.editingStr = self.textview.text;
     detailvc.time = _newstr;
+    detailvc.uid = _uid;
     [self.navigationController pushViewController:detailvc animated:YES];
     
 }

@@ -10,4 +10,6 @@
 
 @interface ForeignerDailyTopicViewController : UIViewController
 
+@property(nonatomic,strong) NSString *uid;
+
 @end

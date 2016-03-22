@@ -25,7 +25,7 @@
     NSMutableArray *dataArray;
     NSMutableDictionary *dataDic_1;
     NSString *praise;
-    NSString *uid;
+    
     NSString *foreigner_uid;
     NSString *topic;
     NSString *user_pic;
@@ -37,17 +37,9 @@
     NSMutableArray *_piArr;//存放匹配信息
     
 }
-//{
-//     UISearchBar *searchBar;
-//
-//
-//}
-//@property (nonatomic,strong)UISegmentedControl *segmentControl;
 @property (nonatomic,strong)UINavigationBar *bar;
 @property (nonatomic,strong)UISearchDisplayController *searchController;
 @property (nonatomic,strong)UISearchBar *searchBar;
-
-//@property (nonatomic,strong)NSMutableArray *searchDataArr;   //搜索结果数组
 @property(nonatomic,strong)NSMutableDictionary *dataDic;
 @property(nonatomic)NSInteger seletedCount;
 @property(nonatomic)float   price;
@@ -184,14 +176,8 @@
 //FIXME to cancel the praise when clicking again
 - (void)dianzangBtn:(id)sender
 {
-    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-    NSData *usData = [userD objectForKey:@"ccUID"];
-    NSString *idU = [[NSString alloc]initWithData:usData encoding:NSUTF8StringEncoding];
-    
-    // NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    //    NSString *userId = [ud objectForKey:kLogin_user_information];
-    NSDictionary *parmeDic = @{@"cmd":@"15",@"user_id":self.dataDic[@"uid"],@"praise_id":idU};
-    TalkLog(@"点赞的 --- %@",parmeDic);
+    NSDictionary *parmeDic = @{@"cmd":@"15",@"user_id":self.dataDic[@"uid"],@"praise_id":_uid};
+    TalkLog(@"praising --- %@",parmeDic);
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
@@ -271,15 +257,13 @@
     else if (self.seletedCount % 2 == 0)
     {
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-        //Load payment
-        /* AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+
+        AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
         session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
         NSMutableDictionary *parmes = [NSMutableDictionary dictionary];
 
         parmes[@"theory_time"] = @(DEFAULT_VOICE_MSG_DURATION_MINS);
-        NSString *my_id = [[NSUserDefaults standardUserDefaults] objectForKey:@"my_id"];
-        
-        parmes[@"student_id"] = [NSNumber numberWithInt:[my_id intValue]];
+        parmes[@"student_id"] = [NSNumber numberWithInt:[_uid intValue]];
         parmes[@"teacher_id"] = [NSNumber numberWithInt:[foreigner_uid intValue]];
         NSLog(@"student_id: %@  teacher_id: %@",parmes[@"student_id"], parmes[@"teacher_id"]);
         [session POST:PATH_GET_ORDER parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -310,17 +294,17 @@
                  // 支付成功通知
                  [self charge];
                  // 继续聊天
-                 [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController];
+                 [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController SingleChattedDuration:SingleChattedDuration];
                  
                  }
                  
-                 }];
+                 }];*/
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"error%@",error);
             [MBProgressHUD showError:kAlertNetworkError];
             return;
-        }];*/
+        }];
 
         //进入支付页面
         self.bMaskHidden = YES;
@@ -344,7 +328,8 @@
                  NSDate *payDate = [NSDate date];
                  [ud setObject:payDate forKey:@"payTime"];
 
-                [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController];
+                NSInteger SingleChattedDuration = 0;
+                [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController SingleChattedDuration:SingleChattedDuration];
                 self.navigationController.tabBarItem.badgeValue = nil;
             }
             else
@@ -363,10 +348,8 @@
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSMutableDictionary *parmes = [NSMutableDictionary dictionary];
-    
-    NSString *userId = [[NSUserDefaults standardUserDefaults]objectForKey:@"my_id"];
-    NSLog(@"%@",userId);
-    parmes[@"user_id"] = [NSNumber numberWithInt:[userId intValue]];
+
+    parmes[@"user_id"] = [NSNumber numberWithInt:[_uid intValue]];
     
     parmes[@"recharge_money"] = @"10";
     
@@ -420,13 +403,14 @@
     //self.bMaskHidden = YES;
     self.zhedangbanview.hidden = YES;//_bMaskHidden;
     CouponViewController *couponVC = [[CouponViewController alloc]init];
+    couponVC.uid = _uid;
     [self.navigationController pushViewController:couponVC animated:YES];
 }
 
 - (void)priceBtnAction
 {
     self.price = 0.01;//DEFAULT_VOICE_MSG_DURATION_MINS * RMB_PER_MIN;
-    NSString* pricelb = [[NSString alloc]initWithFormat:@"%d RMB/%d mins", (int)self.price,DEFAULT_VOICE_MSG_DURATION_MINS];
+    NSString* pricelb = [[NSString alloc]initWithFormat:@"￥ %.1f/%d mins", self.price, DEFAULT_VOICE_MSG_DURATION_MINS];
     //self.priceBtn.titleLabel.text = pricelb;//[[NSString alloc]initWithFormat:@"%f for %d mins", self.price, DEFAULT_VOICE_MSG_DURATION_MINS];
     
     [self.priceBtn setTitle:pricelb forState:UIControlStateNormal];

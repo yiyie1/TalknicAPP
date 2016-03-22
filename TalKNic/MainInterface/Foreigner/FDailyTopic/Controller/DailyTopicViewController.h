@@ -12,4 +12,5 @@
 @property(nonatomic,strong)NSString *editingStr; // 用户编辑输入的数据
 @property(nonatomic,strong)NSMutableArray *chooeseBtnArr; // 用户选择按钮的数组
 @property (nonatomic,strong)NSString *time;
+@property(nonatomic,strong) NSString *uid;
 @end

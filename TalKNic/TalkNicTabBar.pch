@@ -60,46 +60,12 @@
 #endif
 
 #define AppShareSDKKey  @"10a3a7cabbd20"
-//#define BAIWUSHI
-#define ZUO
-
-
-//Legcy server
-#ifdef BAIWUSHI
-//获取验证码
-#define PATH_GET_CODE  @"http://115.47.28.121/talknic1.0/admin.php/api"
-//登陆
-#define PATH_GET_LOGIN @"http://115.47.28.121/talknic1.0/admin.php/api/index?"
-// 生成订单
-#define PATH_GET_ORDER @"http://115.47.28.121/talknic1.0/admin.php/api/index?cmd=16"
-// 交易记录
-#define PATH_GET_ORDER_RECORDER @"http://115.47.28.121/talknic1.0/admin.php/api/index?cmd=23"
-
-// 充值记录
-#define PATH_GET_ORDER_CHARGE @"http://115.47.28.121/talknic1.0/admin.php/api/index?cmd=25"
-
-//   获取金额
-#define PATH_GET_MONEY @"http://115.47.28.121/talknic1.0/admin.php/api/index?cmd=26"
-
-//   充钱
-#define PATH_ADD_MONEY @"http://115.47.28.121/talknic1.0/admin.php/api/index?cmd=24"
-
-#define PATH_SEND_MSG   @"http://115.47.28.121/Talknic1.0/admin.php/api/index?cmd=17"
-
-#define ALI_PRIVATE_KEY    @"MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAMPebFVZEeyPRXOmvYuiCxRjxS1ytMDupjlImIDYWq7QJf9JDtto65jXpJ3PDT25ik3UwCmNYH4UV9dAnpFNq1jsxUHWatUDw4p6gHnu5zfavE4DcyBRppGYUvCRiwWu4GexAm0Ie5g7FvUztZ79sUjjhZ0KLf2ohssHQ9LzO8k/AgMBAAECgYEAr9kC/eUHmJBQVDKAvdnvhJDGN7Vh3kzj403vzM1xLL0nP/iBZC7gRcpkumFni+EF8DZvh16sIMV2z4PuWJmYmJ1VpwKiMMEl5RAChHWKpufTyuUDaeSs4+hjcYPdRqAfImlZ5/2N6vQXfpXNVCHjN3fC3WA82iCRxGu0TxDni2ECQQDllbisuO5mCpF44knEprWYaVFuHaYfAOl0hLbMLGtITvBSXd2xa+E/DFc34Mg9lcLtUNvmbiDCwASwbw+I1vWXAkEA2meeJofqwtVJoSRpi3tSn33vloQZE3TLFvSrwD2e9oqiDNpHhGyxIwhVlB9+Dkd2N0BDFqKAT/LEXby5t2lOmQJAOlEQqtcCv2q5zvHz+P67q+48n/LqCoAJzO4VHMG/sotSoilzsaiMe55f3TK8yl/rNqrOYLbinXV2+3YKhSDNGwJBAICCa7o8S1Rs77ATns7lt44FKg6kl6StGjrdqJmrKHfkxslNPruawPfeFYzcou1/+v0zoMYWw+1G6WhGffh/zDECQQDP3PynFdmQXVAk9+47gxNyR1R8d5W/cUSUYx+VpvBl9V8M/3SDQB9F4HMUHbm0uilrc5NmfPbe+wHgifyfYMgq"
-
-#define ALI_PARTNER_ID  @"2088411960192074"
-#define ALI_SELLER_ID   @"2088411960192074"
-
-#define kEaseKey @"bws#talknic"
-#define KHuanxin @"12345678"
-
-#else
-
 #define kEaseKey @"talknic#talknicmsg"
 #define KHuanxin @"G00dluck!"
 
-#ifdef ZUO
+#define ALIYUN
+
+#ifdef ALIYUN
 
 //获取验证码
 #define PATH_GET_CODE  @"http://120.25.255.114/admin.php/Api"
@@ -149,11 +115,9 @@
 #define ALI_PARTNER_ID  @"2088121821295317"
 #define ALI_SELLER_ID   @"2088121821295317"
 
-#endif
-
 #define DEFAULT_VOICE_MSG_DURATION_MINS      (15)
 #define DEFAULT_MAX_CHAT_DURATION_MINS       (60 * 24)
-#define RMB_PER_MIN                          (1)
+#define RMB_PER_MIN                          (1.5)
 
 #define ALI_PAY_SUBJECT @"TALKNIC PAY ACCOUNT"
 //聊天

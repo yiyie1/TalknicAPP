@@ -20,9 +20,8 @@
 #import "MeViewController.h"
 #import "MBProgressHUD+MJ.h"
 #import "FeedsViewController.h"
-#import "ForeignerVoiceViewController.h"
+#import "ViewControllerUtil.h"
 #import "ForeignerDailyTopicViewController.h"
-#import "CouponViewController.h"
 
 @interface TalkTabBarViewController ()<TalkTabBarDelegate>
 @property (nonatomic,assign)BOOL isClickTabbarBtn;
@@ -41,6 +40,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
+    self.uid = [vcUtil GetUid];
+    
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     self.choseNum1 = -1;
     self.choseNum2 = -1;
@@ -55,10 +57,12 @@
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
         HomeViewController *home = [storyboard instantiateViewControllerWithIdentifier:@"homeViewController"];
         [self addChildVc:home title:AppHome image:kHOMEImage selectedImage:KHOMeSelected];
-    
+        home.uid = _uid;
+        
         VoiceViewController *voice = [[VoiceViewController alloc] init];
         [self addChildVc:voice title:AppVoice image:kVoiceImage selectedImage:kVoiceSelected];
-    
+        voice.uid = _uid;
+        
         FeedsViewController *feeds = [[FeedsViewController alloc] init];
         [self addChildVc:feeds title:AppFeeds image:kFeeds selectedImage:kFeedsSelected];
     
@@ -67,12 +71,7 @@
         [self addChildVc:me title:AppMe image:kMEImage selectedImage:kMEImageSelected];
         me.uid = _uid;
         me.role = CHINESEUSER;
-        
-        //CouponViewController *couponVc = [[CouponViewController alloc]init];
-        //[self addChildVc:couponVc title:AppCoupon image:kMEImage selectedImage:kMEImageSelected];
-        
-        // 2.更换系统自带的tabbar
-        //    self.tabBar = [[HWTabBar alloc] init];
+
         TalkTabBar *tabBar = [[TalkTabBar alloc] init];
         tabBar.delegate = self;
         [self setValue:tabBar forKeyPath:@"tabBar"];
@@ -83,12 +82,15 @@
         FeedsViewController *feeds = [[FeedsViewController alloc] init];
         [self addChildVc:feeds title:AppFeeds image:kFeeds selectedImage:kFeedsSelected];
         
-        ForeignerVoiceViewController *voice = [[ForeignerVoiceViewController alloc] init];
+        //ForeignerVoiceViewController *voice = [[ForeignerVoiceViewController alloc] init];
+        VoiceViewController *voice = [[VoiceViewController alloc] init];
         [self addChildVc:voice title:AppVoice image:kVoiceImage selectedImage:kVoiceSelected];
-        
+        voice.uid = _uid;
+
         ForeignerDailyTopicViewController *dailyVC = [[ForeignerDailyTopicViewController alloc]init];
         [self addChildVc:dailyVC title:AppVoice image:kDailyTopicImage selectedImage:kDailyTopicSelected];
-
+        dailyVC.uid = _uid;
+        
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
         MeViewController *me = [storyboard instantiateViewControllerWithIdentifier:@"meVC"];
         [self addChildVc:me title:AppMe image:kMEImage selectedImage:kMEImageSelected];

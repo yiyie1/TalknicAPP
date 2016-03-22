@@ -64,10 +64,7 @@
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSMutableDictionary *parmes = [NSMutableDictionary dictionary];
-    
-    NSString *userId = [[NSUserDefaults standardUserDefaults]objectForKey:@"my_id"];
-    
-    parmes[@"user_id"] = userId;
+    parmes[@"user_id"] = _uid;
     //    parmes[@"theory_time"] = @"";
     //    parmes[@"cmd"] = @"19";
     
@@ -187,6 +184,7 @@
         if (indexPath.row == 0)
         {
             BalanceTableViewCell *cell1 = [[BalanceTableViewCell alloc] initWithFrame:kCGRectMake(0, 0, 375, 231 / 2)];
+            cell1.uid = _uid;
             if(self.sources[0] == nil || [self.sources[0] isEqualToString: @""])
                 cell1.label.text = @"￥0.00";
             else
@@ -277,13 +275,14 @@
         {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
             CreditCardViewController *creditVC = [storyboard instantiateViewControllerWithIdentifier:@"creditCard"];
-            //creditVC.uid = _uid;
+            creditVC.uid = _uid;
             [self.navigationController pushViewController:creditVC animated:YES];
 
         }
         else if(indexPath.row == 2)
         {
             CouponViewController *couponVC = [[CouponViewController alloc]init];
+            couponVC.uid = _uid;
             [self.navigationController pushViewController:couponVC animated:YES];
         }
     }
@@ -293,12 +292,9 @@
     
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
     NSMutableDictionary *parmes = [NSMutableDictionary dictionary];
-    
-    NSString *userId = [[NSUserDefaults standardUserDefaults]objectForKey:@"my_id"];
-    NSLog(@"%@",userId);
-    parmes[@"user_id"] = [NSNumber numberWithInt:[userId intValue]];
-    
+    parmes[@"user_id"] = [NSNumber numberWithInt:[_uid intValue]];
     parmes[@"recharge_money"] = @"10";
     
     //    parmes[@"theory_time"] = @"";

@@ -10,4 +10,6 @@
 
 @interface ForeignerVoiceViewController : UIViewController
 
+@property(nonatomic,strong) NSString *uid;
+
 @end

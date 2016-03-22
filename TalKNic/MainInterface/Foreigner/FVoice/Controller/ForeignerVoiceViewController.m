@@ -39,7 +39,7 @@
     NSString *strPic;
 }
 @property (nonatomic,strong)UITableView *tableView;
-@property (nonatomic,copy)NSString *uid;
+
 @end
 
 @implementation ForeignerVoiceViewController
@@ -156,7 +156,7 @@
     _dateTim = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
     TalkLog(@"取出时间 -- %@",_dateTim);
     if (_dateTim.length < 1) {
-        TalkLog(@"asdasdasdasdasdasdas------");
+
         vieww = [[UIView alloc]init];
         vieww.frame = CGRectMake(0, 0, kWidth, kHeight);
 //        vieww.backgroundColor = [UIColor yellowColor];
@@ -337,7 +337,8 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [EaseMobSDK createOneChatViewWithConversationChatter:_uid Name:userNam onNavigationController:self.navigationController];
+    NSInteger SingleChattedDuration = 0; //FIXME Get from Server
+    [EaseMobSDK createOneChatViewWithConversationChatter:_uid Name:userNam onNavigationController:self.navigationController SingleChattedDuration:SingleChattedDuration];
     self.navigationController.tabBarItem.badgeValue = nil;
     TalkLog(@"聊天界面  -  %@",_uid);
 }

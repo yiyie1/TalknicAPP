@@ -173,10 +173,6 @@
 		368D89601C23AD240035A82A /* solveJsonData.m in Sources */ = {isa = PBXBuildFile; fileRef = 368D895F1C23AD240035A82A /* solveJsonData.m */; };
 		368E2B5A1C55E95E00C9AAFB /* AddCreditCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 368E2B591C55E95E00C9AAFB /* AddCreditCardViewController.m */; };
 		368F24A41BD0CBC00028FBAB /* intro_slice_page_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 368F24A31BD0CBC00028FBAB /* intro_slice_page_2.png */; };
-		36915E5B1C082E35000C2F81 /* ForeignerVoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36915E5A1C082E35000C2F81 /* ForeignerVoiceViewController.m */; };
-		36915E7A1C083640000C2F81 /* FVoiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36915E781C083640000C2F81 /* FVoiceCell.m */; };
-		36915E7B1C083640000C2F81 /* FVoiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36915E791C083640000C2F81 /* FVoiceCell.xib */; };
-		36915E7E1C083652000C2F81 /* FVoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 36915E7D1C083652000C2F81 /* FVoice.m */; };
 		3691BB431C0D4320005534AD /* me_feeds_tab_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 3691BB3A1C0D4320005534AD /* me_feeds_tab_bg.png */; };
 		3691BB441C0D4320005534AD /* me_followed_all_split_line.png in Resources */ = {isa = PBXBuildFile; fileRef = 3691BB3B1C0D4320005534AD /* me_followed_all_split_line.png */; };
 		3691BB451C0D4320005534AD /* me_followed_avatar_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3691BB3C1C0D4320005534AD /* me_followed_avatar_icon.png */; };
@@ -405,7 +401,6 @@
 		A385C2071C7C91C700FB44D8 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A385C2021C7C91C700FB44D8 /* AccountViewController.m */; };
 		A385C2081C7C91C700FB44D8 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A385C2041C7C91C700FB44D8 /* NotificationViewController.m */; };
 		A385C2091C7C91C700FB44D8 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A385C2061C7C91C700FB44D8 /* SettingViewController.m */; };
-		AC5C53A51C98F6D3009D7BBA /* ForeignerHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5C53A41C98F6D3009D7BBA /* ForeignerHistoryViewController.m */; settings = {ASSET_TAGS = (); }; };
 		AC5C610D1C97251600F2EB3F /* ViewControllerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5C610C1C97251600F2EB3F /* ViewControllerUtil.m */; settings = {ASSET_TAGS = (); }; };
 		DFB50C831C3E04CD0022AD95 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFB50C851C3E04CD0022AD95 /* Localizable.strings */; };
 		DFD052D01C3CE9A8000E034F /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = DFD052CC1C3CE9A8000E034F /* MBProgressHUD+MJ.m */; };
@@ -832,13 +827,6 @@
 		368E2B581C55E95E00C9AAFB /* AddCreditCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCreditCardViewController.h; sourceTree = "<group>"; };
 		368E2B591C55E95E00C9AAFB /* AddCreditCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCreditCardViewController.m; sourceTree = "<group>"; };
 		368F24A31BD0CBC00028FBAB /* intro_slice_page_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = intro_slice_page_2.png; sourceTree = "<group>"; };
-		36915E591C082E35000C2F81 /* ForeignerVoiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForeignerVoiceViewController.h; sourceTree = "<group>"; };
-		36915E5A1C082E35000C2F81 /* ForeignerVoiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForeignerVoiceViewController.m; sourceTree = "<group>"; };
-		36915E771C083640000C2F81 /* FVoiceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FVoiceCell.h; sourceTree = "<group>"; };
-		36915E781C083640000C2F81 /* FVoiceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FVoiceCell.m; sourceTree = "<group>"; };
-		36915E791C083640000C2F81 /* FVoiceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FVoiceCell.xib; sourceTree = "<group>"; };
-		36915E7C1C083652000C2F81 /* FVoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FVoice.h; sourceTree = "<group>"; };
-		36915E7D1C083652000C2F81 /* FVoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FVoice.m; sourceTree = "<group>"; };
 		3691BB3A1C0D4320005534AD /* me_feeds_tab_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = me_feeds_tab_bg.png; sourceTree = "<group>"; };
 		3691BB3B1C0D4320005534AD /* me_followed_all_split_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = me_followed_all_split_line.png; sourceTree = "<group>"; };
 		3691BB3C1C0D4320005534AD /* me_followed_avatar_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = me_followed_avatar_icon.png; sourceTree = "<group>"; };
@@ -1220,8 +1208,6 @@
 		A385C2041C7C91C700FB44D8 /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
 		A385C2051C7C91C700FB44D8 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		A385C2061C7C91C700FB44D8 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
-		AC5C53A31C98F6D3009D7BBA /* ForeignerHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForeignerHistoryViewController.h; sourceTree = "<group>"; };
-		AC5C53A41C98F6D3009D7BBA /* ForeignerHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForeignerHistoryViewController.m; sourceTree = "<group>"; };
 		AC5C610B1C97251600F2EB3F /* ViewControllerUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewControllerUtil.h; sourceTree = "<group>"; };
 		AC5C610C1C97251600F2EB3F /* ViewControllerUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerUtil.m; sourceTree = "<group>"; };
 		AC725C231C91DA1200D1E684 /* TalkNicTabBar.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkNicTabBar.pch; sourceTree = "<group>"; };
@@ -2173,8 +2159,6 @@
 		368182621BDF617F009814FE /* C */ = {
 			isa = PBXGroup;
 			children = (
-				AC5C53A31C98F6D3009D7BBA /* ForeignerHistoryViewController.h */,
-				AC5C53A41C98F6D3009D7BBA /* ForeignerHistoryViewController.m */,
 				36B8550F1BF48D320060F676 /* MeViewController.h */,
 				36B855101BF48D320060F676 /* MeViewController.m */,
 				36B6EC0B1BF9835000B881BE /* BalanceViewController.h */,
@@ -2342,7 +2326,6 @@
 			isa = PBXGroup;
 			children = (
 				36915E461C082DD3000C2F81 /* FDailyTopic */,
-				36915E521C082DD3000C2F81 /* FVoice */,
 			);
 			path = Foreigner;
 			sourceTree = "<group>";
@@ -2382,44 +2365,6 @@
 			children = (
 				36D6D1401C1ACB8A0023B24A /* DatePickerView.h */,
 				36D6D1411C1ACB8A0023B24A /* DatePickerView.m */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		36915E521C082DD3000C2F81 /* FVoice */ = {
-			isa = PBXGroup;
-			children = (
-				36915E531C082DD3000C2F81 /* Controller */,
-				36915E541C082DD3000C2F81 /* Model */,
-				36915E551C082DD3000C2F81 /* View */,
-			);
-			path = FVoice;
-			sourceTree = "<group>";
-		};
-		36915E531C082DD3000C2F81 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				36915E591C082E35000C2F81 /* ForeignerVoiceViewController.h */,
-				36915E5A1C082E35000C2F81 /* ForeignerVoiceViewController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		36915E541C082DD3000C2F81 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				36915E7C1C083652000C2F81 /* FVoice.h */,
-				36915E7D1C083652000C2F81 /* FVoice.m */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		36915E551C082DD3000C2F81 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				36915E771C083640000C2F81 /* FVoiceCell.h */,
-				36915E781C083640000C2F81 /* FVoiceCell.m */,
-				36915E791C083640000C2F81 /* FVoiceCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4016,7 +3961,6 @@
 				36B6AADD1BF35B320047B19E /* me_creditcard_add_icon.png in Resources */,
 				36A9CEE81C1182EA0053F4E4 /* topic_dark_circle.png in Resources */,
 				3683BAEB1BD5E89400644F68 /* discover_pay_like_red.png in Resources */,
-				36915E7B1C083640000C2F81 /* FVoiceCell.xib in Resources */,
 				DFD053441C3CEA7D000E034F /* EaseMob.bundle in Resources */,
 				36B6AAFD1BF35B320047B19E /* me_qa_bottom_bg.png in Resources */,
 				3683BB031BD5E89400644F68 /* main_btn_match_100%.png in Resources */,
@@ -4421,7 +4365,6 @@
 				36F9066B1BE2059E0017F5AA /* UIImage+GIF.m in Sources */,
 				360B8CB61C436C7300F1E34E /* TAAnimatedDotView.m in Sources */,
 				DFD054FA1C3CED10000E034F /* EaseBubbleView+File.m in Sources */,
-				36915E7E1C083652000C2F81 /* FVoice.m in Sources */,
 				36F9066F1BE2059E0017F5AA /* UIImageView+WebCache.m in Sources */,
 				DFD054F51C3CED10000E034F /* EaseViewController.m in Sources */,
 				DFD054A51C3CED10000E034F /* EMCDDeviceManagerBase.m in Sources */,
@@ -4429,8 +4372,6 @@
 				36C17DF91C0C3B290035FE12 /* History.m in Sources */,
 				36D43EBB1C47A2B40003974C /* TTGlobalUICommon.m in Sources */,
 				36D6D13F1C1ACA760023B24A /* DateObject.m in Sources */,
-				36915E5B1C082E35000C2F81 /* ForeignerVoiceViewController.m in Sources */,
-				36915E7A1C083640000C2F81 /* FVoiceCell.m in Sources */,
 				DFD054E01C3CED10000E034F /* EaseConversationModel.m in Sources */,
 				36F906631BE2059E0017F5AA /* SDImageCache.m in Sources */,
 				DFD054C31C3CED10000E034F /* EMSDWebImageDecoder.m in Sources */,
@@ -4447,7 +4388,6 @@
 				3647CCD31C482D9C00F1598A /* HomeShowPicturwCell.m in Sources */,
 				DFD055061C3CED10000E034F /* EaseFacialView.m in Sources */,
 				368E2B5A1C55E95E00C9AAFB /* AddCreditCardViewController.m in Sources */,
-				AC5C53A51C98F6D3009D7BBA /* ForeignerHistoryViewController.m in Sources */,
 				DFD054B01C3CED10000E034F /* MJRefreshGifFooter.m in Sources */,
 				DFD054F81C3CED10000E034F /* EaseMessageCell.m in Sources */,
 				DFD055091C3CED10000E034F /* EaseConversationCell.m in Sources */,

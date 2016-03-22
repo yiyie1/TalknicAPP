@@ -9,8 +9,6 @@
 #import "EMChatViewController.h"
 #import "EMMessage.h"
 #import "EMConversation.h"
-#import "VoiceViewController.h"
-#import "ForeignerVoiceViewController.h"
 //#import "ChatGroupDetailViewController.h"
 //#import "ChatroomDetailViewController.h"
 #import "CustomMessageCell.h"

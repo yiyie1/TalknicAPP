@@ -10,4 +10,6 @@
 
 @interface ForeignerHistoryViewController : UIViewController
 
+@property (nonatomic,copy)NSString *uid;
+
 @end

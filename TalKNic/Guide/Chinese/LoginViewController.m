@@ -30,17 +30,15 @@
 @interface LoginViewController ()
 {
     NSDictionary *dic;
-
     NSDictionary *_weibo;
     NSString *_weiboId;
-    NSString *_oldId;
+    ViewControllerUtil *_vcUtil;
 }
 
 @property (nonatomic,strong)UIButton *loginBT, *signupBT,*forgetPasspord,*emailBT,*facebookBT,*weixinBT,*weiboBT;
 @property (nonatomic,strong)UIImageView *image1;
 @property (nonatomic,strong)UIImageView *image2;
 @property (nonatomic,strong)UIButton *leftBt;
-
 @end
 
 @implementation LoginViewController
@@ -48,6 +46,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _mobile = YES;
+    _vcUtil = [[ViewControllerUtil alloc]init];
+    
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
     title.text = AppLogin;
     title.textAlignment = NSTextAlignmentCenter;
@@ -58,11 +58,7 @@
     [self loginvieww];
     
     self.view.userInteractionEnabled = YES;
-    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-    NSData *data =  [user objectForKey:@"ccUID"];
-    _oldId = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-    
-    [user setBool:YES forKey:@"UseApp"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"UseApp"];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -222,8 +218,7 @@
     [ShareSDK getUserInfo:(platform) onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
         if (state == SSDKResponseStateSuccess)
         {
-            ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
-            NSString *identity = [vcUtil CheckRole];
+            NSString *identity = [_vcUtil CheckRole];
             TalkLog(@"uid = %@ , %@  token = %@ ,nickname = %@",user.uid,user.credential,user.credential.token,user.nickname);
             AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
             manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -278,18 +273,8 @@
                     [self presentViewController:talkVC animated:YES completion:nil];
                     //[EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
                     [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
-                    
-                    NSData * usData = [_uid dataUsingEncoding:NSUTF8StringEncoding];
-                    if (![_oldId isEqualToString:@""])
-                    {
-                        if (_oldId != _uid)
-                        {
-                            [ud setObject:@"" forKey:@"ForeignerID"];
-                            [ud setObject:@"" forKey:@"currDate"];
-                        }
-                    }
+
                     [ud setObject:_uid forKey:@"userId"];
-                    [ud setObject:usData forKey:@"ccUID"];
                     [ud synchronize];
                     
                 }
@@ -300,14 +285,10 @@
                         //注册环信
                         [EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
                     }
-                    
-                    NSData * usData = [_uid dataUsingEncoding:NSUTF8StringEncoding];
-                    [ud setObject:usData forKey:@"ccUID"];
+
                     [ud setObject:_uid forKey:@"userId"];
-                    [ud synchronize];
-                    
                     // 修改
-                    [[NSUserDefaults standardUserDefaults] setObject:_uid forKey:@"my_id"];
+                    [ud synchronize];
                     [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
                     
                     if ([identity isEqualToString:CHINESEUSER])
@@ -404,7 +385,7 @@
         [session POST:PATH_GET_LOGIN parameters:parmas success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             dic = [solveJsonData changeType:responseObject];
             NSLog(@"result %@",dic);
-            ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
+            
             if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 7) )
             {
                 [MBProgressHUD showError:kAlertPasswordWrong];
@@ -428,7 +409,7 @@
                     [EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
                 }
                 
-                if ([[vcUtil CheckRole] isEqualToString:CHINESEUSER])
+                if ([[_vcUtil CheckRole] isEqualToString:CHINESEUSER])
                 {
                     InformationViewController *inforVC = [[InformationViewController alloc]init];
                     inforVC.uID = _uid;
@@ -448,23 +429,9 @@
                 }
                 
                 NSUserDefaults *uid = [NSUserDefaults standardUserDefaults];
-                //[uid setObject:@"Done" forKey:@"FinishedInformation"];
-                
-                if (![_oldId isEqualToString:@""])
-                {
-                    if (_oldId != _uid)
-                    {
-                        [uid setObject:@"" forKey:@"ForeignerID"];
-                        [uid setObject:@"" forKey:@"currDate"];
-                    }
-                }
+          
                 [uid setObject:_uid forKey:@"userId"];
-                [uid setObject:usData forKey:@"ccUID"];
                 [uid synchronize];
-                
-                // 修改
-                [[NSUserDefaults standardUserDefaults] setObject:_uid forKey:@"my_id"];
-
             }
             else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2)) // not the first time
             {
@@ -477,11 +444,11 @@
 
                 //FIXME ugly code
                 //User choice doesn't match with role in server
-                if ([[vcUtil CheckRole] isEqualToString:CHINESEUSER] && [identity isEqualToString:CHINESEUSER])
+                if ([[_vcUtil CheckRole] isEqualToString:CHINESEUSER] && [identity isEqualToString:CHINESEUSER])
                 {
                     //talkVC.identity = CHINESEUSER;
                 }
-                else  if ([[vcUtil CheckRole] isEqualToString:FOREINERUSER] && [identity isEqualToString:FOREINERUSER])
+                else  if ([[_vcUtil CheckRole] isEqualToString:FOREINERUSER] && [identity isEqualToString:FOREINERUSER])
                 {
                     //talkVC.identity = FOREINERUSER;
                 }
@@ -505,20 +472,8 @@
                 NSUserDefaults *uid = [NSUserDefaults standardUserDefaults];
                 [uid setObject:@"Done" forKey:@"FinishedInformation"];
 
-                if (![_oldId isEqualToString:@""])
-                {
-                    if (_oldId != _uid)
-                    {
-                        [uid setObject:@"" forKey:@"ForeignerID"];
-                        [uid setObject:@"" forKey:@"currDate"];
-                    }
-                }
                 [uid setObject:_uid forKey:@"userId"];
-                [uid setObject:usData forKey:@"ccUID"];
                 [uid synchronize];
-                
-                // 修改
-                [[NSUserDefaults standardUserDefaults] setObject:_uid forKey:@"my_id"];
             }
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -570,28 +525,14 @@
                     NSDictionary *dict = [dic objectForKey:@"result"];
                     _uid = [NSString stringWithFormat:@"%@",[dict objectForKey:@"uid"]];
 
-                    NSData * usData = [_uid dataUsingEncoding:NSUTF8StringEncoding];
-                    
-                    NSUserDefaults *uid = [NSUserDefaults standardUserDefaults];
-                    if (![_oldId isEqualToString:@""])
-                    {
-                        if (_oldId != _uid)
-                        {
-                            [uid setObject:@"" forKey:@"ForeignerID"];
-                            [uid setObject:@"" forKey:@"currDate"];
-                        }
-                    }
-                    
                     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-                    [uid setObject:@"Done" forKey:@"FinishedInformation"];
+                    [ud setObject:@"Done" forKey:@"FinishedInformation"];
 
-                    NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
-                    
-                    if ([str isEqualToString:@"Chinese"])
+                    if ([[_vcUtil CheckRole] isEqualToString:CHINESEUSER])
                     {
                         //talkVC.identity = CHINESEUSER;
                     }
-                    else if([str isEqualToString:@"Foreigner"])
+                    else if([[_vcUtil CheckRole] isEqualToString:FOREINERUSER])
                     {
                         //talkVC.identity = FOREINERUSER;
                     }
@@ -617,53 +558,29 @@
                     //登陆环信
                     [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
                     
-                    [uid setObject:_uid forKey:@"userId"];
-                    [uid setObject:usData forKey:@"ccUID"];
-                    [uid synchronize];
-                    // 修改
-                    [[NSUserDefaults standardUserDefaults] setObject:_uid forKey:@"my_id"];
+                    [ud setObject:_uid forKey:@"userId"];
+                    [ud synchronize];
                 }
                 else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 5))
                 {
                     NSDictionary *dict = [dic objectForKey:@"result"];
                     _uid = [NSString stringWithFormat:@"%@",[dict objectForKey:@"uid"]];
-                    
-                    NSData * usData = [_uid dataUsingEncoding:NSUTF8StringEncoding];
-                    
-                    NSUserDefaults *uid = [NSUserDefaults standardUserDefaults];
-                    //[uid setObject:@"Done" forKey:@"FinishedInformation"];
-
-                    if (![_oldId isEqualToString:@""])
-                    {
-                        if (_oldId != _uid)
-                        {
-                            [uid setObject:@"" forKey:@"ForeignerID"];
-                            [uid setObject:@"" forKey:@"currDate"];
-                        }
-                    }
-                    [uid setObject:_uid forKey:@"userId"];
-                    [uid setObject:usData forKey:@"ccUID"];
-                    [uid synchronize];
-                    
-                    // 修改
-                    [[NSUserDefaults standardUserDefaults] setObject:_uid forKey:@"my_id"];
                     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-                    NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
+                    [ud setObject:_uid forKey:@"userId"];
+                    [ud synchronize];
                     
                     if (_uid != nil)
                     {
-                        //注册环信
                         [EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
                     }
                     
-                    if ([str isEqualToString:@"Chinese"])
+                    if ([[_vcUtil CheckRole] isEqualToString:CHINESEUSER])
                     {
                         InformationViewController *inforVC = [[InformationViewController alloc]init];
                         inforVC.uID = _uid;
-                      
                         [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
                         TalkLog(@"UID == %@",_uid);
-                        [self.navigationController pushViewController:inforVC animated:NO];
+                        [self.navigationController pushViewController:inforVC animated:YES];
                         
                     }
                     else
@@ -673,7 +590,7 @@
                        
                         [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
                         TalkLog(@"FUID -- %@",_uid);
-                        [self.navigationController pushViewController:foreigVC animated:NO];
+                        [self.navigationController pushViewController:foreigVC animated:YES];
                         
                     }
                     

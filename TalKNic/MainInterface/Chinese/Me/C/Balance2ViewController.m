@@ -138,10 +138,8 @@
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSMutableDictionary *parmes = [NSMutableDictionary dictionary];
-    
-    NSString *userId = [[NSUserDefaults standardUserDefaults]objectForKey:@"my_id"];
-    
-    parmes[@"user_id"] = userId;
+
+    parmes[@"user_id"] = _uid;
     //    parmes[@"theory_time"] = @"";
 //    parmes[@"cmd"] = @"19";
     

@@ -11,7 +11,7 @@
 #import "BalanceViewController.h"
 #import "CreditCardViewController.h"
 #import "HistoryViewController.h"
-#import "ForeignerHistoryViewController.h"
+//#import "ForeignerHistoryViewController.h"
 #import "QaViewController.h"
 #import "AboutViewController.h"
 #import "SettingViewController.h"
@@ -274,12 +274,6 @@
 
 -(void)loadId
 {
-    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-    NSData *usData = [userD objectForKey:@"ccUID"];
-    NSString *idU = [[NSString alloc]initWithData:usData encoding:NSUTF8StringEncoding];
-    _uid = idU;
-    
-    TalkLog(@"DATA -- %@  userD ---  %@",usData,userD);
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSMutableDictionary *parme = [NSMutableDictionary dictionary];
@@ -784,6 +778,7 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if ([cell.textLabel.text isEqualToString:AppBalance]) {
         BalanceViewController *balanceVC = [[BalanceViewController alloc]init];
+        balanceVC.uid = _uid;
         [self.navigationController pushViewController:balanceVC animated:YES];
     }
     if ([cell.textLabel.text isEqualToString:AppCreditCard]) {
@@ -793,16 +788,18 @@
         [self.navigationController pushViewController:creditVC animated:YES];
     }
     if ([cell.textLabel.text isEqualToString:AppHistory]) {
-        if([_role isEqualToString:CHINESEUSER])
-        {
+        //if([_role isEqualToString:CHINESEUSER])
+        //{
             HistoryViewController *historyVC = [[HistoryViewController alloc]init];
+            historyVC.uid = _uid;
             [self.navigationController pushViewController:historyVC animated:YES];
-        }
-        else
-        {
-            ForeignerHistoryViewController *historyVC = [[ForeignerHistoryViewController alloc]init];
-            [self.navigationController pushViewController:historyVC animated:YES];
-        }
+        //}
+        //else
+        //{
+        //    ForeignerHistoryViewController *historyVC = [[ForeignerHistoryViewController alloc]init];
+        //    historyVC.uid = _uid;
+        //    [self.navigationController pushViewController:historyVC animated:YES];
+        //}
     }
     if ([cell.textLabel.text isEqualToString:AppInviteFriends])
     {
@@ -814,6 +811,7 @@
     }
     if ([cell.textLabel.text isEqualToString:AppQA]) {
         QaViewController *qaVC = [[QaViewController alloc]init];
+        qaVC.uid = _uid;
         [self.navigationController pushViewController:qaVC animated:YES];
     }
     if ([cell.textLabel.text isEqualToString:AppAbout]) {

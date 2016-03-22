@@ -100,12 +100,6 @@
 
 -(void)RightAction
 {
-    TalkLog(@"Send");
-    
-    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-    NSData *usData = [userD objectForKey:@"ccUID"];
-    NSString *uID = [[NSString alloc]initWithData:usData encoding:NSUTF8StringEncoding];
-    
 #warning 判断邮箱格式
     NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
@@ -122,7 +116,7 @@
                            @"name":_NameFeild.text,
                            @"mail":_EmailFeild.text,
                            @"content":_textView.text,
-                           @"user_id":uID
+                           @"user_id":_uid
                            };
     
     

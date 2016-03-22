@@ -10,7 +10,7 @@
 #import "Setting.h"
 #import "SDImageCache.h"
 #import "VoiceViewController.h"
-#import "ForeignerVoiceViewController.h"
+//#import "ForeignerVoiceViewController.h"
 #import "AccountViewController.h"
 #import "NotificationViewController.h"
 @interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -123,16 +123,16 @@
         {
             NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
             NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
-            if ([str isEqualToString:@"Chinese"])
-            {
+            //if ([str isEqualToString:@"Chinese"])
+            //{
                 VoiceViewController *chineseVioce = [[VoiceViewController alloc] init];
                 [self.navigationController pushViewController:chineseVioce animated:NO];
-            }
-            else
-            {
-                ForeignerVoiceViewController *foreignerVoice = [[ForeignerVoiceViewController alloc]init];
-                [self.navigationController pushViewController:foreignerVoice animated:NO];
-            }
+            //}
+            //else
+            //{
+            //    ForeignerVoiceViewController *foreignerVoice = [[ForeignerVoiceViewController alloc]init];
+            //    [self.navigationController pushViewController:foreignerVoice animated:NO];
+            //}
 
         }
         else if (indexPath.row == 1)

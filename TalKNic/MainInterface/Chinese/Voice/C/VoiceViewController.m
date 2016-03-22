@@ -52,18 +52,6 @@
 
 @implementation VoiceViewController
 
-//-(void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-//    
-//    
-//}
-//-(void)viewWillDisappear:(BOOL)animated
-//{
-//    [super viewWillDisappear:animated];
-//    
-//}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -75,72 +63,64 @@
     
     self.array = [NSMutableArray array];
     
-    [self dateTIme];
-    [self foreignerId];
+    [self GetForeignerInformation];
+    //[self dateTIme];
+
+    [self messageView];
+    if (self.searchBar == nil)
+    {
+        [self searchBarView];
+    }
     
-    if([vcUtil CheckPaid] == NO)
-    {
-        self.view.backgroundColor = [UIColor grayColor];
-    }
-    else
-    {
-        [self messageView];
-        if (self.searchBar == nil) {
-            [self searchBarView];
-        }
-    }
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newMessage:) name:@"chineseNewMessage" object:nil];
     
 }
 
--(void)foreignerId
+-(void)GetForeignerInformation
 {
-    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-    NSData *data = [user objectForKey:@"ForeignerID"];
-    
-    
-    if (![data isEqual:@""]) {
-        fUid = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-        TalkLog(@"取出的外教 ID -- %@",fUid);
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-        NSMutableDictionary *dicc = [NSMutableDictionary dictionary];
-        dicc[@"cmd"] = @"19";
-        dicc[@"user_id"] = fUid;
-        [manager POST:PATH_GET_LOGIN parameters:dicc progress:^(NSProgress * _Nonnull uploadProgress) {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    NSMutableDictionary *dicc = [NSMutableDictionary dictionary];
+    dicc[@"cmd"] = @"19";
+    dicc[@"user_id"] = _uid;
+    [manager POST:PATH_GET_LOGIN parameters:dicc progress:^(NSProgress * _Nonnull uploadProgress) {
             
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            TalkLog(@"取出外教的资料 -- %@",responseObject);
-            dic = [solveJsonData changeType:responseObject];
-            if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2)) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        TalkLog(@"talker info -- %@",responseObject);
+        dic = [solveJsonData changeType:responseObject];
+        if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
+        {
                 NSDictionary *dict = [dic objectForKey:@"result"];
                 userNam = [NSString stringWithFormat:@"%@",[dict objectForKey:@"username"]];
                 strPic =[dict objectForKey:@"pic"];
                 NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@",[dict objectForKey:@"pic"]]];
                 [picImage sd_setImageWithURL:url placeholderImage:nil];
                 photo = picImage.image;
-                TalkLog(@"头像 ---- %@",photo);
+                TalkLog(@"user image ---- %@",photo);
                 [self.tableView reloadData];
-                
-            }
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        }
+        else
+        {
+                [MBProgressHUD showMessage:@"No history message"];
+                return;
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"error%@",error);
             [MBProgressHUD showError:kAlertNetworkError];
             return;
-        }];
-        
-    }
-    
+    }];
 }
+
 -(void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.navigationBar.hidden = YES;
     
-    [self foreignerId];
+    [self GetForeignerInformation];
     [self.tableView reloadData];
 }
+
 -(void)dateTIme
 {
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
@@ -166,8 +146,7 @@
             vieww.backgroundColor = [UIColor grayColor];
             
             [self.tableView addSubview:vieww];
-            UIAlertView *alert =[ [UIAlertView alloc]initWithTitle:kAlertPrompt message:kAlertSee delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil];
-            [alert show];
+            
         }
         else
         {
@@ -187,8 +166,6 @@
             [dateF setDateFormat:@"yyyy,MMM dd"];
             NSString *strDate = [dateF stringFromDate:date];
             TalkLog(@"最后的时间 -- %@",strDate);
-            
-            
             
             //实例化一个NSDateFormatter对象
             
@@ -304,7 +281,7 @@
     _tableView.dataSource =self;
     _tableView.delegate = self;
     
-    [self foreignerId];
+    [self GetForeignerInformation];
     [self.view addSubview:_tableView];
 }
 
@@ -398,7 +375,8 @@
     }
     else
     {
-        [EaseMobSDK createOneChatViewWithConversationChatter:fUid Name:userNam onNavigationController:self.navigationController];
+        NSInteger SingleChattedDuration = 0; //FIXME Get from Server
+        [EaseMobSDK createOneChatViewWithConversationChatter:fUid Name:userNam onNavigationController:self.navigationController SingleChattedDuration:SingleChattedDuration ];
         self.navigationController.tabBarItem.badgeValue = nil;
     }
 }
@@ -421,7 +399,7 @@
     
     NSString *messageCount = [NSString stringWithFormat:@"%lu",(unsigned long)message.messageBodies.count];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"chineseNewMessage" object:messageCount];
-    [self foreignerId];
+    [self GetForeignerInformation];
     [self.tableView reloadData];
     //    TalkLog(@"聊天列表 -- %@",conversations);
     /*接收到的消息的解析*/

@@ -10,7 +10,7 @@
 
 @interface BalanceTableViewCell : UITableViewCell
 
-
+@property (nonatomic, copy)NSString *uid;
 @property (strong,nonatomic)UILabel *titleLabel;
 
 @property (strong,nonatomic)UILabel *label;

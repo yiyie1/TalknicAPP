@@ -41,5 +41,5 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
 
-
+@property(nonatomic,strong) NSString *uid;
 @end

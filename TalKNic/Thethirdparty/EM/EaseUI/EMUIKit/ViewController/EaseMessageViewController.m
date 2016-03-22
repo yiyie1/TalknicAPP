@@ -1765,6 +1765,7 @@
 {
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     NSString *role = [user objectForKey:kChooese_ChineseOrForeigner];
+    //FIXME should be got from server
     NSDate *payDate = [user objectForKey:@"payTime"];
     
     //FIXME to handle chat time from different users; cannot use the same charDuration value here
@@ -1778,10 +1779,11 @@
         TalkLog(@"Total voice msg duration = %ld", (long)chatDuration);
         TalkLog(@"Voice msg this time = %ld", (long)duration);
         //within 24 hours && (Chinese && within voice msg duration)
-        if (timeBetween < DEFAULT_MAX_CHAT_DURATION_MINS * 60 && [role isEqualToString:@"Chinese"] && chatDuration < DEFAULT_VOICE_MSG_DURATION_MINS * 60)
+        if (timeBetween < DEFAULT_MAX_CHAT_DURATION_MINS * 60 && [role isEqualToString:@"Chinese"] && _SingleChattedDuration < DEFAULT_VOICE_MSG_DURATION_MINS * 60)//chatDuration < DEFAULT_VOICE_MSG_DURATION_MINS * 60)
         {
             //record voice msg duration each time in charDuration
             chatDuration += duration;
+            _SingleChattedDuration += duration;
             NSString *durationStr = [NSString stringWithFormat:@"%lu",(unsigned long)chatDuration];
             [user setObject:durationStr forKey:@"chatDuration"];
             

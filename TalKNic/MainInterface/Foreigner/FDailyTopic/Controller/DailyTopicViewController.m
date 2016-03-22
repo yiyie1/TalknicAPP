@@ -13,7 +13,6 @@
 
 @interface DailyTopicViewController ()<UIPickerViewDataSource,UIPickerViewDelegate,UIAlertViewDelegate>
 {
-    NSString *_uid;
     NSArray *_oneArr;
     NSArray *_twoArr;
     NSArray *_threeArr;
@@ -148,10 +147,6 @@
 
 -(void)rightAction:(id)sender
 {
-    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-    NSData *usData = [userD objectForKey:@"ccUID"];
-    NSString *idU = [[NSString alloc]initWithData:usData encoding:NSUTF8StringEncoding];
-    _uid = idU;
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];

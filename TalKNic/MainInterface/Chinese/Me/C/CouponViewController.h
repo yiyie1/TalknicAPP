@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CouponViewController : UIViewController
-
+@property (nonatomic, copy)NSString *uid;
 @end

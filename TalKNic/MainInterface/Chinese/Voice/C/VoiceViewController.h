@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface VoiceViewController : UIViewController
-//@property (nonatomic,copy)NSString *fUid;
-//@property (nonatomic,copy)NSString *fuserName;
+@property(nonatomic,strong) NSString *uid;
 
 @end

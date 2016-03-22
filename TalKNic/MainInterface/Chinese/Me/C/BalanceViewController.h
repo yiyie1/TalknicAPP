@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface BalanceViewController : UIViewController
+@property (nonatomic, copy)NSString *uid;
 
 @end

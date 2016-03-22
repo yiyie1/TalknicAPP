@@ -10,4 +10,6 @@
 
 @interface QaViewController : UIViewController
 
+@property (nonatomic,copy)NSString *uid;
+
 @end

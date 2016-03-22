@@ -557,10 +557,8 @@
                     [self presentViewController:talkVC animated:YES completion:nil];
                     [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
                     
-                    NSData * usData = [_uid dataUsingEncoding:NSUTF8StringEncoding];
                     [ud setObject:@"Done" forKey:@"FinishedInformation"];
                     [ud setObject:_uid forKey:@"userId"];
-                    [ud setObject:usData forKey:@"ccUID"];
                     [ud synchronize];
                     
                 }
@@ -571,15 +569,9 @@
                         //注册环信
                         [EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
                     }
-                    
-                    NSData * usData = [_uid dataUsingEncoding:NSUTF8StringEncoding];
-                    //[ud setObject:@"Done" forKey:@"FinishedInformation"];
-                    [ud setObject:usData forKey:@"ccUID"];
+
                     [ud setObject:_uid forKey:@"userId"];
                     [ud synchronize];
-                    
-                    // 修改
-                    [[NSUserDefaults standardUserDefaults] setObject:_uid forKey:@"my_id"];
                     [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
                     
                     if ([identity isEqualToString:CHINESEUSER])
