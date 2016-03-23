@@ -85,7 +85,7 @@
 //   充钱
 #define PATH_ADD_MONEY @"http://120.25.255.114/admin.php/Api/index?cmd=24"
 
-#define PATH_SEND_MSG   @"http://120.25.255.114/admin.php/Api/index?cmd=17"
+#define PATH_FINISH_ORDER_PAY   @"http://120.25.255.114/admin.php/Api/index?cmd=17"
 
 #else
 //获取验证码
@@ -106,7 +106,7 @@
 //   充钱
 #define PATH_ADD_MONEY @"http://120.92.230.17/talknic1.0/admin.php/Api/index?cmd=24"
 
-#define PATH_SEND_MSG   @"http://120.92.230.17/talknic1.0/admin.php/Api/index?cmd=17"
+#define PATH_FINISH_ORDER_PAY   @"http://120.92.230.17/talknic1.0/admin.php/Api/index?cmd=17"
 #endif
 
 //FIXME Move to PHP Server

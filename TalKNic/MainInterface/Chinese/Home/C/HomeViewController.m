@@ -35,7 +35,7 @@
     NSMutableArray *searChArr;//搜索结果数组
     NSDictionary * _dicP;//接受匹配信息的通知
     NSMutableArray *_piArr;//存放匹配信息
-    
+    NSString *_order_id_from_db;
 }
 @property (nonatomic,strong)UINavigationBar *bar;
 @property (nonatomic,strong)UISearchDisplayController *searchController;
@@ -159,14 +159,13 @@
     foreigner_uid = dataDic[@"uid"];
     
     //FIXME to add bio in server database
-    self.bioLb.text = @"";
+    self.bioLb.text = dataDic[@"bio"];
     self.topicLb.text = dataDic[@"topic"];
     
     // 点赞、评分
     self.dianzaiLb.text = dataDic[@"praise"];
     self.pingfenLb.text = dataDic[@"star"];
     [self.dianzangBtn addTarget:self action:@selector(dianzangBtn:) forControlEvents:(UIControlEventTouchUpInside)];
-    //[self.pingfenBtn addTarget:self action:@selector(pingfenBtn:) forControlEvents:(UIControlEventTouchUpInside)];
 
     //确定进入下一步
     [self.sureBtn addTarget:self action:@selector(sureBtn:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -177,7 +176,7 @@
 - (void)dianzangBtn:(id)sender
 {
     NSDictionary *parmeDic = @{@"cmd":@"15",@"user_id":self.dataDic[@"uid"],@"praise_id":_uid};
-    TalkLog(@"praising --- %@",parmeDic);
+    TalkLog(@"Praise parmeDic: %@",parmeDic);
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
@@ -185,9 +184,10 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = [solveJsonData changeType:responseObject];
+        TalkLog(@"result: %@",dic);
+
         if([dic[@"code"] isEqualToString:@"2"])
         {
-            // 点赞成功
             int praiseCount = [self.dataDic[@"praise"] intValue] + 1;
             self.dianzaiLb.text = [NSString stringWithFormat:@"%d",praiseCount];
         }
@@ -208,12 +208,6 @@
     }];
     
 }
-
-//FIXME points cannot be hit in this step
-//- (void)pingfenBtn:(id)sender
-//{
-  //  TalkLog(@"没有接口");
-//}
 
 - (void)cancelBtn:(id)sender
 {
@@ -247,8 +241,9 @@
         [self showViewForm:_bShowViewForm];
         
         [self priceBtnAction];
+        NSString *couponValue = @"0%";
+        [self.youhuiquanBtn setTitle:couponValue forState:UIControlStateNormal];
         
-                // 优惠券和支付价格选择
         [self.youhuiquanBtn addTarget:self action:@selector(CouponAction) forControlEvents:(UIControlEventTouchUpInside)];
         [self.priceBtn addTarget:self action:@selector(priceBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
         
@@ -256,89 +251,99 @@
     //2nd page to pay
     else if (self.seletedCount % 2 == 0)
     {
-        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-
+        //进入支付页面
+        self.bMaskHidden = YES;
+        self.zhedangbanview.hidden = _bMaskHidden;
+        TalkLog(@"foreigner UID = %@",foreigner_uid);
+        
+        //1. Check the user balance at first, if user has money in balance, then use it at first
         AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
         session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
         NSMutableDictionary *parmes = [NSMutableDictionary dictionary];
-
         parmes[@"theory_time"] = @(DEFAULT_VOICE_MSG_DURATION_MINS);
         parmes[@"student_id"] = [NSNumber numberWithInt:[_uid intValue]];
         parmes[@"teacher_id"] = [NSNumber numberWithInt:[foreigner_uid intValue]];
-        NSLog(@"student_id: %@  teacher_id: %@",parmes[@"student_id"], parmes[@"teacher_id"]);
+        NSLog(@"parmes %@",parmes);
+        
         [session POST:PATH_GET_ORDER parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            
-            NSData *dataUid = [foreigner_uid dataUsingEncoding:NSUTF8StringEncoding];
-            
-            [ud setObject:dataUid forKey:@"ForeignerID"];
             NSDictionary *dic = [solveJsonData changeType:responseObject];
-            NSLog(@"%@",dic);
+            NSLog(@"result = %@",dic);
+            _order_id_from_db = [dic objectForKey:@"order_id"];
             
-            // 修改
             if ([[dic objectForKey:@"code" ] isEqualToString:@"2"])
             {
-                [[NSUserDefaults standardUserDefaults] setObject:[dic objectForKey:@"order_id"] forKey:@"order_id"];
+                [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController];
+                self.navigationController.tabBarItem.badgeValue = nil;
             }
             else if([[dic objectForKey:@"code" ] isEqualToString:@"5"])
-            {//
-                // 支付差额
-                /*NSString *orderId = [self generateTradeNO];
-                 
-                 [YGPayByAliTool payByAliWithSubjects:ALI_PAY_SUBJECT body:nil price:self.price orderId:orderId partner:ALI_PARTNER_ID seller:ALI_SELLER_ID privateKey:ALI_PRIVATE_KEY success:^(NSDictionary *info) {
-                 NSLog(@"网页版 = %@",info);
-                 NSString *result = info[@"result"];
-                 
-                 if (result.length) {
-                 // 支付成功通知
-                 [self charge];
-                 // 继续聊天
-                 [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController SingleChattedDuration:SingleChattedDuration];
-                 
-                 }
-                 
-                 }];*/
+            {
+                float remain_price = [[dic objectForKey:@"balance"] floatValue];
+                NSString *AliPayOrderId = [self generateTradeNO];
+                [YGPayByAliTool payByAliWithSubjects:ALI_PAY_SUBJECT body:nil price:remain_price orderId:AliPayOrderId partner:ALI_PARTNER_ID seller:ALI_SELLER_ID privateKey:ALI_PRIVATE_KEY success:^(NSDictionary *info) {
+                    NSLog(@"info = %@",info);
+                    
+                    NSString *resultStatus = info[@"resultStatus"];
+                    NSString *result = info[@"result"];
+                    
+                    //Pay successful and record data in server
+                    if(result.length > 0 && [resultStatus isEqualToString: @"9000"] )
+                    {
+                        //2. finish pay
+                        AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+                        session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+                        NSMutableDictionary *parmes = [NSMutableDictionary dictionary];
+                        parmes[@"theory_time"] = @(DEFAULT_VOICE_MSG_DURATION_MINS);//FIXME user choose time
+                        parmes[@"order_id"] = [NSNumber numberWithInt:[_order_id_from_db intValue]];
+                        NSLog(@"%@",parmes);
+                        
+                        [session POST:PATH_FINISH_ORDER_PAY parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
+
+                        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                            NSDictionary *dic = [solveJsonData changeType:responseObject];
+                            NSLog(@"result = %@",dic);
+                            if ([[dic objectForKey:@"code" ] isEqualToString:@"2"])
+                            {
+                                [MBProgressHUD showSuccess:@"Ali pay successful"];
+                                [[NSUserDefaults standardUserDefaults] setObject:[dic objectForKey:@"order_id"] forKey:@"order_id"];
+                                NSInteger SingleChattedDuration = 0;
+                                [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController];
+                                self.navigationController.tabBarItem.badgeValue = nil;
+                            }
+                            else
+                            {
+                                [MBProgressHUD showError:kAlertdataFailure];
+                            }
+                            
+                            
+                        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                            NSLog(@"error%@",error);
+                            [MBProgressHUD showError:kAlertNetworkError];
+                            return;
+                            
+                        }];
+
+                    }
+                    else
+                    {
+                        [MBProgressHUD showError:kAlertAliPayFail];
+                        TalkLog(@"Alipay fails");
+                        return;
+                    }
+                }];
+                
+                return ;
             }
+            else
+                [MBProgressHUD showError:kAlertdataFailure];
+            
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"error%@",error);
             [MBProgressHUD showError:kAlertNetworkError];
             return;
         }];
 
-        //进入支付页面
-        self.bMaskHidden = YES;
-        self.zhedangbanview.hidden = _bMaskHidden;
-        TalkLog(@"foreigner UID = %@",foreigner_uid);
-        
-        NSString *orderId = [self generateTradeNO];
-        
-        [YGPayByAliTool payByAliWithSubjects:ALI_PAY_SUBJECT body:nil price:self.price orderId:orderId partner:ALI_PARTNER_ID seller:ALI_SELLER_ID privateKey:ALI_PRIVATE_KEY success:^(NSDictionary *info) {
-            NSLog(@"info = %@",info);
-
-            NSString *resultStatus = info[@"resultStatus"];
-            NSString *result = info[@"result"];
-            
-            if(result.length > 0 && [resultStatus isEqualToString: @"9000"] )
-            {
-                NSData* data = [ud objectForKey:@"payTime"];
-                if(data)
-                    [ud removeObjectForKey:@"payTime"];
-                
-                 NSDate *payDate = [NSDate date];
-                 [ud setObject:payDate forKey:@"payTime"];
-
-                NSInteger SingleChattedDuration = 0;
-                [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController SingleChattedDuration:SingleChattedDuration];
-                self.navigationController.tabBarItem.badgeValue = nil;
-            }
-            else
-            {
-                [MBProgressHUD showError:kAlertAliPayFail];
-                TalkLog(@"Alipay fails");
-                return;
-            }
-        }];
     }
 
 }
@@ -415,39 +420,6 @@
     
     [self.priceBtn setTitle:pricelb forState:UIControlStateNormal];
 }
-/*
--(void)initNavigationBar
-{
-    [self.navigationController setNavigationBarHidden:YES];
-    if (self.bar == nil) {
-        self.bar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, kWidth, 129.0/2)];
-        UIImage * img= [UIImage imageNamed:@"nav_bg.png"];
-        img = [img stretchableImageWithLeftCapWidth:1 topCapHeight:1];
-        
-        [_bar setBackgroundImage:img forBarMetrics:(UIBarMetricsDefault)];
-        
-        UILabel *label = [[UILabel alloc]init];
-        label.frame = self.bar.frame;
-        label.text = AppDiscover;
-        label.textAlignment = NSTextAlignmentCenter;
-        label.textColor = [UIColor whiteColor];
-        label.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:17.0];
-
-        [_bar addSubview:label];
-        [self.view addSubview:_bar];
-    }
-}
-/*-(void)segment
-{
-    if (self.segmentControl == nil) {
-        self.segmentControl = [[UISegmentedControl alloc]initWithItems:@[AppFeatured]];//, AppLatest,AppPopular]];
-        _segmentControl.frame = CGRectMake(self.view.frame.size.width /21, self.view.frame.size.height/9.5 , _bar.frame.size.width /1.1, _bar.frame.size.height / 3.15);
-        _segmentControl.selectedSegmentIndex = 0;
-        _segmentControl.tintColor = [UIColor whiteColor];
-        [_segmentControl addTarget:self action:@selector(segmentAction:) forControlEvents:(UIControlEventValueChanged)];
-        [self.view addSubview:_segmentControl];
-    }
-}*/
 
 -(void)searchBarView
 {
@@ -546,8 +518,11 @@
     NSDictionary *dataDic = searChArr[indexPath.row];
     self.dataDic = [NSMutableDictionary dictionaryWithDictionary:dataDic];
     
+    self.seletedCount = 0;
     self.bMaskHidden = NO;
     self.zhedangbanview.hidden = _bMaskHidden;
+    self.bShowViewForm = NO;
+    [self showViewForm:_bShowViewForm];
     
     self.detailimage1.layer.masksToBounds = YES;
     self.detailimage1.layer.cornerRadius = 50 / 2 * (kWidth / 320);
@@ -561,14 +536,13 @@
     
     foreigner_uid = searChArr[indexPath.row][@"uid"];
     self.addressLb.text = dataDic[@"nationality"];
-    self.bioLb.text = @"";
+    self.bioLb.text = dataDic[@"bio"];
     self.topicLb.text = dataDic[@"topic"];
     
     // 点赞、评分
     self.dianzaiLb.text = dataDic[@"praise"];
     self.pingfenLb.text = dataDic[@"star"];
     [self.dianzangBtn addTarget:self action:@selector(dianzangBtn:) forControlEvents:(UIControlEventTouchUpInside)];
-    //[self.pingfenBtn addTarget:self action:@selector(pingfenBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     
     //确定进入下一步+
     [self.sureBtn addTarget:self action:@selector(sureBtn:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -620,12 +594,12 @@
         NSRange range = [searchStr rangeOfString:strSearch];
         if (range.location != NSNotFound)
         {
-            TalkLog(@"i = %d", i);
+            //TalkLog(@"i = %d", i);
             [searChArr addObject:[dataArray objectAtIndex:i]];
         }
     }
-    TalkLog(@"%d, 搜索库 ＝＝ %@",[dataArray count], searChArr);
-    TalkLog(@"搜索的数据 ＝＝ %@",strSearch);
+    //TalkLog(@"all users count: %lu, %@",(unsigned long)[dataArray count], searChArr);
+    //TalkLog(@"searching: %@",strSearch);
     
     
     [self.searchController.searchResultsTableView reloadData];
@@ -661,8 +635,8 @@
     parmes[@"cmd"] = @"10";
     parmes[@"discover"] = discover;
     [session POST:PATH_GET_LOGIN parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
-        
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [MBProgressHUD hideHUD];
         NSDictionary *dic = [solveJsonData changeType:responseObject];
         if ([[dic objectForKey:@"code"]isEqualToString:@"2"]) {
             
@@ -677,7 +651,7 @@
             
             [self.homecollectview reloadData];
             
-            TalkLog(@"dataArray count %d",[dataArray count]);
+            TalkLog(@"dataArray count %lu",(unsigned long)[dataArray count]);
         }
         else if ([[dic objectForKey:@"code"]isEqualToString:@"3"])
         {

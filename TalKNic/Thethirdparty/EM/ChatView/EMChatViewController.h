@@ -10,7 +10,6 @@
 
 @interface EMChatViewController : EaseMessageViewController
 @property (nonatomic,copy)NSString *ud;
-@property (nonatomic) NSInteger  SingleChattedDuration;
-@property (nonatomic, copy)NSString *SinglePaidTime;
+
 
 @end

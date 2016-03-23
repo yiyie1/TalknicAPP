@@ -317,11 +317,10 @@
 }
 #pragma mark 单聊
 #pragma mark ===创建一个单聊会话===
-+ (void)createOneChatViewWithConversationChatter:(NSString *)chatter Name:(NSString *)name onNavigationController:(UINavigationController *)navigationController SingleChattedDuration:(NSInteger) SingleChattedDuration
++ (void)createOneChatViewWithConversationChatter:(NSString *)chatter Name:(NSString *)name onNavigationController:(UINavigationController *)navigationController
 {
     EMChatViewController *chatVC = [[EMChatViewController alloc]initWithConversationChatter:chatter conversationType:eConversationTypeChat];
     chatVC.title = name;
-    chatVC.SingleChattedDuration = SingleChattedDuration;
     
     [navigationController pushViewController:chatVC animated:YES];
 }

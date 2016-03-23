@@ -267,16 +267,14 @@
                     }
                     
                     [ud setObject:@"Done" forKey:@"FinishedInformation"];
+                    [ud setObject:_uid forKey:@"userId"];
+                    [ud synchronize];
                     
                     TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
                     talkVC.uid = _uid;
                     [self presentViewController:talkVC animated:YES completion:nil];
                     //[EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
                     [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
-
-                    [ud setObject:_uid forKey:@"userId"];
-                    [ud synchronize];
-                    
                 }
                 else if (([(NSNumber *)[_weibo objectForKey:@"code"] intValue] == 5))   //First time to login
                 {
@@ -461,19 +459,20 @@
                     [self.navigationController pushViewController:choosePeopleVC animated:YES];
                     return;
                 }
+
+                [ud setObject:@"Done" forKey:@"FinishedInformation"];
+                [ud setObject:_uid forKey:@"userId"];
+                [ud synchronize];
+                
                 TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
                 talkVC.uid = _uid;
                 TalkLog(@"User ID: %@",talkVC.uid);
                 [self presentViewController:talkVC animated:YES completion:nil];
+                
                 //FIXME refine the login / signup
                 [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
                 //[EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
                 
-                NSUserDefaults *uid = [NSUserDefaults standardUserDefaults];
-                [uid setObject:@"Done" forKey:@"FinishedInformation"];
-
-                [uid setObject:_uid forKey:@"userId"];
-                [uid synchronize];
             }
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -546,6 +545,9 @@
                         return;
                     }
                     
+                    [ud setObject:_uid forKey:@"userId"];
+                    [ud synchronize];
+                    
                     TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
                     talkVC.uid = _uid;
                     [self.navigationController presentViewController:talkVC animated:NO completion:nil];
@@ -557,9 +559,7 @@
                     
                     //登陆环信
                     [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
-                    
-                    [ud setObject:_uid forKey:@"userId"];
-                    [ud synchronize];
+
                 }
                 else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 5))
                 {
@@ -594,6 +594,17 @@
                         
                     }
                     
+                }
+                else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 7) )
+                {
+                    [MBProgressHUD showError:kAlertPasswordWrong];
+                    return ;
+                }
+                else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 4) )
+                {
+                    //FIXME to figure out wrong password or id
+                    [MBProgressHUD showError:kAlertPasswordWrong];
+                    return;
                 }
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 NSLog(@"error:%@",error);

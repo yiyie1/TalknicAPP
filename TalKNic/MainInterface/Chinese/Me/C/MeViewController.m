@@ -25,12 +25,10 @@
 #import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
 #import "MeHeadViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
-
 #import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
 #import "solveJsonData.h"
 
-#define ORIGINAL_MAX_WIDTH 640.0f
 //#import "UMSocial.h"
 @interface MeViewController ()<UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,MeImageCropperDelegate,UITextViewDelegate,UIPickerViewAccessibilityDelegate,UINavigationControllerDelegate>
 {
@@ -38,7 +36,6 @@
     BOOL btnstare;
     UITextView * _nameText;
     UITextView * _topText;
-
     NSDictionary *dic;
     NSDictionary *dica;
 }
@@ -72,7 +69,7 @@
 @property (nonatomic,strong)UILabel *following2Label;
 
 @property (nonatomic,strong)UIView *backview;
-@property (nonatomic,copy)NSString *city;
+@property (nonatomic,copy)NSString *occupation;
 @property (nonatomic,copy)NSString *nationality;
 @end
 
@@ -90,15 +87,7 @@
     title.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:17.0];
     
     self.navigationItem.titleView = title;
-    
-    //UIImageView *imageViewH = [[UIImageView alloc]init];
-    //imageViewH.frame = CGRectMake(0, 129.0/2, KWidthScaled(375), KHeightScaled(3.0/2));
-    //NSLog(@"My view frame: %@", NSStringFromCGRect(imageViewH.frame));
-    //imageViewH.image = [UIImage imageNamed:@"me_line_bold_long.png"];
-    //[self.view addSubview:imageViewH];
-    
-    [self loadId];
-    
+
     [self Setting];
     
     [self LayoutProfile];
@@ -110,14 +99,14 @@
     [self layoutClickBtnGetSearchBar];
     //设置头像
     [self portraitImageView];
-    
-
-    
 }
+
 -(void)viewWillAppear:(BOOL)animated
 {
+    [self loadId];
     self.tabBarController.tabBar.hidden = NO;
 }
+
 -(void)portraitImageView
 {
     self.photoView = [[UIImageView alloc]init];
@@ -134,7 +123,6 @@
 //头像点击方法
 -(void)editPortrait:(UITapGestureRecognizer *)tap
 {
-    
     UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:kAlertOurceFile delegate:self cancelButtonTitle:kAlertCancel destructiveButtonTitle:nil otherButtonTitles:kAlertCamera,kAlertLocal, nil];
     [actionSheet showInView:self.view];
 }
@@ -168,6 +156,7 @@
             break;
     }
 }
+
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
     if ([[info objectForKey:UIImagePickerControllerMediaType]isEqualToString:(__bridge NSString *)kUTTypeImage]) {
@@ -176,10 +165,12 @@
     }
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
+
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
+
 -(void)saveImage:(UIImage *)image
 {
     BOOL success;
@@ -199,6 +190,7 @@
     
     [self uploadImage];
 }
+
 -(void)uploadImage
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
@@ -240,6 +232,7 @@
     UIGraphicsEndImageContext();
     return newImage;
 }
+
 - (UIImage *)thumbnailWithImageWithoutScale:(UIImage *)image size:(CGSize)asize
 {
     UIImage *newimage;
@@ -288,17 +281,14 @@
         if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
         {
             NSDictionary *dict = [dic objectForKey:@"result"];
-            //_city = [NSString stringWithFormat:@"%@",[dict objectForKey:@"city"]]; //should be occupation
             if([_role isEqualToString:CHINESEUSER])
-                _nationality = @"China";
+                _countries.text = @"China";
             else
-                _nationality = [dict objectForKey:@"nationality"];//[NSString stringWithFormat:@",%@",[dict objectForKey:@"nationality"]];
+                _countries.text = [dict objectForKey:@"nationality"];
             _nameLabel.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"username"]];
-            _countries.text = _nationality;//[_city stringByAppendingString:_nationality];
             _followed1Label.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"fans"]];
             _following1Label.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"praise"]];
-            //FIXME topic and bio are wrong
-            _about.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"topic"]];
+            _about.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"bio"]];
             NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@",[dict objectForKey:@"pic"]]];
             [self.photoView sd_setImageWithURL:url placeholderImage:nil];
         }
@@ -624,19 +614,16 @@
         if (![_topText.text isEqualToString:@""]) {
             dicc[@"biography"] = _topText.text;
         }
-        
-        
-        TalkLog(@"修改资料参数 -- %@",_uid);
+
         [manager POST:PATH_GET_LOGIN parameters:dicc progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            TalkLog(@"修改资料 -- %@",responseObject);
+            TalkLog(@"result -- %@",responseObject);
             
             dica = [solveJsonData changeType:responseObject];
             if (([(NSNumber *)[dica objectForKey:@"code"]intValue] == 2))
             {
                 [MBProgressHUD showSuccess:kAlertModifyDatassSuccessful];
-                TalkLog(@"修改资料成功 %@ -- %@",_nameLabel.text,_about.text);
                 _nameLabel.text = _nameText.text;
                 _about.text = _topText.text;
             }
@@ -653,9 +640,6 @@
             [MBProgressHUD showError:kAlertNetworkError];
             //return;
         }];
-
-        
-        NSLog(@"Done");
     }
     else
     {
@@ -685,8 +669,6 @@
         _topText.textAlignment = NSTextAlignmentLeft;
         
         [_imageViewBar addSubview:_topText];
-        
-        NSLog(@"Edit");
     }
     btnstare = !btnstare;
 

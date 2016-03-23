@@ -1765,27 +1765,26 @@
 {
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     NSString *role = [user objectForKey:kChooese_ChineseOrForeigner];
-    //FIXME should be got from server
+    
+    //TODO Chinese: load paytime, chattedduation from server based on talker id
     NSDate *payDate = [user objectForKey:@"payTime"];
+    NSInteger SingleChattedDuration = 0;
     
-    //FIXME to handle chat time from different users; cannot use the same charDuration value here
-    NSInteger  chatDuration = (NSInteger)[[user objectForKey:@"chatDuration"]integerValue];
-    
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+
     //Paid
-    if (payDate) {
+    if (payDate)
+    {
         NSDate *dateNow = [NSDate date];
         NSTimeInterval timeBetween = [dateNow timeIntervalSinceDate:payDate];
         TalkLog(@"Total Char time = %f",timeBetween);
-        TalkLog(@"Total voice msg duration = %ld", (long)chatDuration);
         TalkLog(@"Voice msg this time = %ld", (long)duration);
+        
         //within 24 hours && (Chinese && within voice msg duration)
-        if (timeBetween < DEFAULT_MAX_CHAT_DURATION_MINS * 60 && [role isEqualToString:@"Chinese"] && _SingleChattedDuration < DEFAULT_VOICE_MSG_DURATION_MINS * 60)//chatDuration < DEFAULT_VOICE_MSG_DURATION_MINS * 60)
+        if (timeBetween < DEFAULT_MAX_CHAT_DURATION_MINS * 60 && [role isEqualToString:@"Chinese"] && SingleChattedDuration < DEFAULT_VOICE_MSG_DURATION_MINS * 60)
         {
-            //record voice msg duration each time in charDuration
-            chatDuration += duration;
-            _SingleChattedDuration += duration;
-            NSString *durationStr = [NSString stringWithFormat:@"%lu",(unsigned long)chatDuration];
-            [user setObject:durationStr forKey:@"chatDuration"];
+            SingleChattedDuration += duration;
             
             id<IEMChatProgressDelegate> progress = nil;
             if (_dataSource && [_dataSource respondsToSelector:@selector(messageViewController:progressDelegateForMessageBodyType:)]) {
@@ -1805,6 +1804,8 @@
             [self addMessageToDataSource:message
                                 progress:progress];
             
+            
+            //TODO Chinese: upload chattedduration to server based on talker id
         }
         else
         {
@@ -1817,9 +1818,8 @@
             
             parmes[@"order_id"] = [NSNumber numberWithInt:[order_id intValue]];
             NSLog(@"%@",parmes[@"order_id"]);
-            [session POST:PATH_SEND_MSG parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
-                
-                
+            [session POST:PATH_FINISH_ORDER_PAY parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
+            
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                
                 NSDictionary *dic = [solveJsonData changeType:responseObject];

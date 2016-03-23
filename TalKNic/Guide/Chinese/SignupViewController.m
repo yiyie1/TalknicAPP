@@ -552,14 +552,14 @@
                         return;
                     }
                     
+                    [ud setObject:@"Done" forKey:@"FinishedInformation"];
+                    [ud setObject:_uid forKey:@"userId"];
+                    [ud synchronize];
+                    
                     TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
                     talkVC.uid = _uid;
                     [self presentViewController:talkVC animated:YES completion:nil];
                     [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
-                    
-                    [ud setObject:@"Done" forKey:@"FinishedInformation"];
-                    [ud setObject:_uid forKey:@"userId"];
-                    [ud synchronize];
                     
                 }
                 else if (([(NSNumber *)[_dicc objectForKey:@"code"] intValue] == 5))   //First time to login
