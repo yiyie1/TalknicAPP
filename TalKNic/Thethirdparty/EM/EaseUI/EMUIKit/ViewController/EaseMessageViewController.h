@@ -167,6 +167,8 @@ shouldSendHasReadAckForMessage:(EMMessage *)message
 
 @property (nonatomic,copy)NSString *dateTime;
 
+@property (copy ,nonatomic) NSString *orderId;
+
 //如果conversation中没有任何消息，退出该页面时是否删除该conversation
 @property (nonatomic) BOOL deleteConversationIfNull; //default YES;
 

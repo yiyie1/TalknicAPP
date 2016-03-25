@@ -24,6 +24,17 @@
     return title;
 }
 
+-(BOOL)IsValidChat:(NSString*) pay_time msg_time: (NSString*) msg_time
+{
+    NSDate *dateNow = [NSDate date];
+    NSTimeInterval sec1970 = [dateNow timeIntervalSince1970];
+    
+    NSTimeInterval time_after_pay = sec1970 - [pay_time doubleValue];
+    TalkLog(@"time_after_pay: %f hours", time_after_pay / 60 / 60);
+
+    return time_after_pay < DEFAULT_MAX_CHAT_DURATION_MINS * 60 && ![msg_time isEqualToString:@"0"];
+}
+
 -(UINavigationBar* )ConfigNavigationBar:(NSString*)titleStr NavController: (UINavigationController *)NavController NavBar: (UINavigationBar*)NavBar
 {
     [NavController setNavigationBarHidden:YES];
@@ -35,7 +46,7 @@
         [NavBar setBackgroundImage:img forBarMetrics:(UIBarMetricsDefault)];
         
         UILabel *label = [[UILabel alloc]init];
-        label.frame = NavBar.frame;
+        label.frame = CGRectMake(0, KHeightScaled(10), kWidth, 129.0/2);//NavBar.frame;
         label.text = titleStr;
         label.textAlignment = NSTextAlignmentCenter;
         label.textColor = [UIColor whiteColor];
@@ -63,10 +74,5 @@
 -(BOOL)CheckFinishedInformation
 {
     return ([[[NSUserDefaults standardUserDefaults] objectForKey:@"FinishedInformation"] isEqualToString:@"Done"]);
-}
-
--(BOOL)CheckPaid
-{
-    return ([[NSUserDefaults standardUserDefaults] objectForKey:@"payTime"] != nil);
 }
 @end

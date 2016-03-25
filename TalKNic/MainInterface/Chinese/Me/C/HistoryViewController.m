@@ -48,23 +48,14 @@
 
     ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
     self.navigationItem.titleView = [vcUtil SetTitle:AppHistory];
-    if([vcUtil CheckPaid] == NO)
-    {
-        self.view.backgroundColor = [UIColor grayColor];
-    }
-    else
-    {
-        [self layoutTableView];
-    }
-
+    [self layoutTableView];
     [self layoutLeftBT];
     self.array = [NSMutableArray array];
     
     [self dateTIme];
     [self foreignerId];
-    
-
 }
+
 -(void)foreignerId
 {
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];

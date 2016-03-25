@@ -274,7 +274,7 @@
             
             if ([[dic objectForKey:@"code" ] isEqualToString:@"2"])
             {
-                [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController];
+                [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController order_id:_order_id_from_db];
                 self.navigationController.tabBarItem.badgeValue = nil;
             }
             else if([[dic objectForKey:@"code" ] isEqualToString:@"5"])
@@ -306,9 +306,7 @@
                             if ([[dic objectForKey:@"code" ] isEqualToString:@"2"])
                             {
                                 [MBProgressHUD showSuccess:@"Ali pay successful"];
-                                [[NSUserDefaults standardUserDefaults] setObject:[dic objectForKey:@"order_id"] forKey:@"order_id"];
-                                NSInteger SingleChattedDuration = 0;
-                                [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController];
+                                [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController order_id:_order_id_from_db];
                                 self.navigationController.tabBarItem.badgeValue = nil;
                             }
                             else

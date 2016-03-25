@@ -121,8 +121,8 @@
     {
         if (indexPath.row == 0)
         {
-            NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-            NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
+            //NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+            //NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
             //if ([str isEqualToString:@"Chinese"])
             //{
                 VoiceViewController *chineseVioce = [[VoiceViewController alloc] init];

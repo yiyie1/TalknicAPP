@@ -29,19 +29,22 @@
     NSString * _weeK;
     NSString * _dateTim;
     NSString * _weekDateTime;
-    NSString *uid;
     NSString *fUid;
     NSDictionary *dic;
     UIImageView *picImage;
     UIImage *photo;
+    NSMutableArray *_teacher_array;
+    NSArray* _order_array;
+    NSMutableArray *_reordered_order_array;
+    NSMutableArray *_array;
+    NSMutableArray *_userName;
+    NSMutableArray *_strPic;
     ViewControllerUtil *_vcUtil;
+    AFHTTPSessionManager *_manager;
 }
 @property (nonatomic,strong)UINavigationBar *bar;
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,copy)NSString *dateTimm;
-@property (nonatomic,strong)NSMutableArray *array;
-@property (nonatomic,strong)NSMutableArray *userName;
-@property (nonatomic,strong)NSMutableArray *strPic;
 @property (nonatomic,strong)UISearchDisplayController *searchController;
 @property (nonatomic,strong)UISearchBar *searchBar;
 @end
@@ -51,65 +54,95 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    _manager = [AFHTTPSessionManager manager];
+    _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
     _vcUtil = [[ViewControllerUtil alloc]init];
-    self.bar = [_vcUtil ConfigNavigationBar:@"Audio Message" NavController: self.navigationController NavBar:self.bar];
-    [self.view addSubview:self.bar];
+    self.navigationItem.titleView = [_vcUtil SetTitle:@"Audio Message"];
+    //self.bar = [_vcUtil ConfigNavigationBar:@"Audio Message" NavController: self.navigationController NavBar:self.bar];
+    //[self.view addSubview:self.bar];
     //[self GetForeignerInformation];
     
     [self messageView];
-    [self searchBarView];
+    //[self searchBarView];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newMessage:) name:@"chineseNewMessage" object:nil];
 }
 
+-(void)allocArray
+{
+    if(!_array)
+        _array = [[NSMutableArray alloc]init];
+    else
+        [_array removeAllObjects];
+    
+    if(!_userName)
+        _userName = [[NSMutableArray alloc]init];
+    else
+        [_userName removeAllObjects];
+    
+    if(!_strPic)
+        _strPic = [[NSMutableArray alloc]init];
+    else
+        [_strPic removeAllObjects];
+    
+    if(!_teacher_array)
+        _teacher_array = [[NSMutableArray alloc]init];
+    else
+        [_teacher_array removeAllObjects];
+    
+    if(!_reordered_order_array)
+        _reordered_order_array = [[NSMutableArray alloc]init];
+    else
+        [_reordered_order_array removeAllObjects];
+    
+}
+
 -(void)GetForeignerInformation
 {
-    if(!self.array)
-        self.array = [[NSMutableArray alloc]init];
-    else
-        [self.array removeAllObjects];
+    [self allocArray];
     
-    if(!self.userName)
-        self.userName = [[NSMutableArray alloc]init];
-    else
-        [self.userName removeAllObjects];
-    
-    if(!self.strPic)
-        self.strPic = [[NSMutableArray alloc]init];
-    else
-        [self.strPic removeAllObjects];
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSMutableDictionary *dicc = [NSMutableDictionary dictionary];
     dicc[@"cmd"] = @"32";
+    dicc[@"role"] = [_vcUtil CheckRole];
     dicc[@"user_student_id"] = _uid;
-    [manager POST:PATH_GET_LOGIN parameters:dicc progress:^(NSProgress * _Nonnull uploadProgress) {
-            
+    [_manager POST:PATH_GET_LOGIN parameters:dicc progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         TalkLog(@"all orders info -- %@",responseObject);
         dic = [solveJsonData changeType:responseObject];
         if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
         {
-            NSArray *arr = [dic objectForKey:@"result"];
-            for(NSDictionary *d in arr)
+            _order_array = [dic objectForKey:@"result"];
+            //FIXME the sequence of chat should be in order
+            for(NSDictionary *d in _order_array)
             {
-                if(![self.array containsObject:[d objectForKey:@"user_teacher_id"]])
+                if(![_array containsObject:[d objectForKey:@"user_teacher_id"]])
                 {
-                    [self.array addObject: [d objectForKey:@"user_teacher_id"]];
+                    [_array addObject: [d objectForKey:@"user_teacher_id"]];
                     
                     NSMutableDictionary *dicc = [NSMutableDictionary dictionary];
                     dicc[@"cmd"] = @"19";
                     dicc[@"user_id"] = [d objectForKey:@"user_teacher_id"];
-                    [manager POST:PATH_GET_LOGIN parameters:dicc progress:^(NSProgress * _Nonnull uploadProgress) {
+                    [_manager POST:PATH_GET_LOGIN parameters:dicc progress:^(NSProgress * _Nonnull uploadProgress) {
                     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                         TalkLog(@"teacher info -- %@",responseObject);
                         dic = [solveJsonData changeType:responseObject];
                         if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
                         {
                             NSDictionary *dict = [dic objectForKey:@"result"];
-                            [self.userName addObject:[dict objectForKey:@"username"]];
-                            [self.strPic addObject:[dict objectForKey:@"pic"]];
+                            [_userName addObject:[dict objectForKey:@"username"]];
+                            [_strPic addObject:[dict objectForKey:@"pic"]];
+                            [_teacher_array addObject:[dict objectForKey:@"uid"]];
+                            
+                            //FIXME better algorithm to order the order array
+                            for(int i = 0; i < [_array count]; ++i)
+                            {
+                                if([[dict objectForKey:@"uid"] isEqualToString:_array[i]])
+                                {
+                                    [_reordered_order_array addObject:_order_array[i]];
+                                }
+                            }
+                            
                             NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@",[dict objectForKey:@"pic"]]];
                             [picImage sd_setImageWithURL:url placeholderImage:nil];
                             photo = picImage.image;
@@ -120,15 +153,18 @@
                             [MBProgressHUD showError:kAlertdataFailure];
                         }
                     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                        
+                        NSLog(@"error%@",error);
+                        self.tableView.hidden = YES;
+                        self.searchBar.hidden = YES;
+                        [MBProgressHUD showError:kAlertNetworkError];
                     }];
                 }
             }
 
         }
-        self.tableView.hidden = ([self.array count] == 0);
-        self.searchBar.hidden = ([self.array count] == 0);
-        if([self.array count] == 0)
+        self.tableView.hidden = ([_array count] == 0);
+        self.searchBar.hidden = ([_array count] == 0);
+        if([_array count] == 0)
             [MBProgressHUD showError:@"No history message"];
         //else
         //    [self.tableView reloadData];
@@ -144,15 +180,15 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    self.navigationController.navigationBar.translucent = YES;
-    self.navigationController.navigationBar.hidden = YES;
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.hidden = NO;
     
     [self GetForeignerInformation];
 }
 
 -(void)messageView
 {
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 129.0/2 + KHeightScaled(44), kWidth, kHeight) style:(UITableViewStylePlain)];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0/*129.0/2 + KHeightScaled(44)*/, kWidth, kHeight) style:(UITableViewStylePlain)];
     [self.tableView registerNib:[UINib nibWithNibName:@"VoiceCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     self.tableView.dataSource =self;
     self.tableView.delegate = self;
@@ -185,6 +221,7 @@
     self.searchBar.frame = CGRectMake(0, 129.0 / 2, KWidthScaled(375), KHeightScaled(44));
     self.searchBar.alpha = 1.0f;
 }
+
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
     self.searchBar.frame = CGRectMake(0, 129.0 / 2, KWidthScaled(375), KHeightScaled(44));
@@ -195,31 +232,46 @@
 {
     return  1;
 }
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.userName count];
+    return [_userName count];
 }
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     if (tableView == self.tableView) {
         VoiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-        cell.userName.text = [_userName objectAtIndex:indexPath.row];
+        cell.userName.text = _userName[indexPath.row];
+        TalkLog(@"%@: %@", indexPath, _userName[indexPath.row]);
         
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-        NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
-        cell.date.text = dateString;
-        
-        cell.userMessage.text = @"Audio message!";
-        cell.userMessage.textColor = [UIColor grayColor];
         cell.userMessage.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:15.0];
 
-        NSString* strPic = [_strPic objectAtIndex:indexPath.row];
+        cell.uid = _teacher_array[indexPath.row];
+        NSString* strPic = _strPic[indexPath.row];
         [cell.userImage sd_setImageWithURL:[NSURL URLWithString:strPic]];
         cell.backgroundColor = [UIColor whiteColor];
-        cell.selectedBackgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"msg_select_area_bg.png"]];
         
+        NSDictionary *order_dic = _reordered_order_array[indexPath.row];
+        if([_vcUtil IsValidChat:[order_dic objectForKey:@"paytime"] msg_time: [order_dic objectForKey:@"time"]])
+        {
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+            NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
+            cell.date.text = dateString;
+            cell.date.textColor = [UIColor blackColor];
+            
+            cell.userName.textColor = [UIColor blackColor];
+            cell.userMessage.textColor = [UIColor blackColor];
+            cell.userMessage.text = @"Audio message!";
+            cell.selectedBackgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"msg_select_area_bg.png"]];
+        }
+        else
+        {
+            cell.userName.textColor = [UIColor grayColor];
+            cell.userMessage.text = @"Overtime!";
+            cell.userMessage.textColor = [UIColor grayColor];
+        }
         return cell;
         
     }else
@@ -236,30 +288,20 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    
-    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-    NSDate *payDate = [user objectForKey:@"payTime"];
-    
-    NSDate *dateNow = [NSDate date];
-    NSTimeInterval timeBetween = [dateNow timeIntervalSinceDate:payDate];
-    
-    if (timeBetween > DEFAULT_MAX_CHAT_DURATION_MINS * 60) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppConChat delegate:self cancelButtonTitle:AppSure otherButtonTitles:nil];
-        [alert show];
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        
-        //FXIME each chat should have his own chat duration
-        //Clear payment and chat duration
-        [user removeObjectForKey:@"payTime"];
-        [user removeObjectForKey:@"chatDuration"];
+    NSDictionary *order_dic = _reordered_order_array[indexPath.row];
+    if([_vcUtil IsValidChat:[order_dic objectForKey:@"paytime"] msg_time: [order_dic objectForKey:@"time"]])
+    {
+        [EaseMobSDK createOneChatViewWithConversationChatter:_teacher_array[indexPath.row] Name:_userName[indexPath.row] onNavigationController:self.navigationController order_id:[order_dic objectForKey:@"order_id"]];
+        self.navigationController.tabBarItem.badgeValue = nil;
     }
     else
     {
-        NSInteger SingleChattedDuration = 0; //FIXME Get from Server
-        [EaseMobSDK createOneChatViewWithConversationChatter:fUid Name:_userName onNavigationController:self.navigationController];
-        self.navigationController.tabBarItem.badgeValue = nil;
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppConChat delegate:self cancelButtonTitle:AppSure otherButtonTitles:nil];
+        [alert show];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 }
+
 - (void)newMessage:(NSNotification *)notification
 {
     TalkLog(@"接受新消息");

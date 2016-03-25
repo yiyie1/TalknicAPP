@@ -17,6 +17,7 @@
 //UserDefault
 -(NSString*)GetUid;
 -(NSString*)CheckRole;
--(BOOL)CheckPaid;
 -(BOOL)CheckFinishedInformation;
+
+-(BOOL)IsValidChat:(NSString*) pay_time msg_time: (NSString*) msg_time;
 @end

@@ -17,4 +17,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *userMessage;
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
+
+@property(nonatomic,strong) NSString *uid;
 @end

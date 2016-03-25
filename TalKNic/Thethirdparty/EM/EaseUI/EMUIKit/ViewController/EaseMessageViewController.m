@@ -14,6 +14,7 @@
 #import "EaseUsersListViewController.h"
 #import "EaseMessageReadManager.h"
 #import "AFNetworking.h"
+#import "ViewControllerUtil.h"
 
 #define KHintAdjustY    50
 
@@ -22,8 +23,11 @@
     UIMenuItem *_copyMenuItem;
     UIMenuItem *_deleteMenuItem;
     UILongPressGestureRecognizer *_lpgr;
-    
+    NSString *_userId;
+    BOOL _bValidMsg;
+    NSInteger _remaining_msg_time;
     dispatch_queue_t _messageQueue;
+    AFHTTPSessionManager *_manager;
 }
 
 @property (strong, nonatomic) id<IMessageModel> playingVoiceModel;
@@ -50,18 +54,21 @@
     if ([conversationChatter length] == 0) {
         return nil;
     }
-    
+
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
         _conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:conversationChatter conversationType:conversationType];
-        
+        _userId = conversationChatter;
         _messageCountOfPage = 10;
         _timeCellHeight = 30;
         _deleteConversationIfNull = YES;
         _scrollToBottomWhenAppear = YES;
+        _bValidMsg = YES;
         _messsagesSource = [NSMutableArray array];
-        
         [_conversation markAllMessagesAsRead:YES];
+        _manager = [AFHTTPSessionManager manager];
+        _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+        
     }
     
     return self;
@@ -1763,93 +1770,85 @@
 - (void)sendVoiceMessageWithLocalPath:(NSString *)localPath
                              duration:(NSInteger)duration
 {
-    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-    NSString *role = [user objectForKey:kChooese_ChineseOrForeigner];
-    
-    //TODO Chinese: load paytime, chattedduation from server based on talker id
-    NSDate *payDate = [user objectForKey:@"payTime"];
-    NSInteger SingleChattedDuration = 0;
-    
-    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
-    session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-
-    //Paid
-    if (payDate)
+    ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
+    if ([[vcUtil CheckRole] isEqualToString:CHINESEUSER])
     {
-        NSDate *dateNow = [NSDate date];
-        NSTimeInterval timeBetween = [dateNow timeIntervalSinceDate:payDate];
-        TalkLog(@"Total Char time = %f",timeBetween);
-        TalkLog(@"Voice msg this time = %ld", (long)duration);
-        
-        //within 24 hours && (Chinese && within voice msg duration)
-        if (timeBetween < DEFAULT_MAX_CHAT_DURATION_MINS * 60 && [role isEqualToString:@"Chinese"] && SingleChattedDuration < DEFAULT_VOICE_MSG_DURATION_MINS * 60)
-        {
-            SingleChattedDuration += duration;
-            
-            id<IEMChatProgressDelegate> progress = nil;
-            if (_dataSource && [_dataSource respondsToSelector:@selector(messageViewController:progressDelegateForMessageBodyType:)]) {
-                progress = [_dataSource messageViewController:self progressDelegateForMessageBodyType:eMessageBodyType_Voice];
-            }
-            else{
-                progress = self;
-            }
-            
-            EMMessage *message = [EaseSDKHelper sendVoiceMessageWithLocalPath:localPath
-                                                                     duration:duration
-                                                                           to:self.conversation.chatter
-                                                                  messageType:[self _messageTypeFromConversationType]
-                                                            requireEncryption:NO
-                                                                   messageExt:nil
-                                                                     progress:progress];
-            [self addMessageToDataSource:message
-                                progress:progress];
-            
-            
-            //TODO Chinese: upload chattedduration to server based on talker id
-        }
-        else
-        {
-            
-            AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
-            session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-            NSMutableDictionary *parmes = [NSMutableDictionary dictionary];
-            parmes[@"theory_time"] = @(DEFAULT_VOICE_MSG_DURATION_MINS);//FIXME user choose time
-            NSString *order_id = [[NSUserDefaults standardUserDefaults] objectForKey:@"order_id"];
-            
-            parmes[@"order_id"] = [NSNumber numberWithInt:[order_id intValue]];
-            NSLog(@"%@",parmes[@"order_id"]);
-            [session POST:PATH_FINISH_ORDER_PAY parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
-            
-            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-               
-                NSDictionary *dic = [solveJsonData changeType:responseObject];
-                
-                // 修改
-                if ([dic[@"code"] isEqual:@(2)]) {
-                    NSLog(@"%@",dic);
-                }else{
-                    NSLog(@"%@",dic);
-                    [MBProgressHUD showError:kAlertdataFailure];
+        // Get remaining msg time from server
+        NSMutableDictionary *dicc = [NSMutableDictionary dictionary];
+        dicc[@"cmd"] = @"33";
+        dicc[@"order_id"] = _orderId;
+        [_manager POST:PATH_GET_LOGIN parameters:dicc progress:^(NSProgress * _Nonnull uploadProgress) {
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            TalkLog(@"cmd 33 result -- %@",responseObject);
+            NSDictionary* dic = [solveJsonData changeType:responseObject];
+            if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
+            {
+                NSDictionary *order_result = [dic objectForKey:@"result"];
+                if([vcUtil IsValidChat:[order_result objectForKey:@"paytime"] msg_time: [order_result objectForKey:@"time"]])
+                {
+                    _remaining_msg_time = [[order_result objectForKey:@"time"] integerValue] - duration;
+                    _bValidMsg = YES;
+                    
+                    //Upload the remaining msg time to server
+                    dicc[@"cmd"] = @"34";
+                    dicc[@"order_id"] = _orderId;
+                    NSString *timeStr = [[NSString alloc]initWithFormat:@"%ld", (long)_remaining_msg_time];
+                    dicc[@"time"] = timeStr;//[[NSString alloc]initWithFormat:@"%ld", (long)_remaining_msg_time];
+                    [_manager POST:PATH_GET_LOGIN parameters:dicc progress:^(NSProgress * _Nonnull uploadProgress) {
+                    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                        TalkLog(@"cmd 34 result -- %@",responseObject);
+                        NSDictionary* dic = [solveJsonData changeType:responseObject];
+                        if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
+                        {
+                            id<IEMChatProgressDelegate> progress = nil;
+                            if (_dataSource && [_dataSource respondsToSelector:@selector(messageViewController:progressDelegateForMessageBodyType:)]) {
+                                progress = [_dataSource messageViewController:self progressDelegateForMessageBodyType:eMessageBodyType_Voice];
+                            }
+                            else{
+                                progress = self;
+                            }
+                            
+                            EMMessage *message = [EaseSDKHelper sendVoiceMessageWithLocalPath:localPath
+                                                                                     duration:duration
+                                                                                           to:self.conversation.chatter
+                                                                                  messageType:[self _messageTypeFromConversationType]
+                                                                            requireEncryption:NO
+                                                                                   messageExt:nil
+                                                                                     progress:progress];
+                            [self addMessageToDataSource:message
+                                                progress:progress];
+
+                        }
+                        else
+                        {
+                            [MBProgressHUD showError:kAlertdataFailure];
+                            return;
+                        }
+                        
+                    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                        NSLog(@"error%@",error);
+                        [MBProgressHUD showError:kAlertNetworkError];
+                        return;
+                    }];
                 }
-                
-                
-            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                NSLog(@"error%@",error);
-                [MBProgressHUD showError:kAlertNetworkError];
+                else
+                {
+                    _bValidMsg = NO;
+                    //FIXME End this chat or go to pay
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppConChat delegate:self cancelButtonTitle:AppSure otherButtonTitles:nil];
+                    [alert show];
+                }
+            }
+            else
+            {
+                [MBProgressHUD showError:kAlertdataFailure];
                 return;
-
-            }];
-            
-            
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppConChat delegate:self cancelButtonTitle:AppSure otherButtonTitles:nil];
-            [alert show];
-#warning---
-
-            //FXIME each chat should have his own chat duration
-            //Clear payment and chat duration
-            [user removeObjectForKey:@"payTime"];
-            [user removeObjectForKey:@"chatDuration"];
-        }
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"error%@",error);
+            [MBProgressHUD showError:kAlertNetworkError];
+            return;
+        }];
     }
     else
     {
@@ -1871,9 +1870,6 @@
         [self addMessageToDataSource:message
                             progress:progress];
     }
-    
-    
-    
 }
 
 - (void)sendVideoMessageWithURL:(NSURL *)url

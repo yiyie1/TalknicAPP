@@ -212,7 +212,7 @@
  *  @param name                 聊天对象的昵称
  *  @param navigationController navigationController
  */
-+ (void)createOneChatViewWithConversationChatter:(NSString *)chatter Name:(NSString *)name onNavigationController:(UINavigationController *)navigationController;
++ (void)createOneChatViewWithConversationChatter:(NSString *)chatter Name:(NSString *)name onNavigationController:(UINavigationController *)navigationController order_id: (NSString *)order_id;
 #pragma mark 群组
 #pragma mark ===创建一个群聊会话===
 /**
