@@ -1771,7 +1771,7 @@
                              duration:(NSInteger)duration
 {
     ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
-    if ([[vcUtil CheckRole] isEqualToString:CHINESEUSER])
+    //if ([[vcUtil CheckRole] isEqualToString:CHINESEUSER])
     {
         // Get remaining msg time from server
         NSMutableDictionary *dicc = [NSMutableDictionary dictionary];
@@ -1850,7 +1850,7 @@
             return;
         }];
     }
-    else
+    /*else
     {
         id<IEMChatProgressDelegate> progress = nil;
         if (_dataSource && [_dataSource respondsToSelector:@selector(messageViewController:progressDelegateForMessageBodyType:)]) {
@@ -1869,7 +1869,7 @@
                                                                  progress:progress];
         [self addMessageToDataSource:message
                             progress:progress];
-    }
+    }*/
 }
 
 - (void)sendVideoMessageWithURL:(NSURL *)url

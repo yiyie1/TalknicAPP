@@ -127,6 +127,36 @@
     [actionSheet showInView:self.view];
 }
 
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex;  // after animation
+{
+    TalkLog(@"buttonIndex = [%ld]",(long)buttonIndex);
+    switch (buttonIndex) {
+        case 0://照相机
+        {
+            UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
+            imagePicker.delegate = self;
+            imagePicker.allowsEditing = YES;
+            imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            [self presentViewController:imagePicker animated:YES completion:nil];
+        }
+            
+            break;
+        case 1://本地相册
+        {
+            UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
+            imagePicker.delegate = self;
+            imagePicker.allowsEditing = YES;
+            imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentViewController:imagePicker animated:YES completion:nil];
+            
+        }
+            break;
+        default:
+            break;
+    }
+    
+}
+/*
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     TalkLog(@"buttonIndex = [%ld]",(long)buttonIndex);
@@ -155,7 +185,7 @@
         default:
             break;
     }
-}
+}*/
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {

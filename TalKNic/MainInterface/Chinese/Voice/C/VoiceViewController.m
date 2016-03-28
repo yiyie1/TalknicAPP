@@ -23,14 +23,8 @@
 
 @interface VoiceViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,UISearchDisplayDelegate,IChatManagerDelegate>
 {
-    //时间
-    NSString * _dateTime;
-    //星期
-    NSString * _weeK;
-    NSString * _dateTim;
-    NSString * _weekDateTime;
-    NSString *fUid;
-    NSDictionary *dic;
+    NSString *_myRole;
+    NSString *_chatterRole;
     UIImageView *picImage;
     UIImage *photo;
     NSMutableArray *_teacher_array;
@@ -41,6 +35,7 @@
     NSMutableArray *_strPic;
     ViewControllerUtil *_vcUtil;
     AFHTTPSessionManager *_manager;
+    NSString *_chatterUid;
 }
 @property (nonatomic,strong)UINavigationBar *bar;
 @property (nonatomic,strong)UITableView *tableView;
@@ -61,14 +56,13 @@
     self.navigationItem.titleView = [_vcUtil SetTitle:@"Audio Message"];
     //self.bar = [_vcUtil ConfigNavigationBar:@"Audio Message" NavController: self.navigationController NavBar:self.bar];
     //[self.view addSubview:self.bar];
-    //[self GetForeignerInformation];
     
     [self messageView];
     //[self searchBarView];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newMessage:) name:@"chineseNewMessage" object:nil];
 }
-
+//FIXME
 -(void)allocArray
 {
     if(!_array)
@@ -98,35 +92,47 @@
     
 }
 
--(void)GetForeignerInformation
+-(void)GetChatterInformation
 {
     [self allocArray];
+    if([[_vcUtil CheckRole] isEqualToString:CHINESEUSER])
+    {
+        _myRole = @"user_student_id";
+        _chatterRole = @"user_teacher_id";
+    }
+    else
+    {
+        _myRole = @"user_teacher_id";
+        _chatterRole = @"user_student_id";
+    }
     
     NSMutableDictionary *dicc = [NSMutableDictionary dictionary];
     dicc[@"cmd"] = @"32";
     dicc[@"role"] = [_vcUtil CheckRole];
-    dicc[@"user_student_id"] = _uid;
+    dicc[_myRole] = _uid;
+    
+    TalkLog(@"talker dic -- %@",dicc);
     [_manager POST:PATH_GET_LOGIN parameters:dicc progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         TalkLog(@"all orders info -- %@",responseObject);
-        dic = [solveJsonData changeType:responseObject];
+        NSDictionary* dic = [solveJsonData changeType:responseObject];
         if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
         {
             _order_array = [dic objectForKey:@"result"];
-            //FIXME the sequence of chat should be in order
+            //FIXME the sequence of chat should be in order, move to server
             for(NSDictionary *d in _order_array)
             {
-                if(![_array containsObject:[d objectForKey:@"user_teacher_id"]])
+                if(![_array containsObject:[d objectForKey:_chatterRole]])
                 {
-                    [_array addObject: [d objectForKey:@"user_teacher_id"]];
+                    [_array addObject: [d objectForKey:_chatterRole]];
                     
                     NSMutableDictionary *dicc = [NSMutableDictionary dictionary];
                     dicc[@"cmd"] = @"19";
-                    dicc[@"user_id"] = [d objectForKey:@"user_teacher_id"];
+                    dicc[@"user_id"] = [d objectForKey:_chatterRole];
                     [_manager POST:PATH_GET_LOGIN parameters:dicc progress:^(NSProgress * _Nonnull uploadProgress) {
                     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                        TalkLog(@"teacher info -- %@",responseObject);
-                        dic = [solveJsonData changeType:responseObject];
+                        TalkLog(@"chatter info -- %@",responseObject);
+                        NSDictionary* dic = [solveJsonData changeType:responseObject];
                         if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
                         {
                             NSDictionary *dict = [dic objectForKey:@"result"];
@@ -183,7 +189,7 @@
     self.navigationController.navigationBar.translucent = NO;
     self.navigationController.navigationBar.hidden = NO;
     
-    [self GetForeignerInformation];
+    [self GetChatterInformation];
 }
 
 -(void)messageView
@@ -315,15 +321,14 @@
 -(void)didReceiveMessage:(EMMessage *)message
 {
     //    NSArray *conversations = [[EaseMob sharedInstance].chatManager loadAllConversationsFromDatabaseWithAppend2Chat:YES];
-    NSString *uid =  message.from;
-    TalkLog(@"%@",uid);
+    _chatterUid =  message.from;
+    TalkLog(@"%@",_chatterUid);
     
     
     NSString *messageCount = [NSString stringWithFormat:@"%lu",(unsigned long)message.messageBodies.count];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"chineseNewMessage" object:messageCount];
-    [self GetForeignerInformation];
-    //[self.tableView reloadData];
-    //    TalkLog(@"聊天列表 -- %@",conversations);
+    [self GetChatterInformation];
+    
     /*接收到的消息的解析*/
     id<IEMMessageBody> msgBody = message.messageBodies.firstObject;
     switch (msgBody.messageBodyType) {

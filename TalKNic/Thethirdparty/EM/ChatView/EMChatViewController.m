@@ -133,12 +133,11 @@
 }
 -(void)leftAction
 {
-    TalkLog(@"111111111111");
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)rightAction
 {
-    
+    //TODO show the user info
 }
 #pragma mark - UIAlertViewDelegate
 

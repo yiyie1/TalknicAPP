@@ -138,7 +138,8 @@
     parame[@"identity"] = @"1";
     parame[@"user_name"] = _usName;
     parame[@"user_sex"] = _sex;
-    parame[@"user_level"] = parames;
+    parame[@"user_topic"] = parames;
+    parame[@"user_level"] = @"professor";
     parame[@"nationality"] = _nation;
     parame[@"occupation"]  = _occup;
     parame[@"biography"]  = _biogra;
