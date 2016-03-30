@@ -8,8 +8,8 @@
 
 
 #import "ChoosePeopleViewController.h"
-#import "LoginViewController.h"
 #import "EaseMobSDK.h"
+#import "ScrollViewController.h"
 
 @interface ChoosePeopleViewController ()
 @property (nonatomic,strong)UIImageView *imageView;
@@ -70,9 +70,10 @@
     }
     [ud setObject:@"Chinese" forKey:kChooese_ChineseOrForeigner];
 
-    LoginViewController *loginVC =[[LoginViewController alloc]init];
-    loginVC.identity = CHINESEUSER ;
-    [self.navigationController pushViewController:loginVC animated:YES];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"UseApp"];
+    
+    ScrollViewController *scrollVC = [[ScrollViewController alloc]init];
+    [self.navigationController pushViewController:scrollVC animated:YES];
 }
 
 -(void)foreignerAction:(UIButton *)button
@@ -85,9 +86,10 @@
     }
     [ud setObject:@"Foreigner" forKey:kChooese_ChineseOrForeigner];
     
-    LoginViewController *loginVC =[[LoginViewController alloc]init];
-    loginVC.identity = FOREINERUSER;
-    [self.navigationController pushViewController:loginVC animated:YES];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"UseApp"];
+    
+    ScrollViewController *scrollVC = [[ScrollViewController alloc]init];
+    [self.navigationController pushViewController:scrollVC animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

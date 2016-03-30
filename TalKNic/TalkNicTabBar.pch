@@ -148,6 +148,8 @@
 #define kInputLg @"login_input_lg.png"
 
 // 国际化
+#define kAlertNotLogin  NSLocalizedString(@"alert.notLogin",@"")
+#define kAlertPlsLogin  NSLocalizedString(@"alert.plsLogin",@"")
 #define  kAlertPointStr NSLocalizedString(@"alert.prompt",@"")
 #define  kAlertNoNews NSLocalizedString(@"alert.nonews",@"")
 #define  kAlertSure NSLocalizedString(@"alert.sure",@"")
@@ -288,6 +290,8 @@
 #define AppMin  NSLocalizedString(@"AppMin",@"")
 #define AppDiscover  NSLocalizedString(@"AppDiscover",@"")
 #define AppVoice  NSLocalizedString(@"AppVoice",@"")
+#define AppAudioMessaage    NSLocalizedString(@"AppAudioMessaage",@"")
+
 #define AppMatch  NSLocalizedString(@"AppMatch",@"")
 #define AppFeeds    NSLocalizedString(@"AppFeeds",@"")
 #define AppMe  NSLocalizedString(@"AppMe",@"")
@@ -323,5 +327,5 @@
 #define AppAlipay   NSLocalizedString(@"AppAlipay",@"")
 #define AppAvailablebalance   NSLocalizedString(@"AppAvailablebalance",@"")
 
-#define FOREIGNER_TOPIC @[AppTravel,AppFilm,AppSports,AppTech,AppDesign,AppArts,AppCooking,AppBook]
+#define FOREIGNER_TOPIC @[@"Travel",@"Film",@"Sports",@"Tech",@"Design",@"Arts",@"Cooking",@"Book"]
 

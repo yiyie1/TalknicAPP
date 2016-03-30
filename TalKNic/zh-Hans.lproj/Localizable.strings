@@ -81,6 +81,8 @@
 "alert.EnglishLevel" = "请选择您的英语水平";
 "alert.topic" = "请选择您感兴趣的话题";
 "alert.AliPayFail" = "未能成功使用支付宝支付";
+"alert.notLogin" = "未登录";
+"alert.plsLogin" = "请先登录";
 
 //APP language
 "AppForeigner" = "老外";
@@ -148,7 +150,7 @@
 "AppFeeds" = "朋友圈";
 "AppMe" = "我";
 "AppSearch" = "搜索";
-
+"AppAudioMessaage" = "语音信息";
 //me
 "AppCoupon" = "优惠券";
 "AppPoints" = "积分";

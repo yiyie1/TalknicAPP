@@ -58,7 +58,7 @@
     [self loginvieww];
     
     self.view.userInteractionEnabled = YES;
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"UseApp"];
+    
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -452,7 +452,7 @@
                 }
                 else
                 {
-                    [ud removeObjectForKey:@"FirstUseApp"];
+                    [ud removeObjectForKey:@"UseApp"];
                     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:kAlertPrompt message:kAlertAccountNotMatchID delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil, nil];
                     [alert show];
                     ChoosePeopleViewController *choosePeopleVC = [[ChoosePeopleViewController alloc]init];

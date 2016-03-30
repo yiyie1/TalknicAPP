@@ -12,6 +12,9 @@
 #import "MBProgressHUD+MJ.h"
 #import "solveJsonData.h"
 @interface Foreigner1ViewController ()
+{
+    NSString *_topics;
+}
 @property (nonatomic,strong)UILabel *labelTitle;
 @property (nonatomic,strong)UILabel *labelTitle2;
 @property (nonatomic,strong)UIButton *leftBT;
@@ -113,21 +116,22 @@
 
 -(void)rightAction
 {
-    NSArray *arr = FOREIGNER_TOPIC;
-    NSMutableDictionary *parames = [NSMutableDictionary dictionary];
-    for (int i = 0; i < self.clickArr.count; i ++) {
+    _topics = @"";
+    NSArray *arr = @[@"Travel",@", Film",@", Sports",@", Tech",@", Design",@", Arts",@", Cooking",@", Book"];
+    for (int i = 0; i < self.clickArr.count; i ++)
+    {
         // 被选中的Btn 下标i
-        if ([self.clickArr[i] isEqualToString:@"1"]) {
-            [parames setObject:arr[i] forKey:[NSString stringWithFormat:@"%@",arr[i]]];
+        if ([self.clickArr[i] isEqualToString:@"1"])
+        {
+            _topics = [_topics stringByAppendingString:arr[i]];
         }
     }
-
-    if(parames.count == 0)
+    
+    if([_topics isEqualToString:@""])
     {
         [MBProgressHUD showError:kAlertTopic];
         return;
     }
-    
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     session.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -138,7 +142,7 @@
     parame[@"identity"] = @"1";
     parame[@"user_name"] = _usName;
     parame[@"user_sex"] = _sex;
-    parame[@"user_topic"] = parames;
+    parame[@"user_topic"] = _topics;
     parame[@"user_level"] = @"professor";
     parame[@"nationality"] = _nation;
     parame[@"occupation"]  = _occup;

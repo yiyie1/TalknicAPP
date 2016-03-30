@@ -10,7 +10,6 @@
 #import "Setting.h"
 #import "SDImageCache.h"
 #import "VoiceViewController.h"
-//#import "ForeignerVoiceViewController.h"
 #import "AccountViewController.h"
 #import "NotificationViewController.h"
 @interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -115,25 +114,17 @@
     if (indexPath.section == 0)
     {
         AccountViewController *account = [[AccountViewController alloc]init];
+        account.uid = _uid;
         [self.navigationController pushViewController:account animated:YES];
     }
     else if (indexPath.section == 1)
     {
         if (indexPath.row == 0)
         {
-            //NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-            //NSString *str = [ud objectForKey:kChooese_ChineseOrForeigner];
-            //if ([str isEqualToString:@"Chinese"])
-            //{
-                VoiceViewController *chineseVioce = [[VoiceViewController alloc] init];
-                [self.navigationController pushViewController:chineseVioce animated:NO];
-            //}
-            //else
-            //{
-            //    ForeignerVoiceViewController *foreignerVoice = [[ForeignerVoiceViewController alloc]init];
-            //    [self.navigationController pushViewController:foreignerVoice animated:NO];
-            //}
-
+            VoiceViewController *voice = [[VoiceViewController alloc] init];
+            voice.needBack = YES;
+            voice.titleStr = @"Inbox Message";
+            [self.navigationController pushViewController:voice animated:YES];
         }
         else if (indexPath.row == 1)
         {

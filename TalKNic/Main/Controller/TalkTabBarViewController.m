@@ -21,7 +21,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "FeedsViewController.h"
 #import "ViewControllerUtil.h"
-#import "ForeignerDailyTopicViewController.h"
+#import "DailysettingViewController.h"
 
 @interface TalkTabBarViewController ()<TalkTabBarDelegate>
 @property (nonatomic,assign)BOOL isClickTabbarBtn;
@@ -56,21 +56,22 @@
         // 1.初始化子控制器
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
         HomeViewController *home = [storyboard instantiateViewControllerWithIdentifier:@"homeViewController"];
-        [self addChildVc:home title:AppHome image:kHOMEImage selectedImage:KHOMeSelected];
         home.uid = _uid;
-        
+        [self addChildVc:home title:AppHome image:kHOMEImage selectedImage:KHOMeSelected];
+
         VoiceViewController *voice = [[VoiceViewController alloc] init];
-        [self addChildVc:voice title:AppVoice image:kVoiceImage selectedImage:kVoiceSelected];
         voice.uid = _uid;
-        
+        voice.titleStr = AppAudioMessaage;
+        [self addChildVc:voice title:AppVoice image:kVoiceImage selectedImage:kVoiceSelected];
+
         FeedsViewController *feeds = [[FeedsViewController alloc] init];
         [self addChildVc:feeds title:AppFeeds image:kFeeds selectedImage:kFeedsSelected];
     
-        UIStoryboard *storyboard1 = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
-        MeViewController *me = [storyboard1 instantiateViewControllerWithIdentifier:@"meVC"];
-        [self addChildVc:me title:AppMe image:kMEImage selectedImage:kMEImageSelected];
+        MeViewController *me = [storyboard instantiateViewControllerWithIdentifier:@"meVC"];
         me.uid = _uid;
         me.role = CHINESEUSER;
+        [self addChildVc:me title:AppMe image:kMEImage selectedImage:kMEImageSelected];
+
 
         TalkTabBar *tabBar = [[TalkTabBar alloc] init];
         tabBar.delegate = self;
@@ -79,23 +80,23 @@
     else
     {
         self.identity = FOREINERUSER;
+        
+        DailysettingViewController *dailyVC = [[DailysettingViewController alloc]init];
+        dailyVC.uid = _uid;
+        [self addChildVc:dailyVC title:@"Daily Setting" image:kDailyTopicImage selectedImage:kDailyTopicSelected];
+
+        VoiceViewController *voice = [[VoiceViewController alloc] init];
+        voice.uid = _uid;
+        [self addChildVc:voice title:AppVoice image:kVoiceImage selectedImage:kVoiceSelected];
+        
         FeedsViewController *feeds = [[FeedsViewController alloc] init];
         [self addChildVc:feeds title:AppFeeds image:kFeeds selectedImage:kFeedsSelected];
         
-        //ForeignerVoiceViewController *voice = [[ForeignerVoiceViewController alloc] init];
-        VoiceViewController *voice = [[VoiceViewController alloc] init];
-        [self addChildVc:voice title:AppVoice image:kVoiceImage selectedImage:kVoiceSelected];
-        voice.uid = _uid;
-
-        ForeignerDailyTopicViewController *dailyVC = [[ForeignerDailyTopicViewController alloc]init];
-        [self addChildVc:dailyVC title:AppVoice image:kDailyTopicImage selectedImage:kDailyTopicSelected];
-        dailyVC.uid = _uid;
-        
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
         MeViewController *me = [storyboard instantiateViewControllerWithIdentifier:@"meVC"];
-        [self addChildVc:me title:AppMe image:kMEImage selectedImage:kMEImageSelected];
         me.uid = _uid;
         me.role = FOREINERUSER;
+        [self addChildVc:me title:AppMe image:kMEImage selectedImage:kMEImageSelected];
 
     }
     self.selectedIndex = 0;

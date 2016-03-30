@@ -10,10 +10,13 @@
 #import "Setting.h"
 #import "ForgetPasswordViewController.h"
 #import "ChoosePeopleViewController.h"
+#import "ViewControllerUtil.h"
+
 @interface AccountViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *_tableView;
     NSArray *_allSetting;
+    ViewControllerUtil *_vcUtil;
 }
 
 @end
@@ -23,20 +26,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor grayColor];
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
-    
-    title.text = AppAccount;
-    
-    title.textAlignment = NSTextAlignmentCenter;
-    
-    title.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
-    title.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:17.0];
-    
-    self.navigationItem.titleView = title;
+    _vcUtil = [[ViewControllerUtil alloc]init];
+    self.navigationItem.titleView = [_vcUtil SetTitle:AppAccount];
 
+    //[_vcUtil GetUserInformation:_uid];
     [self layouLeftBtn];
     [self layouTableView];
-    
     [self layoutLogoutBtn];
     // Do any additional setup after loading the view.
 }
@@ -98,15 +93,38 @@
     Setting *set = _allSetting[indexPath.section];
     cell.textLabel.text = set.grouping[indexPath.row];
     
-    if ( [cell.textLabel.text isEqual:@"Change password"]) {
+    if ([cell.textLabel.text isEqual:@"Change password"])
+    {
         cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
-    }else
+    }
+    else
     {
         UILabel *label = [[UILabel alloc]init];
         label.frame = kCGRectMake(150, 110, 100, 20);
-        label.text = @"";
-        label.textAlignment = NSTextAlignmentRight;
+        label.text = @"Unlinked";
+
+        if([cell.textLabel.text isEqual:@"Mobile"])
+        {
+            if ([_vcUtil GetLinked:@"Mobile"])
+                label.text = @"Linked";
+        }
+        else if([cell.textLabel.text isEqual:@"Wechat"])
+        {
+            if ([_vcUtil GetLinked:@"Wechat"])
+                label.text = @"Linked";
+        }
+        else if([cell.textLabel.text isEqual:@"Weibo"])
+        {
+            if ([_vcUtil GetLinked:@"Weibo"])
+                label.text = @"Linked";
+        }
+        else if([cell.textLabel.text isEqual:@"Email"])
+        {
+            if ([_vcUtil GetLinked:@"Email"])
+                label.text = @"Linked";
+        }
         
+        label.textAlignment = NSTextAlignmentRight;
         cell.accessoryView = label;
         
     }

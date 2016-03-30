@@ -160,9 +160,10 @@
             NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
             [ud setObject:@"Done" forKey:@"FinishedInformation"];
             
-            DailysettingViewController *dailyVC = [[DailysettingViewController alloc]init];
-            dailyVC.iD = _iD;
-            [self.navigationController pushViewController:dailyVC animated:YES];
+            
+            //DailysettingViewController *dailyVC = [[DailysettingViewController alloc]init];
+            //dailyVC.uid = _iD;
+            //[self.navigationController pushViewController:dailyVC animated:YES];
             //[MBProgressHUD showSuccess:kAlertUpSecEmpty];
         }
         else if (([(NSNumber *)[dicq objectForKey:@"code"] intValue] == 3))

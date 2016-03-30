@@ -10,5 +10,6 @@
 
 @interface VoiceViewController : UIViewController
 @property(nonatomic,strong) NSString *uid;
-
+@property(nonatomic,strong) NSString *titleStr;
+@property BOOL needBack;
 @end

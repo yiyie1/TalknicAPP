@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface SettingViewController : UIViewController
-
+@property (nonatomic,copy)NSString *uid;
 @end

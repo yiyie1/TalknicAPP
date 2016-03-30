@@ -10,7 +10,6 @@
 #import "ChoosePeopleViewController.h"
 #import "TalkTabBarViewController.h"
 #import "SignupViewController.h"
-#import "LoginViewController.h"
 #import "RootViewController.h"
 #import "MeViewController.h"
 #import "AppDelegate+ShareSDK.h"
@@ -20,7 +19,9 @@
 #import "InformationViewController.h"
 #import "ViewControllerUtil.h"
 #import "HomeViewController.h"
-#import "FeedsViewController.h"
+#import "DailysettingViewController.h"
+#import "MBProgressHUD+MJ.h"
+
 @interface AppDelegate ()
 
 @end
@@ -54,54 +55,41 @@
     }
     else
     {
-        if (uid.length == 0)
-        {
-            LoginViewController  *loginVC = [[LoginViewController alloc]init];
-            UINavigationController *naVC = [[UINavigationController alloc]initWithRootViewController:loginVC];
-            self.window.rootViewController = naVC;
-        }
-        else
-        {
-            if([vcUtil CheckFinishedInformation])
+            TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
+            talkVC.uid = uid;
+            talkVC.identity = role;
+
+            if ([role isEqualToString:CHINESEUSER])
             {
-                TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
-                talkVC.uid = uid;
-                talkVC.identity = role;
-
-                if ([role isEqualToString:CHINESEUSER])
+                if (uid.length == 0)
                 {
-                    HomeViewController *home = [[HomeViewController alloc]init];
-                    [EaseMobSDK easeMobRegisterAppWithAccount:uid password:KHuanxin HUDShowInView:home.view];
-                    [EaseMobSDK easeMobLoginAppWithAccount:uid password:KHuanxin isAutoLogin:NO HUDShowInView:home.view];
-
+                    [MBProgressHUD showError: kAlertNotLogin];
                 }
                 else
                 {
-                    FeedsViewController *feeds = [[FeedsViewController alloc]init];
-                    [EaseMobSDK easeMobRegisterAppWithAccount:uid password:KHuanxin HUDShowInView:feeds.view];
-                    [EaseMobSDK easeMobLoginAppWithAccount:uid password:KHuanxin isAutoLogin:NO HUDShowInView:feeds.view];
+                    HomeViewController *home = [[HomeViewController alloc]init];
+                    home.uid = uid;
+                    //NSString *username = [[NSUserDefaults standardUserDefaults]objectForKey:@"username" ];
+                    //[EaseMobSDK easeMobRegisterAppWithAccount:uid password:KHuanxin HUDShowInView:home.view];
+                    [EaseMobSDK easeMobLoginAppWithAccount:uid password:KHuanxin isAutoLogin:NO HUDShowInView:home.view];
                 }
-                self.window.rootViewController = talkVC;
             }
             else
             {
-                if ([role isEqualToString:CHINESEUSER])
+                if (uid.length == 0)
                 {
-                    InformationViewController *info = [[InformationViewController alloc]init];
-                    info.uID = uid;
-                    UINavigationController *naVC = [[UINavigationController alloc]initWithRootViewController:info];
-                    self.window.rootViewController = naVC;
+                    [MBProgressHUD showError: kAlertNotLogin];
                 }
                 else
                 {
-                    Foreigner0ViewController *fInfo = [[Foreigner0ViewController alloc]init];
-                    fInfo.uID = uid;
-                    UINavigationController *naVC = [[UINavigationController alloc]initWithRootViewController:fInfo];
-                    self.window.rootViewController = naVC;
+                    DailysettingViewController *dailyVC = [[DailysettingViewController alloc]init];
+                    dailyVC.uid = uid;
+                    //[EaseMobSDK easeMobRegisterAppWithAccount:uid password:KHuanxin HUDShowInView:dailyVC.view];
+                    [EaseMobSDK easeMobLoginAppWithAccount:uid password:KHuanxin isAutoLogin:NO HUDShowInView:dailyVC.view];
                 }
-                
             }
-        }
+            self.window.rootViewController = talkVC;
+        
     }
     
 

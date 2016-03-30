@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface AccountViewController : UIViewController
-
+@property (nonatomic,copy)NSString *uid;
 @property (strong,nonatomic) UIButton *leftBT;
 @property (nonatomic,strong) UIButton *logoutBT;
 @end

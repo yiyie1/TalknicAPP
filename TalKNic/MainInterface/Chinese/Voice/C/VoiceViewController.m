@@ -13,13 +13,13 @@
 #import "ChatViewController.h"
 #import "EaseMobSDK.h"
 #import "AFNetworking.h"
-#define EaseMobb @"https://a1.easemob.com/bws/talknic"
 #import "EMMessage.h"
 #import "EMConversation.h"
 #import "EaseMessageViewController.h"
 #import "solveJsonData.h"
 #import "ViewControllerUtil.h"
 #import "MBProgressHUD+MJ.h"
+#import "LoginViewController.h"
 
 @interface VoiceViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,UISearchDisplayDelegate,IChatManagerDelegate>
 {
@@ -27,9 +27,8 @@
     NSString *_chatterRole;
     UIImageView *picImage;
     UIImage *photo;
-    NSMutableArray *_teacher_array;
+    NSMutableArray *_chatter_array;
     NSArray* _order_array;
-    NSMutableArray *_reordered_order_array;
     NSMutableArray *_array;
     NSMutableArray *_userName;
     NSMutableArray *_strPic;
@@ -37,6 +36,7 @@
     AFHTTPSessionManager *_manager;
     NSString *_chatterUid;
 }
+@property (nonatomic,strong)UIButton *leftBT;
 @property (nonatomic,strong)UINavigationBar *bar;
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,copy)NSString *dateTimm;
@@ -53,15 +53,35 @@
     _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
     _vcUtil = [[ViewControllerUtil alloc]init];
-    self.navigationItem.titleView = [_vcUtil SetTitle:@"Audio Message"];
+    self.navigationItem.titleView = [_vcUtil SetTitle:_titleStr];
     //self.bar = [_vcUtil ConfigNavigationBar:@"Audio Message" NavController: self.navigationController NavBar:self.bar];
     //[self.view addSubview:self.bar];
     
     [self messageView];
+    
+    if(_needBack)
+       [self layoutLeftBtn];
+    
     //[self searchBarView];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newMessage:) name:@"chineseNewMessage" object:nil];
 }
+
+-(void)layoutLeftBtn
+{
+    self.leftBT = [[UIButton alloc]init];
+    _leftBT.frame = CGRectMake(0, 10, 7, 23/2);
+    [_leftBT setBackgroundImage:[UIImage imageNamed:@"nav_back.png"] forState:(UIControlStateNormal)];
+    [_leftBT addTarget:self action:@selector(leftAction) forControlEvents:(UIControlEventTouchUpInside)];
+    UIBarButtonItem *leftI = [[UIBarButtonItem alloc]initWithCustomView:_leftBT];
+    self.navigationItem.leftBarButtonItem = leftI;
+}
+
+-(void)leftAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 //FIXME
 -(void)allocArray
 {
@@ -80,15 +100,10 @@
     else
         [_strPic removeAllObjects];
     
-    if(!_teacher_array)
-        _teacher_array = [[NSMutableArray alloc]init];
+    if(!_chatter_array)
+        _chatter_array = [[NSMutableArray alloc]init];
     else
-        [_teacher_array removeAllObjects];
-    
-    if(!_reordered_order_array)
-        _reordered_order_array = [[NSMutableArray alloc]init];
-    else
-        [_reordered_order_array removeAllObjects];
+        [_chatter_array removeAllObjects];
     
 }
 
@@ -119,54 +134,22 @@
         if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
         {
             _order_array = [dic objectForKey:@"result"];
-            //FIXME the sequence of chat should be in order, move to server
             for(NSDictionary *d in _order_array)
             {
                 if(![_array containsObject:[d objectForKey:_chatterRole]])
                 {
                     [_array addObject: [d objectForKey:_chatterRole]];
+                    [_userName addObject:[d objectForKey:@"username"]];
+                    [_strPic addObject:[d objectForKey:@"pic"]];
+                    [_chatter_array addObject:[d objectForKey:@"uid"]];
                     
-                    NSMutableDictionary *dicc = [NSMutableDictionary dictionary];
-                    dicc[@"cmd"] = @"19";
-                    dicc[@"user_id"] = [d objectForKey:_chatterRole];
-                    [_manager POST:PATH_GET_LOGIN parameters:dicc progress:^(NSProgress * _Nonnull uploadProgress) {
-                    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                        TalkLog(@"chatter info -- %@",responseObject);
-                        NSDictionary* dic = [solveJsonData changeType:responseObject];
-                        if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
-                        {
-                            NSDictionary *dict = [dic objectForKey:@"result"];
-                            [_userName addObject:[dict objectForKey:@"username"]];
-                            [_strPic addObject:[dict objectForKey:@"pic"]];
-                            [_teacher_array addObject:[dict objectForKey:@"uid"]];
-                            
-                            //FIXME better algorithm to order the order array
-                            for(int i = 0; i < [_array count]; ++i)
-                            {
-                                if([[dict objectForKey:@"uid"] isEqualToString:_array[i]])
-                                {
-                                    [_reordered_order_array addObject:_order_array[i]];
-                                }
-                            }
-                            
-                            NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@",[dict objectForKey:@"pic"]]];
-                            [picImage sd_setImageWithURL:url placeholderImage:nil];
-                            photo = picImage.image;
-                            [self.tableView reloadData];
-                        }
-                        else
-                        {
-                            [MBProgressHUD showError:kAlertdataFailure];
-                        }
-                    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                        NSLog(@"error%@",error);
-                        self.tableView.hidden = YES;
-                        self.searchBar.hidden = YES;
-                        [MBProgressHUD showError:kAlertNetworkError];
-                    }];
+                    NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@",[d objectForKey:@"pic"]]];
+                    [picImage sd_setImageWithURL:url placeholderImage:nil];
+                    photo = picImage.image;
+                    [self.tableView reloadData];
                 }
-            }
 
+            }
         }
         self.tableView.hidden = ([_array count] == 0);
         self.searchBar.hidden = ([_array count] == 0);
@@ -188,6 +171,12 @@
 {
     self.navigationController.navigationBar.translucent = NO;
     self.navigationController.navigationBar.hidden = NO;
+    
+    if(_uid.length == 0)
+    {
+        [MBProgressHUD showError:kAlertNotLogin];
+        return;
+    }
     
     [self GetChatterInformation];
 }
@@ -253,20 +242,21 @@
         
         cell.userMessage.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:15.0];
 
-        cell.uid = _teacher_array[indexPath.row];
+        cell.uid = _chatter_array[indexPath.row];
         NSString* strPic = _strPic[indexPath.row];
         [cell.userImage sd_setImageWithURL:[NSURL URLWithString:strPic]];
         cell.backgroundColor = [UIColor whiteColor];
         
-        NSDictionary *order_dic = _reordered_order_array[indexPath.row];
+        NSDictionary *order_dic = _order_array[indexPath.row];
         if([_vcUtil IsValidChat:[order_dic objectForKey:@"paytime"] msg_time: [order_dic objectForKey:@"time"]])
         {
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
             [dateFormatter setDateFormat:@"yyyy-MM-dd"];
             NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
-            cell.date.text = dateString;
+
+            double leftTime = [[order_dic objectForKey:@"time"] doubleValue] / 60;
+            cell.date.text =  [[NSString alloc]initWithFormat: @"%.1f mins left", leftTime];  //[[NSString alloc]initWithFormat:@"%@, %.1f min left", dateString, leftTime];
             cell.date.textColor = [UIColor blackColor];
-            
             cell.userName.textColor = [UIColor blackColor];
             cell.userMessage.textColor = [UIColor blackColor];
             cell.userMessage.text = @"Audio message!";
@@ -274,6 +264,8 @@
         }
         else
         {
+            cell.date.text = @"";
+            cell.date.textColor = [UIColor grayColor];
             cell.userName.textColor = [UIColor grayColor];
             cell.userMessage.text = @"Overtime!";
             cell.userMessage.textColor = [UIColor grayColor];
@@ -294,10 +286,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    NSDictionary *order_dic = _reordered_order_array[indexPath.row];
+    NSDictionary *order_dic = _order_array[indexPath.row];
     if([_vcUtil IsValidChat:[order_dic objectForKey:@"paytime"] msg_time: [order_dic objectForKey:@"time"]])
     {
-        [EaseMobSDK createOneChatViewWithConversationChatter:_teacher_array[indexPath.row] Name:_userName[indexPath.row] onNavigationController:self.navigationController order_id:[order_dic objectForKey:@"order_id"]];
+        [EaseMobSDK createOneChatViewWithConversationChatter:_chatter_array[indexPath.row] Name:_userName[indexPath.row] onNavigationController:self.navigationController order_id:[order_dic objectForKey:@"order_id"]];
         self.navigationController.tabBarItem.badgeValue = nil;
     }
     else
@@ -357,23 +349,8 @@
         default:
             break;
     }
-    
-    
-    //调用环信接口
-    //  https://a1.easemob.com/bws/talknic
-    
-    
-    //    AFHTTPSessionManager *posts = [AFHTTPSessionManager manager];
-    //    posts.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    //    [posts GET:EaseMobb parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-    //
-    //    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-    //        TalkLog(@"环信接口 -- %@",responseObject);
-    //    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-    //        TalkLog(@"环信接口失败 -- %@",error);
-    //    }];
-    
 }
+
 //-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 //{
 //    self.searchBar.frame = kCGRectMake(0, 20, 375, 44);

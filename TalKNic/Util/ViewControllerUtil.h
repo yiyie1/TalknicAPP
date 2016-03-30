@@ -16,8 +16,10 @@
 
 //UserDefault
 -(NSString*)GetUid;
+-(NSString*)GetLinked:(NSString*)method;
 -(NSString*)CheckRole;
 -(BOOL)CheckFinishedInformation;
 
+-(void)GetUserInformation:(NSString*)uid;
 -(BOOL)IsValidChat:(NSString*) pay_time msg_time: (NSString*) msg_time;
 @end

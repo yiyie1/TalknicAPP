@@ -10,12 +10,11 @@
 #import "MeSetup.h"
 #import "BalanceViewController.h"
 #import "CreditCardViewController.h"
-#import "HistoryViewController.h"
-//#import "ForeignerHistoryViewController.h"
+#import "VoiceViewController.h"
 #import "QaViewController.h"
 #import "AboutViewController.h"
 #import "SettingViewController.h"
-
+#import "LoginViewController.h"
 #import "AppDelegate.h"
 #import "AppDelegate+ShareSDK.h"
 #import <MessageUI/MessageUI.h>
@@ -104,6 +103,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self loadId];
+    self.navigationController.navigationBar.translucent = YES;
     self.tabBarController.tabBar.hidden = NO;
 }
 
@@ -297,6 +297,17 @@
 
 -(void)loadId
 {
+    if(_uid.length == 0)
+    {
+        //[MBProgressHUD showError:kAlertNotLogin];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:kAlertNotLogin message:kAlertPlsLogin delegate:nil cancelButtonTitle:kAlertSure otherButtonTitles:nil];
+        [alertView show];
+        
+        LoginViewController* login = [[LoginViewController alloc]init];
+        [self.navigationController pushViewController:login animated:YES];
+        return;
+    }
+    
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSMutableDictionary *parme = [NSMutableDictionary dictionary];
@@ -316,11 +327,29 @@
             else
                 _countries.text = [dict objectForKey:@"nationality"];
             _nameLabel.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"username"]];
+            //[[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",[dict objectForKey:@"username"]] forKey:@"username"];
             _followed1Label.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"fans"]];
             _following1Label.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"praise"]];
             _about.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"bio"]];
             NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@",[dict objectForKey:@"pic"]]];
             [self.photoView sd_setImageWithURL:url placeholderImage:nil];
+            
+            NSString* bSina = [dict objectForKey:@"sina"];
+            if(bSina.length != 0)
+                [[NSUserDefaults standardUserDefaults]setObject:bSina forKey:@"Weibo"];
+            
+            NSString* bWechat = [dict objectForKey:@"wechat"];
+            if(bWechat.length != 0)
+                [[NSUserDefaults standardUserDefaults]setObject:bWechat forKey:@"Wechat"];
+            
+            NSString* bEmail = [dict objectForKey:@"email"];
+            if(bEmail.length != 0)
+                [[NSUserDefaults standardUserDefaults]setObject:bEmail forKey:@"Email"];
+            
+            NSString* bMobile = [dict objectForKey:@"mobile"];
+            if(bMobile.length != 0)
+                [[NSUserDefaults standardUserDefaults]setObject:bMobile forKey:@"Mobile"];
+            
         }
         else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 4))
         {
@@ -623,6 +652,7 @@
     self.searchBarView.hidden = YES;
     
     SettingViewController *setVC = [[SettingViewController alloc]init];
+    setVC.uid = _uid;
     [self.navigationController pushViewController:setVC animated:YES];
 }
 
@@ -799,19 +829,14 @@
         creditVC.uid = _uid;
         [self.navigationController pushViewController:creditVC animated:YES];
     }
-    if ([cell.textLabel.text isEqualToString:AppHistory]) {
-        //if([_role isEqualToString:CHINESEUSER])
-        //{
-            HistoryViewController *historyVC = [[HistoryViewController alloc]init];
-            historyVC.uid = _uid;
-            [self.navigationController pushViewController:historyVC animated:YES];
-        //}
-        //else
-        //{
-        //    ForeignerHistoryViewController *historyVC = [[ForeignerHistoryViewController alloc]init];
-        //    historyVC.uid = _uid;
-        //    [self.navigationController pushViewController:historyVC animated:YES];
-        //}
+    if ([cell.textLabel.text isEqualToString:AppHistory])
+    {
+        VoiceViewController *historyVC = [[VoiceViewController alloc]init];
+        historyVC.uid = _uid;
+        historyVC.needBack = YES;
+        historyVC.titleStr = AppHistory;
+        [self.navigationController pushViewController:historyVC animated:YES];
+
     }
     if ([cell.textLabel.text isEqualToString:AppInviteFriends])
     {
@@ -858,8 +883,8 @@
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    //self.navigationController.navigationBar.translucent = NO;
-    //self.navigationController.navigationBarHidden = NO;
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBarHidden = NO;
     
     self.searchBarView.hidden = YES;
     self.tableView.hidden = NO;

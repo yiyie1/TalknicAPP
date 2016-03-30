@@ -7,6 +7,9 @@
 //
 
 #import "ViewControllerUtil.h"
+#import "AFNetworking.h"
+#import "MBProgressHUD+MJ.h"
+#import "solveJsonData.h"
 
 @implementation ViewControllerUtil
 
@@ -71,8 +74,63 @@
     return [[NSUserDefaults standardUserDefaults]objectForKey:@"userId"];
 }
 
+-(NSString*)GetLinked:(NSString*)method
+{
+    return [[NSUserDefaults standardUserDefaults]objectForKey:method];
+}
+
 -(BOOL)CheckFinishedInformation
 {
     return ([[[NSUserDefaults standardUserDefaults] objectForKey:@"FinishedInformation"] isEqualToString:@"Done"]);
+}
+
+-(void)GetUserInformation:(NSString*)uid
+{
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    NSMutableDictionary *parme = [NSMutableDictionary dictionary];
+    parme[@"cmd"] = @"19";
+    parme[@"user_id"] = uid;
+    TalkLog(@"Me ID -- %@",uid);
+    [session POST:PATH_GET_LOGIN parameters:parme progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        TalkLog(@"Me result: %@",responseObject);
+        NSDictionary* dic = [solveJsonData changeType:responseObject];
+        if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
+        {
+            NSDictionary *dict = [dic objectForKey:@"result"];
+            NSString* bSina = [dict objectForKey:@"sina"];
+            if(bSina.length != 0)
+                [[NSUserDefaults standardUserDefaults]setObject:bSina forKey:@"Weibo"];
+            
+            NSString* bWechat = [dict objectForKey:@"wechat"];
+            if(bWechat.length != 0)
+                [[NSUserDefaults standardUserDefaults]setObject:bWechat forKey:@"Wechat"];
+            
+            NSString* bEmail = [dict objectForKey:@"email"];
+            if(bEmail.length != 0)
+                [[NSUserDefaults standardUserDefaults]setObject:bEmail forKey:@"Email"];
+            
+            NSString* bMobile = [dict objectForKey:@"mobile"];
+            if(bMobile.length != 0)
+                [[NSUserDefaults standardUserDefaults]setObject:bMobile forKey:@"Mobile"];
+            
+        }
+        else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 4))
+        {
+            [MBProgressHUD showError:kAlertIDwrong];
+            return;
+        }
+        else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 3))
+        {
+            [MBProgressHUD showError:kAlertdataFailure];
+            return;
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
+    }];
 }
 @end

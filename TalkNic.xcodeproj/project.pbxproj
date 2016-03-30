@@ -22,7 +22,6 @@
 		36252E711C18172C00059C30 /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 36252E701C18172C00059C30 /* Setting.m */; };
 		3627B3341C22B43E002F4EFE /* LdyAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 3627B3331C22B43E002F4EFE /* LdyAccount.m */; };
 		362E60AE1C1AA8E300FA78D9 /* datePicker.plist in Resources */ = {isa = PBXBuildFile; fileRef = 362E60AD1C1AA8E300FA78D9 /* datePicker.plist */; };
-		363AA0501C730BFA001373F1 /* DailyTopicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 363AA04F1C730BFA001373F1 /* DailyTopicViewController.m */; };
 		3644564B1BD8D1E6000F8281 /* TalkTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3644564A1BD8D1E6000F8281 /* TalkTabBarViewController.m */; };
 		3644564E1BD8D209000F8281 /* TalkNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3644564D1BD8D209000F8281 /* TalkNavigationController.m */; };
 		36474A8D1C40EF0000C12D2C /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36474A731C40EF0000C12D2C /* libWeiboSDK.a */; };
@@ -114,7 +113,6 @@
 		366D27351BFDABD200110B3B /* Voice.m in Sources */ = {isa = PBXBuildFile; fileRef = 366D27341BFDABD200110B3B /* Voice.m */; };
 		366D27391BFDAD5600110B3B /* VoiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 366D27371BFDAD5600110B3B /* VoiceCell.m */; };
 		366D273A1BFDAD5600110B3B /* VoiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 366D27381BFDAD5600110B3B /* VoiceCell.xib */; };
-		36710E5F1C70809A009BBCB1 /* ForeignerDailyTopicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36710E5C1C70809A009BBCB1 /* ForeignerDailyTopicViewController.m */; };
 		368182541BDF5FA7009814FE /* MatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 368182531BDF5FA7009814FE /* MatchViewController.m */; };
 		3681825A1BDF5FD8009814FE /* FeedsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 368182591BDF5FD8009814FE /* FeedsViewController.m */; };
 		3683BADE1BD5E89400644F68 /* discover_avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 3683BAAB1BD5E89300644F68 /* discover_avatar.png */; };
@@ -340,8 +338,6 @@
 		36D23F271C1EC11600B52E15 /* talknic_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 36D23F261C1EC11600B52E15 /* talknic_white.png */; };
 		36D23F2D1C1EEB7C00B52E15 /* Balance2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D23F2C1C1EEB7C00B52E15 /* Balance2ViewController.m */; };
 		36D43EBB1C47A2B40003974C /* TTGlobalUICommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D43EBA1C47A2B40003974C /* TTGlobalUICommon.m */; };
-		36D6D13F1C1ACA760023B24A /* DateObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D6D13E1C1ACA760023B24A /* DateObject.m */; };
-		36D6D1421C1ACB8A0023B24A /* DatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D6D1411C1ACB8A0023B24A /* DatePickerView.m */; };
 		36D89FD71C5162FD00BE5558 /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D89FD61C5162FD00BE5558 /* NSString+Hash.m */; };
 		36DAF6621C1F1B7800FDD507 /* leftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36DAF65F1C1F1B7800FDD507 /* leftCell.m */; };
 		36DAF6631C1F1B7800FDD507 /* RightcellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36DAF6611C1F1B7800FDD507 /* RightcellTableViewCell.m */; };
@@ -401,7 +397,7 @@
 		A385C2071C7C91C700FB44D8 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A385C2021C7C91C700FB44D8 /* AccountViewController.m */; };
 		A385C2081C7C91C700FB44D8 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A385C2041C7C91C700FB44D8 /* NotificationViewController.m */; };
 		A385C2091C7C91C700FB44D8 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A385C2061C7C91C700FB44D8 /* SettingViewController.m */; };
-		AC5C610D1C97251600F2EB3F /* ViewControllerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5C610C1C97251600F2EB3F /* ViewControllerUtil.m */; settings = {ASSET_TAGS = (); }; };
+		AC5C610D1C97251600F2EB3F /* ViewControllerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5C610C1C97251600F2EB3F /* ViewControllerUtil.m */; };
 		DFB50C831C3E04CD0022AD95 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFB50C851C3E04CD0022AD95 /* Localizable.strings */; };
 		DFD052D01C3CE9A8000E034F /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = DFD052CC1C3CE9A8000E034F /* MBProgressHUD+MJ.m */; };
 		DFD052D11C3CE9A8000E034F /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DFD052CD1C3CE9A8000E034F /* MBProgressHUD.bundle */; };
@@ -625,8 +621,6 @@
 		3627B3321C22B43E002F4EFE /* LdyAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LdyAccount.h; sourceTree = "<group>"; };
 		3627B3331C22B43E002F4EFE /* LdyAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LdyAccount.m; sourceTree = "<group>"; };
 		362E60AD1C1AA8E300FA78D9 /* datePicker.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = datePicker.plist; sourceTree = "<group>"; };
-		363AA04E1C730BFA001373F1 /* DailyTopicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DailyTopicViewController.h; sourceTree = "<group>"; };
-		363AA04F1C730BFA001373F1 /* DailyTopicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DailyTopicViewController.m; sourceTree = "<group>"; };
 		364456491BD8D1E6000F8281 /* TalkTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkTabBarViewController.h; sourceTree = "<group>"; };
 		3644564A1BD8D1E6000F8281 /* TalkTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TalkTabBarViewController.m; sourceTree = "<group>"; };
 		3644564C1BD8D209000F8281 /* TalkNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkNavigationController.h; sourceTree = "<group>"; };
@@ -663,8 +657,8 @@
 		36474A9F1C40F04800C12D2C /* KTSelectPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTSelectPickerView.h; sourceTree = "<group>"; };
 		36474AA01C40F04800C12D2C /* KTSelectPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTSelectPickerView.m; sourceTree = "<group>"; };
 		36474AA11C40F04800C12D2C /* KTSelectPickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KTSelectPickerView.xib; sourceTree = "<group>"; };
-		36474AA51C40F08000C12D2C /* DailysettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DailysettingViewController.h; sourceTree = "<group>"; };
-		36474AA61C40F08000C12D2C /* DailysettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DailysettingViewController.m; sourceTree = "<group>"; };
+		36474AA51C40F08000C12D2C /* DailysettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DailysettingViewController.h; path = ../../../../Guide/Foreigner/DailysettingViewController.h; sourceTree = "<group>"; };
+		36474AA61C40F08000C12D2C /* DailysettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DailysettingViewController.m; path = ../../../../Guide/Foreigner/DailysettingViewController.m; sourceTree = "<group>"; };
 		36474AA71C40F08000C12D2C /* Foreigner0ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Foreigner0ViewController.h; sourceTree = "<group>"; };
 		36474AA81C40F08000C12D2C /* Foreigner0ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Foreigner0ViewController.m; sourceTree = "<group>"; };
 		36474AA91C40F08000C12D2C /* Foreigner2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Foreigner2ViewController.h; sourceTree = "<group>"; };
@@ -760,8 +754,6 @@
 		366D27361BFDAD5600110B3B /* VoiceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceCell.h; sourceTree = "<group>"; };
 		366D27371BFDAD5600110B3B /* VoiceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceCell.m; sourceTree = "<group>"; };
 		366D27381BFDAD5600110B3B /* VoiceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VoiceCell.xib; sourceTree = "<group>"; };
-		36710E5B1C70809A009BBCB1 /* ForeignerDailyTopicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForeignerDailyTopicViewController.h; sourceTree = "<group>"; };
-		36710E5C1C70809A009BBCB1 /* ForeignerDailyTopicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForeignerDailyTopicViewController.m; sourceTree = "<group>"; };
 		3681824E1BDF5F7D009814FE /* VoiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceViewController.h; sourceTree = "<group>"; };
 		368182521BDF5FA7009814FE /* MatchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchViewController.h; sourceTree = "<group>"; };
 		368182531BDF5FA7009814FE /* MatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchViewController.m; sourceTree = "<group>"; };
@@ -1014,10 +1006,6 @@
 		36D23F2C1C1EEB7C00B52E15 /* Balance2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Balance2ViewController.m; sourceTree = "<group>"; };
 		36D43EB91C47A2B40003974C /* TTGlobalUICommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTGlobalUICommon.h; sourceTree = "<group>"; };
 		36D43EBA1C47A2B40003974C /* TTGlobalUICommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTGlobalUICommon.m; sourceTree = "<group>"; };
-		36D6D13D1C1ACA760023B24A /* DateObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateObject.h; sourceTree = "<group>"; };
-		36D6D13E1C1ACA760023B24A /* DateObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateObject.m; sourceTree = "<group>"; };
-		36D6D1401C1ACB8A0023B24A /* DatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerView.h; sourceTree = "<group>"; };
-		36D6D1411C1ACB8A0023B24A /* DatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerView.m; sourceTree = "<group>"; };
 		36D89FD51C5162FD00BE5558 /* NSString+Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hash.h"; sourceTree = "<group>"; };
 		36D89FD61C5162FD00BE5558 /* NSString+Hash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hash.m"; sourceTree = "<group>"; };
 		36DAF65E1C1F1B7800FDD507 /* leftCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = leftCell.h; sourceTree = "<group>"; };
@@ -1699,8 +1687,6 @@
 		361FF7E91BFEFE5800A65354 /* Foreigner */ = {
 			isa = PBXGroup;
 			children = (
-				36474AA51C40F08000C12D2C /* DailysettingViewController.h */,
-				36474AA61C40F08000C12D2C /* DailysettingViewController.m */,
 				36474AA71C40F08000C12D2C /* Foreigner0ViewController.h */,
 				36474AA81C40F08000C12D2C /* Foreigner0ViewController.m */,
 				36474AA91C40F08000C12D2C /* Foreigner2ViewController.h */,
@@ -2343,10 +2329,8 @@
 		36915E471C082DD3000C2F81 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				36710E5B1C70809A009BBCB1 /* ForeignerDailyTopicViewController.h */,
-				36710E5C1C70809A009BBCB1 /* ForeignerDailyTopicViewController.m */,
-				363AA04E1C730BFA001373F1 /* DailyTopicViewController.h */,
-				363AA04F1C730BFA001373F1 /* DailyTopicViewController.m */,
+				36474AA51C40F08000C12D2C /* DailysettingViewController.h */,
+				36474AA61C40F08000C12D2C /* DailysettingViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2354,8 +2338,6 @@
 		36915E481C082DD3000C2F81 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				36D6D13D1C1ACA760023B24A /* DateObject.h */,
-				36D6D13E1C1ACA760023B24A /* DateObject.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2363,8 +2345,6 @@
 		36915E491C082DD3000C2F81 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				36D6D1401C1ACB8A0023B24A /* DatePickerView.h */,
-				36D6D1411C1ACB8A0023B24A /* DatePickerView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3918,7 +3898,7 @@
 				TargetAttributes = {
 					364C56061BC761AB00DECAC8 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 5A7DH7Z3D8;
+						DevelopmentTeam = 8RH764BC39;
 					};
 					364C56191BC761AC00DECAC8 = {
 						CreatedOnToolsVersion = 6.4;
@@ -4301,7 +4281,6 @@
 				DFD054E21C3CED10000E034F /* EaseUserModel.m in Sources */,
 				36B108AB1C33945A00F16470 /* AFSecurityPolicy.m in Sources */,
 				DFD055001C3CED10000E034F /* EaseBubbleView.m in Sources */,
-				36D6D1421C1ACB8A0023B24A /* DatePickerView.m in Sources */,
 				36F906661BE2059E0017F5AA /* SDWebImageDownloader.m in Sources */,
 				36474AAF1C40F08000C12D2C /* Foreigner2ViewController.m in Sources */,
 				DFD055451C3CED4E000E034F /* EMGifImage.m in Sources */,
@@ -4371,7 +4350,6 @@
 				DFD054BE1C3CED10000E034F /* MWTapDetectingView.m in Sources */,
 				36C17DF91C0C3B290035FE12 /* History.m in Sources */,
 				36D43EBB1C47A2B40003974C /* TTGlobalUICommon.m in Sources */,
-				36D6D13F1C1ACA760023B24A /* DateObject.m in Sources */,
 				DFD054E01C3CED10000E034F /* EaseConversationModel.m in Sources */,
 				36F906631BE2059E0017F5AA /* SDImageCache.m in Sources */,
 				DFD054C31C3CED10000E034F /* EMSDWebImageDecoder.m in Sources */,
@@ -4456,7 +4434,6 @@
 				3681825A1BDF5FD8009814FE /* FeedsViewController.m in Sources */,
 				36474AC91C40F10500C12D2C /* Information3ViewController.m in Sources */,
 				36F906701BE2059E0017F5AA /* UIView+WebCacheOperation.m in Sources */,
-				36710E5F1C70809A009BBCB1 /* ForeignerDailyTopicViewController.m in Sources */,
 				DFD054FB1C3CED10000E034F /* EaseBubbleView+Image.m in Sources */,
 				DFD054D61C3CED10000E034F /* PSTCollectionViewFlowLayout.m in Sources */,
 				36474A9B1C40EFCD00C12D2C /* AppDelegate+ShareSDK.m in Sources */,
@@ -4478,7 +4455,6 @@
 				DFD055591C3CF160000E034F /* EMChatViewController.m in Sources */,
 				36F937571BF9F6A800913570 /* HistoryViewController.m in Sources */,
 				DFD054CB1C3CED10000E034F /* UIImage+EMGIF.m in Sources */,
-				363AA0501C730BFA001373F1 /* DailyTopicViewController.m in Sources */,
 				36F906611BE2059E0017F5AA /* MKAnnotationView+WebCache.m in Sources */,
 				36A9CEDD1C116D700053F4E4 /* FootView.m in Sources */,
 				DFD054A41C3CED10000E034F /* EMCDDeviceManager+Remind.m in Sources */,
@@ -4580,7 +4556,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: xinliang Yu (V5JU3Z254F)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: JI REN ZOU (EGRPY8KFPP)";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -4604,7 +4580,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "53c66a7b-7c21-4ac9-b713-894cc23895c4";
+				PROVISIONING_PROFILE = "7615b2dc-22e6-46b0-ac4e-92e3bde3f7b4";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -4627,7 +4603,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: xinliang Yu (V5JU3Z254F)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: JI REN ZOU (EGRPY8KFPP)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: JI REN ZOU (EGRPY8KFPP)";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -4643,7 +4620,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "53c66a7b-7c21-4ac9-b713-894cc23895c4";
+				PROVISIONING_PROFILE = "7615b2dc-22e6-46b0-ac4e-92e3bde3f7b4";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -4672,7 +4649,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/TalKNic/TalkNicTabBar.pch";
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/TalKNic/Thethirdparty/AliNeed/AliPay";
 				INFOPLIST_FILE = TalKNic/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
@@ -4689,7 +4666,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = wa.TalkNic;
+				PRODUCT_BUNDLE_IDENTIFIER = Talknic.cn;
 				PRODUCT_NAME = TalkNic;
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7s i386 armv7";
@@ -4718,7 +4695,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/TalKNic/TalkNicTabBar.pch";
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/TalKNic/Thethirdparty/AliNeed/AliPay";
 				INFOPLIST_FILE = TalKNic/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
@@ -4735,7 +4712,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = wa.TalkNic;
+				PRODUCT_BUNDLE_IDENTIFIER = Talknic.cn;
 				PRODUCT_NAME = TalkNic;
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7s i386 armv7";

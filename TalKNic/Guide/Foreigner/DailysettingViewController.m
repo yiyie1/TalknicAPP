@@ -8,16 +8,17 @@
 
 #import "DailysettingViewController.h"
 #import "KTSelectDatePicker.h"
-#import "ScrollViewController.h"
 #import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
 #import "solveJsonData.h"
+#import "LoginViewController.h"
 
 @interface DailysettingViewController ()
 {
     KTSelectDatePicker *_kePicker;
     NSString *_startTime;
     NSString *_endTime;
+    NSString *_topics;
 }
 @property (nonatomic,strong)UIButton *leftBT;
 @property (nonatomic,strong)UILabel *labelAvail;
@@ -51,19 +52,21 @@
     
     [self layoutBtn];
 }
+
 -(void)navigaTitle
 {
-    self.leftBT = [[UIButton alloc]init];
-    _leftBT.frame = CGRectMake(0, 0, 7, 23/2);
-    [_leftBT setBackgroundImage:[UIImage imageNamed:@"nav_back.png"] forState:(UIControlStateNormal)];
-    [_leftBT addTarget:self action:@selector(leftAction) forControlEvents:(UIControlEventTouchUpInside)];
-    UIBarButtonItem *leftI = [[UIBarButtonItem alloc]initWithCustomView:_leftBT];
-    self.navigationItem.leftBarButtonItem = leftI;
+    //self.leftBT = [[UIButton alloc]init];
+    //_leftBT.frame = CGRectMake(0, 0, 7, 23/2);
+    //[_leftBT setBackgroundImage:[UIImage imageNamed:@"nav_back.png"] forState:(UIControlStateNormal)];
+    //[_leftBT addTarget:self action:@selector(leftAction) forControlEvents:(UIControlEventTouchUpInside)];
+    //UIBarButtonItem *leftI = [[UIBarButtonItem alloc]initWithCustomView:_leftBT];
+    //self.navigationItem.leftBarButtonItem = leftI;
     
     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightAction)];
     right.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = right;
 }
+
 -(void)layoutDaily
 {
     self.labelAvail = [[UILabel alloc]init];
@@ -88,29 +91,26 @@
     [_endBtn addTarget:self action:@selector(endAction) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:_endBtn];
     
-    
-    
     self.labelTopic = [[UILabel alloc]init];
     _labelTopic.frame =kCGRectMake(0, 235, self.view.frame.size.width, 20);
-    _labelTopic.text = @"First time for your topic choosing:";
+    _labelTopic.text = @"Choose your topic:";
     _labelTopic.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0];
     _labelTopic.textAlignment = NSTextAlignmentCenter;
     _labelTopic.numberOfLines = 0;
     [self.view addSubview:_labelTopic];
-    self.labelTopic2 = [[UILabel alloc]init];
-    _labelTopic2.frame = kCGRectMake(0, 255, self.view.frame.size.width, 15);
-    _labelTopic2.text = @"(maximum 3 chosen)";
-    _labelTopic2.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10.0];
-    _labelTopic2.textAlignment = NSTextAlignmentCenter;
-    _labelTopic2.numberOfLines = 0;
-    [self.view addSubview:_labelTopic2];
+    //self.labelTopic2 = [[UILabel alloc]init];
+    //_labelTopic2.frame = kCGRectMake(0, 255, self.view.frame.size.width, 15);
+    //_labelTopic2.text = @"(maximum 3 chosen)";
+    //_labelTopic2.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10.0];
+    //_labelTopic2.textAlignment = NSTextAlignmentCenter;
+    //_labelTopic2.numberOfLines = 0;
+    //[self.view addSubview:_labelTopic2];
 }
+
 -(void)layoutBtn
 {
     if (!self.clickArr) {
         self.clickArr = [NSMutableArray array];
-        
-        
     }
     NSArray *arr = FOREIGNER_TOPIC;
     
@@ -135,10 +135,12 @@
     UIButton *btn = sender;
     NSInteger count = btn.tag - 100;
     
-    if ([_clickArr[count] isEqualToString:@"0"]) {
+    if ([_clickArr[count] isEqualToString:@"0"])
+    {
         [sender setBackgroundImage:[UIImage imageNamed:@"login_btn_100%_a.png"] forState:(UIControlStateNormal)];
         _clickArr[count] = @"1";
-    }else
+    }
+    else
     {
         [sender setBackgroundImage:[UIImage imageNamed:@"login_btn_50%.png"] forState:(UIControlStateNormal)];
         _clickArr[count] = @"0";
@@ -152,12 +154,10 @@
 {
     [_starBtn setBackgroundImage:[UIImage imageNamed:@"login_btn_100%_a.png"] forState:(UIControlStateNormal)];
     _kePicker = [[KTSelectDatePicker alloc] init];
-    //    __weak typeof(self) weakSelf = self;
     [_kePicker didFinishSelectedDate:^(NSDate *selectedDate) {
         _startTime = [NSString stringWithFormat:@"%@",[NSDate dateWithTimeInterval:3600*8 sinceDate:selectedDate]];
         NSString *textStr = [_startTime substringToIndex:16];
         [_starBtn setTitle:textStr forState:UIControlStateNormal];
-        TalkLog(@"---+++%@",_startTime);
     }];
 }
 
@@ -165,29 +165,41 @@
 {
     [_endBtn setBackgroundImage:[UIImage imageNamed:@"login_btn_100%_a.png"] forState:(UIControlStateNormal)];
     _kePicker = [[KTSelectDatePicker alloc] init];
-    //    __weak typeof(self) weakSelf = self;
     [_kePicker didFinishSelectedDate:^(NSDate *selectedDate) {
         _endTime = [NSString stringWithFormat:@"%@",[NSDate dateWithTimeInterval:3600*8 sinceDate:selectedDate]];
         NSString *textStr = [_endTime substringToIndex:16];
         [_endBtn setTitle:textStr forState:UIControlStateNormal];
-        TalkLog(@"---+++%@",_endTime);
     }];
 }
+
 -(void)rightAction
 {
-    NSArray *arr = FOREIGNER_TOPIC;
-    NSMutableDictionary *click = [NSMutableDictionary dictionary];
-    for (int i = 0; i < self.clickArr.count; i ++) {
+    if(_uid.length == 0)
+    {
+        [MBProgressHUD showError:kAlertNotLogin];
+        return;
+    }
+    
+    _topics = @"";
+    NSArray *arr = @[@"Travel",@", Film",@", Sports",@", Tech",@", Design",@", Arts",@", Cooking",@", Book"];
+    for (int i = 0; i < self.clickArr.count; i ++)
+    {
         // 被选中的Btn 下标i
-        if ([self.clickArr[i] isEqualToString:@"1"]) {
-            [click setObject:arr[i] forKey:[NSString stringWithFormat:@"%@",arr[i]]];
+        if ([self.clickArr[i] isEqualToString:@"1"])
+        {
+            _topics = [_topics stringByAppendingString:arr[i]];
         }
     }
-
-    TalkLog(@"Selected btn -- %@",click);
-    if(click.count == 0)
+    
+    if([_topics isEqualToString:@""])
     {
         [MBProgressHUD showError:kAlertTopic];
+        return;
+    }
+    
+    if(_startTime.length == 0 || _endTime.length == 0)
+    {
+        [MBProgressHUD showError:@"Please choose your available time"];
         return;
     }
     
@@ -195,12 +207,12 @@
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     dic[@"cmd"] = @"8";
-    dic[@"user_id"] = _iD;
+    dic[@"user_id"] = _uid;
     dic[@"identity"] = @"1";
     dic[@"start_time"] = _startTime;
     dic[@"end_time"]  = _endTime;
-    dic[@"favorite"] = click;
-    TalkLog(@"字典--%@",dic);
+    dic[@"favorite"] = _topics;
+    TalkLog(@"dic--%@",dic);
     [session POST:PATH_GET_LOGIN parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -208,8 +220,9 @@
         TalkLog(@"上传时间 -- %@",responseObject);
         if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2) )
         {
-            ScrollViewController *scroviewVC = [[ScrollViewController alloc]init];
-            [self.navigationController pushViewController:scroviewVC animated:YES];
+            [MBProgressHUD showSuccess:kAlertdataSuccess];
+            //ScrollViewController *scroviewVC = [[ScrollViewController alloc]init];
+            //[self.navigationController pushViewController:scroviewVC animated:YES];
         }
         else
         {
@@ -233,10 +246,10 @@
 //    return myLabel;
 //}
 
--(void)leftAction
-{
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
+//-(void)leftAction
+//{
+//    [self.navigationController popToRootViewControllerAnimated:YES];
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

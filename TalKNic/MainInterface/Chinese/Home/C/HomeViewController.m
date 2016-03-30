@@ -19,6 +19,7 @@
 #import "YGPayByAliTool.h"
 #import "MBProgressHUD+MJ.h"
 #import "ViewControllerUtil.h"
+#import "LoginViewController.h"
 
 @interface HomeViewController ()<UISearchBarDelegate,UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,UISearchDisplayDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
@@ -64,11 +65,12 @@
     self.zhedangbanview.hidden = _bMaskHidden;
     self.seletedCount = 0;
     self.bShowViewForm = NO;
+    
     [self.homecollectview addLegendHeaderWithRefreshingBlock:^{
 
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         //FIXME use other words than featured
-        [self requestDataMethod:@"featured"];
+        [self requestDataMethod];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
     //    // 头部的刷新
@@ -76,12 +78,10 @@
     //        NSArray *titleArr = @[@"featured",@"latest",@"popular"];
     //        [self requestDataMethod:titleArr[self.segmentControl.selectedSegmentIndex]];
     //    }];
-    
     //注册通知
-    
-    [self requestDataMethod:@"featured"];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"tongzhi" object:nil];
+    [self requestDataMethod];
+
 }
 
 -(void)tongzhi:(NSNotification *)dic
@@ -168,8 +168,8 @@
     [self.dianzangBtn addTarget:self action:@selector(dianzangBtn:) forControlEvents:(UIControlEventTouchUpInside)];
 
     //确定进入下一步
-    [self.sureBtn addTarget:self action:@selector(sureBtn:) forControlEvents:(UIControlEventTouchUpInside)];
-    [self.cancelBtn addTarget:self action:@selector(cancelBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.sureBtn addTarget:self action:@selector(sureBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.cancelBtn addTarget:self action:@selector(cancelBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
     
 }
 //FIXME to cancel the praise when clicking again
@@ -209,7 +209,7 @@
     
 }
 
-- (void)cancelBtn:(id)sender
+- (void)cancelBtnAction
 {
     if (self.seletedCount % 2 == 1)
     {
@@ -224,15 +224,25 @@
         self.bShowViewForm = NO;
         [self showViewForm:_bShowViewForm];
         self.seletedCount = 0;
-        [self requestDataMethod:@"featured"];
-        //dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        //    [self requestDataMethod:@"featured"];
-        //});
+        [self requestDataMethod];
     }
 }
 
-- (void)sureBtn:(id)sender
+- (void)sureBtnAction
 {
+    
+    if(_uid.length == 0)
+    {
+        [MBProgressHUD showError:kAlertNotLogin];
+        self.bMaskHidden = YES;
+        self.zhedangbanview.hidden = _bMaskHidden;
+        self.bShowViewForm = NO;
+        [self showViewForm:_bShowViewForm];
+        self.seletedCount = 0;
+        [self requestDataMethod];
+        return;
+    }
+    
     self.seletedCount ++;
     //1st page to 2nd page
     if (self.seletedCount % 2 == 1)
@@ -449,11 +459,12 @@
 -(void)segmentAction:(UISegmentedControl *)segment
 {
     //NSArray *titleArr = @[@"featured"];//, @"latest",@"popular"];
-    [self requestDataMethod:@"featured"];
+    [self requestDataMethod];
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [self.homecollectview reloadData];
@@ -462,17 +473,12 @@
     
     //self.tabBarController.tabBar.translucent = YES;
     //self.tabBarController.tabBar.hidden = YES;
-    //[self initNavigationBar];
     
     //FIXME strange behavior in viewdidload
     ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
     self.bar = [vcUtil ConfigNavigationBar:AppDiscover NavController: self.navigationController NavBar:self.bar];
     [self.view addSubview:self.bar];
-    
-    if (self.searchBar == nil)
-    {
-        [self searchBarView];
-    }
+    [self searchBarView];
     
     //Keep previous state
     self.zhedangbanview.hidden = _bMaskHidden;
@@ -480,7 +486,7 @@
     
     // 界面出现时，显示featured的collectview
     //FIXME crash on plus
-    //[self requestDataMethod:@"featured"];
+    //[self requestDataMethod];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -615,7 +621,7 @@
      [UIImage imageNamed:@"search_icon.png"]forState:UIControlStateNormal];
 }
 
-- (void)requestDataMethod:(NSString *)discover
+- (void)requestDataMethod
 {
     [self.homecollectview.header endRefreshing];
     
@@ -631,7 +637,6 @@
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSMutableDictionary *parmes = [NSMutableDictionary dictionary];
     parmes[@"cmd"] = @"10";
-    parmes[@"discover"] = discover;
     [session POST:PATH_GET_LOGIN parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [MBProgressHUD hideHUD];

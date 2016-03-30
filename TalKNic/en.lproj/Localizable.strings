@@ -81,8 +81,8 @@
 "alert.noTime" = "has not choose time";
 "alert.noProject" = "has not choose item";
 "alert.AliPayFail" = "AliPay Failed";
-
-
+"alert.notLogin" = "Not Login";
+"alert.plsLogin" = "Please Login";
 //APP language
 "AppForeigner" = "Foreigner";
 "AppChinese"   = "Chinese";
@@ -165,7 +165,7 @@
 "AppFollowed" = "Followed";
 "AppFollowing" = "Following";
 "AppFreeze" = "Freeze balance";
-
+"AppAudioMessaage" = "Audio Message";
   "AppWeChat" = "WeChat";
 "AppWeibo" = "Weibo";
 "AppMessage" = "Message";

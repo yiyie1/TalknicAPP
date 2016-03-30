@@ -16,6 +16,7 @@
 @interface Information3ViewController ()
 {
     NSString *user;
+    NSString *_topics;
 }
 
 @property (nonatomic,strong)UILabel *informationLabel;
@@ -108,25 +109,27 @@
 
 -(void)rightAction
 {
-    NSArray *arr = FOREIGNER_TOPIC;
-    NSMutableDictionary *parames = [NSMutableDictionary dictionary];
-    for (int i = 0; i < self.clickArr.count; i ++) {
+    _topics = @"";
+    NSArray *arr = @[@"Travel",@", Film",@", Sports",@", Tech",@", Design",@", Arts",@", Cooking",@", Book"];
+    for (int i = 0; i < self.clickArr.count; i ++)
+    {
         // 被选中的Btn 下标i
-        if ([self.clickArr[i] isEqualToString:@"1"]) {
-            [parames setObject:arr[i] forKey:[NSString stringWithFormat:@"%@",arr[i]]];
+        if ([self.clickArr[i] isEqualToString:@"1"])
+        {
+            _topics = [_topics stringByAppendingString:arr[i]];
         }
     }
-    TalkLog(@"Selected btn -- %@",parames);
-    if(parames.count == 0)
+    
+    if([_topics isEqualToString:@""])
     {
         [MBProgressHUD showError:kAlertTopic];
         return;
     }
-
+    
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSDictionary *parame ;
-    parame = @{@"cmd":@"8",@"user_id":_userID,@"identity":@"0",@"start_time":@"nil",@"end_time":@"nil",@"favorite":parames};
+    parame = @{@"cmd":@"8",@"user_id":_userID,@"identity":@"0",@"start_time":@"nil",@"end_time":@"nil",@"favorite":_topics};
     
     [session POST:PATH_GET_LOGIN parameters:parame progress:^(NSProgress * _Nonnull uploadProgress) {
         

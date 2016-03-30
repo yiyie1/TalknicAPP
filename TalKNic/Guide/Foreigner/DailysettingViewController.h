@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface DailysettingViewController : UIViewController
-@property (nonatomic,copy)NSString *iD;
+@property(nonatomic,strong) NSString *uid;
+
 @end
