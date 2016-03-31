@@ -83,6 +83,7 @@
 "alert.AliPayFail" = "AliPay Failed";
 "alert.notLogin" = "Not Login";
 "alert.plsLogin" = "Please Login";
+"alert.OneMinute" = "One minute left";
 //APP language
 "AppForeigner" = "Foreigner";
 "AppChinese"   = "Chinese";
@@ -91,6 +92,7 @@
 "AppPraiseFail"    = "Praise failed";
 
 "AppConChat" = "Recharging if you want to continue chatting";
+"AppTotalTimeLessThanMsgTime" = "The chat needs to be finished in 24 hours, Please keep chatting";
 "AppSure"   = "Sure";
 
 "AppChangePassword" = "Change Password";
@@ -166,6 +168,7 @@
 "AppFollowing" = "Following";
 "AppFreeze" = "Freeze balance";
 "AppAudioMessaage" = "Audio Message";
+"AppCompleted" = "Completed";
   "AppWeChat" = "WeChat";
 "AppWeibo" = "Weibo";
 "AppMessage" = "Message";

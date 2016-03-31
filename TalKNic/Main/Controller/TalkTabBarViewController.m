@@ -87,6 +87,7 @@
 
         VoiceViewController *voice = [[VoiceViewController alloc] init];
         voice.uid = _uid;
+        voice.titleStr = AppAudioMessaage;
         [self addChildVc:voice title:AppVoice image:kVoiceImage selectedImage:kVoiceSelected];
         
         FeedsViewController *feeds = [[FeedsViewController alloc] init];

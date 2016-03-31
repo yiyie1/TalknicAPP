@@ -15,6 +15,7 @@
 #import "EaseMessageReadManager.h"
 #import "AFNetworking.h"
 #import "ViewControllerUtil.h"
+#import "CompletedChatViewController.h"
 
 #define KHintAdjustY    50
 
@@ -171,6 +172,9 @@
         [self _scrollViewToBottom:NO];
     }
     self.scrollToBottomWhenAppear = YES;
+    
+    if(!_bValidMsg)
+       [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -1786,6 +1790,8 @@
                 NSDictionary *order_result = [dic objectForKey:@"result"];
                 if([vcUtil IsValidChat:[order_result objectForKey:@"paytime"] msg_time: [order_result objectForKey:@"time"]])
                 {
+                    [vcUtil RemainingMsgTimeNotify:[order_result objectForKey:@"paytime"] msg_time:[order_result objectForKey:@"time"]];
+                    
                     _remaining_msg_time = [[order_result objectForKey:@"time"] integerValue] - duration;
                     _bValidMsg = YES;
                     
@@ -1835,8 +1841,20 @@
                 {
                     _bValidMsg = NO;
                     //FIXME End this chat or go to pay
-                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppConChat delegate:self cancelButtonTitle:AppSure otherButtonTitles:nil];
-                    [alert show];
+                    if([[vcUtil CheckRole] isEqualToString:CHINESEUSER])
+                    {
+                        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppConChat delegate:self cancelButtonTitle:AppSure otherButtonTitles:nil];
+                        [alert show];
+                    
+                    }
+                    else
+                    {
+                        [MBProgressHUD showSuccess:@"Completed chat"];
+                    }
+                    
+                    CompletedChatViewController *completedVC = [[CompletedChatViewController alloc]init];
+                    completedVC.uid = _userId;
+                    [self.navigationController pushViewController:completedVC animated:YES];
                 }
             }
             else

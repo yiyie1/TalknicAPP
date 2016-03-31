@@ -71,22 +71,6 @@
 #define PATH_GET_CODE  @"http://120.25.255.114/admin.php/Api"
 //登陆
 #define PATH_GET_LOGIN @"http://120.25.255.114/admin.php/Api/index?"
-// 生成订单
-#define PATH_GET_ORDER @"http://120.25.255.114/admin.php/Api/index?cmd=16"
-// 交易记录
-#define PATH_GET_ORDER_RECORDER @"http://120.25.255.114/admin.php/Api/index?cmd=23"
-
-// 充值记录
-#define PATH_GET_ORDER_CHARGE @"http://120.25.255.114/admin.php/Api/index?cmd=25"
-
-//   获取金额
-#define PATH_GET_MONEY @"http://120.25.255.114/admin.php/Api/index?cmd=26"
-
-//   充钱
-#define PATH_ADD_MONEY @"http://120.25.255.114/admin.php/Api/index?cmd=24"
-
-#define PATH_FINISH_ORDER_PAY   @"http://120.25.255.114/admin.php/Api/index?cmd=17"
-
 #else
 //获取验证码
 #define PATH_GET_CODE  @"http://120.92.230.17/talknic1.0/admin.php/Api"
@@ -227,15 +211,19 @@
 #define  kAlertNoProject NSLocalizedString(@"alert.noProject",@"")
 #define  kAlertNerverSignup NSLocalizedString(@"alert.neverSignup",@"")
 #define  kAlertAliPayFail   NSLocalizedString(@"alert.AliPayFail",@"")
+#define  kAlertOneMinute    NSLocalizedString(@"alert.OneMinute",@"")
 
 #define  AppPraised NSLocalizedString(@"AppPraised",@"")
 #define  AppPraiseFail NSLocalizedString(@"AppPraiseFail",@"")
 
 #define AppNotify   NSLocalizedString(@"AppNotify",@"")
 #define AppConChat  NSLocalizedString(@"AppConChat",@"")
+#define AppTotalTimeLessThanMsgTime NSLocalizedString(@"AppTotalTimeLessThanMsgTime",@"")
+
 #define AppSure     NSLocalizedString(@"AppSure",@"")
 
 //APP language
+#define AppCompleted    NSLocalizedString(@"AppCompleted",@"")
 #define AppDone  NSLocalizedString(@"AppDone",@"")
 #define AppCancel  NSLocalizedString(@"AppCancel",@"")
 //Chinese or Foreginer

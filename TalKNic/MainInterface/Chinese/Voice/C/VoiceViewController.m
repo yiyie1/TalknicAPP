@@ -294,9 +294,16 @@
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppConChat delegate:self cancelButtonTitle:AppSure otherButtonTitles:nil];
-        [alert show];
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        if([[_vcUtil CheckRole] isEqualToString:CHINESEUSER])
+        {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppConChat delegate:self cancelButtonTitle:AppSure otherButtonTitles:nil];
+            [alert show];
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        }
+        else
+        {
+            [MBProgressHUD showSuccess:@"Finished"];
+        }
     }
 }
 

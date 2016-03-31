@@ -62,7 +62,7 @@
     //UIBarButtonItem *leftI = [[UIBarButtonItem alloc]initWithCustomView:_leftBT];
     //self.navigationItem.leftBarButtonItem = leftI;
     
-    UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightAction)];
+    UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:AppDone style:(UIBarButtonItemStylePlain) target:self action:@selector(rightAction)];
     right.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = right;
 }

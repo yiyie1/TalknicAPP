@@ -83,6 +83,7 @@
 "alert.AliPayFail" = "未能成功使用支付宝支付";
 "alert.notLogin" = "未登录";
 "alert.plsLogin" = "请先登录";
+"alert.OneMinute" = "本次聊天还剩余一分钟";
 
 //APP language
 "AppForeigner" = "老外";
@@ -151,6 +152,10 @@
 "AppMe" = "我";
 "AppSearch" = "搜索";
 "AppAudioMessaage" = "语音信息";
+"AppTotalTimeLessThanMsgTime" = "本次聊天有效时间为24小时，请保持聊天";
+
+"AppCompleted" = "完成";
+
 //me
 "AppCoupon" = "优惠券";
 "AppPoints" = "积分";

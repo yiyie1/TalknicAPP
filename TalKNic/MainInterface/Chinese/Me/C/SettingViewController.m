@@ -124,6 +124,7 @@
             VoiceViewController *voice = [[VoiceViewController alloc] init];
             voice.needBack = YES;
             voice.titleStr = @"Inbox Message";
+            voice.uid = _uid;
             [self.navigationController pushViewController:voice animated:YES];
         }
         else if (indexPath.row == 1)
