@@ -84,6 +84,7 @@
 "alert.notLogin" = "未登录";
 "alert.plsLogin" = "请先登录";
 "alert.OneMinute" = "本次聊天还剩余一分钟";
+"alert.NoCoupon" = "无优惠券";
 
 //APP language
 "AppForeigner" = "老外";
@@ -153,7 +154,7 @@
 "AppSearch" = "搜索";
 "AppAudioMessaage" = "语音信息";
 "AppTotalTimeLessThanMsgTime" = "本次聊天有效时间为24小时，请保持聊天";
-
+"AppNewCreditCard" = "添加信用卡";
 "AppCompleted" = "完成";
 
 //me

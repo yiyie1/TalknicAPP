@@ -25,6 +25,7 @@
     UIMenuItem *_deleteMenuItem;
     UILongPressGestureRecognizer *_lpgr;
     NSString *_userId;
+    NSString *_chatter_uid;
     BOOL _bValidMsg;
     NSInteger _remaining_msg_time;
     dispatch_queue_t _messageQueue;
@@ -1788,6 +1789,11 @@
             if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
             {
                 NSDictionary *order_result = [dic objectForKey:@"result"];
+                if ([[vcUtil CheckRole] isEqualToString:CHINESEUSER])
+                    _chatter_uid = [order_result objectForKey:@"user_teacher_id"];
+                else
+                    _chatter_uid = [order_result objectForKey:@"user_student_id"];
+
                 if([vcUtil IsValidChat:[order_result objectForKey:@"paytime"] msg_time: [order_result objectForKey:@"time"]])
                 {
                     [vcUtil RemainingMsgTimeNotify:[order_result objectForKey:@"paytime"] msg_time:[order_result objectForKey:@"time"]];
@@ -1854,6 +1860,7 @@
                     
                     CompletedChatViewController *completedVC = [[CompletedChatViewController alloc]init];
                     completedVC.uid = _userId;
+                    completedVC.chatter_uid = _chatter_uid;
                     [self.navigationController pushViewController:completedVC animated:YES];
                 }
             }

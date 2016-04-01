@@ -566,11 +566,6 @@
     
 }
 
--(void)loadPayment
-{
-    
-}
-
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
     self.searchBar.frame = CGRectMake(0, 129.0 / 2, kWidth, KHeightScaled(44));

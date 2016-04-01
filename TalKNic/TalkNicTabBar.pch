@@ -186,6 +186,7 @@
 #define  kAlertCardEmpty NSLocalizedString(@"alert.cardEmpty",@"")
 #define  kAlertdataSuccess NSLocalizedString(@"alert.dataSuccess",@"")
 #define  kAlertdataFailure NSLocalizedString(@"alert.dataFailure",@"")
+#define kAlertNoCoupon  NSLocalizedString(@"alert.NoCoupon",@"")
 #define kAlertNetworkError  NSLocalizedString(@"alert.networkError",@"")
 #define  kAlertPasstouch NSLocalizedString(@"alert.passtouch",@"")
 #define  kAlertPassChangeSuccess NSLocalizedString(@"alert.passwordChangeSuccess",@"")
@@ -219,7 +220,7 @@
 #define AppNotify   NSLocalizedString(@"AppNotify",@"")
 #define AppConChat  NSLocalizedString(@"AppConChat",@"")
 #define AppTotalTimeLessThanMsgTime NSLocalizedString(@"AppTotalTimeLessThanMsgTime",@"")
-
+#define AppNewCreditCard    NSLocalizedString(@"AppNewCreditCard",@"")
 #define AppSure     NSLocalizedString(@"AppSure",@"")
 
 //APP language

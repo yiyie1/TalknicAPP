@@ -281,7 +281,8 @@
         }
         else if(indexPath.row == 2)
         {
-            CouponViewController *couponVC = [[CouponViewController alloc]init];
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
+            CouponViewController *couponVC = [storyboard instantiateViewControllerWithIdentifier:@"couponCard"];
             couponVC.uid = _uid;
             [self.navigationController pushViewController:couponVC animated:YES];
         }

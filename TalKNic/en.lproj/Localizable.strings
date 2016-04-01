@@ -84,10 +84,11 @@
 "alert.notLogin" = "Not Login";
 "alert.plsLogin" = "Please Login";
 "alert.OneMinute" = "One minute left";
+"alert.NoCoupon" = "No Coupon";
 //APP language
 "AppForeigner" = "Foreigner";
 "AppChinese"   = "Chinese";
-
+"AppNewCreditCard" = "Add New Credit Card";
 "AppPraised"    = "Already praised";
 "AppPraiseFail"    = "Praise failed";
 

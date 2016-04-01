@@ -11,8 +11,12 @@
 #import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
 #import "AddCreditCardViewController.h"
+#import "ViewControllerUtil.h"
 
 @interface CreditCardViewController ()<UITableViewDataSource,UITableViewDelegate>
+{
+    ViewControllerUtil* _vcUtil;
+}
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic,strong)UIButton *leftBT;
@@ -25,27 +29,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    _vcUtil = [[ViewControllerUtil alloc]init];
     
-    title.text = AppCreditCard;
-    
-    title.textAlignment = NSTextAlignmentCenter;
-    
-    title.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
-    title.font = [UIFont fontWithName:kHelveticaRegular size:17.0];
-    
-    self.navigationItem.titleView = title;
+    self.navigationItem.titleView = [_vcUtil SetTitle:AppCreditCard];
     
     [self layoutLeftBT];
-    
-    // 获取数据
-    //[self requestData];
-    
     [self layoutView];
-//    // 例：dataArr;
-//    self.arr = [NSMutableArray arrayWithObjects:@"1234 5678 ●●●● 1234",@"1234 5678 ●●●● 1234",@"1234 5678 ●●●● 1234",@"1234 5678 ●●●● 1234",@"Add New Credit Card",nil];
     self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:239/255.0 alpha:1.0];
-
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -55,10 +45,8 @@
 
 - (void)requestData
 {
-    if (!self.arr) {
+    if (!self.arr)
         self.arr = [NSMutableArray array];
-    }
-    //NSString *uid = [[NSUserDefaults standardUserDefaults] objectForKey:kLogin_user_information];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -69,19 +57,20 @@
     [manager POST:PATH_GET_LOGIN parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        TalkLog(@"展示银行卡 -- %@",responseObject);
-        if ([responseObject[@"code"] isEqualToString:@"2"]) {
+        TalkLog(@"responseObject -- %@",responseObject);
+        if ([responseObject[@"code"] isEqualToString:@"2"])
+        {
             [self.arr addObjectsFromArray:responseObject[@"result"] ];
             [self.tableView reloadData];
         }
+        else
+            [MBProgressHUD showError:kAlertdataFailure];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error%@",error);
         [MBProgressHUD showError:kAlertNetworkError];
         return;
     }];
-    
-    
 }
 
 -(void)layoutLeftBT
@@ -111,7 +100,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 40;
+    return KHeightScaled(40);
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -120,7 +109,7 @@
     UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     if (indexPath.row == self.arr.count) {
 //        cell.cardNum.text = @"Add New Credit Card";
-        cell.textLabel.text = @"Add New Credit Card";
+        cell.textLabel.text = AppNewCreditCard;
         cell.imageView.image = [UIImage imageNamed:@"me_creditcard_add_icon.png"];
         
         

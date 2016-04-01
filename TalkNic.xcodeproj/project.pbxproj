@@ -398,6 +398,7 @@
 		A385C2091C7C91C700FB44D8 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A385C2061C7C91C700FB44D8 /* SettingViewController.m */; };
 		AC5C610D1C97251600F2EB3F /* ViewControllerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5C610C1C97251600F2EB3F /* ViewControllerUtil.m */; };
 		ACC9856F1CAD6FD10003C28B /* CompletedChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC9856E1CAD6FD10003C28B /* CompletedChatViewController.m */; };
+		ACF882CC1CAEBF8900A2947D /* CouponCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF882CB1CAEBF8900A2947D /* CouponCardCell.m */; };
 		DFB50C831C3E04CD0022AD95 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFB50C851C3E04CD0022AD95 /* Localizable.strings */; };
 		DFD052D01C3CE9A8000E034F /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = DFD052CC1C3CE9A8000E034F /* MBProgressHUD+MJ.m */; };
 		DFD052D11C3CE9A8000E034F /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DFD052CD1C3CE9A8000E034F /* MBProgressHUD.bundle */; };
@@ -1200,6 +1201,8 @@
 		ACAEE5C21C9BF75F007F0DA4 /* CommonHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonHeader.h; sourceTree = "<group>"; };
 		ACC9856D1CAD6FD10003C28B /* CompletedChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompletedChatViewController.h; sourceTree = "<group>"; };
 		ACC9856E1CAD6FD10003C28B /* CompletedChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompletedChatViewController.m; sourceTree = "<group>"; };
+		ACF882CA1CAEBF8900A2947D /* CouponCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponCardCell.h; sourceTree = "<group>"; };
+		ACF882CB1CAEBF8900A2947D /* CouponCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponCardCell.m; sourceTree = "<group>"; };
 		DFB50C841C3E04CD0022AD95 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DFD052CB1C3CE9A8000E034F /* MBProgressHUD+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+MJ.h"; sourceTree = "<group>"; };
 		DFD052CC1C3CE9A8000E034F /* MBProgressHUD+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+MJ.m"; sourceTree = "<group>"; };
@@ -2129,6 +2132,8 @@
 		368182611BDF6179009814FE /* V */ = {
 			isa = PBXGroup;
 			children = (
+				ACF882CA1CAEBF8900A2947D /* CouponCardCell.h */,
+				ACF882CB1CAEBF8900A2947D /* CouponCardCell.m */,
 				3647CCDE1C482F6100F1598A /* BalanceCell.h */,
 				3647CCDF1C482F6100F1598A /* BalanceCell.m */,
 				36C17DF21C0C3A980035FE12 /* HistoryCell.h */,
@@ -4360,6 +4365,7 @@
 				36252E711C18172C00059C30 /* Setting.m in Sources */,
 				36F9375D1BF9F6BD00913570 /* QaViewController.m in Sources */,
 				36F824001C42CD8A00D0E1B5 /* Order.m in Sources */,
+				ACF882CC1CAEBF8900A2947D /* CouponCardCell.m in Sources */,
 				36F906381BE2058B0017F5AA /* MJMethod.m in Sources */,
 				DFD052D01C3CE9A8000E034F /* MBProgressHUD+MJ.m in Sources */,
 				3647CCD31C482D9C00F1598A /* HomeShowPicturwCell.m in Sources */,
