@@ -30,6 +30,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //设置背景色，修改push到当前controller时界面会卡的问题
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
     
     title.text = self.titleText;//@"Forget Password";
