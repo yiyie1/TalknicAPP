@@ -67,6 +67,10 @@
 
 #ifdef ALIYUN
 
+
+// 环信聊天消息数
+#define EaseMobUnreaderMessageCount @"EaseMobUnreaderMessageCount"
+
 //获取验证码
 #define PATH_GET_CODE  @"http://120.25.255.114/admin.php/Api"
 //登陆

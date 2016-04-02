@@ -21,8 +21,10 @@
 #import "HomeViewController.h"
 #import "DailysettingViewController.h"
 #import "MBProgressHUD+MJ.h"
+#import "VoiceViewController.h"
+#import "TalkNavigationController.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<IChatManagerDelegate>
 
 @end
 
@@ -34,11 +36,19 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
+    
+    if ([UIDevice currentDevice].systemVersion.floatValue > 8.0) {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge categories:nil];
+        
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    }
+    
     //集成分享登陆功能
     [self addShareSDKWithapplication:application didFinishLaunchingWithOptions:launchOptions];
     
     //环信注册
     [EaseMobSDK easeMobRegisterSDKWithAppKey:kEaseKey apnsCertName:nil application:application didFinishLaunchingWithOptions:launchOptions];
+    
     
     ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
     
@@ -71,7 +81,25 @@
                     home.uid = uid;
                     //NSString *username = [[NSUserDefaults standardUserDefaults]objectForKey:@"username" ];
                     //[EaseMobSDK easeMobRegisterAppWithAccount:uid password:KHuanxin HUDShowInView:home.view];
-                    [EaseMobSDK easeMobLoginAppWithAccount:uid password:KHuanxin isAutoLogin:NO HUDShowInView:home.view];
+                    
+                    //环信聊天登录，增加自动登录功能
+                    BOOL isAutoLogin = [[EaseMob sharedInstance].chatManager isAutoLoginEnabled];// 判断是否已经自动登录
+                    if (!isAutoLogin) {
+                        [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:uid
+                                                                            password:KHuanxin
+                                                                          completion:^(NSDictionary *loginInfo, EMError *error) {
+                                                                              // 设置自动登录
+                                                                              [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
+                                                                              
+                                                                          } onQueue:nil];
+                    }
+                    
+                    //注册一个环信聊天监听对象到监听列表中
+                    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
+
+                    
+                    
+//                    [EaseMobSDK easeMobLoginAppWithAccount:uid password:KHuanxin isAutoLogin:NO HUDShowInView:home.view];
                 }
             }
             else
@@ -85,7 +113,23 @@
                     DailysettingViewController *dailyVC = [[DailysettingViewController alloc]init];
                     dailyVC.uid = uid;
                     //[EaseMobSDK easeMobRegisterAppWithAccount:uid password:KHuanxin HUDShowInView:dailyVC.view];
-                    [EaseMobSDK easeMobLoginAppWithAccount:uid password:KHuanxin isAutoLogin:NO HUDShowInView:dailyVC.view];
+                    
+                    //环信聊天登录，增加自动登录功能
+                    BOOL isAutoLogin = [[EaseMob sharedInstance].chatManager isAutoLoginEnabled];// 判断是否已经自动登录
+                    if (!isAutoLogin) {
+                        [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:uid
+                                                                            password:KHuanxin
+                                                                          completion:^(NSDictionary *loginInfo, EMError *error) {
+                                                                              // 设置自动登录
+                                                                              [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
+                                                                              
+                                                                          } onQueue:nil];
+                    }
+                    
+                    //注册一个环信聊天监听对象到监听列表中
+                    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
+
+//                 [EaseMobSDK easeMobLoginAppWithAccount:uid password:KHuanxin isAutoLogin:NO HUDShowInView:dailyVC.view];
                 }
             }
             self.window.rootViewController = talkVC;
@@ -133,20 +177,33 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    // 环信聊天
+    [[EaseMob sharedInstance] applicationDidEnterBackground:application];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    
+    //环信聊天
+    [[EaseMob sharedInstance] applicationWillEnterForeground:application];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
+    //环信聊天
+    [[EaseMob sharedInstance] applicationWillTerminate:application];
+//    [[UIApplication sharedApplication]setApplicationIconBadgeNumber:3];
+    
+
     
     [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"uid"];
 }
@@ -228,6 +285,182 @@
             abort();
         }
     }
+}
+
+
+#pragma EaseMobListening 环信聊天事件监听 start
+
+/**
+ *  用户将要自动登录的回调
+ *
+ *  @param loginInfo 登录的用户信息
+ *  @param error     错误信息
+ */
+- (void)willAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error{
+//#warning TalkLog
+//    TalkLog(@"TalkLog:LINE %d ==>willAutoLoginWithInfo%@", __LINE__, loginInfo);
+}
+
+
+/**
+ *  用户自动登录完成后的回调
+ *
+ *  @param loginInfo 登录的用户信息
+ *  @param error     错误信息
+ */
+- (void)didAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error{
+//#warning TalkLog
+//    TalkLog(@"TalkLog:LINE %d ==>didAutoLoginWithInfo%@", __LINE__, loginInfo);
+    
+}
+
+
+/**
+ *  已发送消息后的回调
+ *
+ *  @param message 消息信息
+ *  @param error   错误信息
+ */
+- (void)didSendMessage:(EMMessage *)message error:(EMError *)error{
+//#warning TalkLog
+//    TalkLog(@"TalkLog:LINE %d ==>didSendMessage%@", __LINE__, message.messageBodies);
+    
+}
+
+
+/**
+ * 接收到离线信息后的回调
+ *
+ *  @param offlineMessages 离线消息列表
+ */
+- (void)didReceiveOfflineMessages:(NSArray *)offlineMessages{
+//#warning TalkLog
+//    TalkLog(@"TalkLog:LINE %d ==>didReceiveOfflineMessages%@", __LINE__, offlineMessages);
+    
+}
+
+
+/**
+ *  接收到在线消息后的回调
+ *
+ *  @param message 消息信息
+ */
+- (void)didReceiveMessage:(EMMessage *)message{
+    
+    //设置聊天视图VoiceViewController tabbar上聊天通知小红点，设置app图标上的通知小红点
+    
+    // 1. 获取并更新缓存中未读聊天消息数
+    int allEaseMobMessageCounts = [self updateEaseMobMessageCountsWith:message.from];
+    
+    if (allEaseMobMessageCounts > 0) {
+        
+        // 2. 设置VoiceViewController的badgeNumber
+        TalkNavigationController *talkNav = [self getVoiceViewController];
+        talkNav.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d", allEaseMobMessageCounts];
+        
+        // 3. 设置app图标小红点通知
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:allEaseMobMessageCounts];
+    }
+    
+}
+
+
+/**
+ *  未读消息数改变时的回调
+ */
+- (void)didUnreadMessagesCountChanged{
+//#warning TalkLog
+//    TalkLog(@"TalkLog:LINE %d ==>didUnreadMessagesCountChanged%@", __LINE__, @"");
+    
+}
+
+#pragma EaseMobListening 环信聊天事件监听 end
+
+
+/**
+ *  获取到VoiceViewController视图
+ */
+- (TalkNavigationController *)getVoiceViewController{
+    
+    if ([[UIApplication sharedApplication].keyWindow.rootViewController class] == [TalkTabBarViewController class] &&
+        [UIApplication sharedApplication].keyWindow.rootViewController != nil) {
+        TalkTabBarViewController *rootVC = (TalkTabBarViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+        
+        if (rootVC.viewControllers.count > 1) {
+            TalkNavigationController *talkNavVC = rootVC.viewControllers[1];
+            return talkNavVC;
+        }
+    }
+    return nil;
+}
+
+
+/**
+ *  获取并更新缓存中未读环信聊天消息数
+ *  @param messageSenderId 消息发送者的uid
+ *  @return int 当前未读消息总数
+ *
+ *  消息数的数据结构：
+ *   {
+ *     "EaseMobUnreaderMessageCount":
+ *       {
+ *         "senderId": "count",
+ *         "senderId": "count",
+ *         "senderId": "count",
+ *         "senderId": "count",
+ *         ...
+ *       }
+ *   }
+ *   
+ *   @param senderId: 消息发送者的uid
+ *   @param count:    消息个数
+ */
+- (int)updateEaseMobMessageCountsWith:(NSString *)messageSenderId{
+    
+    // 1.获取缓存中存在的消息数据
+    NSDictionary *easeMobMessageCountsDic = [[NSUserDefaults standardUserDefaults] objectForKey:EaseMobUnreaderMessageCount];
+    
+    // 2. 若消息数据存在，更新消息数据，统计所有未读消息个数
+    //    若消息数据不存在，根据发送者uid在缓存中加入新的消息数据
+    int allCount = 0;
+    NSMutableDictionary *newEaseMobMessageCountsDic = [[NSMutableDictionary alloc]init];
+    BOOL hasSender = false;//获取到的消息数据中是否有当前发送者的数据
+    
+    //  2.1若消息数据存在
+    if (easeMobMessageCountsDic != nil) {
+        for(NSString *senderIdStr in easeMobMessageCountsDic.allKeys){
+            NSString *senderCount = (NSString *)easeMobMessageCountsDic[senderIdStr];
+            
+            //若当前sender的数据在旧消息数据中，消息count加一
+            if ([messageSenderId isEqualToString:senderIdStr]) {
+                allCount = senderCount.intValue + allCount + 1;
+                senderCount = [NSString stringWithFormat:@"%d", senderCount.intValue + 1];
+                
+                hasSender = true;
+            }else{
+                allCount += senderCount.intValue;
+            }
+            
+            [newEaseMobMessageCountsDic setValue:senderCount forKey:senderIdStr];
+        }
+        
+        //若当前sender的数据不在在旧消息数据中，根据uid设置一条新的消息数据
+        if (hasSender == false) {
+            [newEaseMobMessageCountsDic setValue:@"1" forKey:messageSenderId];
+            allCount++;
+        }
+
+    // 2.2 若消息数据不存在，设置新的消息数据
+    }else{
+        allCount = 1;
+        [newEaseMobMessageCountsDic setValue:@"1" forKey:messageSenderId];
+    }
+    
+    // 3.将新的消息数量存入缓存
+    [[NSUserDefaults standardUserDefaults] setObject:newEaseMobMessageCountsDic forKey:EaseMobUnreaderMessageCount];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    return allCount;
 }
 
 
