@@ -41,6 +41,20 @@
     NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
     
+    //退出登录时，同时退出环信聊天
+    [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:YES completion:^(NSDictionary *info, EMError *error) {
+        if (!error && info) {
+//            NSLog(@"退出成功");
+        }else{
+//            #warning TalkLog
+//            TalkLog(@"TalkLog:LINE %d ==>退出环信聊天失败", __LINE__);
+        }
+    } onQueue:nil];
+    
+    //清空环信聊天消息数
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:EaseMobUnreaderMessageCount];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     ChoosePeopleViewController *chooseVC = [[ChoosePeopleViewController alloc]init];
     [self.navigationController pushViewController:chooseVC animated:YES];
 }
