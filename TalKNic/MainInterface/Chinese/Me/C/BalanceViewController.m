@@ -64,11 +64,10 @@
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSMutableDictionary *parmes = [NSMutableDictionary dictionary];
+    parmes[@"cmd"] = @"26";
     parmes[@"user_id"] = _uid;
-    //    parmes[@"theory_time"] = @"";
-    //    parmes[@"cmd"] = @"19";
     
-    [session POST:PATH_GET_MONEY parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
+    [session POST:PATH_GET_LOGIN parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -248,6 +247,7 @@
             self.hidesBottomBarWhenPushed=YES;
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
             Balance2ViewController *baVC = [storyboard instantiateViewControllerWithIdentifier:@"balance2ViewController"];
+            baVC.uid = _uid;
             //        [self.navigationController presentViewController:baVC animated:YES completion:nil];
             [self.navigationController pushViewController:baVC animated:YES];
             self.hidesBottomBarWhenPushed=NO;
@@ -281,41 +281,38 @@
         }
         else if(indexPath.row == 2)
         {
-            CouponViewController *couponVC = [[CouponViewController alloc]init];
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
+            CouponViewController *couponVC = [storyboard instantiateViewControllerWithIdentifier:@"couponCard"];
             couponVC.uid = _uid;
             [self.navigationController pushViewController:couponVC animated:YES];
         }
     }
 }
 
-- (void)charge{
-    
+- (void)charge
+{
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
     NSMutableDictionary *parmes = [NSMutableDictionary dictionary];
+    parmes[@"cmd"] = @"24";
     parmes[@"user_id"] = [NSNumber numberWithInt:[_uid intValue]];
     parmes[@"recharge_money"] = @"10";
     
-    //    parmes[@"theory_time"] = @"";
-    //    parmes[@"cmd"] = @"19";
-    
-    [session POST:PATH_ADD_MONEY parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
+    [session POST:PATH_GET_LOGIN parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         NSDictionary *dic = [solveJsonData changeType:responseObject];
         NSLog(@"%@",dic);
-        if ([[dic objectForKey:@"code"] isEqualToString:@"2"]) {
-            
-            // 充值成功
-            NSLog(@"充值成功");
+        if ([[dic objectForKey:@"code"] isEqualToString:@"2"])
+        {
             [self getData];
-
-            
         }
-        
-        
+        else
+        {
+            [MBProgressHUD showError:kAlertdataFailure];
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error%@",error);
         [MBProgressHUD showError:kAlertNetworkError];

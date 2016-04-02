@@ -292,6 +292,12 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
+    if([_titleStr isEqualToString:AppHistory])
+    {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        return;
+    }
+    
     NSDictionary *order_dic = _order_array[indexPath.row];
     if([_vcUtil IsValidChat:[order_dic objectForKey:@"paytime"] msg_time: [order_dic objectForKey:@"time"]])
     {
@@ -303,9 +309,16 @@
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppConChat delegate:self cancelButtonTitle:AppSure otherButtonTitles:nil];
-        [alert show];
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        if([[_vcUtil CheckRole] isEqualToString:CHINESEUSER])
+        {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppConChat delegate:self cancelButtonTitle:AppSure otherButtonTitles:nil];
+            [alert show];
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        }
+        else
+        {
+            [MBProgressHUD showSuccess:@"Finished"];
+        }
     }
 }
 

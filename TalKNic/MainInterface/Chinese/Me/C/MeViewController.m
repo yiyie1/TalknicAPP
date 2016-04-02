@@ -417,7 +417,6 @@
     //FIXME a gap btw top_bar and nav bar
     //_imageViewBar.frame = CGRectMake(0, 129.0/2 + KHeightScaled(3.0/2), KWidthScaled(375), KHeightScaled(191.5));
     _imageViewBar.frame = CGRectMake(0, 64, kWidth, KHeightScaled(191.5));
-    NSLog(@"_imageViewBar view frame: %@", NSStringFromCGRect(_imageViewBar.frame));
     _imageViewBar.image = [UIImage imageNamed:@"me_top_bar.png"];
     _imageViewBar.userInteractionEnabled = YES;
     [self.view addSubview:_imageViewBar];
@@ -426,7 +425,6 @@
 {
     self.nameLabel = [[UILabel alloc]init];
     _nameLabel.frame = kCGRectMake(112.5, 10, 150, 25);
-//    _nameLabel.text = @"Elishia Raskin";
     _nameLabel.textColor = [UIColor whiteColor];
     _nameLabel.numberOfLines = 0;
     _nameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:14.0];
@@ -434,7 +432,6 @@
     
     self.countries = [[UILabel alloc]init];
     _countries.frame = kCGRectMake(112.5, 27, 150, 25);
-//    _countries.text = @"California,USA";
     _countries.textColor = [UIColor whiteColor];
     _countries.numberOfLines = 0;
     _countries.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10.0];
@@ -623,14 +620,16 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (section ==0) {
+    if (section ==0)
+    {
         UILabel *label = [[UILabel alloc]init];
         label.frame = kCGRectMake(10, 3, 100, 15);
         label.font = [UIFont fontWithName:kHelveticaLight size:14.0];
         label.textColor = [UIColor colorWithRed:128/255.0 green:128/255.0 blue:128/255.0 alpha:1.0];
         label.text = AppPayment;
         return label;
-    }else
+    }
+    else
     {
         UILabel *label = [[UILabel alloc]init];
         label.frame = kCGRectMake(10, 3, 100, 15);
@@ -771,7 +770,8 @@
     //self.backview.hidden = NO;
     [self.view setBackgroundColor:[UIColor grayColor]];
     self.tableView.hidden = YES;
-    if (sender == self.feedsBtn) {
+    if (sender == self.feedsBtn)
+    {
         self.isClickFeeds = !self.isClickFeeds;
         self.isClickFollowed = NO;
         self.isClickFollowing = NO;
@@ -782,8 +782,8 @@
         [_followedBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
         [_followingBtn setImage:[UIImage imageNamed:@""] forState:(UIControlStateNormal)];
         [self.imageview setImage:[UIImage imageNamed:@"me_feeds_tab_bg.png"]];
-
-    }else if (sender == self.followedBtn)
+    }
+    else if (sender == self.followedBtn)
     {
         self.isClickFeeds = NO;
         self.isClickFollowed = !self.isClickFollowed;
@@ -794,7 +794,8 @@
         [_followingBtn setImage:[UIImage imageNamed:@""] forState:(UIControlStateNormal)];
         [self.imageview setImage:[UIImage imageNamed:@"me_followed_bg.png"]];
         
-    }else
+    }
+    else
     {
         self.isClickFeeds = NO;
         self.isClickFollowed = NO;
@@ -817,19 +818,23 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    if ([cell.textLabel.text isEqualToString:AppBalance]) {
+    if ([cell.textLabel.text isEqualToString:AppBalance])
+    {
         BalanceViewController *balanceVC = [[BalanceViewController alloc]init];
         balanceVC.uid = _uid;
         [self.navigationController pushViewController:balanceVC animated:YES];
     }
-    if ([cell.textLabel.text isEqualToString:AppCreditCard]) {
+    else if ([cell.textLabel.text isEqualToString:AppCreditCard])
+    {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
         CreditCardViewController *creditVC = [storyboard instantiateViewControllerWithIdentifier:@"creditCard"];
         creditVC.uid = _uid;
         [self.navigationController pushViewController:creditVC animated:YES];
     }
-    if ([cell.textLabel.text isEqualToString:AppHistory])
+    else if ([cell.textLabel.text isEqualToString:AppHistory])
     {
         VoiceViewController *historyVC = [[VoiceViewController alloc]init];
         historyVC.uid = _uid;
@@ -838,20 +843,20 @@
         [self.navigationController pushViewController:historyVC animated:YES];
 
     }
-    if ([cell.textLabel.text isEqualToString:AppInviteFriends])
+    else if ([cell.textLabel.text isEqualToString:AppInviteFriends])
     {
-        
         AppDelegate *delegate = [[AppDelegate alloc]init];
         [delegate platShareView:self.view WithShareContent:@"Talknic" WithShareUrlImg:@"http://pic2.ooopic.com/01/03/51/25b1OOOPIC19.jpg" WithShareTitle:@"Talknic" WithShareUrl:@"http://talknic.cn" WithShareType:shareInfo];
     
-    
     }
-    if ([cell.textLabel.text isEqualToString:AppQA]) {
+    else if ([cell.textLabel.text isEqualToString:AppQA])
+    {
         QaViewController *qaVC = [[QaViewController alloc]init];
         qaVC.uid = _uid;
         [self.navigationController pushViewController:qaVC animated:YES];
     }
-    if ([cell.textLabel.text isEqualToString:AppAbout]) {
+    else if ([cell.textLabel.text isEqualToString:AppAbout])
+    {
         AboutViewController *aboutVC= [[AboutViewController alloc]init];
         [self.navigationController pushViewController:aboutVC animated:YES];
     }
@@ -865,7 +870,6 @@
     [_topText resignFirstResponder];
     [self.searchTable resignFirstResponder];
     [self.searchBar resignFirstResponder];
-    [self.searchTable resignFirstResponder];
     self.searchBarView.hidden = YES;
     self.backview.hidden = YES;
     

@@ -10,7 +10,9 @@
 #import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
 #import "solveJsonData.h"
+@interface ViewControllerUtil () <UIAlertViewDelegate>
 
+@end
 @implementation ViewControllerUtil
 
 - (UILabel *)SetTitle:(NSString *)titleStr
@@ -36,6 +38,32 @@
     TalkLog(@"time_after_pay: %f hours", time_after_pay / 60 / 60);
 
     return time_after_pay < DEFAULT_MAX_CHAT_DURATION_MINS * 60 && ![msg_time isEqualToString:@"0"];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"clickButtonAtIndex:%ld",(long)buttonIndex);
+}
+
+-(void)RemainingMsgTimeNotify:(NSString*) pay_time msg_time: (NSString*) msg_time
+{
+    NSDate *dateNow = [NSDate date];
+    NSTimeInterval sec1970 = [dateNow timeIntervalSince1970];
+    
+    NSTimeInterval time_after_pay = sec1970 - [pay_time doubleValue];
+    TalkLog(@"time_after_pay: %f hours", time_after_pay / 60 / 60);
+    
+    if((DEFAULT_MAX_CHAT_DURATION_MINS * 60 - time_after_pay) < ([msg_time integerValue] + 60))
+    {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppTotalTimeLessThanMsgTime delegate:self cancelButtonTitle:AppSure otherButtonTitles:@"Pay", nil];
+        [alert show];
+
+    }
+
+    if ([msg_time integerValue] < 60)
+    {
+        [MBProgressHUD showSuccess:kAlertOneMinute];
+    }
 }
 
 -(UINavigationBar* )ConfigNavigationBar:(NSString*)titleStr NavController: (UINavigationController *)NavController NavBar: (UINavigationBar*)NavBar

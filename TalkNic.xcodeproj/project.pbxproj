@@ -187,7 +187,6 @@
 		369913541C48C03E00FAEB1E /* UIImage+HKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 369913531C48C03E00FAEB1E /* UIImage+HKExtension.m */; };
 		36A4C76F1C50E9C7004677A4 /* discover_foot_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 36A4C76E1C50E9C7004677A4 /* discover_foot_bg.png */; };
 		36A9CED11C1134B10053F4E4 /* CreditCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A9CED01C1134B10053F4E4 /* CreditCardCell.m */; };
-		36A9CED71C115ADD0053F4E4 /* BalanceHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A9CED61C115ADD0053F4E4 /* BalanceHistoryViewController.m */; };
 		36A9CEDA1C116CD50053F4E4 /* BalanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A9CED91C116CD50053F4E4 /* BalanceTableViewCell.m */; };
 		36A9CEDD1C116D700053F4E4 /* FootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A9CEDC1C116D700053F4E4 /* FootView.m */; };
 		36A9CEE71C1182EA0053F4E4 /* topic_blue_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 36A9CEE21C1182EA0053F4E4 /* topic_blue_circle.png */; };
@@ -398,6 +397,8 @@
 		A385C2081C7C91C700FB44D8 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A385C2041C7C91C700FB44D8 /* NotificationViewController.m */; };
 		A385C2091C7C91C700FB44D8 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A385C2061C7C91C700FB44D8 /* SettingViewController.m */; };
 		AC5C610D1C97251600F2EB3F /* ViewControllerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5C610C1C97251600F2EB3F /* ViewControllerUtil.m */; };
+		ACC9856F1CAD6FD10003C28B /* CompletedChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC9856E1CAD6FD10003C28B /* CompletedChatViewController.m */; };
+		ACF882CC1CAEBF8900A2947D /* CouponCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF882CB1CAEBF8900A2947D /* CouponCardCell.m */; };
 		DFB50C831C3E04CD0022AD95 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFB50C851C3E04CD0022AD95 /* Localizable.strings */; };
 		DFD052D01C3CE9A8000E034F /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = DFD052CC1C3CE9A8000E034F /* MBProgressHUD+MJ.m */; };
 		DFD052D11C3CE9A8000E034F /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DFD052CD1C3CE9A8000E034F /* MBProgressHUD.bundle */; };
@@ -837,8 +838,6 @@
 		36A4C76E1C50E9C7004677A4 /* discover_foot_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = discover_foot_bg.png; sourceTree = "<group>"; };
 		36A9CECF1C1134B10053F4E4 /* CreditCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditCardCell.h; sourceTree = "<group>"; };
 		36A9CED01C1134B10053F4E4 /* CreditCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditCardCell.m; sourceTree = "<group>"; };
-		36A9CED51C115ADD0053F4E4 /* BalanceHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BalanceHistoryViewController.h; sourceTree = "<group>"; };
-		36A9CED61C115ADD0053F4E4 /* BalanceHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BalanceHistoryViewController.m; sourceTree = "<group>"; };
 		36A9CED81C116CD50053F4E4 /* BalanceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BalanceTableViewCell.h; sourceTree = "<group>"; };
 		36A9CED91C116CD50053F4E4 /* BalanceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BalanceTableViewCell.m; sourceTree = "<group>"; };
 		36A9CEDB1C116D700053F4E4 /* FootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootView.h; sourceTree = "<group>"; };
@@ -1200,6 +1199,10 @@
 		AC5C610C1C97251600F2EB3F /* ViewControllerUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerUtil.m; sourceTree = "<group>"; };
 		AC725C231C91DA1200D1E684 /* TalkNicTabBar.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkNicTabBar.pch; sourceTree = "<group>"; };
 		ACAEE5C21C9BF75F007F0DA4 /* CommonHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonHeader.h; sourceTree = "<group>"; };
+		ACC9856D1CAD6FD10003C28B /* CompletedChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompletedChatViewController.h; sourceTree = "<group>"; };
+		ACC9856E1CAD6FD10003C28B /* CompletedChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompletedChatViewController.m; sourceTree = "<group>"; };
+		ACF882CA1CAEBF8900A2947D /* CouponCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponCardCell.h; sourceTree = "<group>"; };
+		ACF882CB1CAEBF8900A2947D /* CouponCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponCardCell.m; sourceTree = "<group>"; };
 		DFB50C841C3E04CD0022AD95 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DFD052CB1C3CE9A8000E034F /* MBProgressHUD+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+MJ.h"; sourceTree = "<group>"; };
 		DFD052CC1C3CE9A8000E034F /* MBProgressHUD+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+MJ.m"; sourceTree = "<group>"; };
@@ -2057,6 +2060,8 @@
 				36614BFF1C56004E00302EDE /* VoiceViewController.m */,
 				366241B01C15684700405169 /* ChatViewController.h */,
 				366241B11C15684700405169 /* ChatViewController.m */,
+				ACC9856D1CAD6FD10003C28B /* CompletedChatViewController.h */,
+				ACC9856E1CAD6FD10003C28B /* CompletedChatViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -2127,6 +2132,8 @@
 		368182611BDF6179009814FE /* V */ = {
 			isa = PBXGroup;
 			children = (
+				ACF882CA1CAEBF8900A2947D /* CouponCardCell.h */,
+				ACF882CB1CAEBF8900A2947D /* CouponCardCell.m */,
 				3647CCDE1C482F6100F1598A /* BalanceCell.h */,
 				3647CCDF1C482F6100F1598A /* BalanceCell.m */,
 				36C17DF21C0C3A980035FE12 /* HistoryCell.h */,
@@ -2149,8 +2156,6 @@
 				36B855101BF48D320060F676 /* MeViewController.m */,
 				36B6EC0B1BF9835000B881BE /* BalanceViewController.h */,
 				36B6EC0C1BF9835000B881BE /* BalanceViewController.m */,
-				36A9CED51C115ADD0053F4E4 /* BalanceHistoryViewController.h */,
-				36A9CED61C115ADD0053F4E4 /* BalanceHistoryViewController.m */,
 				36F937521BF9F69600913570 /* CreditCardViewController.h */,
 				36AF36DF1C5B2A7A00FAE6E9 /* CreditCardViewController.m */,
 				36F937551BF9F6A800913570 /* HistoryViewController.h */,
@@ -4287,7 +4292,6 @@
 				DFD0555B1C3CF160000E034F /* EMBubbleView+Gif.m in Sources */,
 				DFD054AD1C3CED10000E034F /* MJRefreshComponent.m in Sources */,
 				DFD054A81C3CED10000E034F /* EMVoiceConverter.mm in Sources */,
-				36A9CED71C115ADD0053F4E4 /* BalanceHistoryViewController.m in Sources */,
 				36F906391BE2058B0017F5AA /* MJType.m in Sources */,
 				DFD054BF1C3CED10000E034F /* MWZoomingScrollView.m in Sources */,
 				DFD055081C3CED10000E034F /* EaseRecordView.m in Sources */,
@@ -4361,6 +4365,7 @@
 				36252E711C18172C00059C30 /* Setting.m in Sources */,
 				36F9375D1BF9F6BD00913570 /* QaViewController.m in Sources */,
 				36F824001C42CD8A00D0E1B5 /* Order.m in Sources */,
+				ACF882CC1CAEBF8900A2947D /* CouponCardCell.m in Sources */,
 				36F906381BE2058B0017F5AA /* MJMethod.m in Sources */,
 				DFD052D01C3CE9A8000E034F /* MBProgressHUD+MJ.m in Sources */,
 				3647CCD31C482D9C00F1598A /* HomeShowPicturwCell.m in Sources */,
@@ -4472,6 +4477,7 @@
 				36E036711BD8CD54001E327D /* TalkTabBar.m in Sources */,
 				DFD054BD1C3CED10000E034F /* MWTapDetectingImageView.m in Sources */,
 				DFD054B71C3CED10000E034F /* UIView+MJExtension.m in Sources */,
+				ACC9856F1CAD6FD10003C28B /* CompletedChatViewController.m in Sources */,
 				36F824081C42CD8A00D0E1B5 /* RSADataVerifier.m in Sources */,
 				36474AAE1C40F08000C12D2C /* Foreigner0ViewController.m in Sources */,
 				366A241C1BFAD44C00F2E7DD /* Balance.m in Sources */,

@@ -11,8 +11,12 @@
 #import "MBProgressHUD+MJ.h"
 #import "solveJsonData.h"
 #import "Check.h"
-@interface AddCreditCardViewController ()
+#import "ViewControllerUtil.h"
 
+@interface AddCreditCardViewController ()
+{
+    ViewControllerUtil *_vcUtil;
+}
 @property (nonatomic,strong)UITextField *cardnumber;
 @property (nonatomic,strong)UITextField *holdername;
 
@@ -27,16 +31,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
-    
-    title.text = @"Add new credit card";
-    
-    title.textAlignment = NSTextAlignmentCenter;
-    
-    title.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
-    title.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:17.0];
-    
-    self.navigationItem.titleView = title;
+    _vcUtil = [[ViewControllerUtil alloc]init];
+    self.navigationItem.titleView = [_vcUtil SetTitle:AppNewCreditCard];
 
     [self addView];
 
@@ -57,9 +53,7 @@
     _cardnumber.textAlignment = NSTextAlignmentCenter;
     [_cardnumber setBackground:[UIImage imageNamed:@"login_input_lg.png"]];
     [self.view addSubview:_cardnumber];
-    
-    
-    
+
     self.mmyy = [[UITextField alloc]init];
     _mmyy.frame = kCGRectMake(50, CGRectGetMaxY(_cardnumber.frame) + 30, 131.385, 60);
     _mmyy.keyboardType = UIKeyboardTypeNumberPad; // 修改9

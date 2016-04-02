@@ -21,7 +21,7 @@
 #import "ViewControllerUtil.h"
 #import "LoginViewController.h"
 
-@interface HomeViewController ()<UISearchBarDelegate,UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,UISearchDisplayDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface HomeViewController ()<UISearchBarDelegate,UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,UISearchDisplayDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, UIAlertViewDelegate>
 {
     NSMutableArray *dataArray;
     NSMutableDictionary *dataDic_1;
@@ -37,6 +37,7 @@
     NSDictionary * _dicP;//接受匹配信息的通知
     NSMutableArray *_piArr;//存放匹配信息
     NSString *_order_id_from_db;
+    ViewControllerUtil *_vcUtil;
 }
 @property (nonatomic,strong)UINavigationBar *bar;
 @property (nonatomic,strong)UISearchDisplayController *searchController;
@@ -82,6 +83,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"tongzhi" object:nil];
     [self requestDataMethod];
 
+    _vcUtil = [[ViewControllerUtil alloc]init];
 }
 
 -(void)tongzhi:(NSNotification *)dic
@@ -115,7 +117,7 @@
     cell.titlelb.text = [NSString stringWithFormat:@"Topic：%@",dataArray[indexPath.item][@"topic"]];
     cell.nickNameLb.text = [NSString stringWithFormat:@"Nick：%@",dataArray[indexPath.item][@"username"]];
     cell.dianzanLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"praise"]];
-    cell.pingfenLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"star"]];;
+    cell.pingfenLb.text = @"0.0";//[NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"star"]];;
     cell.occupationLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"occupation"]];
     return cell;
     
@@ -164,7 +166,7 @@
     
     // 点赞、评分
     self.dianzaiLb.text = dataDic[@"praise"];
-    self.pingfenLb.text = dataDic[@"star"];
+    self.pingfenLb.text = @"0.0";//dataDic[@"star"];
     [self.dianzangBtn addTarget:self action:@selector(dianzangBtn:) forControlEvents:(UIControlEventTouchUpInside)];
 
     //确定进入下一步
@@ -175,6 +177,11 @@
 //FIXME to cancel the praise when clicking again
 - (void)dianzangBtn:(id)sender
 {
+    if(_uid.length == 0)
+    {
+        [MBProgressHUD showError:kAlertNotLogin];
+        return;
+    }
     NSDictionary *parmeDic = @{@"cmd":@"15",@"user_id":self.dataDic[@"uid"],@"praise_id":_uid};
     TalkLog(@"Praise parmeDic: %@",parmeDic);
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
@@ -186,7 +193,7 @@
         NSDictionary *dic = [solveJsonData changeType:responseObject];
         TalkLog(@"result: %@",dic);
 
-        if([dic[@"code"] isEqualToString:@"2"])
+        if([dic[@"code"] isEqualToString:SERVER_SUCCESS])
         {
             int praiseCount = [self.dataDic[@"praise"] intValue] + 1;
             self.dianzaiLb.text = [NSString stringWithFormat:@"%d",praiseCount];
@@ -270,19 +277,20 @@
         AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
         session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
         NSMutableDictionary *parmes = [NSMutableDictionary dictionary];
+        parmes[@"cmd"] = @"16";
         parmes[@"theory_time"] = @(DEFAULT_VOICE_MSG_DURATION_MINS);
         parmes[@"student_id"] = [NSNumber numberWithInt:[_uid intValue]];
         parmes[@"teacher_id"] = [NSNumber numberWithInt:[foreigner_uid intValue]];
         NSLog(@"parmes %@",parmes);
         
-        [session POST:PATH_GET_ORDER parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
+        [session POST:PATH_GET_LOGIN parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NSDictionary *dic = [solveJsonData changeType:responseObject];
             NSLog(@"result = %@",dic);
             _order_id_from_db = [dic objectForKey:@"order_id"];
             
-            if ([[dic objectForKey:@"code" ] isEqualToString:@"2"])
+            if ([[dic objectForKey:@"code" ] isEqualToString:SERVER_SUCCESS])
             {
                 [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController order_id:_order_id_from_db];
                 self.navigationController.tabBarItem.badgeValue = nil;
@@ -304,16 +312,17 @@
                         AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
                         session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
                         NSMutableDictionary *parmes = [NSMutableDictionary dictionary];
+                        parmes[@"cmd"] = @"17";
                         parmes[@"theory_time"] = @(DEFAULT_VOICE_MSG_DURATION_MINS);//FIXME user choose time
                         parmes[@"order_id"] = [NSNumber numberWithInt:[_order_id_from_db intValue]];
                         NSLog(@"%@",parmes);
                         
-                        [session POST:PATH_FINISH_ORDER_PAY parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
+                        [session POST:PATH_GET_LOGIN parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
 
                         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                             NSDictionary *dic = [solveJsonData changeType:responseObject];
                             NSLog(@"result = %@",dic);
-                            if ([[dic objectForKey:@"code" ] isEqualToString:@"2"])
+                            if ([[dic objectForKey:@"code" ] isEqualToString:SERVER_SUCCESS])
                             {
                                 [MBProgressHUD showSuccess:@"Ali pay successful"];
                                 [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController order_id:_order_id_from_db];
@@ -363,19 +372,16 @@
     NSMutableDictionary *parmes = [NSMutableDictionary dictionary];
 
     parmes[@"user_id"] = [NSNumber numberWithInt:[_uid intValue]];
-    
     parmes[@"recharge_money"] = @"10";
+    parmes[@"cmd"] = @"24";
     
-    //    parmes[@"theory_time"] = @"";
-    //    parmes[@"cmd"] = @"19";
-    
-    [session POST:PATH_ADD_MONEY parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
+    [session POST:PATH_GET_LOGIN parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         NSDictionary *dic = [solveJsonData changeType:responseObject];
         NSLog(@"%@",dic);
-        if ([[dic objectForKey:@"code"] isEqualToString:@"2"]) {
+        if ([[dic objectForKey:@"code"] isEqualToString:SERVER_SUCCESS]) {
             
             // 充值成功
             NSLog(@"充值成功");
@@ -475,8 +481,7 @@
     //self.tabBarController.tabBar.hidden = YES;
     
     //FIXME strange behavior in viewdidload
-    ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
-    self.bar = [vcUtil ConfigNavigationBar:AppDiscover NavController: self.navigationController NavBar:self.bar];
+    self.bar = [_vcUtil ConfigNavigationBar:AppDiscover NavController: self.navigationController NavBar:self.bar];
     [self.view addSubview:self.bar];
     [self searchBarView];
     
@@ -545,7 +550,7 @@
     
     // 点赞、评分
     self.dianzaiLb.text = dataDic[@"praise"];
-    self.pingfenLb.text = dataDic[@"star"];
+    self.pingfenLb.text = @"0.0";//dataDic[@"star"];
     [self.dianzangBtn addTarget:self action:@selector(dianzangBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     
     //确定进入下一步+
@@ -558,11 +563,6 @@
     self.searchBar.alpha = 1.0f;
     //[self.searchBar resignFirstResponder];
     [self.searchController setActive:NO];
-    
-}
-
--(void)loadPayment
-{
     
 }
 
@@ -641,8 +641,8 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [MBProgressHUD hideHUD];
         NSDictionary *dic = [solveJsonData changeType:responseObject];
-        if ([[dic objectForKey:@"code"]isEqualToString:@"2"]) {
-            
+        if ([[dic objectForKey:@"code"]isEqualToString:SERVER_SUCCESS])
+        {
             NSArray *array = [dic objectForKey:@"result"];
             NSString *localUid = [[NSUserDefaults standardUserDefaults] valueForKey:@"uid"];
             for (NSDictionary *dic in array) {

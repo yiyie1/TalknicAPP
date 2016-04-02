@@ -15,6 +15,7 @@
 #import "EaseMessageReadManager.h"
 #import "AFNetworking.h"
 #import "ViewControllerUtil.h"
+#import "CompletedChatViewController.h"
 
 #define KHintAdjustY    50
 
@@ -24,6 +25,7 @@
     UIMenuItem *_deleteMenuItem;
     UILongPressGestureRecognizer *_lpgr;
     NSString *_userId;
+    NSString *_chatter_uid;
     BOOL _bValidMsg;
     NSInteger _remaining_msg_time;
     dispatch_queue_t _messageQueue;
@@ -171,6 +173,9 @@
         [self _scrollViewToBottom:NO];
     }
     self.scrollToBottomWhenAppear = YES;
+    
+    if(!_bValidMsg)
+       [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -1784,8 +1789,15 @@
             if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
             {
                 NSDictionary *order_result = [dic objectForKey:@"result"];
+                if ([[vcUtil CheckRole] isEqualToString:CHINESEUSER])
+                    _chatter_uid = [order_result objectForKey:@"user_teacher_id"];
+                else
+                    _chatter_uid = [order_result objectForKey:@"user_student_id"];
+
                 if([vcUtil IsValidChat:[order_result objectForKey:@"paytime"] msg_time: [order_result objectForKey:@"time"]])
                 {
+                    [vcUtil RemainingMsgTimeNotify:[order_result objectForKey:@"paytime"] msg_time:[order_result objectForKey:@"time"]];
+                    
                     _remaining_msg_time = [[order_result objectForKey:@"time"] integerValue] - duration;
                     _bValidMsg = YES;
                     
@@ -1835,8 +1847,22 @@
                 {
                     _bValidMsg = NO;
                     //FIXME End this chat or go to pay
-                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppConChat delegate:self cancelButtonTitle:AppSure otherButtonTitles:nil];
-                    [alert show];
+                    if([[vcUtil CheckRole] isEqualToString:CHINESEUSER])
+                    {
+                        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppConChat delegate:self cancelButtonTitle:AppSure otherButtonTitles:nil];
+                        [alert show];
+                    
+                    }
+                    else
+                    {
+                        [MBProgressHUD showSuccess:@"Completed chat"];
+                    }
+                    
+                    CompletedChatViewController *completedVC = [[CompletedChatViewController alloc]init];
+                    completedVC.uid = _userId;
+                    completedVC.chatter_uid = _chatter_uid;
+                    completedVC.order_id = _orderId;
+                    [self.navigationController pushViewController:completedVC animated:YES];
                 }
             }
             else

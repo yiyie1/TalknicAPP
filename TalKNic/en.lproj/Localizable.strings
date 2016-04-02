@@ -83,14 +83,22 @@
 "alert.AliPayFail" = "AliPay Failed";
 "alert.notLogin" = "Not Login";
 "alert.plsLogin" = "Please Login";
+"alert.OneMinute" = "One minute left";
+"alert.NoCoupon" = "No Coupon";
+"alert.rate" = "Please rate";
+"alert.comment" = "Please add your comments";
 //APP language
+"AppNotify" = "Notification";
 "AppForeigner" = "Foreigner";
 "AppChinese"   = "Chinese";
-
+"AppNewCreditCard" = "Add New Credit Card";
 "AppPraised"    = "Already praised";
 "AppPraiseFail"    = "Praise failed";
-
+"AppPaid" = "Paid";
+"AppRate" = "Rate";
+"AppComments" = "Comments";
 "AppConChat" = "Recharging if you want to continue chatting";
+"AppTotalTimeLessThanMsgTime" = "The chat needs to be finished in 24 hours, Please keep chatting";
 "AppSure"   = "Sure";
 
 "AppChangePassword" = "Change Password";
@@ -166,6 +174,7 @@
 "AppFollowing" = "Following";
 "AppFreeze" = "Freeze balance";
 "AppAudioMessaage" = "Audio Message";
+"AppCompleted" = "Completed";
   "AppWeChat" = "WeChat";
 "AppWeibo" = "Weibo";
 "AppMessage" = "Message";

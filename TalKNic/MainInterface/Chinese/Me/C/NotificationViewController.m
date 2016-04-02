@@ -50,7 +50,7 @@
     _tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:(UITableViewStyleGrouped)];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    [_tableView setScrollEnabled:NO];
+    [_tableView setScrollEnabled:YES];
     [self.view addSubview:_tableView];
     _allSetting = @[[Setting settingWithGroup:@[@"Allow notification"]],[Setting settingWithGroup:@[@"Comment",@"Message"]],[Setting settingWithGroup:@[@"Sound",@"Vibrate"]]];
 }
