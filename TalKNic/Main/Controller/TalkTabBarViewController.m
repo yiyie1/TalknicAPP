@@ -100,6 +100,7 @@
 
     }
     self.selectedIndex = 0;
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -130,6 +131,9 @@
     imageView.frame = kCGRectMake(0, 0, 375, 1);
     imageView.image = [UIImage imageNamed:@"discover_split_line_blue_foot.png"];
     [self.tabBar addSubview:imageView];
+    
+    //设置VoiceViewController 的tabbar通知小红点，和app图标小红点
+    [self setVoiceViewControllerBadgeNumber];
     
 }
 - (void)addChildVc:(UIViewController *)childVc title:(NSString *)title image:(NSString *)image selectedImage:(NSString *)selectedImage
@@ -414,6 +418,7 @@
     self.clickToLineArr2 = nil;
     
 }
+
 /*
  UITableViewController *VC1=[[UITableViewController alloc]init];
  VC1.modalPresentationStyle=UIModalPresentationPopover;
@@ -441,5 +446,37 @@
  [self.view addSubview:backgroundView];
  
  */
+
+
+
+/**
+ *  设置VoiceViewController 的tabbar通知小红点，更新app图标小红点
+ */
+- (void)setVoiceViewControllerBadgeNumber{
+    
+    // 1. 统计环信未读消息个数
+    NSDictionary *easeMobMessageCountsDic = [[NSUserDefaults standardUserDefaults] objectForKey:EaseMobUnreaderMessageCount];
+
+    if (easeMobMessageCountsDic == nil) return;
+    
+    if (self.viewControllers.count > 1) {
+        int allCount = 0;
+        for(NSString *senderIdStr in easeMobMessageCountsDic.allKeys){
+            NSString *senderCount = (NSString *)easeMobMessageCountsDic[senderIdStr];
+            allCount += senderCount.intValue;
+        }
+        
+        // 2. 设置badge的显示
+        if (allCount >= 0) {
+            // 设置VoiceViewController 的tabbar通知小红点
+            TalkNavigationController *voiceNav = (TalkNavigationController *)self.viewControllers[1];
+            voiceNav.tabBarItem.badgeValue = self.navigationController.tabBarItem.badgeValue = allCount == 0 ? nil : [NSString stringWithFormat:@"%d", allCount];
+            
+            // 更新app图标小红点通知
+            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:allCount];
+        }
+    }
+}
+
 
 @end
