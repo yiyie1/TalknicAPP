@@ -193,7 +193,7 @@
         NSDictionary *dic = [solveJsonData changeType:responseObject];
         TalkLog(@"result: %@",dic);
 
-        if([dic[@"code"] isEqualToString:@"2"])
+        if([dic[@"code"] isEqualToString:SERVER_SUCCESS])
         {
             int praiseCount = [self.dataDic[@"praise"] intValue] + 1;
             self.dianzaiLb.text = [NSString stringWithFormat:@"%d",praiseCount];
@@ -290,7 +290,7 @@
             NSLog(@"result = %@",dic);
             _order_id_from_db = [dic objectForKey:@"order_id"];
             
-            if ([[dic objectForKey:@"code" ] isEqualToString:@"2"])
+            if ([[dic objectForKey:@"code" ] isEqualToString:SERVER_SUCCESS])
             {
                 [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController order_id:_order_id_from_db];
                 self.navigationController.tabBarItem.badgeValue = nil;
@@ -322,7 +322,7 @@
                         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                             NSDictionary *dic = [solveJsonData changeType:responseObject];
                             NSLog(@"result = %@",dic);
-                            if ([[dic objectForKey:@"code" ] isEqualToString:@"2"])
+                            if ([[dic objectForKey:@"code" ] isEqualToString:SERVER_SUCCESS])
                             {
                                 [MBProgressHUD showSuccess:@"Ali pay successful"];
                                 [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController order_id:_order_id_from_db];
@@ -381,7 +381,7 @@
         
         NSDictionary *dic = [solveJsonData changeType:responseObject];
         NSLog(@"%@",dic);
-        if ([[dic objectForKey:@"code"] isEqualToString:@"2"]) {
+        if ([[dic objectForKey:@"code"] isEqualToString:SERVER_SUCCESS]) {
             
             // 充值成功
             NSLog(@"充值成功");
@@ -641,8 +641,8 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [MBProgressHUD hideHUD];
         NSDictionary *dic = [solveJsonData changeType:responseObject];
-        if ([[dic objectForKey:@"code"]isEqualToString:@"2"]) {
-            
+        if ([[dic objectForKey:@"code"]isEqualToString:SERVER_SUCCESS])
+        {
             NSArray *array = [dic objectForKey:@"result"];
             NSString *localUid = [[NSUserDefaults standardUserDefaults] valueForKey:@"uid"];
             for (NSDictionary *dic in array) {

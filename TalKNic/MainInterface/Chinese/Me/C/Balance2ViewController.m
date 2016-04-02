@@ -141,7 +141,7 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = [solveJsonData changeType:responseObject];
         NSLog(@"%@",dic);
-        if ([[dic objectForKey:@"code"]isEqualToString:@"2"])
+        if ([[dic objectForKey:@"code"]isEqualToString:SERVER_SUCCESS])
         {
             if (![[[dic objectForKey:@"result"] class] isSubclassOfClass:[NSString class]])
             {

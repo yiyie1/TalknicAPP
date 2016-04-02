@@ -45,6 +45,8 @@
 //RGB颜色
 #define TalkColor(r,g,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
 
+#define RMB_PER_MIN (1)
+
 //随机色
 #define TalkRandomColor  TalkColor(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
 #define kColorvalue 85.0
@@ -131,6 +133,9 @@
 #define kSendBtnHigh @"login_btn_100%_a.png"
 #define kInputLg @"login_input_lg.png"
 
+//Server return value
+#define SERVER_SUCCESS  @"2"
+
 // 国际化
 #define kAlertNotLogin  NSLocalizedString(@"alert.notLogin",@"")
 #define kAlertPlsLogin  NSLocalizedString(@"alert.plsLogin",@"")
@@ -213,6 +218,8 @@
 #define  kAlertNerverSignup NSLocalizedString(@"alert.neverSignup",@"")
 #define  kAlertAliPayFail   NSLocalizedString(@"alert.AliPayFail",@"")
 #define  kAlertOneMinute    NSLocalizedString(@"alert.OneMinute",@"")
+#define kAlertRate  NSLocalizedString(@"alert.rate",@"")
+#define kAlertComment  NSLocalizedString(@"alert.comment",@"")
 
 #define  AppPraised NSLocalizedString(@"AppPraised",@"")
 #define  AppPraiseFail NSLocalizedString(@"AppPraiseFail",@"")
@@ -222,7 +229,9 @@
 #define AppTotalTimeLessThanMsgTime NSLocalizedString(@"AppTotalTimeLessThanMsgTime",@"")
 #define AppNewCreditCard    NSLocalizedString(@"AppNewCreditCard",@"")
 #define AppSure     NSLocalizedString(@"AppSure",@"")
-
+#define AppPaid     NSLocalizedString(@"AppPaid",@"")
+#define AppRate     NSLocalizedString(@"AppRate",@"")
+#define AppComments NSLocalizedString(@"AppComments",@"")
 //APP language
 #define AppCompleted    NSLocalizedString(@"AppCompleted",@"")
 #define AppDone  NSLocalizedString(@"AppDone",@"")

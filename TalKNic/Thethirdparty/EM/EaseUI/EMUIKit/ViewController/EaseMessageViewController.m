@@ -1861,6 +1861,7 @@
                     CompletedChatViewController *completedVC = [[CompletedChatViewController alloc]init];
                     completedVC.uid = _userId;
                     completedVC.chatter_uid = _chatter_uid;
+                    completedVC.order_id = _orderId;
                     [self.navigationController pushViewController:completedVC animated:YES];
                 }
             }

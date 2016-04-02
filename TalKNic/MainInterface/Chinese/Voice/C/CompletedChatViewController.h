@@ -11,4 +11,5 @@
 @interface CompletedChatViewController : UIViewController
 @property(nonatomic,strong) NSString *uid;
 @property(nonatomic,strong) NSString *chatter_uid;
+@property(nonatomic,strong) NSString *order_id;
 @end

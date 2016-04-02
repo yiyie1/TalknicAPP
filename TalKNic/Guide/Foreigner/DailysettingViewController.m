@@ -120,8 +120,7 @@
         btn1.tag = 100 + i;
         [btn1 setTitle:arr[i]forState:UIControlStateNormal];
         btn1.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0];
-        NSString *a = @"0";
-        [self.clickArr addObject:a];
+        [self.clickArr addObject:@"0"];
         [btn1 addTarget:self action:@selector(click:) forControlEvents:(UIControlEventTouchUpInside)];
         [btn1 setBackgroundImage:[UIImage imageNamed:@"login_btn_50%.png"] forState:(UIControlStateNormal)];
         [self.view addSubview:btn1];

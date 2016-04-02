@@ -85,16 +85,19 @@
 "alert.plsLogin" = "请先登录";
 "alert.OneMinute" = "本次聊天还剩余一分钟";
 "alert.NoCoupon" = "无优惠券";
+"alert.rate" = "请评星";
+"alert.comment" = "请添加评价";
 
 //APP language
 "AppForeigner" = "老外";
 "AppChinese"   = "中国人";
-
+"AppNotify" = "提醒";
 "AppPraised"    = "已点赞";
 "AppPraiseFail"    = "未点赞";
-
+"AppPaid" = "已支付";
+"AppRate" = "评分";
 "AppChangePassword" = "修改密码";
-
+"AppComments" = "评价";
 "AppConChat" = "聊天时间到,如果您想继续聊天,请重新购买支付";
 "AppSure"   = "确定";
 
