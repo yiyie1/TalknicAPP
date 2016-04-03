@@ -10,6 +10,8 @@
 #import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
 #import "solveJsonData.h"
+#import "TalkTabBarViewController.h"
+#include "TalkNavigationController.h"
 @interface ViewControllerUtil () <UIAlertViewDelegate>
 
 @end
@@ -161,4 +163,60 @@
         return;
     }];
 }
+
+
++ (void)setVoiceViewControllerBadgeAndAppIconBadge{
+    
+    // 1. 统计环信未读消息个数
+    NSDictionary *easeMobMessageCountsDic = [[NSUserDefaults standardUserDefaults] objectForKey:EaseMobUnreaderMessageCount];
+    
+    if (easeMobMessageCountsDic == nil) return;
+    
+    int allCount = 0;
+    for(NSString *senderIdStr in easeMobMessageCountsDic.allKeys){
+        NSString *senderCount = (NSString *)easeMobMessageCountsDic[senderIdStr];
+        allCount += senderCount.intValue;
+    }
+    
+    [self showVoiceViewVCTabbarBadgeAndAppIconBadgeWithNumber:allCount];
+}
+
+
+
+/**
+ *  设置聊天视图VoiceViewController tabbar上通知小红点，设置app图标上的通知小红点
+ *
+ *  @param badgeNumber    小红点个数
+ */
++ (void)showVoiceViewVCTabbarBadgeAndAppIconBadgeWithNumber:(int)badgeNumber{
+    
+    if (badgeNumber >= 0) {
+        
+        // 设置VoiceViewController的badgeNumber
+        TalkNavigationController *talkNav = [self getVoiceViewController];
+        talkNav.tabBarItem.badgeValue = badgeNumber == 0 ? nil : [NSString stringWithFormat:@"%d", badgeNumber];
+        
+        // 设置app图标小红点通知
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:badgeNumber];
+    }
+
+}
+
+/**
+ *  获取到VoiceViewController视图
+ */
++ (TalkNavigationController *)getVoiceViewController{
+    
+    if ([[UIApplication sharedApplication].keyWindow.rootViewController class] == [TalkTabBarViewController class] &&
+        [UIApplication sharedApplication].keyWindow.rootViewController != nil) {
+        TalkTabBarViewController *rootVC = (TalkTabBarViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+        
+        if (rootVC.viewControllers.count > 1) {
+            TalkNavigationController *talkNavVC = rootVC.viewControllers[1];
+            return talkNavVC;
+        }
+    }
+    return nil;
+}
+
 @end

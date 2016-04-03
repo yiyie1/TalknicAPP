@@ -13,6 +13,12 @@
 
 -(UINavigationBar* )ConfigNavigationBar:(NSString*)titleStr NavController: (UINavigationController *)NavController NavBar: (UINavigationBar*)NavBar;
 
+//设置聊天视图VoiceViewController tabbar上聊天通知小红点，设置app图标上的通知小红点
++ (void)setVoiceViewControllerBadgeAndAppIconBadge;
+
+//显示聊天视图VoiceViewController tabbar上聊天通知小红点，设置app图标上的通知小红点
++ (void)showVoiceViewVCTabbarBadgeAndAppIconBadgeWithNumber:(int)badgeNumber;
+
 
 //UserDefault
 -(NSString*)GetUid;

@@ -16,6 +16,7 @@
 //#import "UserProfileManager.h"
 //#import "ContactListSelectViewController.h"
 #import "EaseMessageViewController.h"
+#import "ViewControllerUtil.h"
 @interface EMChatViewController ()<UIAlertViewDelegate, EaseMessageViewControllerDelegate, EaseMessageViewControllerDataSource>
 {
     UIMenuItem *_copyMenuItem;
@@ -66,6 +67,8 @@
     
     EaseEmotionManager *manager= [[EaseEmotionManager alloc] initWithType:EMEmotionDefault emotionRow:3 emotionCol:7 emotions:[EaseEmoji allEmoji]];
     [self.faceView setEmotionManagers:@[manager]];
+    
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -84,11 +87,17 @@
             self.title = [self.conversation.ext objectForKey:@"groupSubject"];
         }
     }
+    
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     self.tabBarController.tabBar.hidden = NO;
+    
+    //设置VoiceViewController 的tabbar通知小红点
+    [ViewControllerUtil setVoiceViewControllerBadgeAndAppIconBadge];
+
 }
 #pragma mark - setup subviews
 
@@ -475,5 +484,7 @@
     [self.menuController setTargetRect:showInView.frame inView:showInView.superview];
     [self.menuController setMenuVisible:YES animated:YES];
 }
+
+
 
 @end

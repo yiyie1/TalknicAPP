@@ -182,9 +182,6 @@
     
     [self GetChatterInformation];
     
-    //设置VoiceViewController 的tabbar通知小红点
-    [self setVoiceViewControllerBadgeNumber];
-    
 }
 
 -(void)messageView
@@ -304,8 +301,8 @@
         [EaseMobSDK createOneChatViewWithConversationChatter:_chatter_array[indexPath.row] Name:_userName[indexPath.row] onNavigationController:self.navigationController order_id:[order_dic objectForKey:@"order_id"]];
 //        self.navigationController.tabBarItem.badgeValue = nil;
         
-        //清除对应聊天对象的未读消息数，同时更新tabbar和appIcon小红点
-        [self updateEaseMobMessageCountsWith:_chatter_array[indexPath.row]];
+        //更新记录当前聊天对象uid的变量
+        
     }
     else
     {
@@ -376,79 +373,6 @@
             break;
     }
 }
-
-
-/**
- *  设置VoiceViewController的tabbar通知小红点， 更新app图标小红点
- */
-- (void)setVoiceViewControllerBadgeNumber{
-    //获取环信未读消息数据
-    NSDictionary *easeMobMessageCountsDic = [[NSUserDefaults standardUserDefaults] objectForKey:EaseMobUnreaderMessageCount];
-    
-    if (easeMobMessageCountsDic == nil) return;
-    
-    //统计未读消息数
-    int allCount = 0;
-    for(NSString *senderIdStr in easeMobMessageCountsDic.allKeys){
-        NSString *senderCount = (NSString *)easeMobMessageCountsDic[senderIdStr];
-        allCount += senderCount.intValue;
-    }
-    
-    // 设置app图标小红点通知, tabbar小红点通知
-    if (allCount >= 0) {
-        self.navigationController.tabBarItem.badgeValue = allCount == 0 ? nil : [NSString stringWithFormat:@"%d", allCount];
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:allCount];
-    }
-}
-
-
-
-
-/**
- *  根据用户ID清除缓存中的对应的未读消息数
- *
- *  @param senderId 聊天对象的uid
- */
-- (void)updateEaseMobMessageCountsWith:(NSString *)senderId{
-    
-    // 获取缓存中环信未读消息数据
-    NSDictionary *easeMobMessageCountsDic = [[NSUserDefaults standardUserDefaults] objectForKey:EaseMobUnreaderMessageCount];
-    int allCount = 0;
-    NSMutableDictionary *newEaseMobMessageCountsDic = [[NSMutableDictionary alloc]init];
-    BOOL hasSender = false;//消息数据中是否有聊天对象的uid
-    
-    //未读消息数据存在时，统计消息数量，更新消息数
-    if (easeMobMessageCountsDic != nil) {
-        for(NSString *senderIdStr in easeMobMessageCountsDic.allKeys){
-            
-            NSString *senderCount = (NSString *)easeMobMessageCountsDic[senderIdStr];
-            //聊天对象的uid未读消息数据中
-            if ([senderId isEqualToString:senderIdStr]) {
-                senderCount = @"0";
-                hasSender = true;
-            }else{
-                allCount += senderCount.intValue;
-            }
-            
-            [newEaseMobMessageCountsDic setValue:senderCount forKey:senderIdStr];
-        }
-        
-        //聊天对象的uid不在未读消息数据中
-        if (hasSender == false) {
-            [newEaseMobMessageCountsDic setValue:@"0" forKey:senderId];
-        }
-        
-    }else{// 消息数据不存在时，设置新的消息数据
-        allCount = 0;
-        [newEaseMobMessageCountsDic setValue:@"0" forKey:senderId];
-    }
-    
-    //将新的消息数据存入缓存
-    [[NSUserDefaults standardUserDefaults] setObject:newEaseMobMessageCountsDic forKey:EaseMobUnreaderMessageCount];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-}
-
 
 
 //-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar

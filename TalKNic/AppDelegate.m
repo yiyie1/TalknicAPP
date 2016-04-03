@@ -23,14 +23,19 @@
 #import "MBProgressHUD+MJ.h"
 #import "VoiceViewController.h"
 #import "TalkNavigationController.h"
+#import "CommonHeader.h"
+#import "EaseMessageViewController.h"
 
 @interface AppDelegate ()<IChatManagerDelegate>
 
 @end
 
+extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊天界面打开时该变量才会被赋值
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
 //    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
@@ -346,22 +351,17 @@
  *  @param message 消息信息
  */
 - (void)didReceiveMessage:(EMMessage *)message{
-    
-    //设置聊天视图VoiceViewController tabbar上聊天通知小红点，设置app图标上的通知小红点
-    
-    // 1. 获取并更新缓存中未读聊天消息数
-    int allEaseMobMessageCounts = [self updateEaseMobMessageCountsWith:message.from];
-    
-    if (allEaseMobMessageCounts > 0) {
+
+    // 如果正在聊天对象的uid与接收到的消息的uid相同，则不更新小红点，否则更新小红点
+    if (![CurrentTalkerUid isEqualToString:message.from]) {
         
-        // 2. 设置VoiceViewController的badgeNumber
-        TalkNavigationController *talkNav = [self getVoiceViewController];
-        talkNav.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d", allEaseMobMessageCounts];
+        // 1. 获取并更新缓存中未读聊天消息数
+        int allEaseMobMessageCounts = [self updateEaseMobMessageCountsWith:message.from];
         
-        // 3. 设置app图标小红点通知
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:allEaseMobMessageCounts];
+        // 2.设置聊天视图VoiceViewController tabbar上聊天通知小红点，设置app图标上的通知小红点
+        [ViewControllerUtil showVoiceViewVCTabbarBadgeAndAppIconBadgeWithNumber:allEaseMobMessageCounts];
+
     }
-    
 }
 
 
@@ -375,26 +375,6 @@
 }
 
 #pragma EaseMobListening 环信聊天事件监听 end
-
-
-/**
- *  获取到VoiceViewController视图
- */
-- (TalkNavigationController *)getVoiceViewController{
-    
-    if ([[UIApplication sharedApplication].keyWindow.rootViewController class] == [TalkTabBarViewController class] &&
-        [UIApplication sharedApplication].keyWindow.rootViewController != nil) {
-        TalkTabBarViewController *rootVC = (TalkTabBarViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-        
-        if (rootVC.viewControllers.count > 1) {
-            TalkNavigationController *talkNavVC = rootVC.viewControllers[1];
-            return talkNavVC;
-        }
-    }
-    return nil;
-}
-
-
 /**
  *  获取并更新缓存中未读环信聊天消息数
  *  @param messageSenderId 消息发送者的uid

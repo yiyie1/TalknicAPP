@@ -16,6 +16,7 @@
 #import "AFNetworking.h"
 #import "ViewControllerUtil.h"
 #import "CompletedChatViewController.h"
+#import "CommonHeader.h"
 
 #define KHintAdjustY    50
 
@@ -32,6 +33,7 @@
     AFHTTPSessionManager *_manager;
 }
 
+
 @property (strong, nonatomic) id<IMessageModel> playingVoiceModel;
 @property (nonatomic) BOOL isKicked;
 @property (nonatomic) BOOL isPlayingAudio;
@@ -41,6 +43,8 @@
 @property (assign ,nonatomic) int l;
 
 @end
+
+NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊天界面打开时该变量才会被赋值
 
 @implementation EaseMessageViewController
 
@@ -70,6 +74,9 @@
         [_conversation markAllMessagesAsRead:YES];
         _manager = [AFHTTPSessionManager manager];
         _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+        
+        //设置当量聊天对象的uid
+         CurrentTalkerUid = _userId;
         
     }
     
@@ -132,6 +139,8 @@
                                              selector:@selector(didBecomeActive)
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
+    //根据聊天对象ID清除缓存中的对应的未读消息数
+    [self updateEaseMobMessageCountsWith:_userId];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -160,6 +169,9 @@
         [_imagePicker dismissViewControllerAnimated:NO completion:nil];
         _imagePicker = nil;
     }
+    
+    //清空当前聊天对象uid
+    CurrentTalkerUid = @"";
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -1943,5 +1955,52 @@
         [_conversation markAllMessagesAsRead:YES];
     }
 }
+
+
+/**
+ *  根据聊天对象ID清除缓存中的对应的未读消息数
+ *
+ *  @param senderId 聊天对象的uid
+ */
+- (void)updateEaseMobMessageCountsWith:(NSString *)senderId{
+    
+    // 获取缓存中环信未读消息数据
+    NSDictionary *easeMobMessageCountsDic = [[NSUserDefaults standardUserDefaults] objectForKey:EaseMobUnreaderMessageCount];
+    int allCount = 0;
+    NSMutableDictionary *newEaseMobMessageCountsDic = [[NSMutableDictionary alloc]init];
+    BOOL hasSender = false;//消息数据中是否有聊天对象的uid
+    
+    //未读消息数据存在时，统计消息数量，更新消息数
+    if (easeMobMessageCountsDic != nil) {
+        for(NSString *senderIdStr in easeMobMessageCountsDic.allKeys){
+            
+            NSString *senderCount = (NSString *)easeMobMessageCountsDic[senderIdStr];
+            //聊天对象的uid未读消息数据中
+            if ([senderId isEqualToString:senderIdStr]) {
+                senderCount = @"0";
+                hasSender = true;
+            }else{
+                allCount += senderCount.intValue;
+            }
+            
+            [newEaseMobMessageCountsDic setValue:senderCount forKey:senderIdStr];
+        }
+        
+        //聊天对象的uid不在未读消息数据中
+        if (hasSender == false) {
+            [newEaseMobMessageCountsDic setValue:@"0" forKey:senderId];
+        }
+        
+    }else{// 消息数据不存在时，设置新的消息数据
+        allCount = 0;
+        [newEaseMobMessageCountsDic setValue:@"0" forKey:senderId];
+    }
+    
+    //将新的消息数据存入缓存
+    [[NSUserDefaults standardUserDefaults] setObject:newEaseMobMessageCountsDic forKey:EaseMobUnreaderMessageCount];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+}
+
 
 @end
