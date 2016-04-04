@@ -223,8 +223,8 @@
     
     NSMutableDictionary *parme = [NSMutableDictionary dictionary];
     parme[@"cmd"] = @"19";
-    parme[@"user_id"] = @"151";//_chatter_uid;
-    TalkLog(@"Me ID -- %@",_chatter_uid);
+    parme[@"user_id"] = _chatter_uid;
+    TalkLog(@"parme -- %@",parme);
     [_session POST:PATH_GET_LOGIN parameters:parme progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -277,12 +277,14 @@
         _comment = _commentTF.text;
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    dic[@"cmd"] = @"32";
-    dic[@"user_id"] = _uid;
+    dic[@"cmd"] = @"35";
+    dic[@"uid"] = _uid;
+    dic[@"chatter_id"] = _chatter_uid;
+    dic[@"order_id"] = _order_id;
     dic[@"role"] = [_vcUtil CheckRole];
-    dic[@"stars"] = [NSString stringWithFormat:@"%ld",(long)_score];
+    dic[@"rate"] = [NSString stringWithFormat:@"%ld",(long)_score];
     dic[@"comment"] = _comment;
-    
+
     TalkLog(@"dic--%@",dic);
     [_session POST:PATH_GET_LOGIN parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
         
@@ -292,6 +294,7 @@
         if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2) )
         {
             [MBProgressHUD showSuccess:kAlertdataSuccess];
+            [self.navigationController popViewControllerAnimated:YES];
         }
         else
         {
@@ -302,14 +305,15 @@
         [MBProgressHUD showError:kAlertNetworkError];
         return;
     }];
-
-}
+    }
 
 -(void)loadPayment
 {
     NSMutableDictionary *dicc = [NSMutableDictionary dictionary];
     dicc[@"cmd"] = @"33";
-    dicc[@"order_id"] = @"124";//_order_id;
+    dicc[@"order_id"] = _order_id;
+    TalkLog(@"cmd 33 dicc -- %@",dicc);
+
     [_session POST:PATH_GET_LOGIN parameters:dicc progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         TalkLog(@"cmd 33 result -- %@",responseObject);

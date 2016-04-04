@@ -45,8 +45,6 @@
 //RGB颜色
 #define TalkColor(r,g,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
 
-#define RMB_PER_MIN (1)
-
 //随机色
 #define TalkRandomColor  TalkColor(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
 #define kColorvalue 85.0
@@ -107,7 +105,7 @@
 
 #define DEFAULT_VOICE_MSG_DURATION_MINS      (15)
 #define DEFAULT_MAX_CHAT_DURATION_MINS       (60 * 24)
-#define RMB_PER_MIN                          (1.5)
+#define RMB_PER_MIN                          (1)
 
 #define ALI_PAY_SUBJECT @"TALKNIC PAY ACCOUNT"
 //聊天

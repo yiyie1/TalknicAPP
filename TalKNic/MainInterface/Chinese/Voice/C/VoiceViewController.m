@@ -20,6 +20,7 @@
 #import "ViewControllerUtil.h"
 #import "MBProgressHUD+MJ.h"
 #import "LoginViewController.h"
+#import "CompletedChatViewController.h"
 
 @interface VoiceViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,UISearchDisplayDelegate,IChatManagerDelegate>
 {
@@ -106,7 +107,6 @@
         _chatter_array = [[NSMutableArray alloc]init];
     else
         [_chatter_array removeAllObjects];
-    
 }
 
 -(void)GetChatterInformation
@@ -144,7 +144,7 @@
                     [_userName addObject:[d objectForKey:@"username"]];
                     [_strPic addObject:[d objectForKey:@"pic"]];
                     [_chatter_array addObject:[d objectForKey:@"uid"]];
-                    
+
                     NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@",[d objectForKey:@"pic"]]];
                     [picImage sd_setImageWithURL:url placeholderImage:nil];
                     photo = picImage.image;
@@ -287,6 +287,40 @@
     return KHeightScaled(88.5);
 }
 
+-(void)GotoCompletedView:(int)row
+{
+    NSDictionary *order_dic = _order_array[row];
+    NSString* order_id = [order_dic objectForKey:@"order_id"];
+
+    NSMutableDictionary *dicc = [NSMutableDictionary dictionary];
+    dicc[@"cmd"] = @"36";
+    dicc[@"order_id"] = order_id;
+    TalkLog(@"talker dic -- %@",dicc);
+    [_manager POST:PATH_GET_LOGIN parameters:dicc progress:^(NSProgress * _Nonnull uploadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        TalkLog(@"responseObject -- %@",responseObject);
+        NSDictionary* dic = [solveJsonData changeType:responseObject];
+        if ([[dic objectForKey:@"code"] isEqualToString: SERVER_SUCCESS])
+        {
+            NSString* rate = [dic objectForKey:@"student_rate"];
+            NSString* comment = [dic objectForKey:@"student_comment"];
+            if(rate.length == 0 || comment.length == 0)
+            {
+                CompletedChatViewController *com = [[CompletedChatViewController alloc]init];
+                com.uid = _uid;
+                com.chatter_uid = _chatter_array[row];
+                com.order_id = order_id;
+                [self.navigationController pushViewController:com animated:YES];
+            }
+        }
+    
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error%@",error);
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
+    }];
+
+}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     if([_titleStr isEqualToString:AppHistory])
@@ -310,12 +344,15 @@
         {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppConChat delegate:self cancelButtonTitle:AppSure otherButtonTitles:nil];
             [alert show];
-            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            //[MBProgressHUD showSuccess:AppConChat];
         }
         else
         {
             [MBProgressHUD showSuccess:@"Finished"];
         }
+        
+        [self GotoCompletedView:indexPath.row];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 }
 

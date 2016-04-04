@@ -1808,7 +1808,7 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
 
                 if([vcUtil IsValidChat:[order_result objectForKey:@"paytime"] msg_time: [order_result objectForKey:@"time"]])
                 {
-                    [vcUtil RemainingMsgTimeNotify:[order_result objectForKey:@"paytime"] msg_time:[order_result objectForKey:@"time"]];
+                    //[vcUtil RemainingMsgTimeNotify:[order_result objectForKey:@"paytime"] msg_time:[order_result objectForKey:@"time"]];
                     
                     _remaining_msg_time = [[order_result objectForKey:@"time"] integerValue] - duration;
                     _bValidMsg = YES;
