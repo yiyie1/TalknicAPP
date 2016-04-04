@@ -7,8 +7,7 @@
 //
 
 #import "VoiceViewController.h"
-#import "VoiceCell.h"
-#import "VoiceCell.h"
+//#import "VoiceCell.h"
 #import "Voice.h"
 #import "ChatViewController.h"
 #import "EaseMobSDK.h"
@@ -20,6 +19,8 @@
 #import "ViewControllerUtil.h"
 #import "MBProgressHUD+MJ.h"
 #import "LoginViewController.h"
+#import "VoiceCellModel.h"
+#import "VoiceChatCell.h"
 
 @interface VoiceViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,UISearchDisplayDelegate,IChatManagerDelegate>
 {
@@ -28,13 +29,17 @@
     UIImageView *picImage;
     UIImage *photo;
     NSMutableArray *_chatter_array;
-    NSArray* _order_array;
+//    NSArray* _order_array;
     NSMutableArray *_array;
     NSMutableArray *_userName;
     NSMutableArray *_strPic;
     ViewControllerUtil *_vcUtil;
     AFHTTPSessionManager *_manager;
     NSString *_chatterUid;
+    
+    BOOL _isOpen; //当前页是否打开
+    
+
 }
 @property (nonatomic,strong)UIButton *leftBT;
 @property (nonatomic,strong)UINavigationBar *bar;
@@ -42,12 +47,16 @@
 @property (nonatomic,copy)NSString *dateTimm;
 @property (nonatomic,strong)UISearchDisplayController *searchController;
 @property (nonatomic,strong)UISearchBar *searchBar;
+
+@property (nonatomic, strong)NSMutableArray *chatListCellsArr;//聊天列表数据
+@property (nonatomic, strong)NSMutableArray *userTeacherIdArr;
 @end
 
 @implementation VoiceViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self allocArray];
 
     _manager = [AFHTTPSessionManager manager];
     _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -57,7 +66,8 @@
     //self.bar = [_vcUtil ConfigNavigationBar:@"Audio Message" NavController: self.navigationController NavBar:self.bar];
     //[self.view addSubview:self.bar];
     
-    [self messageView];
+    
+    [self initTableView];
     
     if(_needBack)
        [self layoutLeftBtn];
@@ -65,9 +75,9 @@
     //[self searchBarView];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     
-#warning FixedByMark
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newMessage:) name:@"chineseNewMessage" object:nil];
 }
+
 
 -(void)layoutLeftBtn
 {
@@ -79,39 +89,54 @@
     self.navigationItem.leftBarButtonItem = leftI;
 }
 
+
 -(void)leftAction
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-//FIXME
+
+/**
+ *  初始化数组
+ */
 -(void)allocArray
 {
-    if(!_array)
-        _array = [[NSMutableArray alloc]init];
-    else
-        [_array removeAllObjects];
+    self.chatListCellsArr = [NSMutableArray arrayWithCapacity:0];
+    self.userTeacherIdArr = [NSMutableArray arrayWithCapacity:0];
     
-    if(!_userName)
-        _userName = [[NSMutableArray alloc]init];
-    else
-        [_userName removeAllObjects];
-    
-    if(!_strPic)
-        _strPic = [[NSMutableArray alloc]init];
-    else
-        [_strPic removeAllObjects];
-    
-    if(!_chatter_array)
-        _chatter_array = [[NSMutableArray alloc]init];
-    else
-        [_chatter_array removeAllObjects];
+//    if(!_array)
+//        _array = [[NSMutableArray alloc]init];
+//    else
+//        [_array removeAllObjects];
+//    
+//    if(!_userName)
+//        _userName = [[NSMutableArray alloc]init];
+//    else
+//        [_userName removeAllObjects];
+//    
+//    if(!_strPic)
+//        _strPic = [[NSMutableArray alloc]init];
+//    else
+//        [_strPic removeAllObjects];
+//    
+//    if(!_chatter_array)
+//        _chatter_array = [[NSMutableArray alloc]init];
+//    else
+//        [_chatter_array removeAllObjects];
     
 }
 
+
 -(void)GetChatterInformation
 {
-    [self allocArray];
+    //清空数据
+    if (self.chatListCellsArr != nil) {
+        [self.chatListCellsArr removeAllObjects];
+    }
+    if (self.userTeacherIdArr != nil) {
+        [self.userTeacherIdArr removeAllObjects];
+    }
+    
     if([[_vcUtil CheckRole] isEqualToString:CHINESEUSER])
     {
         _myRole = @"user_student_id";
@@ -128,46 +153,63 @@
     dicc[@"role"] = [_vcUtil CheckRole];
     dicc[_myRole] = _uid;
     
-    TalkLog(@"talker dic -- %@",dicc);
+    [MBProgressHUD showHUDAddedTo:self.tableView animated:NO];
     [_manager POST:PATH_GET_LOGIN parameters:dicc progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [MBProgressHUD hideAllHUDsForView:self.tableView animated:NO];
+        
         TalkLog(@"all orders info -- %@",responseObject);
         NSDictionary* dic = [solveJsonData changeType:responseObject];
         if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
         {
-            _order_array = [dic objectForKey:@"result"];
-            for(NSDictionary *d in _order_array)
+            NSArray *resultArr = [dic objectForKey:@"result"];
+            for(NSDictionary *d in resultArr)
             {
-                if(![_array containsObject:[d objectForKey:_chatterRole]])
+                if(![self.userTeacherIdArr containsObject:[d objectForKey:_chatterRole]])
                 {
-                    [_array addObject: [d objectForKey:_chatterRole]];
-                    [_userName addObject:[d objectForKey:@"username"]];
-                    [_strPic addObject:[d objectForKey:@"pic"]];
-                    [_chatter_array addObject:[d objectForKey:@"uid"]];
+//                    [_array addObject: [d objectForKey:_chatterRole]];
+//                    [_userName addObject:[d objectForKey:@"username"]];
+//                    [_strPic addObject:[d objectForKey:@"pic"]];
+//                    [_chatter_array addObject:[d objectForKey:@"uid"]];
+//                    
+//                    NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@",[d objectForKey:@"pic"]]];
+//                    [picImage sd_setImageWithURL:url placeholderImage:nil];
+//                    photo = picImage.image;
+//                    [self.tableView reloadData];
+//                    
                     
-                    NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@",[d objectForKey:@"pic"]]];
-                    [picImage sd_setImageWithURL:url placeholderImage:nil];
-                    photo = picImage.image;
-                    [self.tableView reloadData];
+                    
+                    //填充数据模型
+                    VoiceCellModel *chatCellModel = [[VoiceCellModel alloc]init];
+                    [chatCellModel setVoiceCellModelWith:d chatterRole:_chatterRole badgeNumber:[self getUnreadMessageCountWithUid:d[@"uid"]]];
+                    
+                    [self.chatListCellsArr addObject:chatCellModel];
+                    
+                    //记录所有聊天对象的user_teacher_id,防止数据模型里有重复数据
+                    #warning FixMe 是否应根据最新支付时间筛选出最新的数据
+                    [self.userTeacherIdArr addObject:[d objectForKey:_chatterRole]];
                 }
-
             }
+            
+            [self.tableView reloadData];
         }
-        self.tableView.hidden = ([_array count] == 0);
-        self.searchBar.hidden = ([_array count] == 0);
-        if([_array count] == 0)
+        self.tableView.hidden = ([self.chatListCellsArr count] == 0);
+        self.searchBar.hidden = ([self.chatListCellsArr count] == 0);
+        if([self.chatListCellsArr count] == 0)
             [MBProgressHUD showError:@"No history message"];
         //else
         //    [self.tableView reloadData];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"error%@",error);
-            self.tableView.hidden = YES;
-            self.searchBar.hidden = YES;
-            [MBProgressHUD showError:kAlertNetworkError];
-            return;
+        [MBProgressHUD hideAllHUDsForView:self.tableView animated:NO];
+        NSLog(@"error%@",error);
+        self.tableView.hidden = YES;
+        self.searchBar.hidden = YES;
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
     }];
 }
+
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -180,18 +222,30 @@
         return;
     }
     
+    _isOpen = true; //记录当前页面是否打开
     [self GetChatterInformation];
     
 }
 
--(void)messageView
+
+- (void)viewWillDisappear:(BOOL)animated{
+    
+    _isOpen = false;
+}
+
+
+/**
+ *  初始化tableView
+ */
+- (void)initTableView
 {
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0/*129.0/2 + KHeightScaled(44)*/, kWidth, kHeight) style:(UITableViewStylePlain)];
-    [self.tableView registerNib:[UINib nibWithNibName:@"VoiceCell" bundle:nil] forCellReuseIdentifier:@"cell"];
+//    [self.tableView registerNib:[UINib nibWithNibName:@"VoiceCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     self.tableView.dataSource =self;
     self.tableView.delegate = self;
     [self.view addSubview:_tableView];
 }
+
 
 -(void)searchBarView
 {
@@ -214,11 +268,13 @@
     _searchController.searchResultsDelegate =self;
 }
 
+
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
     self.searchBar.frame = CGRectMake(0, 129.0 / 2, KWidthScaled(375), KHeightScaled(44));
     self.searchBar.alpha = 1.0f;
 }
+
 
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
@@ -226,66 +282,90 @@
     self.searchBar.alpha = 1.0f;
 }
 
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return  1;
 }
 
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_userName count];
+    return _chatListCellsArr.count ? _chatListCellsArr.count : 0;
 }
+
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+//    if (tableView == self.tableView) {
+//        VoiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+//        cell.userName.text = _userName[indexPath.row];
+//        TalkLog(@"%@: %@", indexPath, _userName[indexPath.row]);
+//        
+//        cell.userMessage.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:15.0];
+//
+//        cell.uid = _chatter_array[indexPath.row];
+//        NSString* strPic = _strPic[indexPath.row];
+//        [cell.userImage sd_setImageWithURL:[NSURL URLWithString:strPic]];
+//        cell.backgroundColor = [UIColor whiteColor];
+//        
+//        NSDictionary *order_dic = _order_array[indexPath.row];
+//        if([_vcUtil IsValidChat:[order_dic objectForKey:@"paytime"] msg_time: [order_dic objectForKey:@"time"]])
+//        {
+//            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+//            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+//            NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
+//
+//            double leftTime = [[order_dic objectForKey:@"time"] doubleValue] / 60;
+//            cell.date.text =  [[NSString alloc]initWithFormat: @"%.1f mins left", leftTime];  //[[NSString alloc]initWithFormat:@"%@, %.1f min left", dateString, leftTime];
+//            cell.date.textColor = [UIColor blackColor];
+//            cell.userName.textColor = [UIColor blackColor];
+//            cell.userMessage.textColor = [UIColor blackColor];
+//            cell.userMessage.text = @"Audio message!";
+//            cell.selectedBackgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"msg_select_area_bg.png"]];
+//        }
+//        else
+//        {
+//            cell.date.text = @"";
+//            cell.date.textColor = [UIColor grayColor];
+//            cell.userName.textColor = [UIColor grayColor];
+//            cell.userMessage.text = @"Overtime!";
+//            cell.userMessage.textColor = [UIColor grayColor];
+//        }
+//        return cell;
+//        
+//    }else
+//    {
+//        UITableViewCell *cell = [[UITableViewCell alloc]init];
+//        return cell;
+//    }
+    
+    
+
     if (tableView == self.tableView) {
-        VoiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-        cell.userName.text = _userName[indexPath.row];
-        TalkLog(@"%@: %@", indexPath, _userName[indexPath.row]);
         
-        cell.userMessage.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:15.0];
-
-        cell.uid = _chatter_array[indexPath.row];
-        NSString* strPic = _strPic[indexPath.row];
-        [cell.userImage sd_setImageWithURL:[NSURL URLWithString:strPic]];
-        cell.backgroundColor = [UIColor whiteColor];
-        
-        NSDictionary *order_dic = _order_array[indexPath.row];
-        if([_vcUtil IsValidChat:[order_dic objectForKey:@"paytime"] msg_time: [order_dic objectForKey:@"time"]])
-        {
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-            NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
-
-            double leftTime = [[order_dic objectForKey:@"time"] doubleValue] / 60;
-            cell.date.text =  [[NSString alloc]initWithFormat: @"%.1f mins left", leftTime];  //[[NSString alloc]initWithFormat:@"%@, %.1f min left", dateString, leftTime];
-            cell.date.textColor = [UIColor blackColor];
-            cell.userName.textColor = [UIColor blackColor];
-            cell.userMessage.textColor = [UIColor blackColor];
-            cell.userMessage.text = @"Audio message!";
-            cell.selectedBackgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"msg_select_area_bg.png"]];
+        static NSString *voiceCellId = @"voiceCellId";
+        VoiceChatCell *voiceCell = [tableView dequeueReusableCellWithIdentifier:voiceCellId];
+        if (!voiceCell) {
+            voiceCell = (VoiceChatCell *)[[VoiceChatCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:voiceCellId];
         }
-        else
-        {
-            cell.date.text = @"";
-            cell.date.textColor = [UIColor grayColor];
-            cell.userName.textColor = [UIColor grayColor];
-            cell.userMessage.text = @"Overtime!";
-            cell.userMessage.textColor = [UIColor grayColor];
-        }
-        return cell;
+        [voiceCell creatVoiceChatCellWithData:self.chatListCellsArr[indexPath.row]];
         
-    }else
-    {
+        return voiceCell;
+        
+    }else{
         UITableViewCell *cell = [[UITableViewCell alloc]init];
         return cell;
     }
+    
 }
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return KHeightScaled(88.5);
+    return KHeightScaled(80.0);
 }
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
@@ -295,14 +375,33 @@
         return;
     }
     
-    NSDictionary *order_dic = _order_array[indexPath.row];
-    if([_vcUtil IsValidChat:[order_dic objectForKey:@"paytime"] msg_time: [order_dic objectForKey:@"time"]])
+//    NSDictionary *order_dic = _order_array[indexPath.row];
+//    if([_vcUtil IsValidChat:[order_dic objectForKey:@"paytime"] msg_time: [order_dic objectForKey:@"time"]])
+//    {
+//        [EaseMobSDK createOneChatViewWithConversationChatter:_chatter_array[indexPath.row] Name:_userName[indexPath.row] onNavigationController:self.navigationController order_id:[order_dic objectForKey:@"order_id"]];
+////        self.navigationController.tabBarItem.badgeValue = nil;
+//        
+//    }
+//    else
+//    {
+//        if([[_vcUtil CheckRole] isEqualToString:CHINESEUSER])
+//        {
+//            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppConChat delegate:self cancelButtonTitle:AppSure otherButtonTitles:nil];
+//            [alert show];
+//            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//        }
+//        else
+//        {
+//            [MBProgressHUD showSuccess:@"Finished"];
+//        }
+//    }
+    
+
+    VoiceCellModel *cellModel = self.chatListCellsArr[indexPath.row];
+    
+    if([_vcUtil IsValidChat:cellModel.paytime msg_time: cellModel.time])
     {
-        [EaseMobSDK createOneChatViewWithConversationChatter:_chatter_array[indexPath.row] Name:_userName[indexPath.row] onNavigationController:self.navigationController order_id:[order_dic objectForKey:@"order_id"]];
-//        self.navigationController.tabBarItem.badgeValue = nil;
-        
-        //更新记录当前聊天对象uid的变量
-        
+        [EaseMobSDK createOneChatViewWithConversationChatter:cellModel.uid Name:cellModel.username onNavigationController:self.navigationController order_id:cellModel.order_id];
     }
     else
     {
@@ -319,7 +418,7 @@
     }
 }
 
-#warning FixedByMark
+
 //- (void)newMessage:(NSNotification *)notification
 //{
 //    TalkLog(@"接受新消息");
@@ -330,19 +429,18 @@
 //    }
 //}
 
+
 -(void)didReceiveMessage:(EMMessage *)message
 {
     //    NSArray *conversations = [[EaseMob sharedInstance].chatManager loadAllConversationsFromDatabaseWithAppend2Chat:YES];
     _chatterUid =  message.from;
     TalkLog(@"%@",_chatterUid);
-    
-    
-    NSString *messageCount = [NSString stringWithFormat:@"%lu",(unsigned long)message.messageBodies.count];
-    
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"chineseNewMessage" object:messageCount];
 
-    
-    [self GetChatterInformation];
+
+    // 只有当前页打开时才能获取信息刷新tableView, 否则在其他页面时收到消息刷新tableView会造成数据为空的crash
+    if (_isOpen) {
+        [self GetChatterInformation];
+    }
     
     /*接收到的消息的解析*/
     id<IEMMessageBody> msgBody = message.messageBodies.firstObject;
@@ -374,6 +472,25 @@
     }
 }
 
+
+/**
+ *  根据聊天对象的uid获取对应的未读消息数
+ *
+ *  @param uid 聊天对象的uid
+ *
+ *  @return int 消息数量
+ */
+- (NSString *)getUnreadMessageCountWithUid:(NSString *)uid{
+    
+    NSDictionary *messageDic = [[NSUserDefaults standardUserDefaults] objectForKey:EaseMobUnreaderMessageCount];
+
+    int count = 0;
+    if (messageDic && [messageDic objectForKey:uid]) {
+        count = [[messageDic objectForKey:uid] intValue];
+    }
+    
+    return [NSString stringWithFormat:@"%d", count >= 0 ? count : 0];
+}
 
 //-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 //{
