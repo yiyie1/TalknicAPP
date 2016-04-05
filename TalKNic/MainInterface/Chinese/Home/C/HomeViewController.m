@@ -117,7 +117,7 @@
     cell.titlelb.text = [NSString stringWithFormat:@"Topic：%@",dataArray[indexPath.item][@"topic"]];
     cell.nickNameLb.text = [NSString stringWithFormat:@"Nick：%@",dataArray[indexPath.item][@"username"]];
     cell.dianzanLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"praise"]];
-    cell.pingfenLb.text = @"0.0";//[NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"star"]];;
+    cell.pingfenLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"rate"]];;
     cell.occupationLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"occupation"]];
     return cell;
     
@@ -166,8 +166,8 @@
     
     // 点赞、评分
     self.dianzaiLb.text = dataDic[@"praise"];
-    self.pingfenLb.text = @"0.0";//dataDic[@"star"];
-    [self.dianzangBtn addTarget:self action:@selector(dianzangBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+    self.pingfenLb.text = dataDic[@"rate"];
+    [self.dianzangBtn addTarget:self action:@selector(praiseAction) forControlEvents:(UIControlEventTouchUpInside)];
 
     //确定进入下一步
     [self.sureBtn addTarget:self action:@selector(sureBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
@@ -175,7 +175,7 @@
     
 }
 //FIXME to cancel the praise when clicking again
-- (void)dianzangBtn:(id)sender
+- (void)praiseAction
 {
     if(_uid.length == 0)
     {
@@ -550,8 +550,8 @@
     
     // 点赞、评分
     self.dianzaiLb.text = dataDic[@"praise"];
-    self.pingfenLb.text = @"0.0";//dataDic[@"star"];
-    [self.dianzangBtn addTarget:self action:@selector(dianzangBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+    self.pingfenLb.text = dataDic[@"rate"];
+    [self.dianzangBtn addTarget:self action:@selector(praiseAction) forControlEvents:(UIControlEventTouchUpInside)];
     
     //确定进入下一步+
     [self.sureBtn addTarget:self action:@selector(sureBtn:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -625,13 +625,10 @@
 {
     [self.homecollectview.header endRefreshing];
     
-    if (!dataArray) {
+    if (!dataArray)
         dataArray = [NSMutableArray array];
-    }
     else
-    {
         [dataArray removeAllObjects];
-    }
     
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -645,12 +642,14 @@
         {
             NSArray *array = [dic objectForKey:@"result"];
             NSString *localUid = [[NSUserDefaults standardUserDefaults] valueForKey:@"uid"];
-            for (NSDictionary *dic in array) {
-                if (![[dic valueForKey:@"username"] isEqualToString:localUid]) {
+            for (NSDictionary *dic in array)
+            {
+                if (![[dic valueForKey:@"username"] isEqualToString:localUid])
+                {
                     [dataArray addObject:dic];
                 }
             }
-            TalkLog(@"数组  ＝＝＝＝＝ %@",dataArray);
+            TalkLog(@"all users  ＝＝＝＝＝ %@",dataArray);
             
             [self.homecollectview reloadData];
             

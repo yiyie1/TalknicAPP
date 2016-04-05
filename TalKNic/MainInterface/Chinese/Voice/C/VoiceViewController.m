@@ -302,8 +302,9 @@
         NSDictionary* dic = [solveJsonData changeType:responseObject];
         if ([[dic objectForKey:@"code"] isEqualToString: SERVER_SUCCESS])
         {
-            NSString* rate = [dic objectForKey:@"student_rate"];
-            NSString* comment = [dic objectForKey:@"student_comment"];
+            NSDictionary* res = [dic objectForKey:@"result"];
+            NSString* rate = [res objectForKey:@"teacher_rate"];
+            NSString* comment = [res objectForKey:@"teacher_comment"];
             if(rate.length == 0 || comment.length == 0)
             {
                 CompletedChatViewController *com = [[CompletedChatViewController alloc]init];
