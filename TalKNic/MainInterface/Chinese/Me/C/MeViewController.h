@@ -15,4 +15,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *searchTable;
 @property (nonatomic,copy)NSString *uid;
 @property (nonatomic,copy)NSString *role;
+@property (nonatomic,copy)NSString *name;
+@property (nonatomic,copy)NSString *occupation;
+@property (nonatomic,copy)NSString *location;
+@property (nonatomic,copy)NSString *bio;
 @end
