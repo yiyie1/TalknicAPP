@@ -165,9 +165,11 @@
 }
 
 
+/**
+ *  // 统计环信未读消息个数,并显示小红点
+ */
 + (void)setVoiceViewControllerBadgeAndAppIconBadge{
-    
-    // 1. 统计环信未读消息个数
+
     NSDictionary *easeMobMessageCountsDic = [[NSUserDefaults standardUserDefaults] objectForKey:EaseMobUnreaderMessageCount];
     
     if (easeMobMessageCountsDic == nil) return;

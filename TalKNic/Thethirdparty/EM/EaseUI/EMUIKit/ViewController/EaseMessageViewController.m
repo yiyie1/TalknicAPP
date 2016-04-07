@@ -18,7 +18,7 @@
 #import "CompletedChatViewController.h"
 #import "CommonHeader.h"
 
-#define KHintAdjustY    50
+#define KHintAdjustY 50
 
 @interface EaseMessageViewController ()<EaseMessageCellDelegate>
 {

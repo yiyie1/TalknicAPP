@@ -36,7 +36,7 @@
 #define KWidthScaled(A)     ((kWidth / 375 )* (A))
 #define KHeightScaled(B)    ((kHeight / 667 )* (B))
 //间隔
-#define KMargin KWidthScaled(8.0f)
+#define KMargin 10.0f
 
 #ifdef DEBUG // 处于开发阶段
 #define TalkLog(...) NSLog(__VA_ARGS__)

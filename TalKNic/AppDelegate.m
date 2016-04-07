@@ -26,7 +26,7 @@
 #import "CommonHeader.h"
 #import "EaseMessageViewController.h"
 
-@interface AppDelegate ()<IChatManagerDelegate>
+@interface AppDelegate ()<EMChatManagerDelegate>
 
 @end
 
@@ -51,9 +51,36 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
     //集成分享登陆功能
     [self addShareSDKWithapplication:application didFinishLaunchingWithOptions:launchOptions];
     
-    //环信注册
-    [EaseMobSDK easeMobRegisterSDKWithAppKey:kEaseKey apnsCertName:nil application:application didFinishLaunchingWithOptions:launchOptions];
     
+
+#warning 环信SDK注册 APNS文件的名字, 需要与后台上传证书时的名字一一对应
+    NSString *apnsCertName = nil;
+#if DEBUG
+    apnsCertName = @"TalknicApnsDevelopment20160404";
+#else
+    apnsCertName = @"TalknicApns20160404";
+#endif
+
+    //环信注册
+    [EaseMobSDK easeMobRegisterSDKWithAppKey:kEaseKey apnsCertName:apnsCertName application:application didFinishLaunchingWithOptions:launchOptions];
+
+    //环信注册离线推送
+    if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
+        [application registerForRemoteNotifications];
+        UIUserNotificationType notificationTypes = UIUserNotificationTypeBadge |
+        UIUserNotificationTypeSound |
+        UIUserNotificationTypeAlert;
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:notificationTypes categories:nil];
+        [application registerUserNotificationSettings:settings];
+    }
+    else{
+        UIRemoteNotificationType notificationTypes = UIRemoteNotificationTypeBadge |
+        UIRemoteNotificationTypeSound |
+        UIRemoteNotificationTypeAlert;
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationTypes];
+    }
+
+
     
     ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
     
@@ -88,20 +115,7 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
                     //[EaseMobSDK easeMobRegisterAppWithAccount:uid password:KHuanxin HUDShowInView:home.view];
                     
                     //环信聊天登录，增加自动登录功能
-                    BOOL isAutoLogin = [[EaseMob sharedInstance].chatManager isAutoLoginEnabled];// 判断是否已经自动登录
-                    if (!isAutoLogin) {
-                        [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:uid
-                                                                            password:KHuanxin
-                                                                          completion:^(NSDictionary *loginInfo, EMError *error) {
-                                                                              // 设置自动登录
-                                                                              [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
-                                                                              
-                                                                          } onQueue:nil];
-                    }
-                    
-                    //注册一个环信聊天监听对象到监听列表中
-                    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
-
+                    [self loginHuanxinWithUid:uid];
                     
                     
 //                    [EaseMobSDK easeMobLoginAppWithAccount:uid password:KHuanxin isAutoLogin:NO HUDShowInView:home.view];
@@ -120,20 +134,10 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
                     //[EaseMobSDK easeMobRegisterAppWithAccount:uid password:KHuanxin HUDShowInView:dailyVC.view];
                     
                     //环信聊天登录，增加自动登录功能
-                    BOOL isAutoLogin = [[EaseMob sharedInstance].chatManager isAutoLoginEnabled];// 判断是否已经自动登录
-                    if (!isAutoLogin) {
-                        [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:uid
-                                                                            password:KHuanxin
-                                                                          completion:^(NSDictionary *loginInfo, EMError *error) {
-                                                                              // 设置自动登录
-                                                                              [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
-                                                                              
-                                                                          } onQueue:nil];
-                    }
-                    
-                    //注册一个环信聊天监听对象到监听列表中
-                    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
+                    [self loginHuanxinWithUid:uid];
 
+                    
+                
 //                 [EaseMobSDK easeMobLoginAppWithAccount:uid password:KHuanxin isAutoLogin:NO HUDShowInView:dailyVC.view];
                 }
             }
@@ -206,12 +210,40 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
     
     //环信聊天
     [[EaseMob sharedInstance] applicationWillTerminate:application];
-//    [[UIApplication sharedApplication]setApplicationIconBadgeNumber:3];
     
-
     
     [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"uid"];
 }
+
+
+//远程推送回调
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
+    
+    //将得到的deviceToken传给SDK
+    [[EaseMob sharedInstance] application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+
+}
+
+
+//远程推送回调
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
+    // 注册deviceToken失败
+    [[EaseMob sharedInstance] application:application didFailToRegisterForRemoteNotificationsWithError:error];
+#warning TalkLog
+//    TalkLog(@"TalkLog:LINE %d ==>didFailToRegisterForRemoteNotificationsWithError%@", __LINE__, error.debugDescription);
+}
+
+
+#warning FIXME 注册成功但收不到远程推送
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
+    
+//#warning TalkLog
+//    TalkLog(@"TalkLog:LINE %d ==>didReceiveRemoteNotification%@", __LINE__, userInfo);
+    [[EaseMob sharedInstance] application:application didReceiveRemoteNotification:userInfo];
+
+    
+}
+
 #pragma mark - Core Data stack
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -293,6 +325,50 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
 }
 
 
+/**
+ *  登录环信聊天，设置聊天监听代理，
+ *
+ *  @param uid 当前用户uid
+ */
+- (void)loginHuanxinWithUid:(NSString *)uid
+{
+    //环信聊天登录，增加自动登录功能
+    BOOL isAutoLogin = [[EaseMob sharedInstance].chatManager isAutoLoginEnabled];// 判断是否已经自动登录
+    if (!isAutoLogin) {
+        [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:uid
+                                                            password:KHuanxin
+                                                          completion:^(NSDictionary *loginInfo, EMError *error) {
+                                                              // 设置自动登录
+                                                              [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
+                                                              
+                                                          } onQueue:nil];
+    }
+    
+    //注册一个环信聊天监听对象到监听列表中
+    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
+    
+    //更新环信推送的推送信息
+    [self updataEaseMobPUshNoificationOptions];
+}
+
+
+/**
+ *  更新环信推送的推送信息
+ */
+- (void)updataEaseMobPUshNoificationOptions
+{
+    //设置推送信息
+    EMPushNotificationOptions *options = [[EaseMob sharedInstance].chatManager pushNotificationOptions];
+#warning TODO 获取用户名称
+    options.nickname = @"MarkFan";
+    options.displayStyle = 1;
+    
+    [EaseMobSDK easeMobUpdatePushOptions:options completion:^(EMPushNotificationOptions *options, EMError *error) {
+#warning TalkLog
+//        TalkLog(@"TalkLog:LINE %d ==>updataEaseMobPUshNoificationOptions%@", __LINE__, options.nickname);
+    }];
+}
+
 #pragma EaseMobListening 环信聊天事件监听 start
 
 /**
@@ -321,6 +397,17 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
 
 
 /**
+ *  收到离线透传消息
+ *
+ *  @param offlineCmdMessages 消息列表
+ */
+- (void)didReceiveOfflineCmdMessages:(NSArray *)offlineCmdMessages{
+//#warning TalkLog
+//    TalkLog(@"TalkLog:LINE %d ==>didReceiveOfflineCmdMessages%@", __LINE__, @"");
+}
+
+
+/**
  *  已发送消息后的回调
  *
  *  @param message 消息信息
@@ -339,7 +426,7 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
  *  @param offlineMessages 离线消息列表
  */
 - (void)didReceiveOfflineMessages:(NSArray *)offlineMessages{
-//#warning TalkLog
+#warning TalkLog
 //    TalkLog(@"TalkLog:LINE %d ==>didReceiveOfflineMessages%@", __LINE__, offlineMessages);
     
 }
@@ -351,6 +438,8 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
  *  @param message 消息信息
  */
 - (void)didReceiveMessage:(EMMessage *)message{
+    //声音，震动，弹窗提示
+    [self showEaseMobNotificationWithMessage:message];
 
     // 如果正在聊天对象的uid与接收到的消息的uid相同，则不更新小红点，否则更新小红点
     if (![CurrentTalkerUid isEqualToString:message.from]) {
@@ -362,6 +451,8 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
         [ViewControllerUtil showVoiceViewVCTabbarBadgeAndAppIconBadgeWithNumber:allEaseMobMessageCounts];
 
     }
+    
+    
 }
 
 
@@ -441,6 +532,67 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     return allCount;
+}
+
+
+/**
+ *  收到环信消息后的声音震动和弹框提示
+ *
+ *  @param message 消息内容
+ */
+- (void)showEaseMobNotificationWithMessage:(EMMessage *)message{
+    UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+    switch (state) {
+        case UIApplicationStateActive:
+            [self playSoundAndVibration];
+            break;
+        case UIApplicationStateInactive:
+            [self playSoundAndVibration];
+            break;
+        case UIApplicationStateBackground:
+            [self showNotificationWithMessage:message];
+            break;
+        default:
+            break;
+    }
+
+}
+
+
+/**
+ *  收到消息时，播放音频和震动
+ */
+- (void)playSoundAndVibration{
+    // 收到消息时，播放音频
+    [[EMCDDeviceManager sharedInstance] playNewMessageSound];
+    // 收到消息时，震动
+    [[EMCDDeviceManager sharedInstance] playVibration];
+}
+
+
+/**
+ *  本地消息提示
+ *
+ *  @param message 信息内容
+ */
+#warning FIXME 推送会连发两次
+-(void)showNotificationWithMessage:(EMMessage *)message{
+    
+    //发送本地推送
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.fireDate = [NSDate date]; //触发通知的时间
+    notification.alertBody = NSLocalizedString(@"receiveMessage", @"you have a new message");
+    
+    notification.alertAction = NSLocalizedString(@"open", @"Open");
+    notification.timeZone = [NSTimeZone defaultTimeZone];
+    notification.soundName = UILocalNotificationDefaultSoundName;
+    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+    [userInfo setObject:[NSNumber numberWithInt:message.messageType] forKey:@"MessageType"];
+    [userInfo setObject:message.conversationChatter forKey:@"ConversationChatter"];
+    notification.userInfo = userInfo;
+    
+    //发送通知
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
 

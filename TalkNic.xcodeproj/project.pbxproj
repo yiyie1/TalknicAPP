@@ -10,6 +10,8 @@
 		18FC28BD1BEB6B1F00D5277E /* DaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC28BB1BEB6B1F00D5277E /* DaView.m */; };
 		18FC28BE1BEB6B1F00D5277E /* DaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FC28BC1BEB6B1F00D5277E /* DaView.xib */; };
 		24EB0CAE1C6494630094638B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 24EB0CB01C6494630094638B /* Localizable.strings */; };
+		357757201CB16B260038B03A /* VoiceCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3577571F1CB16B260038B03A /* VoiceCellModel.m */; };
+		357757231CB177DE0038B03A /* VoiceChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 357757221CB177DE0038B03A /* VoiceChatCell.m */; };
 		360B8CB41C436C7300F1E34E /* NSData+SDDataCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 360B8CA41C436C7300F1E34E /* NSData+SDDataCache.m */; };
 		360B8CB51C436C7300F1E34E /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 360B8CA71C436C7300F1E34E /* TAAbstractDotView.m */; };
 		360B8CB61C436C7300F1E34E /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 360B8CA91C436C7300F1E34E /* TAAnimatedDotView.m */; };
@@ -599,6 +601,10 @@
 		24EB0CB11C6494660094638B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		24EB0CB21C6494760094638B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		24EB0CB31C6495070094638B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		3577571E1CB16B260038B03A /* VoiceCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceCellModel.h; sourceTree = "<group>"; };
+		3577571F1CB16B260038B03A /* VoiceCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceCellModel.m; sourceTree = "<group>"; };
+		357757211CB177DE0038B03A /* VoiceChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceChatCell.h; sourceTree = "<group>"; };
+		357757221CB177DE0038B03A /* VoiceChatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceChatCell.m; sourceTree = "<group>"; };
 		360B8CA31C436C7300F1E34E /* NSData+SDDataCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SDDataCache.h"; sourceTree = "<group>"; };
 		360B8CA41C436C7300F1E34E /* NSData+SDDataCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SDDataCache.m"; sourceTree = "<group>"; };
 		360B8CA61C436C7300F1E34E /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
@@ -2035,6 +2041,8 @@
 			children = (
 				366D27331BFDABD200110B3B /* Voice.h */,
 				366D27341BFDABD200110B3B /* Voice.m */,
+				3577571E1CB16B260038B03A /* VoiceCellModel.h */,
+				3577571F1CB16B260038B03A /* VoiceCellModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -2049,6 +2057,8 @@
 				36DAF65F1C1F1B7800FDD507 /* leftCell.m */,
 				36DAF6601C1F1B7800FDD507 /* RightcellTableViewCell.h */,
 				36DAF6611C1F1B7800FDD507 /* RightcellTableViewCell.m */,
+				357757211CB177DE0038B03A /* VoiceChatCell.h */,
+				357757221CB177DE0038B03A /* VoiceChatCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -4288,6 +4298,7 @@
 				DFD055001C3CED10000E034F /* EaseBubbleView.m in Sources */,
 				36F906661BE2059E0017F5AA /* SDWebImageDownloader.m in Sources */,
 				36474AAF1C40F08000C12D2C /* Foreigner2ViewController.m in Sources */,
+				357757231CB177DE0038B03A /* VoiceChatCell.m in Sources */,
 				DFD055451C3CED4E000E034F /* EMGifImage.m in Sources */,
 				DFD0555B1C3CF160000E034F /* EMBubbleView+Gif.m in Sources */,
 				DFD054AD1C3CED10000E034F /* MJRefreshComponent.m in Sources */,
@@ -4478,6 +4489,7 @@
 				DFD054BD1C3CED10000E034F /* MWTapDetectingImageView.m in Sources */,
 				DFD054B71C3CED10000E034F /* UIView+MJExtension.m in Sources */,
 				ACC9856F1CAD6FD10003C28B /* CompletedChatViewController.m in Sources */,
+				357757201CB16B260038B03A /* VoiceCellModel.m in Sources */,
 				36F824081C42CD8A00D0E1B5 /* RSADataVerifier.m in Sources */,
 				36474AAE1C40F08000C12D2C /* Foreigner0ViewController.m in Sources */,
 				366A241C1BFAD44C00F2E7DD /* Balance.m in Sources */,
