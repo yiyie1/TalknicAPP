@@ -19,8 +19,12 @@
 #import "ViewControllerUtil.h"
 #import "MBProgressHUD+MJ.h"
 #import "LoginViewController.h"
+<<<<<<< HEAD
 #import "VoiceCellModel.h"
 #import "VoiceChatCell.h"
+=======
+#import "CompletedChatViewController.h"
+>>>>>>> c1ac07b38c8ddfcaea1e7acf8a887af0cfee87f3
 
 @interface VoiceViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,UISearchDisplayDelegate,IChatManagerDelegate>
 {
@@ -104,6 +108,7 @@
     self.chatListCellsArr = [NSMutableArray arrayWithCapacity:0];
     self.userTeacherIdArr = [NSMutableArray arrayWithCapacity:0];
     
+<<<<<<< HEAD
 //    if(!_array)
 //        _array = [[NSMutableArray alloc]init];
 //    else
@@ -124,6 +129,22 @@
 //    else
 //        [_chatter_array removeAllObjects];
     
+=======
+    if(!_userName)
+        _userName = [[NSMutableArray alloc]init];
+    else
+        [_userName removeAllObjects];
+    
+    if(!_strPic)
+        _strPic = [[NSMutableArray alloc]init];
+    else
+        [_strPic removeAllObjects];
+    
+    if(!_chatter_array)
+        _chatter_array = [[NSMutableArray alloc]init];
+    else
+        [_chatter_array removeAllObjects];
+>>>>>>> c1ac07b38c8ddfcaea1e7acf8a887af0cfee87f3
 }
 
 
@@ -167,6 +188,7 @@
             {
                 if(![self.userTeacherIdArr containsObject:[d objectForKey:_chatterRole]])
                 {
+<<<<<<< HEAD
 //                    [_array addObject: [d objectForKey:_chatterRole]];
 //                    [_userName addObject:[d objectForKey:@"username"]];
 //                    [_strPic addObject:[d objectForKey:@"pic"]];
@@ -188,6 +210,17 @@
                     //记录所有聊天对象的user_teacher_id,防止数据模型里有重复数据
                     #warning FixMe 是否应根据最新支付时间筛选出最新的数据
                     [self.userTeacherIdArr addObject:[d objectForKey:_chatterRole]];
+=======
+                    [_array addObject: [d objectForKey:_chatterRole]];
+                    [_userName addObject:[d objectForKey:@"username"]];
+                    [_strPic addObject:[d objectForKey:@"pic"]];
+                    [_chatter_array addObject:[d objectForKey:@"uid"]];
+
+                    NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@",[d objectForKey:@"pic"]]];
+                    [picImage sd_setImageWithURL:url placeholderImage:nil];
+                    photo = picImage.image;
+                    [self.tableView reloadData];
+>>>>>>> c1ac07b38c8ddfcaea1e7acf8a887af0cfee87f3
                 }
             }
             
@@ -366,7 +399,45 @@
     return 80.0f;
 }
 
+<<<<<<< HEAD
 
+=======
+-(void)GotoCompletedView:(int)row
+{
+    NSDictionary *order_dic = _order_array[row];
+    NSString* order_id = [order_dic objectForKey:@"order_id"];
+
+    NSMutableDictionary *dicc = [NSMutableDictionary dictionary];
+    dicc[@"cmd"] = @"36";
+    dicc[@"order_id"] = order_id;
+    TalkLog(@"talker dic -- %@",dicc);
+    [_manager POST:PATH_GET_LOGIN parameters:dicc progress:^(NSProgress * _Nonnull uploadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        TalkLog(@"responseObject -- %@",responseObject);
+        NSDictionary* dic = [solveJsonData changeType:responseObject];
+        if ([[dic objectForKey:@"code"] isEqualToString: SERVER_SUCCESS])
+        {
+            NSDictionary* res = [dic objectForKey:@"result"];
+            NSString* rate = [res objectForKey:@"teacher_rate"];
+            NSString* comment = [res objectForKey:@"teacher_comment"];
+            if(rate.length == 0 || comment.length == 0)
+            {
+                CompletedChatViewController *com = [[CompletedChatViewController alloc]init];
+                com.uid = _uid;
+                com.chatter_uid = _chatter_array[row];
+                com.order_id = order_id;
+                [self.navigationController pushViewController:com animated:YES];
+            }
+        }
+    
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error%@",error);
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
+    }];
+
+}
+>>>>>>> c1ac07b38c8ddfcaea1e7acf8a887af0cfee87f3
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     if([_titleStr isEqualToString:AppHistory])
@@ -409,12 +480,15 @@
         {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppConChat delegate:self cancelButtonTitle:AppSure otherButtonTitles:nil];
             [alert show];
-            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            //[MBProgressHUD showSuccess:AppConChat];
         }
         else
         {
             [MBProgressHUD showSuccess:@"Finished"];
         }
+        
+        [self GotoCompletedView:indexPath.row];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 }
 

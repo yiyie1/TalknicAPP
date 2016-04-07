@@ -100,7 +100,7 @@
 -(void)layoutLeftBtn
 {
     self.leftBT = [[UIButton alloc]init];
-    _leftBT.frame = CGRectMake(0, 10, 7, 23/2);
+    _leftBT.frame = kCGRectMake(0, 10, 7, 23/2);
     [_leftBT setBackgroundImage:[UIImage imageNamed:@"nav_back.png"] forState:(UIControlStateNormal)];
     [_leftBT addTarget:self action:@selector(leftAction) forControlEvents:(UIControlEventTouchUpInside)];
     UIBarButtonItem *leftI = [[UIBarButtonItem alloc]initWithCustomView:_leftBT];

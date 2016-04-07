@@ -6,6 +6,7 @@
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
 #import <Foundation/Foundation.h>
+#import "EditProfileViewController.h"
 #import "MeViewController.h"
 #import "MeSetup.h"
 #import "BalanceViewController.h"
@@ -32,7 +33,7 @@
 @interface MeViewController ()<UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,MeImageCropperDelegate,UITextViewDelegate,UIPickerViewAccessibilityDelegate,UINavigationControllerDelegate>
 {
     NSArray *_allMesetup;
-    BOOL btnstare;
+    //BOOL btnstare;
     UITextView * _nameText;
     UITextView * _topText;
     NSDictionary *dic;
@@ -68,8 +69,6 @@
 @property (nonatomic,strong)UILabel *following2Label;
 
 @property (nonatomic,strong)UIView *backview;
-@property (nonatomic,copy)NSString *occupation;
-@property (nonatomic,copy)NSString *nationality;
 @end
 
 @implementation MeViewController
@@ -326,11 +325,18 @@
                 _countries.text = @"China";
             else
                 _countries.text = [dict objectForKey:@"nationality"];
+            
+            self.location = _countries.text;
+            
             _nameLabel.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"username"]];
-            //[[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",[dict objectForKey:@"username"]] forKey:@"username"];
+            self.name = _nameLabel.text;
+            
             _followed1Label.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"fans"]];
             _following1Label.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"praise"]];
+            
             _about.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"bio"]];
+            self.bio = _about.text;
+            
             NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@",[dict objectForKey:@"pic"]]];
             [self.photoView sd_setImageWithURL:url placeholderImage:nil];
             
@@ -657,7 +663,14 @@
 
 -(void)editprofileAction
 {
-    if (btnstare) {
+    EditProfileViewController *editVc = [[EditProfileViewController alloc]init];
+    editVc.uid = _uid;
+    editVc.name = _name;
+    editVc.occupation = _occupation;
+    editVc.location = _location;
+    editVc.bio = _bio;
+    [self.navigationController pushViewController:editVc animated:YES];
+    /*if (btnstare) {
         [self.editBtn setTitle:AppEditProfile forState:(UIControlStateNormal)];
         self.nameLabel.hidden=NO;
         self.about.hidden = NO;
@@ -729,7 +742,7 @@
         
         [_imageViewBar addSubview:_topText];
     }
-    btnstare = !btnstare;
+    btnstare = !btnstare;*/
 
 }
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
