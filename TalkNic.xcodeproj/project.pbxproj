@@ -401,6 +401,7 @@
 		AC5C610D1C97251600F2EB3F /* ViewControllerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5C610C1C97251600F2EB3F /* ViewControllerUtil.m */; };
 		ACC9856F1CAD6FD10003C28B /* CompletedChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC9856E1CAD6FD10003C28B /* CompletedChatViewController.m */; };
 		ACF882CC1CAEBF8900A2947D /* CouponCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF882CB1CAEBF8900A2947D /* CouponCardCell.m */; };
+		ACFEC4AD1CB563A70082A115 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACFEC4AC1CB563A70082A115 /* EditProfileViewController.m */; };
 		DFB50C831C3E04CD0022AD95 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFB50C851C3E04CD0022AD95 /* Localizable.strings */; };
 		DFD052D01C3CE9A8000E034F /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = DFD052CC1C3CE9A8000E034F /* MBProgressHUD+MJ.m */; };
 		DFD052D11C3CE9A8000E034F /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DFD052CD1C3CE9A8000E034F /* MBProgressHUD.bundle */; };
@@ -1209,6 +1210,8 @@
 		ACC9856E1CAD6FD10003C28B /* CompletedChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompletedChatViewController.m; sourceTree = "<group>"; };
 		ACF882CA1CAEBF8900A2947D /* CouponCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponCardCell.h; sourceTree = "<group>"; };
 		ACF882CB1CAEBF8900A2947D /* CouponCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponCardCell.m; sourceTree = "<group>"; };
+		ACFEC4AB1CB563A70082A115 /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
+		ACFEC4AC1CB563A70082A115 /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
 		DFB50C841C3E04CD0022AD95 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DFD052CB1C3CE9A8000E034F /* MBProgressHUD+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+MJ.h"; sourceTree = "<group>"; };
 		DFD052CC1C3CE9A8000E034F /* MBProgressHUD+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+MJ.m"; sourceTree = "<group>"; };
@@ -2186,6 +2189,8 @@
 				360B8CBD1C437C1600F1E34E /* CouponViewController.m */,
 				368E2B581C55E95E00C9AAFB /* AddCreditCardViewController.h */,
 				368E2B591C55E95E00C9AAFB /* AddCreditCardViewController.m */,
+				ACFEC4AB1CB563A70082A115 /* EditProfileViewController.h */,
+				ACFEC4AC1CB563A70082A115 /* EditProfileViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -4289,6 +4294,7 @@
 				36C17DF51C0C3A980035FE12 /* HistoryCell.m in Sources */,
 				DFD055051C3CED10000E034F /* EaseFaceView.m in Sources */,
 				36F824031C42CD8A00D0E1B5 /* DataVerifier.m in Sources */,
+				ACFEC4AD1CB563A70082A115 /* EditProfileViewController.m in Sources */,
 				DFD054D71C3CED10000E034F /* PSTCollectionViewItemKey.m in Sources */,
 				DFD054B61C3CED10000E034F /* UIScrollView+MJRefresh.m in Sources */,
 				36F9066C1BE2059E0017F5AA /* UIImage+MultiFormat.m in Sources */,
