@@ -421,15 +421,17 @@
     //Do not record bMaskHidden here to show the mask after return back
     //self.bMaskHidden = YES;
     self.zhedangbanview.hidden = YES;//_bMaskHidden;
-    CouponViewController *couponVC = [[CouponViewController alloc]init];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
+    CouponViewController *couponVC = [storyboard instantiateViewControllerWithIdentifier:@"couponCard"];
     couponVC.uid = _uid;
     [self.navigationController pushViewController:couponVC animated:YES];
 }
 
 - (void)priceBtnAction
 {
-    self.price = 0.01;//DEFAULT_VOICE_MSG_DURATION_MINS * RMB_PER_MIN;
-    NSString* pricelb = [[NSString alloc]initWithFormat:@"￥ %.1f/%d mins", self.price, DEFAULT_VOICE_MSG_DURATION_MINS];
+    float temp = DEFAULT_VOICE_MSG_DURATION_MINS * RMB_PER_MIN;
+    self.price = 0.01;
+    NSString* pricelb = [[NSString alloc]initWithFormat:@"￥ %.1f/%d mins", temp,/*self.price, */DEFAULT_VOICE_MSG_DURATION_MINS];
     //self.priceBtn.titleLabel.text = pricelb;//[[NSString alloc]initWithFormat:@"%f for %d mins", self.price, DEFAULT_VOICE_MSG_DURATION_MINS];
     
     [self.priceBtn setTitle:pricelb forState:UIControlStateNormal];
@@ -495,7 +497,7 @@
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
-    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.translucent = YES;
     self.navigationController.navigationBarHidden = NO;
     //    self.tabBarController.tabBar.translucent = NO;
     //    self.tabBarController.tabBar.hidden = NO;

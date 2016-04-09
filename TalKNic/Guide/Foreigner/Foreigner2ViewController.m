@@ -7,7 +7,7 @@
 //
 
 #import "Foreigner2ViewController.h"
-#import "DailysettingViewController.h"
+#import "ScrollViewController.h"
 #import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
 #import "Check.h"
@@ -160,11 +160,9 @@
             NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
             [ud setObject:@"Done" forKey:@"FinishedInformation"];
             
-            
-            //DailysettingViewController *dailyVC = [[DailysettingViewController alloc]init];
-            //dailyVC.uid = _iD;
-            //[self.navigationController pushViewController:dailyVC animated:YES];
-            //[MBProgressHUD showSuccess:kAlertUpSecEmpty];
+            ScrollViewController *scroll = [[ScrollViewController alloc]init];
+            scroll.uid = _iD;
+            [self.navigationController pushViewController:scroll animated:YES];
         }
         else if (([(NSNumber *)[dicq objectForKey:@"code"] intValue] == 3))
         {
