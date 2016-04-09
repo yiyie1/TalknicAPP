@@ -116,7 +116,7 @@
     [cell.imageview sd_setImageWithURL:url placeholderImage:nil];
     cell.titlelb.text = [NSString stringWithFormat:@"Topic：%@",dataArray[indexPath.item][@"topic"]];
     cell.nickNameLb.text = [NSString stringWithFormat:@"Nick：%@",dataArray[indexPath.item][@"username"]];
-    cell.dianzanLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"praise"]];
+    cell.dianzanLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"fans"]];
     cell.pingfenLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"rate"]];;
     cell.occupationLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"occupation"]];
     return cell;
@@ -165,7 +165,7 @@
     self.topicLb.text = dataDic[@"topic"];
     
     // 点赞、评分
-    self.dianzaiLb.text = dataDic[@"praise"];
+    self.dianzaiLb.text = dataDic[@"fans"];
     self.pingfenLb.text = dataDic[@"rate"];
     [self.dianzangBtn addTarget:self action:@selector(praiseAction) forControlEvents:(UIControlEventTouchUpInside)];
 
@@ -195,7 +195,7 @@
 
         if([dic[@"code"] isEqualToString:SERVER_SUCCESS])
         {
-            int praiseCount = [self.dataDic[@"praise"] intValue] + 1;
+            int praiseCount = [self.dataDic[@"fans"] intValue] + 1;
             self.dianzaiLb.text = [NSString stringWithFormat:@"%d",praiseCount];
         }
         else if([dic[@"code"] isEqualToString:@"3"])
@@ -551,7 +551,7 @@
     self.topicLb.text = dataDic[@"topic"];
     
     // 点赞、评分
-    self.dianzaiLb.text = dataDic[@"praise"];
+    self.dianzaiLb.text = dataDic[@"fans"];
     self.pingfenLb.text = dataDic[@"rate"];
     [self.dianzangBtn addTarget:self action:@selector(praiseAction) forControlEvents:(UIControlEventTouchUpInside)];
     
