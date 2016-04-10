@@ -5,7 +5,7 @@
 //  Created by Talknic on 15/10/9.
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
-//#import <AlipaySDK/AlipaySDK.h>
+#import <AlipaySDK/AlipaySDK.h>
 #import "AppDelegate.h"
 #import "ChoosePeopleViewController.h"
 #import "TalkTabBarViewController.h"
@@ -138,24 +138,17 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
     return YES;
 }
 
-#warning 支付修改开始 10.2
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation {
-    
-    NSString * absolute = url.absoluteString;
-    if ([absolute hasPrefix:@"alisdktalknic"]) {
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
+{
+    if ([url.host isEqualToString:@"safepay"]) {
         //跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-            NSLog(@"支付宝app调用");
-            
+            NSLog(@"result = %@",resultDic);
         }];
     }
     return YES;
-}
-#warning 支付修改结束 10.2
 
+}
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {

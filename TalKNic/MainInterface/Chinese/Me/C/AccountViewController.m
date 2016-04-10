@@ -115,9 +115,12 @@
     {
         UILabel *label = [[UILabel alloc]init];
         label.frame = kCGRectMake(150, 110, 100, 20);
-        label.text = @"Unlinked";
-
-        if([cell.textLabel.text isEqual:@"Mobile"])
+        NSString* linkstr = [_vcUtil GetLinked:cell.textLabel.text];
+        if(linkstr.length != 0)
+            label.text = [_vcUtil GetLinked:cell.textLabel.text];
+        else
+            label.text = @"Unlinked";
+        /*if([cell.textLabel.text isEqual:@"Mobile"])
         {
             if ([_vcUtil GetLinked:@"Mobile"])
                 label.text = @"Linked";
@@ -136,7 +139,7 @@
         {
             if ([_vcUtil GetLinked:@"Email"])
                 label.text = @"Linked";
-        }
+        }*/
         
         label.textAlignment = NSTextAlignmentRight;
         cell.accessoryView = label;

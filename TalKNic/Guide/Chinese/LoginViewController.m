@@ -227,6 +227,7 @@
             param[@"cmd"] = @"333";
             param[@"login_type"] = btn.tag == 1 ? @"sina" : @"wechat";
             param[@"unique_identification"] = user.uid;
+            param[@"nickname"] = user.nickname;
             param[@"identity"] = identity;
             
             [manager POST:PATH_GET_LOGIN parameters:param progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -240,7 +241,7 @@
                 _weiboId = [NSString stringWithFormat:@"%@",[dict objectForKey:@"identity"]];
                 _uid = [NSString stringWithFormat:@"%@",[dict objectForKey:@"uid"]];
                 
-                if (([(NSNumber *)[_weibo objectForKey:@"code"] intValue] == 2))    //Not the first time to login/signup
+                if ([[_weibo objectForKey:@"code"] isEqualToString: SERVER_SUCCESS])    //Not the first time to login/signup
                 {
                     //if (_uid !=nil)
                     //{
@@ -335,6 +336,7 @@
 
 -(void)signUP
 {
+    self.telNum = _loginmobileTF.text;
     SignupViewController *signupVC = [[SignupViewController alloc]init];
     signupVC.mobile = self.mobile;
     signupVC.loginVC = self;

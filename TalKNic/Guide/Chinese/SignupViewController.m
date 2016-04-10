@@ -445,7 +445,7 @@
             [MBProgressHUD showError:kAlertCode];
             return;
         }
-        else if (codeText != _yanZhen)
+        else if (![codeText isEqualToString: _yanZhen])
         {
             [MBProgressHUD showError:kAlertCodeFail];
             return;
@@ -516,6 +516,7 @@
             param[@"login_type"] = btn.tag == 1 ? @"sina" : @"wechat";
             param[@"unique_identification"] = user.uid;
             param[@"identity"] = identity;
+            param[@"nickname"] = user.nickname;
             
             [manager POST:PATH_GET_LOGIN parameters:param progress:^(NSProgress * _Nonnull uploadProgress) {
                 

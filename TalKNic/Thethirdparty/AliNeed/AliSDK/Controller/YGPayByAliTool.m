@@ -68,7 +68,7 @@
     order.productName = product.subject; //商品标题
     order.productDescription = product.body; //商品描述
     order.amount = [NSString stringWithFormat:@"%.2f",product.price]; //商品价格
-    order.notifyURL =  @"http://www.baidu.com"; //回调URL
+    order.notifyURL =  @"http://www.xxx.com"; //回调URL
     
     order.service = @"mobile.securitypay.pay";
     order.paymentType = @"1";

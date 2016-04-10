@@ -7,10 +7,12 @@
 //
 
 #import "Foreigner1ViewController.h"
-#import "Foreigner2ViewController.h"
+//#import "Foreigner2ViewController.h"
 #import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
 #import "solveJsonData.h"
+#import "ScrollViewController.h"
+
 @interface Foreigner1ViewController ()
 {
     NSString *_topics;
@@ -153,14 +155,17 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSString *str =[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
         //NSDictionary* dic = [solveJsonData changeType:responseObject];
-
-        //if([(NSNumber *)[dic objectForKey:@"code"]intValue] == 2)
-        if([str containsString:@"2"])
+        if([str containsString:SERVER_SUCCESS])
         {
             //[MBProgressHUD showSuccess:kAlertModifyDatassSuccessful];
-            Foreigner2ViewController *foreigner2VC =[[Foreigner2ViewController alloc]init];
-            foreigner2VC.iD = _usID;
-            [self.navigationController pushViewController:foreigner2VC animated:YES];
+            
+            //FIXME add credit card when yinlian is enabled
+            //Foreigner2ViewController *foreigner2VC =[[Foreigner2ViewController alloc]init];
+            //foreigner2VC.iD = _usID;
+            //[self.navigationController pushViewController:foreigner2VC animated:YES];
+            ScrollViewController *scroll = [[ScrollViewController alloc]init];
+            scroll.uid = _usID;
+            [self.navigationController pushViewController:scroll animated:YES];
         }
         else
         {
@@ -168,7 +173,7 @@
         }
 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        TalkLog(@"上传失败 -- %@",error);
+        TalkLog(@"error -- %@",error);
         [MBProgressHUD showError:kAlertNetworkError];
         return;
     }];
