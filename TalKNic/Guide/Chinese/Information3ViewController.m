@@ -74,7 +74,7 @@
         
         
     }
-    NSArray *arr = FOREIGNER_TOPIC;
+    NSArray *arr = APP_TOPIC;
     
     for (int i = 0; i < arr.count ;i ++) {
         UIButton *btn1 = [[UIButton alloc]initWithFrame:kCGRectMake(35 + 170 * (i % 2), 110 + 70 * (i / 2), 140, 55)];
@@ -110,7 +110,7 @@
 -(void)rightAction
 {
     _topics = @"";
-    NSArray *arr = @[@"Travel",@", Film",@", Sports",@", Tech",@", Design",@", Arts",@", Cooking",@", Book"];
+    NSArray *arr = APP_TOPIC;
     for (int i = 0; i < self.clickArr.count; i ++)
     {
         // 被选中的Btn 下标i

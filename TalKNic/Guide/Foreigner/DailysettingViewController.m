@@ -112,7 +112,7 @@
     if (!self.clickArr) {
         self.clickArr = [NSMutableArray array];
     }
-    NSArray *arr = FOREIGNER_TOPIC;
+    NSArray *arr = APP_TOPIC;
     
     for (int i = 0; i < arr.count ;i ++) {
    
@@ -180,7 +180,7 @@
     }
     
     _topics = @"";
-    NSArray *arr = @[@"Travel",@", Film",@", Sports",@", Tech",@", Design",@", Arts",@", Cooking",@", Book"];
+    NSArray *arr = APP_TOPIC;
     for (int i = 0; i < self.clickArr.count; i ++)
     {
         // 被选中的Btn 下标i

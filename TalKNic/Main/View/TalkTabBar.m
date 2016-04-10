@@ -35,12 +35,12 @@
 }
 -(void)plusClick
 {
-    if ([self.delegate respondsToSelector:@selector(tabBarDidClickPlusButton:)]) {
+    /*if ([self.delegate respondsToSelector:@selector(tabBarDidClickPlusButton:)]) {
         [self.delegate tabBarDidClickPlusButton:self];
     }else
     {
         [self removeFromSuperview];
-    }
+    }*/
 }
 - (void)layoutSubviews
 {

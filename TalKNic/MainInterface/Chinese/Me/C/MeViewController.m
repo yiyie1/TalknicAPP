@@ -858,8 +858,9 @@
     }
     else if ([cell.textLabel.text isEqualToString:AppInviteFriends])
     {
-        AppDelegate *delegate = [[AppDelegate alloc]init];
-        [delegate platShareView:self.view WithShareContent:@"Talknic" WithShareUrlImg:@"http://pic2.ooopic.com/01/03/51/25b1OOOPIC19.jpg" WithShareTitle:@"Talknic" WithShareUrl:@"http://talknic.cn" WithShareType:shareInfo];
+        /*AppDelegate *delegate = [[AppDelegate alloc]init];
+        [delegate platShareView:self.view WithShareContent:@"Talknic" WithShareUrlImg:@"http://pic2.ooopic.com/01/03/51/25b1OOOPIC19.jpg" WithShareTitle:@"Talknic" WithShareUrl:@"http://talknic.cn" WithShareType:shareInfo];*/
+        [MBProgressHUD showError:@"Not Implemented"];
     
     }
     else if ([cell.textLabel.text isEqualToString:AppQA])
