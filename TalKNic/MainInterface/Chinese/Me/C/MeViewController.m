@@ -74,6 +74,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _vcUtil = [[ViewControllerUtil alloc]init];
     self.navigationItem.titleView = [_vcUtil SetTitle:AppMe];
 
     [self Setting];

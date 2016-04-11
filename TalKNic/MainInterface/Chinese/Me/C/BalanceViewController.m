@@ -37,6 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _vcUtil = [[ViewControllerUtil alloc]init];
     self.navigationItem.titleView = [_vcUtil SetTitle:AppBalance];
     [self layoutLeftBtn];
     [self layoutView];
