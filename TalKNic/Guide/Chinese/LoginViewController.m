@@ -8,9 +8,9 @@
 
 #import "LoginViewController.h"
 #import "ForgetPasswordViewController.h"
-#import "InformationViewController.h"
+#import "Information1ViewController.h"
 #import "SignupViewController.h"
-#import "Foreigner0ViewController.h"
+#import "Foreigner1ViewController.h"
 #import "Check.h"
 #import "AFNetworking.h"
 #import "solveJsonData.h"
@@ -292,14 +292,14 @@
                     
                     if ([identity isEqualToString:CHINESEUSER])
                     {
-                        InformationViewController *inforVC = [[InformationViewController alloc]init];
+                        Information1ViewController *inforVC = [[Information1ViewController alloc]init];
                         inforVC.uID = _uid;
                         [self.navigationController pushViewController:inforVC animated:YES];
                         
                     }
                     else if([identity isEqualToString:FOREINERUSER])
                     {
-                        Foreigner0ViewController *foreigVC = [[Foreigner0ViewController alloc]init];
+                        Foreigner1ViewController *foreigVC = [[Foreigner1ViewController alloc]init];
                         foreigVC.uID = _uid;
                         [self.navigationController pushViewController:foreigVC animated:YES];
                     }
@@ -411,7 +411,7 @@
                 
                 if ([[_vcUtil CheckRole] isEqualToString:CHINESEUSER])
                 {
-                    InformationViewController *inforVC = [[InformationViewController alloc]init];
+                    Information1ViewController *inforVC = [[Information1ViewController alloc]init];
                     inforVC.uID = _uid;
 
                     [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
@@ -420,7 +420,7 @@
                 }
                 else
                 {
-                    Foreigner0ViewController *foreigVC = [[Foreigner0ViewController alloc]init];
+                    Foreigner1ViewController *foreigVC = [[Foreigner1ViewController alloc]init];
                     foreigVC.uID = _uid;
                     
                     [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
@@ -578,7 +578,7 @@
                     
                     if ([[_vcUtil CheckRole] isEqualToString:CHINESEUSER])
                     {
-                        InformationViewController *inforVC = [[InformationViewController alloc]init];
+                        Information1ViewController *inforVC = [[Information1ViewController alloc]init];
                         inforVC.uID = _uid;
                         [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
                         TalkLog(@"UID == %@",_uid);
@@ -587,7 +587,7 @@
                     }
                     else
                     {
-                        Foreigner0ViewController *foreigVC = [[Foreigner0ViewController alloc]init];
+                        Foreigner1ViewController *foreigVC = [[Foreigner1ViewController alloc]init];
                         foreigVC.uID = _uid;
                        
                         [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];

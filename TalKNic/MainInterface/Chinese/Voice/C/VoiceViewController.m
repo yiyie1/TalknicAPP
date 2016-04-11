@@ -18,7 +18,6 @@
 #import "solveJsonData.h"
 #import "ViewControllerUtil.h"
 #import "MBProgressHUD+MJ.h"
-#import "LoginViewController.h"
 #import "VoiceCellModel.h"
 #import "VoiceChatCell.h"
 #import "CompletedChatViewController.h"
@@ -190,11 +189,21 @@
         return;
     }
     
-    _isOpen = true; //记录当前页面是否打开
-    [self GetChatterInformation];
-    
+    if ([_titleStr isEqualToString:AppInboxMessage])
+    {
+        [self GetInboxMessage];
+    }
+    else
+    {
+        _isOpen = true; //记录当前页面是否打开
+        [self GetChatterInformation];
+    }
 }
 
+-(void)GetInboxMessage
+{
+    
+}
 
 - (void)viewWillDisappear:(BOOL)animated{
     
@@ -265,63 +274,22 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if (tableView == self.tableView) {
-//        VoiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-//        cell.userName.text = _userName[indexPath.row];
-//        TalkLog(@"%@: %@", indexPath, _userName[indexPath.row]);
-//        
-//        cell.userMessage.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:15.0];
-//
-//        cell.uid = _chatter_array[indexPath.row];
-//        NSString* strPic = _strPic[indexPath.row];
-//        [cell.userImage sd_setImageWithURL:[NSURL URLWithString:strPic]];
-//        cell.backgroundColor = [UIColor whiteColor];
-//        
-//        NSDictionary *order_dic = _order_array[indexPath.row];
-//        if([_vcUtil IsValidChat:[order_dic objectForKey:@"paytime"] msg_time: [order_dic objectForKey:@"time"]])
-//        {
-//            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-//            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-//            NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
-//
-//            double leftTime = [[order_dic objectForKey:@"time"] doubleValue] / 60;
-//            cell.date.text =  [[NSString alloc]initWithFormat: @"%.1f mins left", leftTime];  //[[NSString alloc]initWithFormat:@"%@, %.1f min left", dateString, leftTime];
-//            cell.date.textColor = [UIColor blackColor];
-//            cell.userName.textColor = [UIColor blackColor];
-//            cell.userMessage.textColor = [UIColor blackColor];
-//            cell.userMessage.text = @"Audio message!";
-//            cell.selectedBackgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"msg_select_area_bg.png"]];
-//        }
-//        else
-//        {
-//            cell.date.text = @"";
-//            cell.date.textColor = [UIColor grayColor];
-//            cell.userName.textColor = [UIColor grayColor];
-//            cell.userMessage.text = @"Overtime!";
-//            cell.userMessage.textColor = [UIColor grayColor];
-//        }
-//        return cell;
-//        
-//    }else
-//    {
-//        UITableViewCell *cell = [[UITableViewCell alloc]init];
-//        return cell;
-//    }
-    
-    
-
-    if (tableView == self.tableView) {
+    if (tableView == self.tableView)
+    {
         
         static NSString *voiceCellId = @"voiceCellId";
         VoiceChatCell *voiceCell = [tableView dequeueReusableCellWithIdentifier:voiceCellId];
-        if (!voiceCell) {
+        if (!voiceCell)
+        {
             voiceCell = (VoiceChatCell *)[[VoiceChatCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:voiceCellId];
         }
         [voiceCell creatVoiceChatCellWithData:self.chatListCellsArr[indexPath.row]];
         
         return voiceCell;
         
-    }else{
+    }
+    else
+    {
         UITableViewCell *cell = [[UITableViewCell alloc]init];
         return cell;
     }
@@ -331,7 +299,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 80.0f;
+    return KHeightScaled(80.0f);
 }
 
 -(void)GotoCompletedView:(int)row
@@ -388,9 +356,17 @@
     {
         if([[_vcUtil CheckRole] isEqualToString:CHINESEUSER])
         {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppConChat delegate:self cancelButtonTitle:AppSure otherButtonTitles:nil];
-            [alert show];
-            //[MBProgressHUD showSuccess:AppConChat];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:AppNotify message:AppConChat preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:AppCancel style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:AppSure style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                //FIXME go to pay details
+            }];
+            
+            [alertController addAction:cancelAction];
+            [alertController addAction:okAction];
+            
+            [self presentViewController:alertController animated:YES completion:nil];
+            
         }
         else
         {

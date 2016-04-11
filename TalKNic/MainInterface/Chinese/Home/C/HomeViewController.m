@@ -240,7 +240,20 @@
     
     if(_uid.length == 0)
     {
-        [MBProgressHUD showError:kAlertNotLogin];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:kAlertNotLogin message:kAlertPlsLogin preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:AppCancel style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:AppSure style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            
+            LoginViewController* login = [[LoginViewController alloc]init];
+            [self.navigationController pushViewController:login animated:YES];
+            return;
+        }];
+        
+        [alertController addAction:cancelAction];
+        [alertController addAction:okAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+        
         self.bMaskHidden = YES;
         self.zhedangbanview.hidden = _bMaskHidden;
         self.bShowViewForm = NO;
@@ -493,7 +506,7 @@
     
     // 界面出现时，显示featured的collectview
     //FIXME crash on plus
-    //[self requestDataMethod];
+    [self requestDataMethod];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {

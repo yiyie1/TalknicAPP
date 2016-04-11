@@ -1,5 +1,5 @@
 //
-//  InformationViewController.h
+//  Information1ViewController.h
 //  TalkNic
 //
 //  Created by Talknic on 15/10/9.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface InformationViewController : UIViewController
+@interface Information1ViewController : UIViewController
 
 @property (nonatomic,copy)NSString *uID;
 @property (nonatomic,copy)NSString *sex;

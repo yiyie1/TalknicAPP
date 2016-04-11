@@ -227,7 +227,7 @@
 
 #define  AppPraised NSLocalizedString(@"AppPraised",@"")
 #define  AppPraiseFail NSLocalizedString(@"AppPraiseFail",@"")
-
+#define AppInboxMessage NSLocalizedString(@"AppInbox",@"")
 #define AppNotify   NSLocalizedString(@"AppNotify",@"")
 #define AppConChat  NSLocalizedString(@"AppConChat",@"")
 #define AppTotalTimeLessThanMsgTime NSLocalizedString(@"AppTotalTimeLessThanMsgTime",@"")
@@ -259,13 +259,17 @@
 #define AppCellOrEmail  NSLocalizedString(@"AppCellOrEmail",@"")
 #define AppConfirmPassword    NSLocalizedString(@"AppConfirmPassword",@"")
 #define AppChangePassword  NSLocalizedString(@"AppChangePassword",@"")
-
+#define AppUnlinked NSLocalizedString(@"AppUnlinked",@"")
 //Information
 #define AppInformation1  NSLocalizedString(@"AppInformation1",@"")
 #define AppInformation2  NSLocalizedString(@"AppInformation2",@"")
 #define AppInformation3    NSLocalizedString(@"AppInformation3",@"")
 #define AppUploadPhoto  NSLocalizedString(@"AppUploadPhoto",@"")
 #define AppUserName  NSLocalizedString(@"AppUserName",@"")
+#define AppOccupation   NSLocalizedString(@"AppOccupation",@"")
+#define AppBio   NSLocalizedString(@"AppBio",@"")
+#define AppLocation   NSLocalizedString(@"AppLocation",@"")
+
 #define AppMale  NSLocalizedString(@"AppMale",@"")
 #define AppFemail  NSLocalizedString(@"AppFemale",@"")
 #define AppBeginner    NSLocalizedString(@"AppBeginner",@"")
@@ -314,7 +318,8 @@
 #define AppFollowed  NSLocalizedString(@"AppFollowed",@"")
 #define AppFollowing  NSLocalizedString(@"AppFollowing",@"")
 #define AppFreeze    NSLocalizedString(@"AppFreeze",@"")
-
+#define AppReset    NSLocalizedString(@"AppReset",@"")
+#define AppNewPassword    NSLocalizedString(@"AppNewPassword",@"")
 #define AppWeChat    NSLocalizedString(@"AppWeChat",@"")
 #define AppWeibo  NSLocalizedString(@"AppWeibo",@"")
 #define AppMessage  NSLocalizedString(@"AppMessage",@"")
@@ -322,6 +327,10 @@
 #define AppAccount  NSLocalizedString(@"AppAccount",@"")
 #define AppInviteFriends NSLocalizedString(@"AppInviteFriends",@"")
 #define AppSetting  NSLocalizedString(@"AppSetting",@"")
+
+#define AppNotification NSLocalizedString(@"AppNotification",@"")
+#define AppClearCache  NSLocalizedString(@"AppClearCache",@"")
+#define AppRateAppStore NSLocalizedString(@"AppRateAppStore",@"")
 
 #define AppPayment NSLocalizedString(@"AppPayment",@"")
 #define AppGeneral  NSLocalizedString(@"AppGeneral",@"")

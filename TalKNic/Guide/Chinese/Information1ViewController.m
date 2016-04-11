@@ -1,12 +1,12 @@
 //
-//  InformationViewController.m
+//  Information1ViewController.m
 //  TalkNic
 //
 //  Created by Talknic on 15/10/9.
 //  Copyright (c) 2015年 TalkNic. All rights reserved.
 //
 
-#import "InformationViewController.h"
+#import "Information1ViewController.h"
 #import "Information2ViewController.h"
 #import "LoginViewController.h"
 #import "MeHeadViewController.h"
@@ -17,7 +17,7 @@
 #import "solveJsonData.h"
 #import "Information2ViewController.h"
 
-@interface InformationViewController ()<UIImagePickerControllerDelegate,UIActionSheetDelegate,MeImageCropperDelegate,UINavigationControllerDelegate,UIPickerViewAccessibilityDelegate>
+@interface Information1ViewController ()<UIImagePickerControllerDelegate,UIActionSheetDelegate,MeImageCropperDelegate,UINavigationControllerDelegate,UIPickerViewAccessibilityDelegate>
 {
     UIAlertController *_alert;
     NSString *uuID;
@@ -33,7 +33,7 @@
 
 @end
 
-@implementation InformationViewController
+@implementation Information1ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

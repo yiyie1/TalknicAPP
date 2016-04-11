@@ -18,10 +18,12 @@
 #import "AFNetworking.h"
 #import "CouponViewController.h"
 #import "MBProgressHUD+MJ.h"
+#import "ViewControllerUtil.h"
 
 @interface BalanceViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate>
 {
     NSArray *_allBalance;
+    ViewControllerUtil* _vcUtil;
 }
 @property (nonatomic,strong)UIButton *leftBT;
 @property (nonatomic,strong)UIButton *rightBT;
@@ -35,23 +37,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
-    
-    title.text = AppBalance;
-    
-    title.textAlignment = NSTextAlignmentCenter;
-    
-    title.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
-    title.font = [UIFont fontWithName:kHelveticaRegular size:17.0];
-    
-    self.navigationItem.titleView = title;
-    
-    
+    self.navigationItem.titleView = [_vcUtil SetTitle:AppBalance];
     [self layoutLeftBtn];
-    
     [self layoutView];
 }
+
 -(void)viewWillAppear:(BOOL)animated
 {
     self.tabBarController.tabBar.hidden = YES;

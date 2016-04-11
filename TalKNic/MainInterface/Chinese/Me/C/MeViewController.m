@@ -28,16 +28,15 @@
 #import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
 #import "solveJsonData.h"
+#import "ViewControllerUtil.h"
 
 //#import "UMSocial.h"
 @interface MeViewController ()<UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,MeImageCropperDelegate,UITextViewDelegate,UIPickerViewAccessibilityDelegate,UINavigationControllerDelegate>
 {
     NSArray *_allMesetup;
-    //BOOL btnstare;
     UITextView * _nameText;
     UITextView * _topText;
-    NSDictionary *dic;
-    NSDictionary *dica;
+    ViewControllerUtil* _vcUtil;
 }
 
 @property(nonatomic,strong)NSArray *searchArr; //保存searchBar搜索到的数据
@@ -75,25 +74,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UILabel *title = [[UILabel alloc] initWithFrame:kCGRectMake(0, 0, 100, 44)];
-    
-    title.text = AppMe;
-    
-    title.textAlignment = NSTextAlignmentCenter;
-    
-    title.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
-    title.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:17.0];
-    
-    self.navigationItem.titleView = title;
+    self.navigationItem.titleView = [_vcUtil SetTitle:AppMe];
 
     [self Setting];
-    
     [self LayoutProfile];
-    
     [self TopBarView];
-    
     [self TableView];
-    
     [self layoutClickBtnGetSearchBar];
     //设置头像
     [self portraitImageView];
@@ -298,13 +284,19 @@
 {
     if(_uid.length == 0)
     {
-        //[MBProgressHUD showError:kAlertNotLogin];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:kAlertNotLogin message:kAlertPlsLogin delegate:nil cancelButtonTitle:kAlertSure otherButtonTitles:nil];
-        [alertView show];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:kAlertNotLogin message:kAlertPlsLogin preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:AppCancel style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:AppSure style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            
+            LoginViewController* login = [[LoginViewController alloc]init];
+            [self.navigationController pushViewController:login animated:YES];
+            return;
+        }];
         
-        LoginViewController* login = [[LoginViewController alloc]init];
-        [self.navigationController pushViewController:login animated:YES];
-        return;
+        [alertController addAction:cancelAction];
+        [alertController addAction:okAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
     }
     
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
@@ -317,8 +309,8 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         TalkLog(@"Me result: %@",responseObject);
-        dic = [solveJsonData changeType:responseObject];
-        if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
+        NSDictionary *dic = [solveJsonData changeType:responseObject];
+        if ([[dic objectForKey:@"code"] isEqualToString:SERVER_SUCCESS])
         {
             NSDictionary *dict = [dic objectForKey:@"result"];
             if([_role isEqualToString:CHINESEUSER])
@@ -670,81 +662,8 @@
     editVc.location = _location;
     editVc.bio = _bio;
     [self.navigationController pushViewController:editVc animated:YES];
-    /*if (btnstare) {
-        [self.editBtn setTitle:AppEditProfile forState:(UIControlStateNormal)];
-        self.nameLabel.hidden=NO;
-        self.about.hidden = NO;
-        
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-        NSMutableDictionary *dicc = [NSMutableDictionary dictionary];
-        dicc[@"cmd"] = @"21";
-        dicc[@"user_id"] = _uid;
-        if (![_nameText.text isEqualToString:@""]) {
-            dicc[@"username"] = _nameText.text;
-        }
-        if (![_topText.text isEqualToString:@""]) {
-            dicc[@"biography"] = _topText.text;
-        }
-
-        [manager POST:PATH_GET_LOGIN parameters:dicc progress:^(NSProgress * _Nonnull uploadProgress) {
-            
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            TalkLog(@"result -- %@",responseObject);
-            
-            dica = [solveJsonData changeType:responseObject];
-            if (([(NSNumber *)[dica objectForKey:@"code"]intValue] == 2))
-            {
-                [MBProgressHUD showSuccess:kAlertModifyDatassSuccessful];
-                _nameLabel.text = _nameText.text;
-                _about.text = _topText.text;
-            }
-            else
-            {
-                [MBProgressHUD showError:kAlertModifyDataFailure];
-            }
-            
-            _nameText.hidden = YES;
-            _topText.hidden = YES;
-            
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            TalkLog(@"修改资料失败 -- %@",error);
-            [MBProgressHUD showError:kAlertNetworkError];
-            //return;
-        }];
-    }
-    else
-    {
-        [self.editBtn setTitle:AppDone forState:(UIControlStateNormal)];
-        self.nameLabel.hidden = YES;
-        self.about.hidden = YES;
-        _nameText = [[UITextView alloc]initWithFrame:_nameLabel.frame];
-        _nameText.frame = _nameLabel.frame;
-        _nameText.delegate = self;       //设置代理方法的实现类
-        _nameText.font=[UIFont fontWithName:@"HelveticaNeue-Regular" size:14.0];
-        _nameText.keyboardType = UIKeyboardTypeDefault;
-        _nameText.textAlignment = NSTextAlignmentLeft;
-        _nameText.backgroundColor = [UIColor clearColor];
-        _nameText.textColor = [UIColor blackColor];
-        _nameText.text =_nameLabel.text;
-        
-        [_imageViewBar addSubview:_nameText];
-        
-        _topText = [[UITextView alloc]initWithFrame:_about.frame];
-        _topText.frame = _about.frame;
-        _topText.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0];
-        _topText.delegate = self;
-        _topText.text =_about.text;
-        _topText.keyboardType = UIKeyboardTypeDefault;
-        _topText.backgroundColor = [UIColor clearColor];
-        _topText.textColor = [UIColor blackColor];
-        _topText.textAlignment = NSTextAlignmentLeft;
-        
-        [_imageViewBar addSubview:_topText];
-    }
-    btnstare = !btnstare;*/
-
 }
+
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 
 {

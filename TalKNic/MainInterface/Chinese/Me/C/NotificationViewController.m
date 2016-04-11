@@ -91,12 +91,12 @@
         cellSwitch.tag = 105;
     }
     cell.accessoryView = cellSwitch;
-    
+    cellSwitch.on = YES;
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 25;
+    return KHeightScaled(25);
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {

@@ -96,8 +96,12 @@
     //选中cell时背景图片
     if ([cellModel.chatDes isEqualToString:@"Audio message!"]) {
         self.selectedBackgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"msg_select_area_bg.png"]];
+        self.desLabel.textColor = [UIColor blackColor];
+        self.nameLabel.textColor = [UIColor blackColor];
     }else{
         self.selectedBackgroundView = [[UIImageView alloc]initWithImage:nil];
+        self.desLabel.textColor = [UIColor grayColor];
+        self.nameLabel.textColor = [UIColor grayColor];
     }
     
 }

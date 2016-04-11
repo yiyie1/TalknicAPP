@@ -159,6 +159,14 @@
 "AppTotalTimeLessThanMsgTime" = "本次聊天有效时间为24小时，请保持聊天";
 "AppNewCreditCard" = "添加信用卡";
 "AppCompleted" = "完成";
+"AppInbox" = "站内信";
+"AppClearCache" = "清除缓存";
+"AppRateAppStore" = "软件评分";
+"AppReset" = "重置";
+"AppNewPassword" = "新密码";
+"AppOccupation" = "职业";
+"AppBio" = "个人简介";
+"AppLocation" = "所在地";
 
 //me
 "AppCoupon" = "优惠券";
@@ -168,14 +176,14 @@
 "AppBalance" = "钱包";
 "AppCreditCard" = "信用卡";
 "AppHistory" = "历史订单";
-
+"AppUnlinked" = "未绑定";
 "AppShare" = "分享好友";
 "AppQA" = "疑问";
 "AppAbout" = "关于";
 "AppFollowed" = "好友";
 "AppFollowing" = "关注";
 "AppFreeze" = "冻结金额";
-
+"AppNotification" = "提醒";
 "AppWeChat" = "微信";
 "AppWeibo" = "微博";
 "AppMessage" = "短信";

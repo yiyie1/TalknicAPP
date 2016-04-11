@@ -120,13 +120,16 @@
 "AppOtherFastLogin" = "Other fast Log in";
 "AppCellOrEmail" = "Mobile/Email No.";
 "AppConfirmPassword" = "Confirm Password";
+"AppOccupation" = "Occupation";
+"AppBio" = "BIO";
+"AppLocation" = "Location";
 
 //Information
 "AppInformation1" = "Information (1/3)";
 "AppInformation2" ="Information (2/3)";
 "AppInformation3" ="Information (3/3)";
 "AppUploadPhoto" = "Upload avatar";
-"AppUserName" = "username";
+"AppUserName" = "User Name";
 "AppMale" = "Male";
 "AppFemale" = "Female";
 "AppBeginner" = "Beginner";
@@ -157,16 +160,21 @@
   "AppFeeds" = "Feeds";
 "AppMe" = "Me";
 "AppSearch" = "Search";
-
+"AppReset" = "Reset";
+"AppNewPassword" = "New Password";
 //me
 "AppCoupon" = "Coupon";
 "AppPoints" = "Points";
 "AppRedeem" = "Redeem";
-  "AppEditProfile" = "Edit your profile";
+"AppEditProfile" = "Edit your profile";
 "AppBalance" = "Balance";
 "AppCreditCard" = "Credit card";
-  "AppHistory" = "History";
-
+"AppHistory" = "History";
+"AppInbox" = "Inbox Message";
+"AppUnlinked" = "Unlinked";
+"AppNotification" = "Notification";
+"AppClearCache" = "Clear Cache";
+"AppRateAppStore" = "Rate in App Store";
 "AppShare" = "Share";
 "AppQA" = "Q & A";
 "AppAbout" = "About";

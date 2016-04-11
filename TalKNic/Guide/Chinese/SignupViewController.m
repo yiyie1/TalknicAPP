@@ -22,8 +22,8 @@
 #import "AppDelegate.h"
 #import "EaseMobSDK.h"
 #import "TalkTabBarViewController.h"
-#import "InformationViewController.h"
-#import "Foreigner0ViewController.h"
+#import "Information1ViewController.h"
+#import "Foreigner1ViewController.h"
 #import "ChoosePeopleViewController.h"
 #import "ViewControllerUtil.h"
 #import "LoginViewController.h"
@@ -577,14 +577,14 @@
                     
                     if ([identity isEqualToString:CHINESEUSER])
                     {
-                        InformationViewController *inforVC = [[InformationViewController alloc]init];
+                        Information1ViewController *inforVC = [[Information1ViewController alloc]init];
                         inforVC.uID = _uid;
                         [self.navigationController pushViewController:inforVC animated:NO];
                         
                     }
                     else if([identity isEqualToString:FOREINERUSER])
                     {
-                        Foreigner0ViewController *foreigVC = [[Foreigner0ViewController alloc]init];
+                        Foreigner1ViewController *foreigVC = [[Foreigner1ViewController alloc]init];
                         foreigVC.uID = _uid;
                         [self.navigationController pushViewController:foreigVC animated:NO];
                     }

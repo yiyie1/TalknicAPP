@@ -42,15 +42,14 @@
 		36474AA31C40F04800C12D2C /* KTSelectPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474AA01C40F04800C12D2C /* KTSelectPickerView.m */; };
 		36474AA41C40F04800C12D2C /* KTSelectPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36474AA11C40F04800C12D2C /* KTSelectPickerView.xib */; };
 		36474AAD1C40F08000C12D2C /* DailysettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474AA61C40F08000C12D2C /* DailysettingViewController.m */; };
-		36474AAE1C40F08000C12D2C /* Foreigner0ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474AA81C40F08000C12D2C /* Foreigner0ViewController.m */; };
-		36474AAF1C40F08000C12D2C /* Foreigner2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474AAA1C40F08000C12D2C /* Foreigner2ViewController.m */; };
-		36474AB01C40F08000C12D2C /* Foreigner1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474AAC1C40F08000C12D2C /* Foreigner1ViewController.m */; };
+		36474AAE1C40F08000C12D2C /* Foreigner1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474AA81C40F08000C12D2C /* Foreigner1ViewController.m */; };
+		36474AB01C40F08000C12D2C /* Foreigner2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474AAC1C40F08000C12D2C /* Foreigner2ViewController.m */; };
 		36474AC41C40F10500C12D2C /* ChoosePeopleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474AB21C40F10500C12D2C /* ChoosePeopleViewController.m */; };
 		36474AC51C40F10500C12D2C /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474AB41C40F10500C12D2C /* SignupViewController.m */; };
 		36474AC61C40F10500C12D2C /* ForgetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474AB61C40F10500C12D2C /* ForgetPasswordViewController.m */; };
 		36474AC81C40F10500C12D2C /* Information2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474ABB1C40F10500C12D2C /* Information2ViewController.m */; };
 		36474AC91C40F10500C12D2C /* Information3ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474ABD1C40F10500C12D2C /* Information3ViewController.m */; };
-		36474ACA1C40F10500C12D2C /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474ABF1C40F10500C12D2C /* InformationViewController.m */; };
+		36474ACA1C40F10500C12D2C /* Information1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474ABF1C40F10500C12D2C /* Information1ViewController.m */; };
 		36474ACB1C40F10500C12D2C /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474AC11C40F10500C12D2C /* LoginViewController.m */; };
 		36474ACC1C40F10500C12D2C /* ScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36474AC31C40F10500C12D2C /* ScrollViewController.m */; };
 		3647CCD31C482D9C00F1598A /* HomeShowPicturwCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3647CCBB1C482D9C00F1598A /* HomeShowPicturwCell.m */; };
@@ -391,7 +390,6 @@
 		36F9066F1BE2059E0017F5AA /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F9065D1BE2059E0017F5AA /* UIImageView+WebCache.m */; };
 		36F906701BE2059E0017F5AA /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F9065F1BE2059E0017F5AA /* UIView+WebCacheOperation.m */; };
 		36F906711BE2059E0017F5AA /* 使用说明.txt in Resources */ = {isa = PBXBuildFile; fileRef = 36F906601BE2059E0017F5AA /* 使用说明.txt */; };
-		36F937571BF9F6A800913570 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F937561BF9F6A800913570 /* HistoryViewController.m */; };
 		36F9375D1BF9F6BD00913570 /* QaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F9375C1BF9F6BD00913570 /* QaViewController.m */; };
 		36F937601BF9F6C400913570 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F9375F1BF9F6C400913570 /* AboutViewController.m */; };
 		A375C8CD1C75CF140085E8ED /* OrderRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = A375C8CC1C75CF140085E8ED /* OrderRecorder.m */; };
@@ -667,12 +665,10 @@
 		36474AA11C40F04800C12D2C /* KTSelectPickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KTSelectPickerView.xib; sourceTree = "<group>"; };
 		36474AA51C40F08000C12D2C /* DailysettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DailysettingViewController.h; path = ../../../../Guide/Foreigner/DailysettingViewController.h; sourceTree = "<group>"; };
 		36474AA61C40F08000C12D2C /* DailysettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DailysettingViewController.m; path = ../../../../Guide/Foreigner/DailysettingViewController.m; sourceTree = "<group>"; };
-		36474AA71C40F08000C12D2C /* Foreigner0ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Foreigner0ViewController.h; sourceTree = "<group>"; };
-		36474AA81C40F08000C12D2C /* Foreigner0ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Foreigner0ViewController.m; sourceTree = "<group>"; };
-		36474AA91C40F08000C12D2C /* Foreigner2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Foreigner2ViewController.h; sourceTree = "<group>"; };
-		36474AAA1C40F08000C12D2C /* Foreigner2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Foreigner2ViewController.m; sourceTree = "<group>"; };
-		36474AAB1C40F08000C12D2C /* Foreigner1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Foreigner1ViewController.h; sourceTree = "<group>"; };
-		36474AAC1C40F08000C12D2C /* Foreigner1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Foreigner1ViewController.m; sourceTree = "<group>"; };
+		36474AA71C40F08000C12D2C /* Foreigner1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Foreigner1ViewController.h; sourceTree = "<group>"; };
+		36474AA81C40F08000C12D2C /* Foreigner1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Foreigner1ViewController.m; sourceTree = "<group>"; };
+		36474AAB1C40F08000C12D2C /* Foreigner2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Foreigner2ViewController.h; sourceTree = "<group>"; };
+		36474AAC1C40F08000C12D2C /* Foreigner2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Foreigner2ViewController.m; sourceTree = "<group>"; };
 		36474AB11C40F10500C12D2C /* ChoosePeopleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoosePeopleViewController.h; sourceTree = "<group>"; };
 		36474AB21C40F10500C12D2C /* ChoosePeopleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoosePeopleViewController.m; sourceTree = "<group>"; };
 		36474AB31C40F10500C12D2C /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
@@ -683,8 +679,8 @@
 		36474ABB1C40F10500C12D2C /* Information2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Information2ViewController.m; sourceTree = "<group>"; };
 		36474ABC1C40F10500C12D2C /* Information3ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Information3ViewController.h; sourceTree = "<group>"; };
 		36474ABD1C40F10500C12D2C /* Information3ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Information3ViewController.m; sourceTree = "<group>"; };
-		36474ABE1C40F10500C12D2C /* InformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationViewController.h; sourceTree = "<group>"; };
-		36474ABF1C40F10500C12D2C /* InformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationViewController.m; sourceTree = "<group>"; };
+		36474ABE1C40F10500C12D2C /* Information1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Information1ViewController.h; sourceTree = "<group>"; };
+		36474ABF1C40F10500C12D2C /* Information1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Information1ViewController.m; sourceTree = "<group>"; };
 		36474AC01C40F10500C12D2C /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		36474AC11C40F10500C12D2C /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		36474AC21C40F10500C12D2C /* ScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewController.h; sourceTree = "<group>"; };
@@ -1188,8 +1184,6 @@
 		36F9065F1BE2059E0017F5AA /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
 		36F906601BE2059E0017F5AA /* 使用说明.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "使用说明.txt"; sourceTree = "<group>"; };
 		36F937521BF9F69600913570 /* CreditCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditCardViewController.h; sourceTree = "<group>"; };
-		36F937551BF9F6A800913570 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
-		36F937561BF9F6A800913570 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		36F9375B1BF9F6BD00913570 /* QaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QaViewController.h; sourceTree = "<group>"; };
 		36F9375C1BF9F6BD00913570 /* QaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QaViewController.m; sourceTree = "<group>"; };
 		36F9375E1BF9F6C400913570 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
@@ -1699,12 +1693,10 @@
 		361FF7E91BFEFE5800A65354 /* Foreigner */ = {
 			isa = PBXGroup;
 			children = (
-				36474AA71C40F08000C12D2C /* Foreigner0ViewController.h */,
-				36474AA81C40F08000C12D2C /* Foreigner0ViewController.m */,
-				36474AA91C40F08000C12D2C /* Foreigner2ViewController.h */,
-				36474AAA1C40F08000C12D2C /* Foreigner2ViewController.m */,
-				36474AAB1C40F08000C12D2C /* Foreigner1ViewController.h */,
-				36474AAC1C40F08000C12D2C /* Foreigner1ViewController.m */,
+				36474AA71C40F08000C12D2C /* Foreigner1ViewController.h */,
+				36474AA81C40F08000C12D2C /* Foreigner1ViewController.m */,
+				36474AAB1C40F08000C12D2C /* Foreigner2ViewController.h */,
+				36474AAC1C40F08000C12D2C /* Foreigner2ViewController.m */,
 			);
 			path = Foreigner;
 			sourceTree = "<group>";
@@ -1914,8 +1906,8 @@
 				36474AC11C40F10500C12D2C /* LoginViewController.m */,
 				36474AB51C40F10500C12D2C /* ForgetPasswordViewController.h */,
 				36474AB61C40F10500C12D2C /* ForgetPasswordViewController.m */,
-				36474ABE1C40F10500C12D2C /* InformationViewController.h */,
-				36474ABF1C40F10500C12D2C /* InformationViewController.m */,
+				36474ABE1C40F10500C12D2C /* Information1ViewController.h */,
+				36474ABF1C40F10500C12D2C /* Information1ViewController.m */,
 				36474ABA1C40F10500C12D2C /* Information2ViewController.h */,
 				36474ABB1C40F10500C12D2C /* Information2ViewController.m */,
 				36474ABC1C40F10500C12D2C /* Information3ViewController.h */,
@@ -2171,8 +2163,6 @@
 				36B6EC0C1BF9835000B881BE /* BalanceViewController.m */,
 				36F937521BF9F69600913570 /* CreditCardViewController.h */,
 				36AF36DF1C5B2A7A00FAE6E9 /* CreditCardViewController.m */,
-				36F937551BF9F6A800913570 /* HistoryViewController.h */,
-				36F937561BF9F6A800913570 /* HistoryViewController.m */,
 				36F9375B1BF9F6BD00913570 /* QaViewController.h */,
 				36F9375C1BF9F6BD00913570 /* QaViewController.m */,
 				36F9375E1BF9F6C400913570 /* AboutViewController.h */,
@@ -4274,7 +4264,7 @@
 				DFD054A61C3CED10000E034F /* amrFileCodec.mm in Sources */,
 				DFD054DD1C3CED10000E034F /* PSTGridLayoutSection.m in Sources */,
 				364C56101BC761AC00DECAC8 /* AppDelegate.m in Sources */,
-				36474AB01C40F08000C12D2C /* Foreigner1ViewController.m in Sources */,
+				36474AB01C40F08000C12D2C /* Foreigner2ViewController.m in Sources */,
 				366D27391BFDAD5600110B3B /* VoiceCell.m in Sources */,
 				DFD054C01C3CED10000E034F /* DACircularProgressView.m in Sources */,
 				36474ACB1C40F10500C12D2C /* LoginViewController.m in Sources */,
@@ -4303,7 +4293,6 @@
 				36B108AB1C33945A00F16470 /* AFSecurityPolicy.m in Sources */,
 				DFD055001C3CED10000E034F /* EaseBubbleView.m in Sources */,
 				36F906661BE2059E0017F5AA /* SDWebImageDownloader.m in Sources */,
-				36474AAF1C40F08000C12D2C /* Foreigner2ViewController.m in Sources */,
 				357757231CB177DE0038B03A /* VoiceChatCell.m in Sources */,
 				DFD055451C3CED4E000E034F /* EMGifImage.m in Sources */,
 				DFD0555B1C3CF160000E034F /* EMBubbleView+Gif.m in Sources */,
@@ -4460,7 +4449,7 @@
 				DFD054D61C3CED10000E034F /* PSTCollectionViewFlowLayout.m in Sources */,
 				36474A9B1C40EFCD00C12D2C /* AppDelegate+ShareSDK.m in Sources */,
 				DFD054C51C3CED10000E034F /* EMSDWebImageDownloaderOperation.m in Sources */,
-				36474ACA1C40F10500C12D2C /* InformationViewController.m in Sources */,
+				36474ACA1C40F10500C12D2C /* Information1ViewController.m in Sources */,
 				DFD0549E1C3CED10000E034F /* EaseUI.m in Sources */,
 				366D27351BFDABD200110B3B /* Voice.m in Sources */,
 				DFD054D11C3CED10000E034F /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
@@ -4475,7 +4464,6 @@
 				DFD054DC1C3CED10000E034F /* PSTGridLayoutRow.m in Sources */,
 				36614C001C56004E00302EDE /* VoiceViewController.m in Sources */,
 				DFD055591C3CF160000E034F /* EMChatViewController.m in Sources */,
-				36F937571BF9F6A800913570 /* HistoryViewController.m in Sources */,
 				DFD054CB1C3CED10000E034F /* UIImage+EMGIF.m in Sources */,
 				36F906611BE2059E0017F5AA /* MKAnnotationView+WebCache.m in Sources */,
 				36A9CEDD1C116D700053F4E4 /* FootView.m in Sources */,
@@ -4497,7 +4485,7 @@
 				ACC9856F1CAD6FD10003C28B /* CompletedChatViewController.m in Sources */,
 				357757201CB16B260038B03A /* VoiceCellModel.m in Sources */,
 				36F824081C42CD8A00D0E1B5 /* RSADataVerifier.m in Sources */,
-				36474AAE1C40F08000C12D2C /* Foreigner0ViewController.m in Sources */,
+				36474AAE1C40F08000C12D2C /* Foreigner1ViewController.m in Sources */,
 				366A241C1BFAD44C00F2E7DD /* Balance.m in Sources */,
 				DFD055031C3CED10000E034F /* EaseImageView.m in Sources */,
 				36B6EC0D1BF9835000B881BE /* BalanceViewController.m in Sources */,
@@ -4604,7 +4592,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "7615b2dc-22e6-46b0-ac4e-92e3bde3f7b4";
+				PROVISIONING_PROFILE = "2fbb8f73-05d6-485c-b0af-d7fe671382df";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -4628,7 +4616,6 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: JI REN ZOU (EGRPY8KFPP)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: JI REN ZOU (EGRPY8KFPP)";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -4644,7 +4631,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "7615b2dc-22e6-46b0-ac4e-92e3bde3f7b4";
+				PROVISIONING_PROFILE = "2fbb8f73-05d6-485c-b0af-d7fe671382df";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

@@ -7,7 +7,7 @@
 //
 
 #import "FeedsViewController.h"
-
+#import "ViewControllerUtil.h"
 @interface FeedsViewController ()
 @property (nonatomic,strong)UIWebView *webView;
 @end
@@ -17,16 +17,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
-    
-    title.text = AppFeeds;
-    
-    title.textAlignment = NSTextAlignmentCenter;
-    
-    title.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
-    title.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:17.0];
-    
-    self.navigationItem.titleView = title;
+    ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
+    self.navigationItem.titleView = [vcUtil SetTitle:AppFeeds];
 
     
     self.view.backgroundColor = [UIColor clearColor];

@@ -10,8 +10,12 @@
 #import "AFNetworking.h"
 #import "solveJsonData.h"
 #import "MBProgressHUD+MJ.h"
+#import "ViewControllerUtil.h"
 
 @interface QaViewController ()
+{
+    ViewControllerUtil* _vcUtil;
+}
 @property (nonatomic,strong)UIButton *leftBT;
 @property (nonatomic,strong)UIButton *RightBT;
 @property (nonatomic,strong)UITextView* textView;
@@ -25,23 +29,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
-    
-    title.text = AppQA;
-    
-    title.textAlignment = NSTextAlignmentCenter;
-    
-    title.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
-    title.font = [UIFont fontWithName:kHelveticaRegular size:17.0];
-    
-    self.navigationItem.titleView = title;
-    
-    
+    _vcUtil = [[ViewControllerUtil alloc]init];
+    self.navigationItem.titleView = [_vcUtil SetTitle:AppQA];
      _dict = [NSDictionary dictionary];
     
     [self layoutLeftBT];
     [self layoutView];
 }
+
 -(void)layoutLeftBT
 {
     self.leftBT = [[UIButton alloc]init];
@@ -53,7 +48,7 @@
     
     self.RightBT = [[UIButton alloc]init];
     _RightBT.frame = CGRectMake(0, 10, 45, 31/2);
-    [_RightBT setTitle:@"Send" forState:(UIControlStateNormal)];//setBackgroundImage:[UIImage imageNamed:@"login_btn_send"] forState:(UIControlStateNormal)];
+    [_RightBT setTitle:AppSend forState:(UIControlStateNormal)];
     _RightBT.font = [UIFont fontWithName:kHelveticaRegular size:17.0];
     [_RightBT addTarget:self action:@selector(RightAction) forControlEvents:(UIControlEventTouchUpInside)];
     UIBarButtonItem *RightI = [[UIBarButtonItem alloc]initWithCustomView:_RightBT];
@@ -65,58 +60,33 @@
     self.view.backgroundColor = [UIColor colorWithRed:244.0/255.0 green:244.0/255.0 blue:244.0/255.0 alpha:1.0];
     
     _textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 273)];
+    _textView.font =  [UIFont systemFontOfSize:20];
+    
     [self.view addSubview:_textView];
-    UILabel* numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 273, self.view.frame.size.width, 20)];
-    numberLabel.text = @"    400";
+    UILabel* numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 273, self.view.frame.size.width, 20)];
+    numberLabel.text = @" Add your comments & questions in 400 words";
     numberLabel.textColor = [UIColor grayColor];
     numberLabel.backgroundColor = [UIColor whiteColor];
+    numberLabel.font = [UIFont fontWithName:kHelveticaRegular size:10.0];
     [self.view addSubview:numberLabel];
     
     UIView* line_1 = [[UIView alloc] initWithFrame:CGRectMake(0, numberLabel.frame.origin.y+numberLabel.frame.size.height, self.view.frame.size.width, 1)];
     line_1.backgroundColor = [UIColor grayColor];
     [self.view addSubview:line_1];
-    
-    self.EmailFeild = [[UITextField alloc] initWithFrame:CGRectMake(0, line_1.frame.origin.y+2, self.view.frame.size.width, 87/2)];
-    _EmailFeild.backgroundColor = [UIColor whiteColor];
-    self.EmailFeild.placeholder = @"    Email";
-    [self.view addSubview:self.EmailFeild];
-    
-    UIView* line_2 = [[UIView alloc] initWithFrame:CGRectMake(0, self.EmailFeild.frame.origin.y+self.EmailFeild.frame.size.height, self.view.frame.size.width, 1)];
-    line_2.backgroundColor = [UIColor grayColor];
-    [self.view addSubview:line_2];
-    
-    self.NameFeild = [[UITextField alloc] initWithFrame:CGRectMake(0, line_2.frame.origin.y+line_2.frame.size.height, self.view.frame.size.width, 87/2)];
-    self.NameFeild.placeholder = @"    Name";
-    [self.view addSubview:self.NameFeild];
-    _NameFeild.backgroundColor = [UIColor whiteColor];
-    
-    
-    UIView* line_3 = [[UIView alloc] initWithFrame:CGRectMake(0, self.NameFeild.frame.origin.y+self.NameFeild.frame.size.height, self.view.frame.size.width, 1)];
-    line_3.backgroundColor = [UIColor grayColor];
-    [self.view addSubview:line_3];
 }
 
 
 
 -(void)RightAction
 {
-#warning 判断邮箱格式
-    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-    // 邮箱登录
-    NSLog(@"%d",[emailTest evaluateWithObject:_EmailFeild.text]);
-    if (![emailTest evaluateWithObject:_EmailFeild.text]) {
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:kAlertPrompt message:kAlertEmailError delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil, nil];
-        [alert show];
+    if(_textView.text.length == 0)
+    {
+        [MBProgressHUD showError:@"Add your comments and questions"];
         return;
     }
-    
     NSDictionary * dic = @{@"cmd":@"31",
-                           @"name":_NameFeild.text,
-                           @"mail":_EmailFeild.text,
-                           @"content":_textView.text,
-                           @"user_id":_uid
+                           @"uid":_uid,
+                           @"qa":_textView.text,
                            };
     
     
@@ -125,32 +95,21 @@
     [session POST:PATH_GET_LOGIN parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
         _dict = [solveJsonData changeType:responseObject];
-        
-        //        NSLog(@"上床问题成功%@****%@",responseObject[@"code"],dic);
-        
-        if ([responseObject[@"code"]integerValue]==2) {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"发送成功！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
-            [self.navigationController popViewControllerAnimated:YES];
-        }else{
-            
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"发送失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
+        if ([responseObject[@"code"] isEqualToString:SERVER_SUCCESS])
+        {
+            [MBProgressHUD showSuccess:kAlertdataSuccess];
+        }
+        else
+        {
+            [MBProgressHUD showError:kAlertdataFailure];
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [MBProgressHUD showError:kAlertNetworkError];
         NSLog(@"error%@",error);
-        //return;
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"填写有误或内容为空。" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
         
     }];
-    
-    
-    
 }
 
 

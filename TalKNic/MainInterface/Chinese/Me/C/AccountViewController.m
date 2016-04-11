@@ -87,7 +87,7 @@
     _tableView.dataSource = self;
     [_tableView setScrollEnabled:NO];
     [self.view addSubview:_tableView];
-    _allSetting = @[[Setting settingWithGroup:@[@"Change password"]],[Setting settingWithGroup:@[@"Mobile", @"Email", @"Wechat", @"Weibo"]]];
+    _allSetting = @[[Setting settingWithGroup:@[AppChangePassword]],[Setting settingWithGroup:@[@"Mobile", @"Email", @"Wechat", @"Weibo"]]];
     
 //    UIButton *logout = [UIButton buttonWithType:UIButtonTypeCustom];
 //    logout setFrame:CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
@@ -107,40 +107,19 @@
     Setting *set = _allSetting[indexPath.section];
     cell.textLabel.text = set.grouping[indexPath.row];
     
-    if ([cell.textLabel.text isEqual:@"Change password"])
+    if ([cell.textLabel.text isEqual:AppChangePassword])
     {
         cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
     }
     else
     {
         UILabel *label = [[UILabel alloc]init];
-        label.frame = kCGRectMake(150, 110, 100, 20);
+        label.frame = kCGRectMake(150, 110, 150, 20);
         NSString* linkstr = [_vcUtil GetLinked:cell.textLabel.text];
         if(linkstr.length != 0)
             label.text = [_vcUtil GetLinked:cell.textLabel.text];
         else
-            label.text = @"Unlinked";
-        /*if([cell.textLabel.text isEqual:@"Mobile"])
-        {
-            if ([_vcUtil GetLinked:@"Mobile"])
-                label.text = @"Linked";
-        }
-        else if([cell.textLabel.text isEqual:@"Wechat"])
-        {
-            if ([_vcUtil GetLinked:@"Wechat"])
-                label.text = @"Linked";
-        }
-        else if([cell.textLabel.text isEqual:@"Weibo"])
-        {
-            if ([_vcUtil GetLinked:@"Weibo"])
-                label.text = @"Linked";
-        }
-        else if([cell.textLabel.text isEqual:@"Email"])
-        {
-            if ([_vcUtil GetLinked:@"Email"])
-                label.text = @"Linked";
-        }*/
-        
+            label.text = AppUnlinked;
         label.textAlignment = NSTextAlignmentRight;
         cell.accessoryView = label;
         

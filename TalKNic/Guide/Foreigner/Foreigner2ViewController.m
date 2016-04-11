@@ -2,25 +2,24 @@
 //  Foreigner2ViewController.m
 //  TalKNic
 //
-//  Created by Talknic on 15/11/25.
-//  Copyright © 2015年 TalKNic. All rights reserved.
+//  Created by Talknic on 15/11/20.
+//  Copyright (c) 2015年 TalKNic. All rights reserved.
 //
 
 #import "Foreigner2ViewController.h"
-#import "ScrollViewController.h"
 #import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
-#import "Check.h"
 #import "solveJsonData.h"
-@interface Foreigner2ViewController ()<UITextFieldDelegate>
+#import "ScrollViewController.h"
+
+@interface Foreigner2ViewController ()
+{
+    NSString *_topics;
+}
+@property (nonatomic,strong)UILabel *labelTitle;
+@property (nonatomic,strong)UILabel *labelTitle2;
 @property (nonatomic,strong)UIButton *leftBT;
-@property (nonatomic,strong)UILabel *label;
-
-@property (nonatomic,strong)UITextField *cardnumber;
-@property (nonatomic,strong)UITextField *holdername;
-
-@property (nonatomic,strong)UITextField *mmyy;
-@property (nonatomic,strong)UITextField *ccv;
+@property (nonatomic,strong)NSMutableArray *clickArr;
 
 @end
 
@@ -28,9 +27,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
     
-    title.text = @"Information (3/3)";
+    title.text = @"Information (2/3)";
     
     title.textAlignment = NSTextAlignmentCenter;
     
@@ -38,193 +38,149 @@
     title.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:17.0];
     
     self.navigationItem.titleView = title;
+
+    [self labeltitleView];
+    [self layoutBtn];
     
-    [self navigaTitle];
-    
-    [self layoutView];
 }
--(void)navigaTitle
+-(void)labeltitleView
 {
+    self.labelTitle = [[UILabel alloc]init];
+    _labelTitle.frame = kCGRectMake(15, 84, 375-30, 20);
+    _labelTitle.text = @"First time for your topic choosing:";
+    _labelTitle.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0];
+    _labelTitle.numberOfLines =0;
+    _labelTitle.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:_labelTitle];
+    
+    self.labelTitle2 = [[UILabel alloc]init];
+    _labelTitle2.frame =kCGRectMake(15, 104, 375-30, 15);
+    _labelTitle2.text =@"(maximum 3 chosen)";
+    _labelTitle2.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10.0];
+    _labelTitle2.textAlignment = NSTextAlignmentCenter;
+    _labelTitle2.numberOfLines =0;
+    [self.view addSubview:_labelTitle2];
+    
+    
     self.leftBT = [[UIButton alloc]init];
     _leftBT.frame = CGRectMake(0, 0, 7, 23/2);
-    [_leftBT setBackgroundImage:[UIImage imageNamed:@"nav_back.png"] forState:(UIControlStateNormal)];
-    [_leftBT addTarget:self action:@selector(leftAction) forControlEvents:(UIControlEventTouchUpInside)];
-    UIBarButtonItem *leftI = [[UIBarButtonItem alloc]initWithCustomView:_leftBT];
-    self.navigationItem.leftBarButtonItem = leftI;
+    [_leftBT setBackgroundImage:[UIImage imageNamed:@"nav_back.png"] forState:(UIControlStateNormal)
+     ];
+    [_leftBT addTarget:self action:@selector(popAction) forControlEvents:(UIControlEventTouchUpInside)];
+    UIBarButtonItem *leftit = [[UIBarButtonItem alloc]initWithCustomView:_leftBT];
+    self.navigationItem.leftBarButtonItem = leftit;
     
-    UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightAction)];
-    right.tintColor = [UIColor whiteColor];
-    self.navigationItem.rightBarButtonItem = right;
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"Next" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightAction)];
+    rightItem.tintColor = [UIColor whiteColor];
+    self.navigationItem.rightBarButtonItem = rightItem;
 }
--(void)layoutView
+-(void)layoutBtn
 {
-    self.label = [[UILabel alloc]init];
-    _label.frame = kCGRectMake(0, 84, 375, 20);
-    _label.text = @"Bank section:";
-    _label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0];
-    _label.numberOfLines =0;
-    _label.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:_label];
+    if (!self.clickArr) {
+        self.clickArr = [NSMutableArray array];
+        
+        
+    }
+    NSArray *arr = APP_TOPIC;
     
-    self.cardnumber = [[UITextField alloc]init];
-    _cardnumber.frame = kCGRectMake(50, 130, 277.77, 60);
-    _cardnumber.placeholder =@"card number";
-    _cardnumber.keyboardType = UIKeyboardTypeNumberPad;
-    _cardnumber.delegate = self;
-    _cardnumber.tag = 100;
-    _cardnumber.textAlignment = NSTextAlignmentCenter;
-    [_cardnumber setBackground:[UIImage imageNamed:@"login_input_lg.png"]];
-    [self.view addSubview:_cardnumber];
-    
-    self.holdername = [[UITextField alloc]init];
-    _holdername.frame = kCGRectMake(50, 195, 277.77, 60);
-    [_holdername setBackground:[UIImage imageNamed:@"login_input_lg.png"]];
-    _holdername.placeholder =@"holder name";
-//    _holdername.keyboardType = UIKeyboardTypeNumberPad;
-    _holdername.delegate = self;
-    _holdername.tag = 101;
-    _holdername.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:_holdername];
-    
-    self.mmyy = [[UITextField alloc]init];
-    _mmyy.frame = kCGRectMake(50, 265, 131.385, 60);
-    [_mmyy setBackground:[UIImage imageNamed:@"login_input_small.png"]];
-    _mmyy.placeholder = @"mm / yy";
-    _mmyy.keyboardType = UIKeyboardTypeNumberPad;
-    _mmyy.delegate = self;
-    _mmyy.tag = 102;
-    _mmyy.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:_mmyy];
-    
-    self.ccv = [[UITextField alloc]init];
-    _ccv.frame = kCGRectMake(196.385, 265,131.385 , 60);
-    [_ccv setBackground:[UIImage imageNamed:@"login_input_small.png"]];
-    _ccv.placeholder = @"ccv";
-    _ccv.keyboardType = UIKeyboardTypeNumberPad;
-    _ccv.delegate = self;
-    _ccv.tag = 103;
-    _ccv.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:_ccv];
+    for (int i = 0; i < arr.count ;i ++) {
+        UIButton *btn1 = [[UIButton alloc]initWithFrame:kCGRectMake(30 + ((375-90)/2+30 )* (i % 2), 135 + 70 * (i / 2), (375-90)/2, 55)];
+        btn1.tag = 100 + i;
+        [btn1 setTitle:arr[i]forState:UIControlStateNormal];
+        btn1.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0];
+        NSString *a = @"0";
+        [self.clickArr addObject:a];
+        [btn1 addTarget:self action:@selector(click:) forControlEvents:(UIControlEventTouchUpInside)];
+        [btn1 setBackgroundImage:[UIImage imageNamed:@"login_btn_50%.png"] forState:(UIControlStateNormal)];
+        [self.view addSubview:btn1];
+        
+    }
+
 }
--(void)leftAction
+-(void)click:(id)sender
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    UIButton *btn = sender;
+    NSInteger count = btn.tag - 100;
+    
+    if ([_clickArr[count] isEqualToString:@"0"]) {
+        [sender setBackgroundImage:[UIImage imageNamed:@"login_btn_100%_a.png"] forState:(UIControlStateNormal)];
+        _clickArr[count] = @"1";
+    }else
+    {
+        [sender setBackgroundImage:[UIImage imageNamed:@"login_btn_50%.png"] forState:(UIControlStateNormal)];
+        _clickArr[count] = @"0";
+        
+    }
+
 }
+
 -(void)rightAction
 {
-    Check *checkNum = [[Check alloc]init];
-    if (![checkNum validateBankCardNumber:_cardnumber.text]) {
-        [MBProgressHUD showError:kAlertcardFormat];
-        return;
+    _topics = @"";
+    NSArray *arr = APP_TOPIC;
+    for (int i = 0; i < self.clickArr.count; i ++)
+    {
+        // 被选中的Btn 下标i
+        if ([self.clickArr[i] isEqualToString:@"1"])
+        {
+            _topics = [_topics stringByAppendingString:arr[i]];
+        }
     }
-    if (_cardnumber.text.length == 0) {
-        [MBProgressHUD showError:kAlertCardEmpty];
-        return;
-    }
-    if (_cardnumber.text.length > 17) {
-        [MBProgressHUD showError:kAlertLenghtEmpty];
-        return;
-    }
-    if (_holdername.text.length ==0) {
-        [MBProgressHUD showError:kAlertcardNameEmpty];
-        return;
-    }
-    if (_mmyy.text.length ==0) {
-        [MBProgressHUD showError:kAlertDateEmpty];
-        return;
-    }
-    if (_ccv.text.length == 0) {
-        [MBProgressHUD showError:kAlertCCVEmpty];
-        return;
-    }
-    if (_ccv.text.length >3) {
-        [MBProgressHUD showError:kAlertLenghtEmpty];
+    
+    if([_topics isEqualToString:@""])
+    {
+        [MBProgressHUD showError:kAlertTopic];
         return;
     }
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    session.responseSerializer = [AFHTTPResponseSerializer serializer];
+
     NSMutableDictionary *parame = [NSMutableDictionary dictionary];
-    parame[@"cmd"]  = @"9";
-    parame[@"user_id"] = _iD;
-    parame[@"number"] = _cardnumber.text;
-    parame[@"name"]  = _holdername.text;
-    parame[@"validity"] = _mmyy.text;
-    parame[@"ccv"] = _ccv.text;
+    parame[@"cmd"] = @"7";
+    parame[@"user_id"] = _usID;
+    parame[@"identity"] = @"1";
+    parame[@"user_name"] = _usName;
+    parame[@"user_sex"] = _sex;
+    parame[@"user_topic"] = _topics;
+    parame[@"user_level"] = @"professor";
+    parame[@"nationality"] = _nation;
+    parame[@"occupation"]  = _occup;
+    parame[@"biography"]  = _biogra;
+    
     [session POST:PATH_GET_LOGIN parameters:parame progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        TalkLog(@"添加银行卡 -- %@",responseObject);
-        NSMutableDictionary *dicq = [solveJsonData changeType:responseObject];
-        if (([(NSNumber *)[dicq objectForKey:@"code"] intValue] == 2))
+        NSString *str =[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
+        //NSDictionary* dic = [solveJsonData changeType:responseObject];
+        if([str containsString:SERVER_SUCCESS])
         {
-            NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-            [ud setObject:@"Done" forKey:@"FinishedInformation"];
-            
+            //FIXME add credit card when yinlian is enabled
             ScrollViewController *scroll = [[ScrollViewController alloc]init];
-            scroll.uid = _iD;
+            scroll.uid = _usID;
             [self.navigationController pushViewController:scroll animated:YES];
         }
-        else if (([(NSNumber *)[dicq objectForKey:@"code"] intValue] == 3))
+        else
         {
-            [MBProgressHUD showError:kAlertUpFailEmpty];//验证码错误
+            [MBProgressHUD showError:kAlertModifyDataFailure];
         }
-        else if (([(NSNumber *)[dicq objectForKey:@"code"] intValue] == 4))
-        {
-            [MBProgressHUD showError:kAlertUseridWrongEmpty];
-        }
-        else if (([(NSNumber *)[dicq objectForKey:@"code"] intValue] == 5))
-        {
-            [MBProgressHUD showError:kAlertCardnumberExists];
-        }
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        TalkLog(@"上传银行卡信息失败 -- %@",error);
-        [MBProgressHUD showError:kAlertNetworkError];
-        //return;
-    }];
 
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        TalkLog(@"error -- %@",error);
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
+    }];
 }
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    
-    [_ccv resignFirstResponder];
-    [_mmyy resignFirstResponder];
-    [_cardnumber resignFirstResponder];
-    [_holdername resignFirstResponder];
-    
-    
+
+-(void)popAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
-#pragma mark - 输入长度限制
--(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    NSInteger strLength = textField.text.length - range.length + string.length;
-    if (textField.tag == 100) {
-        
-        if (strLength >16) {
-            [MBProgressHUD showError:kAlertLenghtEmpty];
-            return NO;
-        }
-    }else if (textField.tag == 101){
-        if (strLength >60) {
-            return NO;
-        }
-        
-    }else if (textField.tag == 102){
-        if (strLength >20) {
-            return NO;
-        }
-         
-    }else if (textField.tag == 103){
-        if (strLength >3) {
-            [MBProgressHUD showError:kAlertLenghtEmpty];
-            return NO;
-        }
-        
-    }
-    
-    return YES;
-}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
 
 /*

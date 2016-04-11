@@ -67,17 +67,13 @@
     
     textView = [[UITextView alloc]init];
     textView.frame = kCGRectMake(x, y, width, height);
-    textView.font=[UIFont fontWithName:@"HelveticaNeue-Regular" size:18.0];
+    textView.font=[UIFont systemFontOfSize:16];//[UIFont fontWithName:@"HelveticaNeue-Regular" size:18.0];
     textView.keyboardType = UIKeyboardTypeDefault;
     textView.textAlignment = NSTextAlignmentLeft;
     textView.returnKeyType =UIReturnKeyDone;
-    
-    //textField.clearButtonMode = UITextFieldViewModeAlways;
     textView.backgroundColor = [UIColor whiteColor];
-    //textField.placeholder = placeholder;
     textView.textColor = [UIColor grayColor];
     textView.text = text;
-    //textField.borderStyle = UITextBorderStyleRoundedRect;
     [self.view addSubview:textView];
     
     return textView;
@@ -87,10 +83,10 @@
 
 -(void)layoutEditBox
 {
-    _nameText = [self layoutText:@"Name"       text: _name x:5 y:40 width:365 height:30 textView:_nameText];
-    _occupText = [self layoutText:@"Occupation" text: _occupation x:5 y:110 width:365 height:30 textView:_occupText];
-    _locationText = [self layoutText:@"Location"   text: _location x:5 y:180 width:365 height:30 textView:_locationText];
-    _bioText = [self layoutText:@"BIO"        text: _bio x:5 y:250 width:365 height:200 textView:_bioText];
+    _nameText = [self layoutText:AppUserName       text: _name x:5 y:40 width:365 height:30 textView:_nameText];
+    _occupText = [self layoutText:AppOccupation text: _occupation x:5 y:110 width:365 height:30 textView:_occupText];
+    _locationText = [self layoutText:AppLocation  text: _location x:5 y:180 width:365 height:30 textView:_locationText];
+    _bioText = [self layoutText:AppBio        text: _bio x:5 y:250 width:365 height:200 textView:_bioText];
 }
 
 -(void)rightAction

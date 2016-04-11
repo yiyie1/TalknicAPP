@@ -64,7 +64,7 @@
     _tableView.dataSource = self;
     [_tableView setScrollEnabled:NO];
     [self.view addSubview:_tableView];
-    _allSetting = @[[Setting settingWithGroup:@[@"Account"]],[Setting settingWithGroup:@[@"Inbox Message",@"Clear Cache"]],[Setting settingWithGroup:@[@"Notification",@"Rate in App Store"]]];
+    _allSetting = @[[Setting settingWithGroup:@[AppAccount]],[Setting settingWithGroup:@[AppInboxMessage,AppClearCache]],[Setting settingWithGroup:@[AppNotification,AppRateAppStore]]];
     
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -82,14 +82,15 @@
     Setting *set = _allSetting[indexPath.section];
     cell.textLabel.text = set.grouping[indexPath.row];
     
-    if ( [cell.textLabel.text isEqual:@"Clear Cache"]) {
+    if ( [cell.textLabel.text isEqual:AppClearCache]) {
         UILabel *label = [[UILabel alloc]init];
         label.frame = kCGRectMake(150, 110, 100, 20);
         label.text = _cache;
         label.textAlignment = NSTextAlignmentRight;
         
         cell.accessoryView = label;
-    }else
+    }
+    else
     {
         cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
 
@@ -123,7 +124,7 @@
         {
             VoiceViewController *voice = [[VoiceViewController alloc] init];
             voice.needBack = YES;
-            voice.titleStr = @"Inbox Message";
+            voice.titleStr = AppInboxMessage;
             voice.uid = _uid;
             [self.navigationController pushViewController:voice animated:YES];
         }
