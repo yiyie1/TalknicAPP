@@ -87,6 +87,9 @@
 "alert.NoCoupon" = "无优惠券";
 "alert.rate" = "请评星";
 "alert.comment" = "请添加评价";
+"alert.SharingSuccess" = "分享成功";
+"alert.SharingFail" = "分享失败";
+"alert.SharingCancel" = "分享取消";
 
 //APP language
 "AppForeigner" = "老外";

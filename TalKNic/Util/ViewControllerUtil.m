@@ -12,6 +12,11 @@
 #import "solveJsonData.h"
 #import "TalkTabBarViewController.h"
 #include "TalkNavigationController.h"
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDKUI.h>
+#import <ShareSDKConnector/ShareSDKConnector.h>
+#import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
+
 @interface ViewControllerUtil () <UIAlertViewDelegate>
 
 @end
@@ -220,5 +225,63 @@
     }
     return nil;
 }
+
+
+/**
+ *  简单分享
+ */
+- (void)simplyShare:(NSUInteger) platform
+{
+    /**
+     * 在简单分享中，只要设置共有分享参数即可分享到任意的社交平台
+     **/
+    //__weak ViewController *theController = self;
+    //[self showLoadingView:YES];
+    
+    //创建分享参数
+    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    
+    NSArray* imageArray = @[[UIImage imageNamed:@"sharing.jpg"]];
+    
+    if (imageArray) {
+        
+        [shareParams SSDKSetupShareParamsByText:@"Enjoy your Talknic"
+                                         images:imageArray
+                                            url:[NSURL URLWithString:@"http://talknic.cn"]
+                                          title:@"Talknic"
+                                           type:SSDKContentTypeImage];
+        
+        //进行分享
+        [ShareSDK share:platform//SSDKPlatformTypeSinaWeibo
+             parameters:shareParams
+         onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+             
+             //[theController showLoadingView:NO];
+             //[theController.tableView reloadData];
+             
+             switch (state) {
+                 case SSDKResponseStateSuccess:
+                 {
+                     [MBProgressHUD showSuccess:kAlertSharingSuccess];
+                     break;
+                 }
+                 case SSDKResponseStateFail:
+                 {
+                     [MBProgressHUD showError:kAlertSharingFail];
+                     break;
+                 }
+                 case SSDKResponseStateCancel:
+                 {
+                     [MBProgressHUD showError:kAlertSharingCancel];
+                     break;
+                 }
+                 default:
+                     break;
+             }
+         }];
+    }
+}
+
+
 
 @end

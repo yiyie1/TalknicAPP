@@ -224,6 +224,10 @@
 #define  kAlertOneMinute    NSLocalizedString(@"alert.OneMinute",@"")
 #define kAlertRate  NSLocalizedString(@"alert.rate",@"")
 #define kAlertComment  NSLocalizedString(@"alert.comment",@"")
+#define kAlertSharingSuccess   NSLocalizedString(@"alert.SharingSuccess",@"")
+#define kAlertSharingFail   NSLocalizedString(@"alert.SharingFail",@"")
+#define kAlertSharingCancel   NSLocalizedString(@"alert.SharingCancel",@"")
+
 
 #define  AppPraised NSLocalizedString(@"AppPraised",@"")
 #define  AppPraiseFail NSLocalizedString(@"AppPraiseFail",@"")

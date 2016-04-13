@@ -778,10 +778,32 @@
     }
     else if ([cell.textLabel.text isEqualToString:AppInviteFriends])
     {
-        /*AppDelegate *delegate = [[AppDelegate alloc]init];
-        [delegate platShareView:self.view WithShareContent:@"Talknic" WithShareUrlImg:@"http://pic2.ooopic.com/01/03/51/25b1OOOPIC19.jpg" WithShareTitle:@"Talknic" WithShareUrl:@"http://talknic.cn" WithShareType:shareInfo];*/
-        [MBProgressHUD showError:@"Not Implemented"];
-    
+        //[MBProgressHUD showError:@"Not Implemented"];
+        //UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Share your Talknic" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:AppCancel style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *wechatFriendAction = [UIAlertAction actionWithTitle:@"Share wechat friends" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            
+            [_vcUtil simplyShare:SSDKPlatformSubTypeWechatSession];
+            return;
+        }];
+        
+        UIAlertAction *wechatTimelineAction = [UIAlertAction actionWithTitle:@"Share wechat timeline" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            [_vcUtil simplyShare:SSDKPlatformSubTypeWechatTimeline];
+            return;
+        }];
+        
+        UIAlertAction *weiboAction = [UIAlertAction actionWithTitle:@"Share weibo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            [_vcUtil simplyShare:SSDKPlatformTypeSinaWeibo];
+            return;
+        }];
+
+        [alertController addAction:cancelAction];
+        [alertController addAction:wechatFriendAction];
+        [alertController addAction:wechatTimelineAction];
+        [alertController addAction:weiboAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
     }
     else if ([cell.textLabel.text isEqualToString:AppQA])
     {
@@ -796,6 +818,7 @@
     }
     
 }
+
 
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

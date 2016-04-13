@@ -87,6 +87,10 @@
 "alert.NoCoupon" = "No Coupon";
 "alert.rate" = "Please rate";
 "alert.comment" = "Please add your comments";
+"alert.SharingSuccess" = "Sharing successful";
+"alert.SharingFail" = "Sharing error";
+"alert.SharingCancel" = "Sharing cancel";
+
 //APP language
 "AppNotify" = "Notification";
 "AppForeigner" = "Foreigner";

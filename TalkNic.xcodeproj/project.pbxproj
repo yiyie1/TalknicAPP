@@ -398,6 +398,7 @@
 		A385C2091C7C91C700FB44D8 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A385C2061C7C91C700FB44D8 /* SettingViewController.m */; };
 		AC5C610D1C97251600F2EB3F /* ViewControllerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5C610C1C97251600F2EB3F /* ViewControllerUtil.m */; };
 		ACC9856F1CAD6FD10003C28B /* CompletedChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC9856E1CAD6FD10003C28B /* CompletedChatViewController.m */; };
+		ACE01B501CBE9E3900FB0853 /* sharing.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ACE01B4F1CBE9E3900FB0853 /* sharing.jpg */; };
 		ACF882CC1CAEBF8900A2947D /* CouponCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF882CB1CAEBF8900A2947D /* CouponCardCell.m */; };
 		ACFEC4AD1CB563A70082A115 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACFEC4AC1CB563A70082A115 /* EditProfileViewController.m */; };
 		DFB50C831C3E04CD0022AD95 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFB50C851C3E04CD0022AD95 /* Localizable.strings */; };
@@ -1202,6 +1203,7 @@
 		ACAEE5C21C9BF75F007F0DA4 /* CommonHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonHeader.h; sourceTree = "<group>"; };
 		ACC9856D1CAD6FD10003C28B /* CompletedChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompletedChatViewController.h; sourceTree = "<group>"; };
 		ACC9856E1CAD6FD10003C28B /* CompletedChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompletedChatViewController.m; sourceTree = "<group>"; };
+		ACE01B4F1CBE9E3900FB0853 /* sharing.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = sharing.jpg; path = "Cutting File pt1/sharing.jpg"; sourceTree = "<group>"; };
 		ACF882CA1CAEBF8900A2947D /* CouponCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponCardCell.h; sourceTree = "<group>"; };
 		ACF882CB1CAEBF8900A2947D /* CouponCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponCardCell.m; sourceTree = "<group>"; };
 		ACFEC4AB1CB563A70082A115 /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
@@ -1921,6 +1923,7 @@
 		364C56401BC7694500DECAC8 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				ACE01B4F1CBE9E3900FB0853 /* sharing.jpg */,
 				3695A55C1BC8A76700148748 /* Font */,
 				36B6AA481BF32BA60047B19E /* coming-soon-Rev1.gif */,
 				36D23F261C1EC11600B52E15 /* talknic_white.png */,
@@ -4123,6 +4126,7 @@
 				36B6AA8C1BF35B2B0047B19E /* me_setting_icon.png in Resources */,
 				3683BAEE1BD5E89400644F68 /* discover_pay_ok.png in Resources */,
 				36B6AAE11BF35B320047B19E /* me_creditcard_list_line.png in Resources */,
+				ACE01B501CBE9E3900FB0853 /* sharing.jpg in Resources */,
 				3683BAFF1BD5E89400644F68 /* main_btn_feeds_100%.png in Resources */,
 				36474AA41C40F04800C12D2C /* KTSelectPickerView.xib in Resources */,
 				36B6AA841BF35B2B0047B19E /* me_line_center_long.png in Resources */,

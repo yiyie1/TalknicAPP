@@ -59,7 +59,7 @@
 -(UITextView*)layoutText:(NSString*)label text:(NSString*)text x:(int)x y:(int)y width:(int)width height:(int)height textView:(UITextView*)textView
 {
     UILabel* nameLb = [[UILabel alloc]init];
-    nameLb.frame = kCGRectMake(5, y-20, 100, 20);
+    nameLb.frame = kCGRectMake(5, y-20, 150, 20);
     nameLb.text = label;
     nameLb.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:6.0];
     nameLb.textColor = [UIColor blackColor];
@@ -67,7 +67,7 @@
     
     textView = [[UITextView alloc]init];
     textView.frame = kCGRectMake(x, y, width, height);
-    textView.font=[UIFont systemFontOfSize:16];//[UIFont fontWithName:@"HelveticaNeue-Regular" size:18.0];
+    textView.font=[UIFont systemFontOfSize:12];//[UIFont fontWithName:@"HelveticaNeue-Regular" size:18.0];
     textView.keyboardType = UIKeyboardTypeDefault;
     textView.textAlignment = NSTextAlignmentLeft;
     textView.returnKeyType =UIReturnKeyDone;
