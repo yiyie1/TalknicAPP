@@ -15,4 +15,5 @@
 @property (nonatomic,strong)UITextField *loginmobileTF;
 @property (nonatomic,strong)UITextField *passwordTF;
 @property BOOL mobile;//是否是手机登陆
+-(void)loginFrom3rdPlatform:(id) sender;
 @end

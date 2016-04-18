@@ -175,10 +175,21 @@
 {
     if(_uid.length == 0)
     {
-        [MBProgressHUD showError:kAlertNotLogin];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:kAlertNotLogin message:kAlertPlsLogin preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:AppCancel style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:AppSure style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            
+            LoginViewController* login = [[LoginViewController alloc]init];
+            [self.navigationController pushViewController:login animated:YES];
+            return;
+        }];
+        
+        [alertController addAction:cancelAction];
+        [alertController addAction:okAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
         return;
     }
-    
     _topics = @"";
     NSArray *arr = APP_TOPIC;
     for (int i = 0; i < self.clickArr.count; i ++)

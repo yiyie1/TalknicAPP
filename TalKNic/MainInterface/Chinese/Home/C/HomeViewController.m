@@ -81,8 +81,6 @@
     //    }];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"tongzhi" object:nil];
-    [self requestDataMethod];
-
     _vcUtil = [[ViewControllerUtil alloc]init];
 }
 
@@ -475,15 +473,6 @@
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     //    searchBar.hidden = YES;
-}
-
--(void)segmentAction:(UISegmentedControl *)segment
-{
-    //NSArray *titleArr = @[@"featured"];//, @"latest",@"popular"];
-    [self requestDataMethod];
-    
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated

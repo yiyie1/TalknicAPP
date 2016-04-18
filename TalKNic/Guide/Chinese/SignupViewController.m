@@ -495,7 +495,8 @@
 
 -(void)loginFrom3rdPlatform:(id) sender
 {
-    UIButton *btn = sender;
+    [_loginVC loginFrom3rdPlatform:sender];
+    /*UIButton *btn = sender;
     NSUInteger platform;
     if(btn.tag == 1)
         platform = SSDKPlatformTypeSinaWeibo;
@@ -609,7 +610,7 @@
             TalkLog(@"%@",error);
         }
         
-    }];
+    }];*/
 }
 
 -(void)emailBtAction

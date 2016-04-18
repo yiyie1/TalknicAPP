@@ -7,7 +7,7 @@
 //
 
 #import "VoiceViewController.h"
-//#import "VoiceCell.h"
+#import "LoginViewController.h"
 #import "Voice.h"
 #import "ChatViewController.h"
 #import "EaseMobSDK.h"
@@ -185,9 +185,22 @@
     
     if(_uid.length == 0)
     {
-        [MBProgressHUD showError:kAlertNotLogin];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:kAlertNotLogin message:kAlertPlsLogin preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:AppCancel style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:AppSure style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            
+            LoginViewController* login = [[LoginViewController alloc]init];
+            [self.navigationController pushViewController:login animated:YES];
+            return;
+        }];
+        
+        [alertController addAction:cancelAction];
+        [alertController addAction:okAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
         return;
     }
+    
     
     if ([_titleStr isEqualToString:AppInboxMessage])
     {
@@ -299,7 +312,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return KHeightScaled(80.0f);
+    return (80.0f);
 }
 
 -(void)GotoCompletedView:(int)row

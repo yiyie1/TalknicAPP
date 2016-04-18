@@ -49,6 +49,12 @@
     self.navigationItem.leftBarButtonItem = leftI;
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBar.translucent = NO;
+    self.tabBarController.tabBar.hidden = NO;
+}
+
 -(void)layoutDoneBtn
 {
     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:AppDone style:(UIBarButtonItemStylePlain) target:self action:@selector(rightAction)];
