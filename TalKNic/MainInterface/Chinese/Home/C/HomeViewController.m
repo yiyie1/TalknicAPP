@@ -558,8 +558,8 @@
     [self.dianzangBtn addTarget:self action:@selector(praiseAction) forControlEvents:(UIControlEventTouchUpInside)];
     
     //确定进入下一步+
-    [self.sureBtn addTarget:self action:@selector(sureBtn:) forControlEvents:(UIControlEventTouchUpInside)];
-    [self.cancelBtn addTarget:self action:@selector(cancelBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.sureBtn addTarget:self action:@selector(sureBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.cancelBtn addTarget:self action:@selector(cancelBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
     
     tableView.hidden = YES;
     
