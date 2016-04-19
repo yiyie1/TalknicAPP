@@ -42,12 +42,6 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
     self.window.backgroundColor = [UIColor whiteColor];
     
     
-//    if ([UIDevice currentDevice].systemVersion.floatValue > 8.0) {
-//        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge categories:nil];
-//        
-//        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-//    }
-    
     //集成分享登陆功能
     [self addShareSDKWithapplication:application didFinishLaunchingWithOptions:launchOptions];
 
@@ -95,8 +89,6 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
                 {
                     HomeViewController *home = [[HomeViewController alloc]init];
                     home.uid = uid;
-                    //NSString *username = [[NSUserDefaults standardUserDefaults]objectForKey:@"username" ];
-                    //[EaseMobSDK easeMobRegisterAppWithAccount:uid password:KHuanxin HUDShowInView:home.view];
                     
                     //环信聊天登录，增加自动登录功能
                     [self loginHuanxinWithUid:uid];
@@ -299,6 +291,9 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
  */
 - (void)loginHuanxinWithUid:(NSString *)uid
 {
+    
+#warning TalkLog
+    TalkLog(@"TalkLog:LINE %d ==>loginHuanxinWithUid%@", __LINE__, uid);
     //环信聊天登录，增加自动登录功能
     BOOL isAutoLogin = [[EaseMob sharedInstance].chatManager isAutoLoginEnabled];// 判断是否已经自动登录
     if (!isAutoLogin) {

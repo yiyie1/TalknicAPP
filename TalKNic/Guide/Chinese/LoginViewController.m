@@ -48,6 +48,9 @@
     _mobile = YES;
     _vcUtil = [[ViewControllerUtil alloc]init];
     
+    //增加背景色，防止push到当前页会卡
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
     title.text = AppLogin;
     title.textAlignment = NSTextAlignmentCenter;

@@ -10,6 +10,8 @@
 		18FC28BD1BEB6B1F00D5277E /* DaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC28BB1BEB6B1F00D5277E /* DaView.m */; };
 		18FC28BE1BEB6B1F00D5277E /* DaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FC28BC1BEB6B1F00D5277E /* DaView.xib */; };
 		24EB0CAE1C6494630094638B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 24EB0CB01C6494630094638B /* Localizable.strings */; };
+		3535DABF1CC50E0E007B5FEF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3535DABE1CC50E0E007B5FEF /* Images.xcassets */; };
+		3535DAC01CC5507B007B5FEF /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 364C560B1BC761AC00DECAC8 /* Info.plist */; };
 		357757201CB16B260038B03A /* VoiceCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3577571F1CB16B260038B03A /* VoiceCellModel.m */; };
 		357757231CB177DE0038B03A /* VoiceChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 357757221CB177DE0038B03A /* VoiceChatCell.m */; };
 		360B8CB41C436C7300F1E34E /* NSData+SDDataCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 360B8CA41C436C7300F1E34E /* NSData+SDDataCache.m */; };
@@ -57,7 +59,6 @@
 		3647CCE01C482F6100F1598A /* BalanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3647CCDF1C482F6100F1598A /* BalanceCell.m */; };
 		364C560D1BC761AC00DECAC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 364C560C1BC761AC00DECAC8 /* main.m */; };
 		364C56101BC761AC00DECAC8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 364C560F1BC761AC00DECAC8 /* AppDelegate.m */; };
-		364C56121BC761AC00DECAC8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 364C56111BC761AC00DECAC8 /* Images.xcassets */; };
 		364C56151BC761AC00DECAC8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 364C56131BC761AC00DECAC8 /* LaunchScreen.xib */; };
 		364C56211BC761AC00DECAC8 /* TalKNicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 364C56201BC761AC00DECAC8 /* TalKNicTests.m */; };
 		364C56741BC7822B00DECAC8 /* welcome-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 364C56471BC7822B00DECAC8 /* welcome-bg.png */; };
@@ -601,6 +602,7 @@
 		24EB0CB11C6494660094638B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		24EB0CB21C6494760094638B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		24EB0CB31C6495070094638B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		3535DABE1CC50E0E007B5FEF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3577571E1CB16B260038B03A /* VoiceCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceCellModel.h; sourceTree = "<group>"; };
 		3577571F1CB16B260038B03A /* VoiceCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceCellModel.m; sourceTree = "<group>"; };
 		357757211CB177DE0038B03A /* VoiceChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceChatCell.h; sourceTree = "<group>"; };
@@ -697,7 +699,6 @@
 		364C560C1BC761AC00DECAC8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		364C560E1BC761AC00DECAC8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		364C560F1BC761AC00DECAC8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		364C56111BC761AC00DECAC8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		364C56141BC761AC00DECAC8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		364C561A1BC761AC00DECAC8 /* TalkNic.temp_caseinsensitive_rename.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TalkNic.temp_caseinsensitive_rename.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		364C56201BC761AC00DECAC8 /* TalKNicTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TalKNicTests.m; sourceTree = "<group>"; };
@@ -1661,6 +1662,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		352B71261CB800AB000021D9 /* EaseMob */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = EaseMob;
+			sourceTree = "<group>";
+		};
 		360B8CA21C436C7300F1E34E /* SDCycleScrollView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1849,11 +1857,11 @@
 		364C56091BC761AC00DECAC8 /* TalKNic */ = {
 			isa = PBXGroup;
 			children = (
+				3535DABE1CC50E0E007B5FEF /* Images.xcassets */,
 				364C560E1BC761AC00DECAC8 /* AppDelegate.h */,
 				364C560F1BC761AC00DECAC8 /* AppDelegate.m */,
 				36614BFD1C56001400302EDE /* Chinese.storyboard */,
 				ACC0FEB91C8DE2970027088A /* Guide */,
-				364C56111BC761AC00DECAC8 /* Images.xcassets */,
 				364C56131BC761AC00DECAC8 /* LaunchScreen.xib */,
 				36E036601BD8C33B001E327D /* Main */,
 				ACC0FEBB1C8DE40E0027088A /* MainInterface */,
@@ -2909,6 +2917,7 @@
 		ACC0FEBA1C8DE2E00027088A /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				352B71261CB800AB000021D9 /* EaseMob */,
 				368D895A1C23ACEC0035A82A /* MobilePhoneCheck */,
 				36474A981C40EFB800C12D2C /* Sharing */,
 				36AEDAF81C2937C4002416AC /* UserImage */,
@@ -3944,6 +3953,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3535DAC01CC5507B007B5FEF /* Info.plist in Resources */,
 				36ABED2D1C07EED700CE0249 /* daily_topic_icon_click.png in Resources */,
 				DFD055161C3CED10000E034F /* chatBar_colorMore_locationSelected@2x.png in Resources */,
 				DFD055141C3CED10000E034F /* chatBar_colorMore_cameraSelected@2x.png in Resources */,
@@ -4073,6 +4083,7 @@
 				364C56151BC761AC00DECAC8 /* LaunchScreen.xib in Resources */,
 				36B6AA6F1BF35B2B0047B19E /* me_ads_image.png in Resources */,
 				3683BB0C1BD5E89400644F68 /* search_input_area_full.png in Resources */,
+				3535DABF1CC50E0E007B5FEF /* Images.xcassets in Resources */,
 				3685342A1BCF714800755C68 /* intro_split_line.png in Resources */,
 				3691BB4A1C0D4320005534AD /* me_followed_search_input_area.png in Resources */,
 				36474A961C40EF0100C12D2C /* ShareSDKUI.bundle in Resources */,
@@ -4201,7 +4212,6 @@
 				DFD055171C3CED10000E034F /* chatBar_colorMore_photo@2x.png in Resources */,
 				3691BB461C0D4320005534AD /* me_followed_bg.png in Resources */,
 				364C56941BC7822B00DECAC8 /* login_weibo_a.png in Resources */,
-				364C56121BC761AC00DECAC8 /* Images.xcassets in Resources */,
 				364C56861BC7822B00DECAC8 /* login_input_code.png in Resources */,
 				DFD0551F1C3CED10000E034F /* chatBar_keyboard@2x.png in Resources */,
 				36B6AAEA1BF35B320047B19E /* me_history_list_line.png in Resources */,
@@ -4593,7 +4603,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "2fbb8f73-05d6-485c-b0af-d7fe671382df";
@@ -4633,7 +4643,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "2fbb8f73-05d6-485c-b0af-d7fe671382df";
 				SDKROOT = iphoneos;
@@ -4646,7 +4656,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
@@ -4664,7 +4674,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/TalKNic/TalkNicTabBar.pch";
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/TalKNic/Thethirdparty/AliNeed/AliPay";
 				INFOPLIST_FILE = TalKNic/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
@@ -4692,9 +4702,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: JI REN ZOU (8RH764BC39)";
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4710,7 +4720,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/TalKNic/TalkNicTabBar.pch";
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/TalKNic/Thethirdparty/AliNeed/AliPay";
 				INFOPLIST_FILE = TalKNic/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
