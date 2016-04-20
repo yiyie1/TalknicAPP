@@ -501,8 +501,6 @@
 {
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.navigationBarHidden = NO;
-    //    self.tabBarController.tabBar.translucent = NO;
-    //    self.tabBarController.tabBar.hidden = NO;
 }
 
 #define mark ------ UISearchDisplayController的布局

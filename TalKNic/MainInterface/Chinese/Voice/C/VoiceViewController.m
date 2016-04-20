@@ -21,6 +21,7 @@
 #import "VoiceCellModel.h"
 #import "VoiceChatCell.h"
 #import "CompletedChatViewController.h"
+#import "MJRefresh.h"
 
 @interface VoiceViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,UISearchDisplayDelegate,IChatManagerDelegate>
 {
@@ -108,6 +109,8 @@
 
 -(void)GetChatterInformation
 {
+    [self.tableView.header endRefreshing];
+    
     //清空数据
     if (self.chatListCellsArr != nil) {
         [self.chatListCellsArr removeAllObjects];
@@ -132,10 +135,10 @@
     dicc[@"role"] = [_vcUtil CheckRole];
     dicc[_myRole] = _uid;
     
-    [MBProgressHUD showHUDAddedTo:self.tableView animated:NO];
+    //[MBProgressHUD showHUDAddedTo:self.tableView animated:NO];
     [_manager POST:PATH_GET_LOGIN parameters:dicc progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [MBProgressHUD hideAllHUDsForView:self.tableView animated:NO];
+        //[MBProgressHUD hideAllHUDsForView:self.tableView animated:NO];
         
         TalkLog(@"all orders info -- %@",responseObject);
         NSDictionary* dic = [solveJsonData changeType:responseObject];
@@ -157,18 +160,16 @@
                     [self.userTeacherIdArr addObject:[d objectForKey:_chatterRole]];
                 }
             }
-            
-            [self.tableView reloadData];
         }
         self.tableView.hidden = ([self.chatListCellsArr count] == 0);
         self.searchBar.hidden = ([self.chatListCellsArr count] == 0);
         if([self.chatListCellsArr count] == 0)
             [MBProgressHUD showError:@"No history message"];
-        //else
-        //    [self.tableView reloadData];
+        else
+            [self.tableView reloadData];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [MBProgressHUD hideAllHUDsForView:self.tableView animated:NO];
+       // [MBProgressHUD hideAllHUDsForView:self.tableView animated:NO];
         NSLog(@"error%@",error);
         self.tableView.hidden = YES;
         self.searchBar.hidden = YES;
@@ -221,6 +222,8 @@
 - (void)viewWillDisappear:(BOOL)animated{
     
     _isOpen = false;
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBarHidden = NO;
 }
 
 
@@ -229,11 +232,22 @@
  */
 - (void)initTableView
 {
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0/*129.0/2 + KHeightScaled(44)*/, kWidth, kHeight) style:(UITableViewStylePlain)];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight) style:(UITableViewStylePlain)];
 //    [self.tableView registerNib:[UINib nibWithNibName:@"VoiceCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     self.tableView.dataSource =self;
     self.tableView.delegate = self;
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+
     [self.view addSubview:_tableView];
+    
+    [self.tableView addLegendHeaderWithRefreshingBlock:^{
+        
+        [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
+        //FIXME use other words than featured
+        [self GetChatterInformation];
+        [MBProgressHUD hideHUDForView:self.tableView animated:YES];
+    }];
+
 }
 
 
@@ -249,9 +263,7 @@
     self.searchBar.delegate = self;
     self.searchBar = searchbar;
     [self.view addSubview:searchbar];
-    
-    //    [self.searchBar setSearchFieldBackgroundImage:
-    //     [UIImage imageNamed:@"search_icon.png"]forState:UIControlStateNormal];
+
     self.searchController = [[UISearchDisplayController alloc]initWithSearchBar:searchbar contentsController:self];
     self.searchController.searchResultsTableView.tableFooterView = [[UIView alloc]init];
     _searchController.searchResultsDataSource =self;
@@ -296,7 +308,9 @@
         {
             voiceCell = (VoiceChatCell *)[[VoiceChatCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:voiceCellId];
         }
-        [voiceCell creatVoiceChatCellWithData:self.chatListCellsArr[indexPath.row]];
+        TalkLog(@"%@", indexPath);
+        if([self.chatListCellsArr count ] > indexPath.row)
+            [voiceCell creatVoiceChatCellWithData:self.chatListCellsArr[indexPath.row]];
         
         return voiceCell;
         
@@ -464,6 +478,7 @@
     
     return [NSString stringWithFormat:@"%d", count >= 0 ? count : 0];
 }
+
 
 //-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 //{
