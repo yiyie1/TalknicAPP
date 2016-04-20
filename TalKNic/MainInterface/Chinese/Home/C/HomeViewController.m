@@ -590,14 +590,14 @@
     {
         [searChArr removeAllObjects];
     }
-    NSString *strSearch = searchBar.text;
+    NSString *strSearch = [searchBar.text uppercaseString];
     
     for (int i = 0; i<[dataArray count]; i++)
     {
         NSDictionary *searchDic = dataArray[i];
         NSString *searchStr = searchDic[@"username"];
         
-        NSRange range = [searchStr rangeOfString:strSearch];
+        NSRange range = [[searchStr uppercaseString ] rangeOfString:strSearch];
         if (range.location != NSNotFound)
         {
             //TalkLog(@"i = %d", i);
