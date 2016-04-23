@@ -92,6 +92,7 @@
 "alert.SharingCancel" = "分享取消";
 
 //APP language
+"AppCouponSuccess" = "你已经使用了一张优惠券!";
 "AppForeigner" = "老外";
 "AppChinese"   = "中国人";
 "AppNotify" = "提醒";
