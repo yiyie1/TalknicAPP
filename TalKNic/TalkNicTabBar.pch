@@ -228,7 +228,7 @@
 #define kAlertSharingFail   NSLocalizedString(@"alert.SharingFail",@"")
 #define kAlertSharingCancel   NSLocalizedString(@"alert.SharingCancel",@"")
 
-
+#define AppCouponSuccess    NSLocalizedString(@"AppCouponSuccess",@"")
 #define  AppPraised NSLocalizedString(@"AppPraised",@"")
 #define  AppPraiseFail NSLocalizedString(@"AppPraiseFail",@"")
 #define AppInboxMessage NSLocalizedString(@"AppInbox",@"")

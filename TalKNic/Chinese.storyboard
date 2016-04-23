@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
@@ -199,7 +200,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rAd-r1-f28">
                                 <rect key="frame" x="131" y="443" width="58" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="91440C76-9F68-4C61-A870-CB750B7667B5"/>
+                                <state key="normal" backgroundImage="FA933340-44EE-47EF-9E28-63A20D0747F3"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.83659855769230773" green="0.83659855769230773" blue="0.83659855769230773" alpha="1" colorSpace="calibratedRGB"/>
@@ -418,7 +419,7 @@
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                         <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                        <state key="normal" image="discover_pay_next">
+                                                        <state key="normal">
                                                             <color key="titleColor" red="0.069971955128205088" green="0.069971955128205088" blue="0.069971955128205088" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
                                                     </button>
@@ -729,7 +730,7 @@
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Fwm-b2-HaF" userLabel="RMB">
-                                                    <rect key="frame" x="221" y="8" width="69" height="22"/>
+                                                    <rect key="frame" x="196" y="8" width="94" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -758,7 +759,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="91440C76-9F68-4C61-A870-CB750B7667B5" width="75" height="75">
+        <image name="FA933340-44EE-47EF-9E28-63A20D0747F3" width="75" height="75">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

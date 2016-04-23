@@ -47,6 +47,7 @@
 @property(nonatomic)float   price;
 @property(nonatomic)BOOL    bMaskHidden;
 @property(nonatomic)BOOL    bShowViewForm;
+@property (nonatomic,strong)NSMutableArray *couponArr;
 @end
 
 @implementation HomeViewController
@@ -233,6 +234,39 @@
     }
 }
 
+- (void)requestCoupon
+{
+    if (!self.couponArr)
+        self.couponArr = [NSMutableArray array];
+    else
+        [self.couponArr removeAllObjects];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    NSMutableDictionary *dic =[NSMutableDictionary dictionary];
+    dic[@"cmd"] = @"29";
+    dic[@"user_id"] = _uid;
+    TalkLog(@"%@",dic);
+    [manager POST:PATH_GET_LOGIN parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        TalkLog(@"responseObject -- %@",responseObject);
+        if ([responseObject[@"code"] isEqualToString:@"2"])
+        {
+               [self.couponArr addObjectsFromArray:responseObject[@"result"] ];
+        }
+        //else if ([responseObject[@"code"] isEqualToString:@"4"])
+        //    [MBProgressHUD showError:kAlertNoCoupon];
+        else
+            [MBProgressHUD showError:kAlertNoCoupon];
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error%@",error);
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
+    }];
+}
+
 - (void)sureBtnAction
 {
     
@@ -269,8 +303,23 @@
         [self showViewForm:_bShowViewForm];
         
         [self priceBtnAction];
-        NSString *couponValue = @"0%";
-        [self.youhuiquanBtn setTitle:couponValue forState:UIControlStateNormal];
+
+        int couponCount = 0;
+        for(NSUInteger i = 0; i < [_couponArr count]; i++)
+        {
+            if([[[_couponArr objectAtIndex:i] objectForKey:@"used"] isEqualToString:@"0"])
+                couponCount++;
+        }
+        
+        NSString *couponStr;
+        if(couponCount == 0)
+            couponStr = @"No coupon";//
+        else if(couponCount == 1)
+            couponStr = [[NSString alloc]initWithFormat:@"%lu coupon", (unsigned long)couponCount];
+        else
+            couponStr = [[NSString alloc]initWithFormat:@"%lu coupons", (unsigned long)couponCount];
+        
+        [self.youhuiquanBtn setTitle:couponStr forState:UIControlStateNormal];
         
         [self.youhuiquanBtn addTarget:self action:@selector(CouponAction) forControlEvents:(UIControlEventTouchUpInside)];
         [self.priceBtn addTarget:self action:@selector(priceBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
@@ -301,7 +350,22 @@
             NSLog(@"result = %@",dic);
             _order_id_from_db = [dic objectForKey:@"order_id"];
             
-            if ([[dic objectForKey:@"code" ] isEqualToString:SERVER_SUCCESS])
+            if ([[dic objectForKey:@"code" ] isEqualToString:@"6"])
+            {
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:AppNotify message:AppCouponSuccess preferredStyle:UIAlertControllerStyleAlert];
+
+                UIAlertAction *okAction = [UIAlertAction actionWithTitle:AppSure style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                    
+                    [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController order_id:_order_id_from_db];
+                    self.navigationController.tabBarItem.badgeValue = nil;
+                }];
+
+                [alertController addAction:okAction];
+                
+                [self presentViewController:alertController animated:YES completion:nil];
+
+            }
+            else if ([[dic objectForKey:@"code" ] isEqualToString:SERVER_SUCCESS])
             {
                 [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController order_id:_order_id_from_db];
                 self.navigationController.tabBarItem.badgeValue = nil;
@@ -478,6 +542,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self.homecollectview reloadData];
+    [self requestCoupon];
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.navigationBar.hidden = YES;
     

@@ -118,9 +118,23 @@
     NSString *code = self.arr[indexPath.row][@"voucher_code"];
     NSString *price = self.arr[indexPath.row][@"voucher_price"];
     cell.imageview.image = [UIImage imageNamed:@"me_promotion_icon.png"];
-    cell.rmbLabel.text = [NSString stringWithFormat:@"%@ RMB", price];
-    //cell.rmbLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:40.0];
+    
     cell.cardNum.text = [NSString stringWithFormat:@"%@",code];
+    if([self.arr[indexPath.row][@"used"] isEqualToString:@"0"])
+    {
+        cell.rmbLabel.text = [NSString stringWithFormat:@"%@ RMB", price];
+        cell.rmbLabel.textColor = [UIColor blackColor];
+        cell.cardNum.textColor = [UIColor blackColor];
+    }
+    else
+    {
+        cell.rmbLabel.text = [NSString stringWithFormat:@"%@ RMB USED", price];
+        cell.rmbLabel.textColor = [UIColor grayColor];
+        cell.cardNum.textColor = [UIColor grayColor];
+    }
+    
+    //cell.rmbLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:40.0];
+    
     //cell.cardNum.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:34.0];
     return cell;
 }
@@ -129,13 +143,14 @@
 {
     if (indexPath.row < self.arr.count)
     {
-        //[self showOkayCancelActionSheetWithIndexPath:indexPath];
+        if([self.arr[indexPath.row][@"used"] isEqualToString:@"1"])
+        {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        }
+
     }
     else
     {
-        //AddCreditCardViewController *addVC = [[AddCreditCardViewController alloc]init];
-        //addVC.uid = _uid;
-        //[self.navigationController pushViewController:addVC animated:YES];
     }
 }
 

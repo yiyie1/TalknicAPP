@@ -92,6 +92,7 @@
 "alert.SharingCancel" = "Sharing cancel";
 
 //APP language
+"AppCouponSuccess" = "You have used 1 coupon!";
 "AppNotify" = "Notification";
 "AppForeigner" = "Foreigner";
 "AppChinese"   = "Chinese";
