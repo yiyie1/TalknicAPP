@@ -60,6 +60,10 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
     //环信注册
     [EaseMobSDK easeMobRegisterSDKWithAppKey:kEaseKey apnsCertName:apnsCertName application:application didFinishLaunchingWithOptions:launchOptions];
     
+    //注册一个环信聊天监听对象到监听列表中
+    [[EaseMob sharedInstance].chatManager removeDelegate:self];
+    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
+    
     ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
     
     NSString *role = [vcUtil CheckRole];
@@ -305,10 +309,6 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
                                                               
                                                           } onQueue:nil];
     }
-    
-    //注册一个环信聊天监听对象到监听列表中
-    [[EaseMob sharedInstance].chatManager removeDelegate:self];
-    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     
     //更新环信推送的推送信息
     [self updataEaseMobPUshNoificationOptions];
