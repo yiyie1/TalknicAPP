@@ -17,8 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
-    self.navigationItem.titleView = [vcUtil SetTitle:AppFeeds];
+    self.navigationItem.titleView = [ViewControllerUtil SetTitle:AppFeeds];
 
     
     self.view.backgroundColor = [UIColor clearColor];

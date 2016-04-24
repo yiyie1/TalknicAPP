@@ -16,7 +16,6 @@
 {
     UITableView *_tableView;
     NSArray *_allSetting;
-    ViewControllerUtil *_vcUtil;
 }
 
 @end
@@ -26,10 +25,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor grayColor];
-    _vcUtil = [[ViewControllerUtil alloc]init];
-    self.navigationItem.titleView = [_vcUtil SetTitle:AppAccount];
+    self.navigationItem.titleView = [ViewControllerUtil SetTitle:AppAccount];
 
-    //[_vcUtil GetUserInformation:_uid];
+    //[ViewControllerUtil GetUserInformation:_uid];
     [self layouLeftBtn];
     [self layouTableView];
     [self layoutLogoutBtn];
@@ -115,9 +113,9 @@
     {
         UILabel *label = [[UILabel alloc]init];
         label.frame = kCGRectMake(150, 110, 150, 20);
-        NSString* linkstr = [_vcUtil GetLinked:cell.textLabel.text];
+        NSString* linkstr = [ViewControllerUtil GetLinked:cell.textLabel.text];
         if(linkstr.length != 0)
-            label.text = [_vcUtil GetLinked:cell.textLabel.text];
+            label.text = [ViewControllerUtil GetLinked:cell.textLabel.text];
         else
             label.text = AppUnlinked;
         label.textAlignment = NSTextAlignmentRight;

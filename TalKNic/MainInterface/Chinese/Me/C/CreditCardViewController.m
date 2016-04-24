@@ -15,7 +15,6 @@
 
 @interface CreditCardViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
-    ViewControllerUtil* _vcUtil;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -29,9 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _vcUtil = [[ViewControllerUtil alloc]init];
-    
-    self.navigationItem.titleView = [_vcUtil SetTitle:AppCreditCard];
+    self.navigationItem.titleView = [ViewControllerUtil SetTitle:AppCreditCard];
     
     [self layoutLeftBT];
     [self layoutView];
@@ -63,12 +60,11 @@
             [self.arr addObjectsFromArray:responseObject[@"result"] ];
             [self.tableView reloadData];
         }
-        else
-            [MBProgressHUD showError:kAlertdataFailure];
+        //else
+          //  [MBProgressHUD showError:kAlertdataFailure];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error%@",error);
-        [MBProgressHUD showError:kAlertNetworkError];
+        [ViewControllerUtil showNetworkErrorMessage: error];
         return;
     }];
 }
@@ -161,8 +157,7 @@
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             TalkLog(@"删除银行卡成功 -- %@",responseObject);
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"error%@",error);
-            [MBProgressHUD showError:kAlertNetworkError];
+            [ViewControllerUtil showNetworkErrorMessage: error];
             return;
         }];
         

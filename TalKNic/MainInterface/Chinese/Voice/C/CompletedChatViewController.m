@@ -15,7 +15,6 @@
 
 @interface CompletedChatViewController ()
 {
-    ViewControllerUtil *_vcUtil;
     NSInteger _score;
     NSString *_role;
     NSString *_comment;
@@ -39,10 +38,9 @@
     
     _session = [AFHTTPSessionManager manager];
     _session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    
-    _vcUtil = [[ViewControllerUtil alloc]init];
-    _role = [_vcUtil CheckRole];
-    self.navigationItem.titleView = [_vcUtil SetTitle:AppCompleted];
+
+    _role = [ViewControllerUtil CheckRole];
+    self.navigationItem.titleView = [ViewControllerUtil SetTitle:AppCompleted];
     [self navigaTitle];
 
     [self chatterInfoLayout];
@@ -255,8 +253,7 @@
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [MBProgressHUD showError:kAlertNetworkError];
-        return;
+        [ViewControllerUtil showNetworkErrorMessage: error];
     }];
     
 }
@@ -281,7 +278,7 @@
     dic[@"uid"] = _uid;
     dic[@"chatter_id"] = _chatter_uid;
     dic[@"order_id"] = _order_id;
-    dic[@"role"] = [_vcUtil CheckRole];
+    dic[@"role"] = [ViewControllerUtil CheckRole];
     dic[@"rate"] = [NSString stringWithFormat:@"%ld",(long)_score];
     dic[@"comment"] = _comment;
 
@@ -301,9 +298,7 @@
             [MBProgressHUD showError:kAlertdataFailure];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error%@",error);
-        [MBProgressHUD showError:kAlertNetworkError];
-        return;
+        [ViewControllerUtil showNetworkErrorMessage: error];
     }];
     }
 
@@ -328,9 +323,7 @@
             [MBProgressHUD showError:kAlertdataFailure];
     }
     failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error%@",error);
-        [MBProgressHUD showError:kAlertNetworkError];
-        return;
+        [ViewControllerUtil showNetworkErrorMessage: error];
     }];
 
 

@@ -14,6 +14,7 @@
 #import "MeHeadViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "UIImageView+WebCache.h"
+#import "ViewControllerUtil.h"
 
 @interface Foreigner1ViewController ()<UIImagePickerControllerDelegate,UIActionSheetDelegate,MeImageCropperDelegate,UINavigationControllerDelegate,UIPickerViewAccessibilityDelegate,UITextFieldDelegate>
 {
@@ -242,9 +243,7 @@
             return;
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error%@",error);
-        [MBProgressHUD showError:kAlertNetworkError];
-        return;
+        [ViewControllerUtil showNetworkErrorMessage: error];
     }];
     
     
@@ -405,9 +404,7 @@
         self.bUploadPhoto = YES;
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error%@",error);
-        [MBProgressHUD showError:kAlertNetworkError];
-        return;
+        [ViewControllerUtil showNetworkErrorMessage: error];
     }];
 }
 

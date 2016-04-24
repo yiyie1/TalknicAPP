@@ -11,6 +11,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "solveJsonData.h"
 #import "ScrollViewController.h"
+#import "ViewControllerUtil.h"
 
 @interface Foreigner2ViewController ()
 {
@@ -167,8 +168,7 @@
         }
 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        TalkLog(@"error -- %@",error);
-        [MBProgressHUD showError:kAlertNetworkError];
+        [ViewControllerUtil showNetworkErrorMessage: error];
         return;
     }];
 }

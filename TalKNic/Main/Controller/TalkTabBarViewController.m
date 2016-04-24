@@ -41,8 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
-    self.uid = [vcUtil GetUid];
+    self.uid = [ViewControllerUtil GetUid];
     
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     self.choseNum1 = -1;

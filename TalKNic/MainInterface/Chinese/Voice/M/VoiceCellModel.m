@@ -42,8 +42,7 @@
  */
 - (void)checkLeftTimeAndChatDes:(NSDictionary *)dic
 {
-    ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
-    if([vcUtil IsValidChat:self.paytime msg_time: self.time])
+    if([ViewControllerUtil IsValidChat:self.paytime msg_time: self.time])
     {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd"];

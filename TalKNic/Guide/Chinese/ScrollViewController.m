@@ -281,10 +281,9 @@
 
 - (void)tapAction
 {
-    ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
     TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
     talkVC.uid = _uid;
-    talkVC.identity = [vcUtil CheckRole];
+    talkVC.identity = [ViewControllerUtil CheckRole];
     
     self.hidesBottomBarWhenPushed = YES;
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;

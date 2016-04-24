@@ -14,7 +14,6 @@
 
 @interface EditProfileViewController ()
 {
-    ViewControllerUtil *_vcUtil;
     UITextView* _nameText;
     UITextView* _occupText;
     UITextView* _locationText;
@@ -27,9 +26,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    _vcUtil = [[ViewControllerUtil alloc]init];
-    self.navigationItem.titleView = [_vcUtil SetTitle:AppEditProfile];
+
+    self.navigationItem.titleView = [ViewControllerUtil SetTitle:AppEditProfile];
     [self layoutLeftBtn];
     [self layoutDoneBtn];
     [self layoutEditBox];
@@ -122,8 +120,7 @@
             [MBProgressHUD showError:kAlertModifyDataFailure];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        TalkLog(@"cmd 21 -- %@",error);
-        [MBProgressHUD showError:kAlertNetworkError];
+        [ViewControllerUtil showNetworkErrorMessage: error];
     }];
 }
 

@@ -12,6 +12,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "LoginViewController.h"
 #import "solveJsonData.h"
+#import "ViewControllerUtil.h"
 
 @interface Information3ViewController ()
 {
@@ -153,9 +154,7 @@
             return;
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error%@",error);
-        [MBProgressHUD showError:kAlertNetworkError];
-        return;
+        [ViewControllerUtil showNetworkErrorMessage: error];
     }];
 }
 -(void)leftAction

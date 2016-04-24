@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface ViewControllerUtil : NSObject
--(UILabel *)SetTitle:(NSString *)titleStr;
++(UILabel *)SetTitle:(NSString *)titleStr;
 
--(UINavigationBar* )ConfigNavigationBar:(NSString*)titleStr NavController: (UINavigationController *)NavController NavBar: (UINavigationBar*)NavBar;
++(UINavigationBar* )ConfigNavigationBar:(NSString*)titleStr NavController: (UINavigationController *)NavController NavBar: (UINavigationBar*)NavBar;
 
 //设置聊天视图VoiceViewController tabbar上聊天通知小红点，设置app图标上的通知小红点
 + (void)setVoiceViewControllerBadgeAndAppIconBadge;
@@ -19,16 +19,18 @@
 //显示聊天视图VoiceViewController tabbar上聊天通知小红点，设置app图标上的通知小红点
 + (void)showVoiceViewVCTabbarBadgeAndAppIconBadgeWithNumber:(int)badgeNumber;
 
+//show network error code and message
++(void)showNetworkErrorMessage:(NSError * _Nonnull) error;
 
 //UserDefault
--(NSString*)GetUid;
--(NSString*)GetLinked:(NSString*)method;
--(NSString*)CheckRole;
--(BOOL)CheckFinishedInformation;
++(NSString*)GetUid;
++(NSString*)GetLinked:(NSString*)method;
++(NSString*)CheckRole;
++(BOOL)CheckFinishedInformation;
 
--(void)GetUserInformation:(NSString*)uid;
--(BOOL)IsValidChat:(NSString*) pay_time msg_time: (NSString*) msg_time;
--(void)RemainingMsgTimeNotify:(NSString*) pay_time msg_time: (NSString*) msg_time;
++(void)GetUserInformation:(NSString*)uid;
++(BOOL)IsValidChat:(NSString*) pay_time msg_time: (NSString*) msg_time;
++(void)RemainingMsgTimeNotify:(NSString*) pay_time msg_time: (NSString*) msg_time;
 
-- (void)simplyShare:(NSUInteger) platform;
++(void)simplyShare:(NSUInteger) platform;
 @end

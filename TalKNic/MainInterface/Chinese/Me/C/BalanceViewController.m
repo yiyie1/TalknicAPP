@@ -23,7 +23,6 @@
 @interface BalanceViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate>
 {
     NSArray *_allBalance;
-    ViewControllerUtil* _vcUtil;
 }
 @property (nonatomic,strong)UIButton *leftBT;
 @property (nonatomic,strong)UIButton *rightBT;
@@ -37,8 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _vcUtil = [[ViewControllerUtil alloc]init];
-    self.navigationItem.titleView = [_vcUtil SetTitle:AppBalance];
+    self.navigationItem.titleView = [ViewControllerUtil SetTitle:AppBalance];
     [self layoutLeftBtn];
     [self layoutView];
 }
@@ -81,9 +79,7 @@
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error%@",error);
-        [MBProgressHUD showError:kAlertNetworkError];
-        return;
+        [ViewControllerUtil showNetworkErrorMessage: error];
     }];
 
 }
@@ -305,9 +301,7 @@
             [MBProgressHUD showError:kAlertdataFailure];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error%@",error);
-        [MBProgressHUD showError:kAlertNetworkError];
-        return;
+        [ViewControllerUtil showNetworkErrorMessage: error];
     }];
 
 }

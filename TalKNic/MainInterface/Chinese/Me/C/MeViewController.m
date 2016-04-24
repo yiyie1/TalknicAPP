@@ -36,7 +36,6 @@
     NSArray *_allMesetup;
     UITextView * _nameText;
     UITextView * _topText;
-    ViewControllerUtil* _vcUtil;
 }
 
 @property(nonatomic,strong)NSArray *searchArr; //保存searchBar搜索到的数据
@@ -74,8 +73,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _vcUtil = [[ViewControllerUtil alloc]init];
-    self.navigationItem.titleView = [_vcUtil SetTitle:AppMe];
+    self.navigationItem.titleView = [ViewControllerUtil SetTitle:AppMe];
 
     [self Setting];
     [self LayoutProfile];
@@ -234,8 +232,7 @@
             [MBProgressHUD showError:kAlertdataFailure];
 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [MBProgressHUD showError:kAlertNetworkError];
-        return;
+        [ViewControllerUtil showNetworkErrorMessage: error];
     }];
 }
 
@@ -363,8 +360,7 @@
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [MBProgressHUD showError:kAlertNetworkError];
-        return;
+        [ViewControllerUtil showNetworkErrorMessage: error];
     }];
 }
 -(void)layoutClickBtnGetSearchBar
@@ -700,7 +696,7 @@
 
 -(void)optionsAction:(id)sender
 {
-    self.searchBarView.hidden = NO;
+    /*self.searchBarView.hidden = NO;
     //self.backview.hidden = NO;
     [self.view setBackgroundColor:[UIColor grayColor]];
     self.tableView.hidden = YES;
@@ -747,7 +743,7 @@
         [self.view setBackgroundColor:[UIColor whiteColor]];
         
         //self.backview.hidden = YES;
-    }
+    }*/
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -785,17 +781,17 @@
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:AppCancel style:UIAlertActionStyleCancel handler:nil];
         UIAlertAction *wechatFriendAction = [UIAlertAction actionWithTitle:@"Share wechat friends" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
             
-            [_vcUtil simplyShare:SSDKPlatformSubTypeWechatSession];
+            [ViewControllerUtil simplyShare:SSDKPlatformSubTypeWechatSession];
             return;
         }];
         
         UIAlertAction *wechatTimelineAction = [UIAlertAction actionWithTitle:@"Share wechat timeline" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-            [_vcUtil simplyShare:SSDKPlatformSubTypeWechatTimeline];
+            [ViewControllerUtil simplyShare:SSDKPlatformSubTypeWechatTimeline];
             return;
         }];
         
         UIAlertAction *weiboAction = [UIAlertAction actionWithTitle:@"Share weibo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-            [_vcUtil simplyShare:SSDKPlatformTypeSinaWeibo];
+            [ViewControllerUtil simplyShare:SSDKPlatformTypeSinaWeibo];
             return;
         }];
 

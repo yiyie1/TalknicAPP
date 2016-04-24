@@ -302,9 +302,7 @@
             }
             
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
-            NSLog(@"code00:%@",error);
-            NSLog(@"失败");
-            [MBProgressHUD showError:kAlertNetworkError];
+            [ViewControllerUtil showNetworkErrorMessage: error];
             return;
         }];
         
@@ -353,8 +351,7 @@
                 [MBProgressHUD showSuccess:kAlertdataFailure];
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                NSLog(@"error%@",error);
-                [MBProgressHUD showError:kAlertNetworkError];
+                [ViewControllerUtil showNetworkErrorMessage: error];
                 return;
             }];
     }
@@ -362,8 +359,7 @@
 
 -(void)signupAciton
 {
-    ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
-    NSString *identity = [vcUtil CheckRole];
+    NSString *identity = [ViewControllerUtil CheckRole];
     TalkLog(@"Role -- %@",identity);
     
     if (self.mobile == YES)
@@ -423,8 +419,7 @@
             }
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"error%@",error);
-            [MBProgressHUD showError:kAlertNetworkError];
+            [ViewControllerUtil showNetworkErrorMessage: error];
             return;
         }];
         }
@@ -485,8 +480,7 @@
                 [MBProgressHUD showError:kAlertdataFailure];
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"error%@",error);
-            [MBProgressHUD showError:kAlertNetworkError];
+            [ViewControllerUtil showNetworkErrorMessage: error];
             return;
         }];
         }
@@ -506,8 +500,7 @@
     [ShareSDK getUserInfo:(platform) onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
         if (state == SSDKResponseStateSuccess)
         {
-            ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
-            NSString *identity = [vcUtil CheckRole];
+            NSString *identity = [ViewControllerUtil CheckRole];
             TalkLog(@"uid = %@ , %@  token = %@ ,nickname = %@",user.uid,user.credential,user.credential.token,user.nickname);
             AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
             manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -598,8 +591,7 @@
                 }
                 
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                NSLog(@"error%@",error);
-                [MBProgressHUD showError:kAlertNetworkError];
+                [ViewControllerUtil showNetworkErrorMessage: error];
                 return;
             }];
         }

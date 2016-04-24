@@ -12,6 +12,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "solveJsonData.h"
 #import "LoginViewController.h"
+#import "ViewControllerUtil.h"
 
 @interface DailysettingViewController ()
 {
@@ -239,9 +240,7 @@
             [MBProgressHUD showError:kAlertdataFailure];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error%@",error);
-        [MBProgressHUD showError:kAlertNetworkError];
-        return;
+        [ViewControllerUtil showNetworkErrorMessage: error];
     }];
     
 }

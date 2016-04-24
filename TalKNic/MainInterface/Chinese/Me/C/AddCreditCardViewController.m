@@ -15,7 +15,6 @@
 
 @interface AddCreditCardViewController ()
 {
-    ViewControllerUtil *_vcUtil;
 }
 @property (nonatomic,strong)UITextField *cardnumber;
 @property (nonatomic,strong)UITextField *holdername;
@@ -31,8 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _vcUtil = [[ViewControllerUtil alloc]init];
-    self.navigationItem.titleView = [_vcUtil SetTitle:AppNewCreditCard];
+    self.navigationItem.titleView = [ViewControllerUtil SetTitle:AppNewCreditCard];
 
     [self addView];
 
@@ -152,9 +150,7 @@
         [self popAction];
 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error%@",error);
-        [MBProgressHUD showError:kAlertNetworkError];
-        return;
+        [ViewControllerUtil showNetworkErrorMessage: error];
     }];
     
     

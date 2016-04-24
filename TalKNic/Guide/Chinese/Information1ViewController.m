@@ -16,6 +16,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "solveJsonData.h"
 #import "Information2ViewController.h"
+#import "ViewControllerUtil.h"
 
 @interface Information1ViewController ()<UIImagePickerControllerDelegate,UIActionSheetDelegate,MeImageCropperDelegate,UINavigationControllerDelegate,UIPickerViewAccessibilityDelegate>
 {
@@ -333,9 +334,8 @@
         self.bUploadPhoto = YES;
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error%@",error);
-        [MBProgressHUD showError:kAlertNetworkError];
-        return;
+        [ViewControllerUtil showNetworkErrorMessage: error];
+
     }];
 }
 

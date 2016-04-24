@@ -14,7 +14,6 @@
 
 @interface CouponViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
-    ViewControllerUtil *_vcUtil;
 }
 @property (nonatomic,strong)UIButton *leftBT;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -27,8 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _vcUtil = [[ViewControllerUtil alloc]init];
-    self.navigationItem.titleView = [_vcUtil SetTitle:AppCoupon];
+    self.navigationItem.titleView = [ViewControllerUtil SetTitle:AppCoupon];
     [self layoutLeftBtn];
     [self layoutView];
     
@@ -66,8 +64,7 @@
             [MBProgressHUD showError:kAlertdataFailure];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error%@",error);
-        [MBProgressHUD showError:kAlertNetworkError];
+        [ViewControllerUtil showNetworkErrorMessage: error];
         return;
     }];
 }

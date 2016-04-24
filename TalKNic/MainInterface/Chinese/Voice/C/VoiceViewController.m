@@ -34,7 +34,6 @@
     NSMutableArray *_array;
     NSMutableArray *_userName;
     NSMutableArray *_strPic;
-    ViewControllerUtil *_vcUtil;
     AFHTTPSessionManager *_manager;
     NSString *_chatterUid;
     
@@ -62,9 +61,8 @@
     _manager = [AFHTTPSessionManager manager];
     _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
-    _vcUtil = [[ViewControllerUtil alloc]init];
-    self.navigationItem.titleView = [_vcUtil SetTitle:_titleStr];
-    //self.bar = [_vcUtil ConfigNavigationBar:@"Audio Message" NavController: self.navigationController NavBar:self.bar];
+    self.navigationItem.titleView = [ViewControllerUtil SetTitle:_titleStr];
+    //self.bar = [ViewControllerUtil ConfigNavigationBar:@"Audio Message" NavController: self.navigationController NavBar:self.bar];
     //[self.view addSubview:self.bar];
     
     
@@ -119,7 +117,7 @@
         [self.userTeacherIdArr removeAllObjects];
     }
     
-    if([[_vcUtil CheckRole] isEqualToString:CHINESEUSER])
+    if([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER])
     {
         _myRole = @"user_student_id";
         _chatterRole = @"user_teacher_id";
@@ -132,7 +130,7 @@
     
     NSMutableDictionary *dicc = [NSMutableDictionary dictionary];
     dicc[@"cmd"] = @"32";
-    dicc[@"role"] = [_vcUtil CheckRole];
+    dicc[@"role"] = [ViewControllerUtil CheckRole];
     dicc[_myRole] = _uid;
     
     //[MBProgressHUD showHUDAddedTo:self.tableView animated:NO];
@@ -375,13 +373,13 @@
 
     VoiceCellModel *cellModel = self.chatListCellsArr[indexPath.row];
     
-    if([_vcUtil IsValidChat:cellModel.paytime msg_time: cellModel.time])
+    if([ViewControllerUtil IsValidChat:cellModel.paytime msg_time: cellModel.time])
     {
         [EaseMobSDK createOneChatViewWithConversationChatter:cellModel.uid Name:cellModel.username onNavigationController:self.navigationController order_id:cellModel.order_id];
     }
     else
     {
-        if([[_vcUtil CheckRole] isEqualToString:CHINESEUSER])
+        if([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER])
         {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:AppNotify message:AppConChat preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:AppCancel style:UIAlertActionStyleCancel handler:nil];

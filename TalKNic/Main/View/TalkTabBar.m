@@ -49,11 +49,11 @@
     
     UILabel *match = [[UILabel alloc]init];
     match.frame = CGRectMake(self.width *0.461, self.height *0.75, 30, 10);
-    match.text = AppMatch;
+    //match.text = AppMatch;
     match.numberOfLines = 0;
     match.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10.0];
     match.textAlignment = NSTextAlignmentCenter;
-    match.textColor = [UIColor colorWithRed:40/255.0 green:140/255.0 blue:222/255.0 alpha:1.0];
+    match.textColor = [UIColor grayColor];// colorWithRed:40/255.0 green:140/255.0 blue:222/255.0 alpha:1.0];
     [self addSubview:match];
     self.match = match;
     // 1.设置中间按钮的位置

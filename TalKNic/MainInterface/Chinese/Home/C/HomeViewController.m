@@ -37,7 +37,6 @@
     NSDictionary * _dicP;//接受匹配信息的通知
     NSMutableArray *_piArr;//存放匹配信息
     NSString *_order_id_from_db;
-    ViewControllerUtil *_vcUtil;
 }
 @property (nonatomic,strong)UINavigationBar *bar;
 @property (nonatomic,strong)UISearchDisplayController *searchController;
@@ -82,7 +81,6 @@
     //    }];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"tongzhi" object:nil];
-    _vcUtil = [[ViewControllerUtil alloc]init];
 }
 
 -(void)tongzhi:(NSNotification *)dic
@@ -208,9 +206,7 @@
             [MBProgressHUD showError:AppPraiseFail];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error%@",error);
-        [MBProgressHUD showError:kAlertNetworkError];
-        return;
+        [ViewControllerUtil showNetworkErrorMessage: error];
     }];
     
 }
@@ -261,9 +257,7 @@
             [MBProgressHUD showError:kAlertNoCoupon];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error%@",error);
-        [MBProgressHUD showError:kAlertNetworkError];
-        return;
+        [ViewControllerUtil showNetworkErrorMessage: error];
     }];
 }
 
@@ -410,8 +404,7 @@
                             
                             
                         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                            NSLog(@"error%@",error);
-                            [MBProgressHUD showError:kAlertNetworkError];
+                            [ViewControllerUtil showNetworkErrorMessage: error];
                             return;
                             
                         }];
@@ -431,8 +424,7 @@
                 [MBProgressHUD showError:kAlertdataFailure];
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"error%@",error);
-            [MBProgressHUD showError:kAlertNetworkError];
+            [ViewControllerUtil showNetworkErrorMessage: error];
             return;
         }];
 
@@ -467,8 +459,7 @@
         
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error%@",error);
-        [MBProgressHUD showError:kAlertNetworkError];
+        [ViewControllerUtil showNetworkErrorMessage: error];
         return;
     }];
     
@@ -550,7 +541,7 @@
     //self.tabBarController.tabBar.hidden = YES;
     
     //FIXME strange behavior in viewdidload
-    self.bar = [_vcUtil ConfigNavigationBar:AppDiscover NavController: self.navigationController NavBar:self.bar];
+    self.bar = [ViewControllerUtil ConfigNavigationBar:AppDiscover NavController: self.navigationController NavBar:self.bar];
     [self.view addSubview:self.bar];
     [self searchBarView];
     
@@ -729,8 +720,7 @@
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error%@",error);
-        [MBProgressHUD showError:kAlertNetworkError];
+        [ViewControllerUtil showNetworkErrorMessage: error];
         return;
     }];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

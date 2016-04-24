@@ -14,7 +14,6 @@
 
 @interface QaViewController ()
 {
-    ViewControllerUtil* _vcUtil;
 }
 @property (nonatomic,strong)UIButton *leftBT;
 @property (nonatomic,strong)UIButton *RightBT;
@@ -29,8 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _vcUtil = [[ViewControllerUtil alloc]init];
-    self.navigationItem.titleView = [_vcUtil SetTitle:AppQA];
+    self.navigationItem.titleView = [ViewControllerUtil SetTitle:AppQA];
      _dict = [NSDictionary dictionary];
     
     [self layoutLeftBT];
@@ -106,8 +104,7 @@
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [MBProgressHUD showError:kAlertNetworkError];
-        NSLog(@"error%@",error);
+        [ViewControllerUtil showNetworkErrorMessage: error];
         
     }];
 }

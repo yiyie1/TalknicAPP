@@ -32,7 +32,6 @@
     NSDictionary *dic;
     NSDictionary *_weibo;
     NSString *_weiboId;
-    ViewControllerUtil *_vcUtil;
 }
 
 @property (nonatomic,strong)UIButton *loginBT, *signupBT,*forgetPasspord,*emailBT,*facebookBT,*weixinBT,*weiboBT;
@@ -46,7 +45,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _mobile = YES;
-    _vcUtil = [[ViewControllerUtil alloc]init];
     
     //增加背景色，防止push到当前页会卡
     self.view.backgroundColor = [UIColor whiteColor];
@@ -221,7 +219,7 @@
     [ShareSDK getUserInfo:(platform) onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
         if (state == SSDKResponseStateSuccess)
         {
-            NSString *identity = [_vcUtil CheckRole];
+            NSString *identity = [ViewControllerUtil CheckRole];
             TalkLog(@"uid = %@ , %@  token = %@ ,nickname = %@",user.uid,user.credential,user.credential.token,user.nickname);
             AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
             manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -315,8 +313,7 @@
                 }
                 
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                NSLog(@"error%@",error);
-                [MBProgressHUD showError:kAlertNetworkError];
+                [ViewControllerUtil showNetworkErrorMessage: error];
                 return;
             }];
         }
@@ -412,7 +409,7 @@
                     [EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
                 }
                 
-                if ([[_vcUtil CheckRole] isEqualToString:CHINESEUSER])
+                if ([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER])
                 {
                     Information1ViewController *inforVC = [[Information1ViewController alloc]init];
                     inforVC.uID = _uid;
@@ -447,11 +444,11 @@
 
                 //FIXME ugly code
                 //User choice doesn't match with role in server
-                if ([[_vcUtil CheckRole] isEqualToString:CHINESEUSER] && [identity isEqualToString:CHINESEUSER])
+                if ([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER] && [identity isEqualToString:CHINESEUSER])
                 {
                     //talkVC.identity = CHINESEUSER;
                 }
-                else  if ([[_vcUtil CheckRole] isEqualToString:FOREINERUSER] && [identity isEqualToString:FOREINERUSER])
+                else  if ([[ViewControllerUtil CheckRole] isEqualToString:FOREINERUSER] && [identity isEqualToString:FOREINERUSER])
                 {
                     //talkVC.identity = FOREINERUSER;
                 }
@@ -481,8 +478,7 @@
             }
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"失败 ＝＝ %@",error);
-            [MBProgressHUD showError:kAlertNetworkError];
+            [ViewControllerUtil showNetworkErrorMessage: error];
             return;
         }];
         
@@ -532,11 +528,11 @@
                     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
                     [ud setObject:@"Done" forKey:@"FinishedInformation"];
 
-                    if ([[_vcUtil CheckRole] isEqualToString:CHINESEUSER])
+                    if ([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER])
                     {
                         //talkVC.identity = CHINESEUSER;
                     }
-                    else if([[_vcUtil CheckRole] isEqualToString:FOREINERUSER])
+                    else if([[ViewControllerUtil CheckRole] isEqualToString:FOREINERUSER])
                     {
                         //talkVC.identity = FOREINERUSER;
                     }
@@ -579,7 +575,7 @@
                         [EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
                     }
                     
-                    if ([[_vcUtil CheckRole] isEqualToString:CHINESEUSER])
+                    if ([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER])
                     {
                         Information1ViewController *inforVC = [[Information1ViewController alloc]init];
                         inforVC.uID = _uid;
@@ -612,8 +608,7 @@
                     return;
                 }
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                NSLog(@"error:%@",error);
-                [MBProgressHUD showError:kAlertNetworkError];
+                [ViewControllerUtil showNetworkErrorMessage: error];
                 return;
             }];
             

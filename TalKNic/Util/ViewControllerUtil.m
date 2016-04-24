@@ -22,7 +22,7 @@
 @end
 @implementation ViewControllerUtil
 
-- (UILabel *)SetTitle:(NSString *)titleStr
++(UILabel *)SetTitle:(NSString *)titleStr
 {
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
     
@@ -36,7 +36,7 @@
     return title;
 }
 
--(BOOL)IsValidChat:(NSString*) pay_time msg_time: (NSString*) msg_time
++(BOOL)IsValidChat:(NSString*) pay_time msg_time: (NSString*) msg_time
 {
     NSDate *dateNow = [NSDate date];
     NSTimeInterval sec1970 = [dateNow timeIntervalSince1970];
@@ -47,12 +47,12 @@
     return time_after_pay < DEFAULT_MAX_CHAT_DURATION_MINS * 60 && ![msg_time isEqualToString:@"0"];
 }
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
++(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSLog(@"clickButtonAtIndex:%ld",(long)buttonIndex);
 }
 
--(void)RemainingMsgTimeNotify:(NSString*) pay_time msg_time: (NSString*) msg_time
++(void)RemainingMsgTimeNotify:(NSString*) pay_time msg_time: (NSString*) msg_time
 {
     NSDate *dateNow = [NSDate date];
     NSTimeInterval sec1970 = [dateNow timeIntervalSince1970];
@@ -73,7 +73,7 @@
     }
 }
 
--(UINavigationBar* )ConfigNavigationBar:(NSString*)titleStr NavController: (UINavigationController *)NavController NavBar: (UINavigationBar*)NavBar
++(UINavigationBar* )ConfigNavigationBar:(NSString*)titleStr NavController: (UINavigationController *)NavController NavBar: (UINavigationBar*)NavBar
 {
     [NavController setNavigationBarHidden:YES];
     if (NavBar == nil) {
@@ -96,7 +96,7 @@
     return NavBar;
 }
 
--(NSString*)CheckRole
++(NSString*)CheckRole
 {
     if([[[NSUserDefaults standardUserDefaults] objectForKey:kChooese_ChineseOrForeigner] isEqualToString:@"Chinese"])
         return CHINESEUSER;
@@ -104,22 +104,22 @@
         return FOREINERUSER;
 }
 
--(NSString*)GetUid
++(NSString*)GetUid
 {
     return [[NSUserDefaults standardUserDefaults]objectForKey:@"userId"];
 }
 
--(NSString*)GetLinked:(NSString*)method
++(NSString*)GetLinked:(NSString*)method
 {
     return [[NSUserDefaults standardUserDefaults]objectForKey:method];
 }
 
--(BOOL)CheckFinishedInformation
++(BOOL)CheckFinishedInformation
 {
     return ([[[NSUserDefaults standardUserDefaults] objectForKey:@"FinishedInformation"] isEqualToString:@"Done"]);
 }
 
--(void)GetUserInformation:(NSString*)uid
++(void)GetUserInformation:(NSString*)uid
 {
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -242,7 +242,7 @@
 /**
  *  简单分享
  */
-- (void)simplyShare:(NSUInteger) platform
++(void)simplyShare:(NSUInteger) platform
 {
     /**
      * 在简单分享中，只要设置共有分享参数即可分享到任意的社交平台
@@ -294,6 +294,10 @@
     }
 }
 
-
++(void)showNetworkErrorMessage:(NSError * _Nonnull) error
+{
+    NSLog(@"Sever error %@",error);
+    [MBProgressHUD showError:kAlertNetworkError];
+}
 
 @end

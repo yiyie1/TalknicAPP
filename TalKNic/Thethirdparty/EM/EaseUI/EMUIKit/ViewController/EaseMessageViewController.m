@@ -1787,8 +1787,7 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
 - (void)sendVoiceMessageWithLocalPath:(NSString *)localPath
                              duration:(NSInteger)duration
 {
-    ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
-    //if ([[vcUtil CheckRole] isEqualToString:CHINESEUSER])
+    //if ([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER])
     {
         // Get remaining msg time from server
         NSMutableDictionary *dicc = [NSMutableDictionary dictionary];
@@ -1801,15 +1800,15 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
             if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
             {
                 NSDictionary *order_result = [dic objectForKey:@"result"];
-                if ([[vcUtil CheckRole] isEqualToString:CHINESEUSER])
+                if ([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER])
                     _chatter_uid = [order_result objectForKey:@"user_teacher_id"];
                 else
                     _chatter_uid = [order_result objectForKey:@"user_student_id"];
 
 #warning TestCount
-                if([vcUtil IsValidChat:[order_result objectForKey:@"paytime"] msg_time: [order_result objectForKey:@"time"]])
+                if([ViewControllerUtil IsValidChat:[order_result objectForKey:@"paytime"] msg_time: [order_result objectForKey:@"time"]])
                 {
-                    //[vcUtil RemainingMsgTimeNotify:[order_result objectForKey:@"paytime"] msg_time:[order_result objectForKey:@"time"]];
+                    //[ViewControllerUtil RemainingMsgTimeNotify:[order_result objectForKey:@"paytime"] msg_time:[order_result objectForKey:@"time"]];
                     
                     _remaining_msg_time = [[order_result objectForKey:@"time"] integerValue] - duration;
                     _bValidMsg = YES;
@@ -1851,8 +1850,7 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
                         }
                         
                     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                        NSLog(@"error%@",error);
-                        [MBProgressHUD showError:kAlertNetworkError];
+                        [ViewControllerUtil showNetworkErrorMessage: error];
                         return;
                     }];
                 }
@@ -1860,7 +1858,7 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
                 {
                     _bValidMsg = NO;
                     //FIXME End this chat or go to pay
-                    if([[vcUtil CheckRole] isEqualToString:CHINESEUSER])
+                    if([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER])
                     {
                         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppConChat delegate:self cancelButtonTitle:AppSure otherButtonTitles:nil];
                         [alert show];
@@ -1884,8 +1882,7 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
                 return;
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"error%@",error);
-            [MBProgressHUD showError:kAlertNetworkError];
+            [ViewControllerUtil showNetworkErrorMessage: error];
             return;
         }];
     }

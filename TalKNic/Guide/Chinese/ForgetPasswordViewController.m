@@ -12,6 +12,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "Check.h"
 #import "LoginViewController.h"
+#import "ViewControllerUtil.h"
 
 @interface ForgetPasswordViewController ()
 {
@@ -192,9 +193,7 @@
         NSLog(@"成功 = %@",dic);
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"code00:%@",error);
-        NSLog(@"失败");
-        [MBProgressHUD showError:kAlertNetworkError];
+        [ViewControllerUtil showNetworkErrorMessage: error];
         return;
     }];
     }
@@ -262,9 +261,7 @@
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        TalkLog(@"失败 ＝＝ %@ ",error);
-        [MBProgressHUD showError:kAlertNetworkError];
-        return;
+        [ViewControllerUtil showNetworkErrorMessage: error];
     }];
 }
 - (void)didReceiveMemoryWarning {

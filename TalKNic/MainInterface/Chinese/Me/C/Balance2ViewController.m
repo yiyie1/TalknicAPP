@@ -17,7 +17,6 @@
 
 @interface Balance2ViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
-    ViewControllerUtil* _vcUtil;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentcontroller;
@@ -31,9 +30,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _vcUtil = [[ViewControllerUtil alloc]init];
     
-    self.navigationItem.titleView = [_vcUtil SetTitle:AppBalance];
+    self.navigationItem.titleView = [ViewControllerUtil SetTitle:AppBalance];
     self.index = @"0";
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
@@ -135,7 +133,7 @@
         parmes[@"cmd"] = @"23";
     
     parmes[@"user_id"] = _uid;
-    parmes[@"role"] = [_vcUtil CheckRole];
+    parmes[@"role"] = [ViewControllerUtil CheckRole];
     NSLog(@"parmes: %@",parmes);
     [session POST:path parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -187,8 +185,7 @@
             [MBProgressHUD showError:kAlertdataFailure];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error%@",error);
-        [MBProgressHUD showError:kAlertNetworkError];
+        [ViewControllerUtil showNetworkErrorMessage: error];
         return;
     }];
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

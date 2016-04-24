@@ -64,10 +64,8 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     
-    ViewControllerUtil *vcUtil = [[ViewControllerUtil alloc]init];
-    
-    NSString *role = [vcUtil CheckRole];
-    NSString *uid = [vcUtil GetUid];
+    NSString *role = [ViewControllerUtil CheckRole];
+    NSString *uid = [ViewControllerUtil GetUid];
     TalkLog(@"uid: %@, role: %@", uid, role);
     TalkLog(@"Server Address: %@", PATH_GET_CODE);
 

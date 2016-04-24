@@ -11,6 +11,8 @@
 #import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
 #import "solveJsonData.h"
+#import "ViewControllerUtil.h"
+
 @interface Information2ViewController ()
 {
     NSString *_level;
@@ -195,9 +197,7 @@
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        TalkLog(@"Failed to upload data ---%@",error);
-        [MBProgressHUD showError:kAlertNetworkError];
-        return;
+        [ViewControllerUtil showNetworkErrorMessage: error];
     }];
     
 }
