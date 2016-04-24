@@ -58,6 +58,7 @@
 
 -(void) viewWillAppear:(BOOL)animated
 {
+    self.navigationController.navigationBar.translucent = YES;
     _loginmobileTF.placeholder = _mobile ? AppCellNum : AppEmail;
 }
 
@@ -146,7 +147,7 @@
     [self.view addSubview:label1];
     UILabel *label2 = [[UILabel alloc]init];
     label2.frame = kCGRectMake(130, 332.5 , 140, 24);
-    label2.text = AppOtherFastSignup;
+    label2.text = AppOtherFastLogin;
     label2.font = [UIFont fontWithName:kHelveticaLight size:14];
 
     

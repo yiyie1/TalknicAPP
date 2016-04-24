@@ -53,7 +53,7 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:_leftBT];
     self.navigationItem.leftBarButtonItem = leftItem;
     
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"Reset" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightAction)];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:AppReset style:(UIBarButtonItemStylePlain) target:self action:@selector(rightAction)];
     rightItem.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = rightItem;
     
@@ -94,7 +94,7 @@
 {
     self.ewPassword = [[UITextField alloc]init];
     _ewPassword.frame = kCGRectMake(45,220,275, 50);
-    _ewPassword.placeholder =@"New Password";
+    _ewPassword.placeholder = AppNewPassword;
     _ewPassword.secureTextEntry = YES;
     _ewPassword.textAlignment = NSTextAlignmentCenter;
     [_ewPassword setBackground:[UIImage imageNamed:@"login_input_lg.png"]];
