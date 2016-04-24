@@ -186,6 +186,7 @@
     }
     
     [self showVoiceViewVCTabbarBadgeAndAppIconBadgeWithNumber:allCount];
+    
 }
 
 
@@ -214,14 +215,25 @@
  */
 + (TalkNavigationController *)getVoiceViewController{
     
+    TalkTabBarViewController *talkTabbarVC = nil;
+    
+    UIViewController *appRootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *topVC = appRootVC;
+    if (topVC.presentedViewController) {
+        topVC = topVC.presentedViewController;
+        talkTabbarVC = (TalkTabBarViewController *)topVC;
+    }
+    
+    
     if ([[UIApplication sharedApplication].keyWindow.rootViewController class] == [TalkTabBarViewController class] &&
         [UIApplication sharedApplication].keyWindow.rootViewController != nil) {
-        TalkTabBarViewController *rootVC = (TalkTabBarViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+        talkTabbarVC = (TalkTabBarViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
         
-        if (rootVC.viewControllers.count > 1) {
-            TalkNavigationController *talkNavVC = rootVC.viewControllers[1];
-            return talkNavVC;
-        }
+    }
+    
+    if (talkTabbarVC.viewControllers.count > 1) {
+        TalkNavigationController *talkNavVC = talkTabbarVC.viewControllers[1];
+        return talkNavVC;
     }
     return nil;
 }

@@ -536,7 +536,6 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
  *
  *  @param message 信息内容
  */
-#warning FIXME 推送会连发两次,iOS 9.0以后的有的问题（远程推送也有这个问题）
 -(void)showNotificationWithMessage:(EMMessage *)message{
     
     //发送本地推送
