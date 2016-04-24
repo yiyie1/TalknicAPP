@@ -35,7 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     _session = [AFHTTPSessionManager manager];
     _session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
 

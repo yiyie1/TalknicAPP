@@ -63,6 +63,7 @@
     [super viewDidLoad];
     //_mobile = YES; //get from login
     _dic = [NSDictionary dictionary];
+    self.view.backgroundColor = [UIColor whiteColor];
     [self createanView];
 }
 
@@ -85,17 +86,7 @@
 }
 -(void)imageviewD
 {
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
-    
-    title.text = AppCreateAccount;
-    
-    title.textAlignment = NSTextAlignmentCenter;
-    
-    title.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
-    title.font = [UIFont fontWithName:kHelveticaRegular size:17.0];
-    
-    self.navigationItem.titleView = title;
-    
+    self.navigationItem.titleView = [ViewControllerUtil SetTitle:AppCreateAccount];
 }
 
 -(void)mobileTF
@@ -490,120 +481,7 @@
 -(void)loginFrom3rdPlatform:(id) sender
 {
     [_loginVC loginFrom3rdPlatform:sender];
-    /*UIButton *btn = sender;
-    NSUInteger platform;
-    if(btn.tag == 1)
-        platform = SSDKPlatformTypeSinaWeibo;
-    else if (btn.tag == 0)
-        platform = SSDKPlatformTypeWechat;
-    
-    [ShareSDK getUserInfo:(platform) onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
-        if (state == SSDKResponseStateSuccess)
-        {
-            NSString *identity = [ViewControllerUtil CheckRole];
-            TalkLog(@"uid = %@ , %@  token = %@ ,nickname = %@",user.uid,user.credential,user.credential.token,user.nickname);
-            AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-            manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-            NSMutableDictionary *param = [NSMutableDictionary dictionary];
-            
-            param[@"cmd"] = @"333";
-            param[@"login_type"] = btn.tag == 1 ? @"sina" : @"wechat";
-            param[@"unique_identification"] = user.uid;
-            param[@"identity"] = identity;
-            param[@"nickname"] = user.nickname;
-            
-            [manager POST:PATH_GET_LOGIN parameters:param progress:^(NSProgress * _Nonnull uploadProgress) {
-                
-            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                TalkLog(@"3rd platform login -- %@",responseObject);
-                _dicc = [solveJsonData changeType:responseObject];
-                NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-                
-                NSDictionary *dict = [_dicc objectForKey:@"result"];
-                _weiboId = [NSString stringWithFormat:@"%@",[dict objectForKey:@"identity"]];
-                _uid = [NSString stringWithFormat:@"%@",[dict objectForKey:@"uid"]];
-                
-                if (([(NSNumber *)[_dicc objectForKey:@"code"] intValue] == 2))    //Not the first time to login/signup
-                {
-                    //if (_uid !=nil)
-                    //{
-                        //注册环信
-                    //    [EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
-                    //}
-                    
-                    if ([_weiboId isEqualToString:CHINESEUSER] && [identity isEqualToString:CHINESEUSER])  // 0 means Chinese account
-                    {
-                        TalkLog(@"Chinese user -- ID -- %@",_uid);
-                    }
-                    else if([_weiboId isEqualToString:FOREINERUSER] && [identity isEqualToString:FOREINERUSER])
-                    {
-                        TalkLog(@"Foreigner user -- ID -- %@",_uid);
-                    }
-                    else
-                    {
-                        [ud removeObjectForKey:@"UseApp"];
-                        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:kAlertPrompt message:kAlertAccountNotMatchID delegate:self cancelButtonTitle:kAlertSure otherButtonTitles:nil, nil];
-                        [alert show];
-                        return;
-                    }
-                    
-                    [ud setObject:@"Done" forKey:@"FinishedInformation"];
-                    [ud setObject:_uid forKey:@"userId"];
-                    [ud synchronize];
-                    
-                    TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
-                    talkVC.uid = _uid;
-                    [self presentViewController:talkVC animated:YES completion:nil];
-                    [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
-                    
-                }
-                else if (([(NSNumber *)[_dicc objectForKey:@"code"] intValue] == 5))   //First time to login
-                {
-                    if (_uid != nil)
-                    {
-                        //注册环信
-                        [EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
-                    }
-
-                    [ud setObject:_uid forKey:@"userId"];
-                    [ud synchronize];
-                    [EaseMobSDK easeMobLoginAppWithAccount:_uid password:KHuanxin isAutoLogin:NO HUDShowInView:self.view];
-                    
-                    if ([identity isEqualToString:CHINESEUSER])
-                    {
-                        Information1ViewController *inforVC = [[Information1ViewController alloc]init];
-                        inforVC.uID = _uid;
-                        [self.navigationController pushViewController:inforVC animated:NO];
-                        
-                    }
-                    else if([identity isEqualToString:FOREINERUSER])
-                    {
-                        Foreigner1ViewController *foreigVC = [[Foreigner1ViewController alloc]init];
-                        foreigVC.uID = _uid;
-                        [self.navigationController pushViewController:foreigVC animated:NO];
-                    }
-
-                }
-                else
-                {
-                    [MBProgressHUD showError:kAlertdataFailure];
-                    return;
-                }
-                
-            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                [ViewControllerUtil showNetworkErrorMessage: error];
-                return;
-            }];
-        }
-        else
-        {
-            [MBProgressHUD showError:kAlertFail];
-            TalkLog(@"Share sdk error");
-            TalkLog(@"%@",error);
-        }
-        
-    }];*/
-}
+    }
 
 -(void)emailBtAction
 {

@@ -30,7 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.titleView = [ViewControllerUtil SetTitle:AppBalance];
     self.index = @"0";
     self.tableview.delegate = self;

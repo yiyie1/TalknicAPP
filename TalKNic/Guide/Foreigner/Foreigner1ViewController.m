@@ -39,17 +39,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor whiteColor];
     
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
-    
-    title.text = @"Information (1/3)";
-    
-    title.textAlignment = NSTextAlignmentCenter;
-    
-    title.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
-    title.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:17.0];
-    
-    self.navigationItem.titleView = title;
+    self.navigationItem.titleView = [ViewControllerUtil SetTitle:@"Information (1/2)"];
     self.bUploadPhoto = NO;
     
     [self informationView];

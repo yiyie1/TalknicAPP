@@ -57,7 +57,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self allocArray];
-
+    self.view.backgroundColor = [UIColor whiteColor];
     _manager = [AFHTTPSessionManager manager];
     _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     

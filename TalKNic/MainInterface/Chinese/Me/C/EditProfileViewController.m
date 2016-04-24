@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
+    
     self.navigationItem.titleView = [ViewControllerUtil SetTitle:AppEditProfile];
     [self layoutLeftBtn];
     [self layoutDoneBtn];

@@ -36,6 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.titleView = [ViewControllerUtil SetTitle:AppBalance];
     [self layoutLeftBtn];
     [self layoutView];
