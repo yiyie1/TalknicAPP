@@ -120,9 +120,14 @@
     cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
     [foot addSubview:cycleScrollView];
     
-    _allBalance = @[
+    if([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER])
+        _allBalance = @[
                     [Balance balancesetupWithGrouping:@[AppBalance,AppFreeze,AppAvailablebalance,AppPoints]],
                     [Balance balancesetupWithGrouping:@[AppAlipay,AppCreditCard,AppCoupon]]];
+    else
+        _allBalance = @[
+                        [Balance balancesetupWithGrouping:@[AppBalance,AppFreeze,AppAvailablebalance,AppPoints]],
+                        [Balance balancesetupWithGrouping:@[AppCreditCard]]];
     
 }
 -(void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
@@ -138,16 +143,22 @@
     if (section == 0) {
         return 4;
     }
-    return 3;
+    else
+    {
+        if([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER])
+            return 3;
+        else
+            return 1;
+    }
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            return 231 / 2.5;
+            return KHeightScaled(231 / 2.5);
         }
     }
-    return 45 ;
+    return KHeightScaled(45) ;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -245,34 +256,47 @@
 #warning 支付修改开始 10.1
     else if (indexPath.section == 1)
     {
-        if(indexPath.row == 0)
+        if([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER])
         {
-            NSString *orderId = [self generateTradeNO];
+            if(indexPath.row == 0)
+            {
+                NSString *orderId = [self generateTradeNO];
         
-            [YGPayByAliTool payByAliWithSubjects:ALI_PAY_SUBJECT body:nil price:0.01 orderId:orderId partner:ALI_PARTNER_ID seller:ALI_SELLER_ID privateKey:ALI_PRIVATE_KEY success:^(NSDictionary *info) {
-                NSString *result = info[@"result"];
+                [YGPayByAliTool payByAliWithSubjects:ALI_PAY_SUBJECT body:nil price:0.01 orderId:orderId partner:ALI_PARTNER_ID seller:ALI_SELLER_ID privateKey:ALI_PRIVATE_KEY success:^(NSDictionary *info) {
+                    NSString *result = info[@"result"];
 
-                TalkLog(@"Alipay result: %@", result);
-                if (result.length)
-                {
-                    [self charge];
-                }
-            }];
-        }
-        else if(indexPath.row == 1)
-        {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
-            CreditCardViewController *creditVC = [storyboard instantiateViewControllerWithIdentifier:@"creditCard"];
-            creditVC.uid = _uid;
-            [self.navigationController pushViewController:creditVC animated:YES];
+                    TalkLog(@"Alipay result: %@", result);
+                    if (result.length)
+                    {
+                        [self charge];
+                    }
+                }];
+            }
+            else if(indexPath.row == 1)
+            {
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
+                CreditCardViewController *creditVC = [storyboard instantiateViewControllerWithIdentifier:@"creditCard"];
+                creditVC.uid = _uid;
+                [self.navigationController pushViewController:creditVC animated:YES];
 
+            }
+            else if(indexPath.row == 2)
+            {
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
+                CouponViewController *couponVC = [storyboard instantiateViewControllerWithIdentifier:@"couponCard"];
+                couponVC.uid = _uid;
+                [self.navigationController pushViewController:couponVC animated:YES];
+            }
         }
-        else if(indexPath.row == 2)
+        else
         {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
-            CouponViewController *couponVC = [storyboard instantiateViewControllerWithIdentifier:@"couponCard"];
-            couponVC.uid = _uid;
-            [self.navigationController pushViewController:couponVC animated:YES];
+            if(indexPath.row == 0)
+            {
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
+                CreditCardViewController *creditVC = [storyboard instantiateViewControllerWithIdentifier:@"creditCard"];
+                creditVC.uid = _uid;
+                [self.navigationController pushViewController:creditVC animated:YES];
+            }
         }
     }
 }

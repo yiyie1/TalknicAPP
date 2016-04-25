@@ -43,8 +43,8 @@
     
     NSTimeInterval time_after_pay = sec1970 - [pay_time doubleValue];
     TalkLog(@"time_after_pay: %f hours", time_after_pay / 60 / 60);
-
-    return time_after_pay < DEFAULT_MAX_CHAT_DURATION_MINS * 60 && ![msg_time isEqualToString:@"0"];
+    TalkLog(@"chat time: %ld s", (long)[msg_time integerValue]);
+    return time_after_pay < DEFAULT_MAX_CHAT_DURATION_MINS * 60 && ([msg_time integerValue] > 0) ;
 }
 
 +(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

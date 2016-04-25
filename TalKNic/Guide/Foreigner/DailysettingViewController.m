@@ -36,16 +36,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
-    
-    title.text = @"Daily setting";
-    
-    title.textAlignment = NSTextAlignmentCenter;
-    
-    title.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
-    title.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:17.0];
-    
-    self.navigationItem.titleView = title;
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationItem.titleView = [ViewControllerUtil SetTitle:@"Daily setting"];
     
     [self navigaTitle];
     

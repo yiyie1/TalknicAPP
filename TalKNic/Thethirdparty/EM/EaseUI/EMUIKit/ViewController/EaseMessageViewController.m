@@ -1800,10 +1800,10 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
             if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
             {
                 NSDictionary *order_result = [dic objectForKey:@"result"];
-                if ([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER])
-                    _chatter_uid = [order_result objectForKey:@"user_teacher_id"];
-                else
-                    _chatter_uid = [order_result objectForKey:@"user_student_id"];
+                //if ([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER])
+                _chatter_uid = _userId;//[order_result objectForKey:@"user_teacher_id"];
+                //else
+                //    _chatter_uid = [order_result objectForKey:@"user_student_id"];
 
 #warning TestCount
                 if([ViewControllerUtil IsValidChat:[order_result objectForKey:@"paytime"] msg_time: [order_result objectForKey:@"time"]])
@@ -1811,6 +1811,8 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
                     //[ViewControllerUtil RemainingMsgTimeNotify:[order_result objectForKey:@"paytime"] msg_time:[order_result objectForKey:@"time"]];
                     
                     _remaining_msg_time = [[order_result objectForKey:@"time"] integerValue] - duration;
+                    if(_remaining_msg_time < 0)
+                        _remaining_msg_time = 0;
                     _bValidMsg = YES;
                     
                     //Upload the remaining msg time to server
@@ -1858,22 +1860,29 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
                 {
                     _bValidMsg = NO;
                     //FIXME End this chat or go to pay
+                    UIAlertController *alertController;
                     if([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER])
                     {
-                        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:AppNotify message:AppConChat delegate:self cancelButtonTitle:AppSure otherButtonTitles:nil];
-                        [alert show];
-                    
+                        alertController = [UIAlertController alertControllerWithTitle:AppNotify message:AppConChat preferredStyle:UIAlertControllerStyleAlert];
+                        
                     }
                     else
                     {
-                        [MBProgressHUD showSuccess:@"Completed chat"];
+                        alertController = [UIAlertController alertControllerWithTitle:AppNotify message:@"Finish chatting!" preferredStyle:UIAlertControllerStyleAlert];
                     }
                     
-                    CompletedChatViewController *completedVC = [[CompletedChatViewController alloc]init];
-                    completedVC.uid = _userId;
-                    completedVC.chatter_uid = _chatter_uid;
-                    completedVC.order_id = _orderId;
-                    [self.navigationController pushViewController:completedVC animated:YES];
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:AppSure style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                        
+                        CompletedChatViewController *completedVC = [[CompletedChatViewController alloc]init];
+                        completedVC.chatter_uid = _chatter_uid;
+                        completedVC.order_id = _orderId;
+                        [self.navigationController pushViewController:completedVC animated:YES];
+                    }];
+                    
+                    [alertController addAction:okAction];
+                    
+                    [self presentViewController:alertController animated:YES completion:nil];
+
                 }
             }
             else

@@ -233,6 +233,7 @@
 #define  AppPraiseFail NSLocalizedString(@"AppPraiseFail",@"")
 #define AppInboxMessage NSLocalizedString(@"AppInbox",@"")
 #define AppNotify   NSLocalizedString(@"AppNotify",@"")
+#define AppCommentsAndRate NSLocalizedString(@"AppCommentsAndRate",@"")
 #define AppConChat  NSLocalizedString(@"AppConChat",@"")
 #define AppTotalTimeLessThanMsgTime NSLocalizedString(@"AppTotalTimeLessThanMsgTime",@"")
 #define AppNewCreditCard    NSLocalizedString(@"AppNewCreditCard",@"")

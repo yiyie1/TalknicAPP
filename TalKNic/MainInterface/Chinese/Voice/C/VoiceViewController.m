@@ -29,7 +29,6 @@
     NSString *_chatterRole;
     UIImageView *picImage;
     UIImage *photo;
-    NSMutableArray *_chatter_array;
 //    NSArray* _order_array;
     NSMutableArray *_array;
     NSMutableArray *_userName;
@@ -347,11 +346,21 @@
             NSString* comment = [res objectForKey:@"teacher_comment"];
             if(rate.length == 0 || comment.length == 0)
             {
-                CompletedChatViewController *com = [[CompletedChatViewController alloc]init];
-                com.uid = _uid;
-                com.chatter_uid = _chatter_array[row];
-                com.order_id = order_id;
-                [self.navigationController pushViewController:com animated:YES];
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:AppNotify message:AppCommentsAndRate preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:AppCancel style:UIAlertActionStyleCancel handler:nil];
+                UIAlertAction *okAction = [UIAlertAction actionWithTitle:AppSure style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                    
+                    CompletedChatViewController *com = [[CompletedChatViewController alloc]init];
+                    com.chatter_uid = chatCellModel.user_teacher_id;
+                    com.order_id = order_id;
+                    [self.navigationController pushViewController:com animated:YES];
+                }];
+                
+                [alertController addAction:cancelAction];
+                [alertController addAction:okAction];
+                
+                [self presentViewController:alertController animated:YES completion:nil];
+
             }
         }
     
@@ -379,26 +388,27 @@
     }
     else
     {
+        UIAlertController *alertController;
         if([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER])
         {
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:AppNotify message:AppConChat preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:AppCancel style:UIAlertActionStyleCancel handler:nil];
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:AppSure style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-                //FIXME go to pay details
-            }];
-            
-            [alertController addAction:cancelAction];
-            [alertController addAction:okAction];
-            
-            [self presentViewController:alertController animated:YES completion:nil];
-            
+            alertController = [UIAlertController alertControllerWithTitle:AppNotify message:AppConChat preferredStyle:UIAlertControllerStyleAlert];
+
         }
         else
         {
-            [MBProgressHUD showSuccess:@"Finished"];
+            alertController = [UIAlertController alertControllerWithTitle:AppNotify message:@"Finish chatting!" preferredStyle:UIAlertControllerStyleAlert];
         }
+
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:AppSure style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            //FIXME go to pay details
+            
+            [self GotoCompletedView:indexPath.row];
+        }];
         
-        [self GotoCompletedView:indexPath.row];
+        [alertController addAction:okAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 }

@@ -275,7 +275,7 @@
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     dic[@"cmd"] = @"35";
-    dic[@"uid"] = _uid;
+    dic[@"uid"] = [ViewControllerUtil GetUid];
     dic[@"chatter_id"] = _chatter_uid;
     dic[@"order_id"] = _order_id;
     dic[@"role"] = [ViewControllerUtil CheckRole];
