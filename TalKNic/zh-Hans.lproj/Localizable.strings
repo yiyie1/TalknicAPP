@@ -84,7 +84,7 @@
 "alert.notLogin" = "未登录";
 "alert.plsLogin" = "请先登录";
 "alert.OneMinute" = "本次聊天还剩余一分钟";
-"alert.NoCoupon" = "无优惠券";
+"alert.NoCoupon" = "无代金券";
 "alert.rate" = "请评星";
 "alert.comment" = "请添加评价";
 "alert.SharingSuccess" = "分享成功";
@@ -92,7 +92,7 @@
 "alert.SharingCancel" = "分享取消";
 
 //APP language
-"AppCouponSuccess" = "你已经使用了一张优惠券!";
+"AppCouponSuccess" = "你已经使用了一张代金券!";
 "AppForeigner" = "老外";
 "AppChinese"   = "中国人";
 "AppNotify" = "提醒";
@@ -173,7 +173,7 @@
 "AppLocation" = "所在地";
 
 //me
-"AppCoupon" = "优惠券";
+"AppCoupon" = "代金券";
 "AppPoints" = "积分";
 "AppRedeem" = "兑换";
 "AppEditProfile" = "编辑个人信息";

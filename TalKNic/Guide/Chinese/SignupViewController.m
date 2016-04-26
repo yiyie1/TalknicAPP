@@ -42,6 +42,9 @@
     //第三方专用
     NSString *_weiboId;
     
+    NSString *_mail_mobile_png;
+    NSString *_mail_mobile_highlight_png;
+    
 }
 
 @property (nonatomic,strong)UIButton *sendBt;
@@ -70,7 +73,8 @@
 -(void) viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBar.translucent = YES;
-    _mobilenoTF.placeholder = _mobile ? AppCellNum : AppEmail;
+    [self switchMailMobile];
+    //_mobilenoTF.placeholder = _mobile ? AppCellNum : AppEmail;
 }
 
 -(void)createanView
@@ -90,11 +94,31 @@
     self.navigationItem.titleView = [ViewControllerUtil SetTitle:AppCreateAccount];
 }
 
+-(void)switchMailMobile
+{
+    if(_mobile)
+    {
+        _mail_mobile_png = @"login_mail.png";
+        _mail_mobile_highlight_png = @"login_mail_a.png";
+        _mobilenoTF.placeholder =  AppCellNum;
+    }
+    else
+    {
+        _mail_mobile_png = @"mobile_line.png";
+        _mail_mobile_highlight_png = @"mobile_fill.png";
+        _mobilenoTF.placeholder =  AppEmail ;
+    }
+    
+    [_emailBt setBackgroundImage:[UIImage imageNamed:_mail_mobile_png] forState:(UIControlStateNormal)];
+    [_emailBt setBackgroundImage:[UIImage imageNamed:_mail_mobile_highlight_png] forState:(UIControlStateHighlighted)];
+}
+
+
 -(void)mobileTF
 {
     _mobilenoTF = [[UITextField alloc]init];
     _mobilenoTF.frame = kCGRectMake( 36, 89,302.5 , 56.5) ;
-    _mobilenoTF.placeholder = _mobile ? AppCellNum : AppEmail;
+    //_mobilenoTF.placeholder = _mobile ? AppCellNum : AppEmail;
     _mobilenoTF.delegate = self;
     _mobilenoTF.text = self.loginVC.telNum;
     _mobilenoTF.textAlignment = NSTextAlignmentCenter;
@@ -173,8 +197,9 @@
     
     self.emailBt = [[UIButton alloc]init];
     _emailBt.frame = kCGRectMake(40, 318, 60, 60);
-    [_emailBt setBackgroundImage:[UIImage imageNamed:@"login_mail.png"] forState:(UIControlStateNormal)];
-    [_emailBt setBackgroundImage:[UIImage imageNamed:@"login_mail_a.png"] forState:(UIControlStateHighlighted)];
+    [self switchMailMobile];
+    //[_emailBt setBackgroundImage:[UIImage imageNamed:@"login_mail.png"] forState:(UIControlStateNormal)];
+    //[_emailBt setBackgroundImage:[UIImage imageNamed:@"login_mail_a.png"] forState:(UIControlStateHighlighted)];
     [_emailBt addTarget:self action:@selector(emailBtAction) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:_emailBt];
 }
@@ -487,7 +512,8 @@
 -(void)emailBtAction
 {
     _mobile = !_mobile;
-    _mobilenoTF.placeholder = _mobile ? AppCellNum : AppEmail;
+    //_mobilenoTF.placeholder = _mobile ? AppCellNum : AppEmail;
+    [self switchMailMobile];
 }
 
 //键盘回收

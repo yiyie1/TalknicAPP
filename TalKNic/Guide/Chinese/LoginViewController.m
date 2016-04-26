@@ -32,6 +32,9 @@
     NSDictionary *dic;
     NSDictionary *_weibo;
     NSString *_weiboId;
+    
+    NSString *_mail_mobile_png;
+    NSString *_mail_mobile_highlight_png;
 }
 
 @property (nonatomic,strong)UIButton *loginBT, *signupBT,*forgetPasspord,*emailBT,*facebookBT,*weixinBT,*weiboBT;
@@ -59,7 +62,8 @@
 -(void) viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBar.translucent = YES;
-    _loginmobileTF.placeholder = _mobile ? AppCellNum : AppEmail;
+    //_loginmobileTF.placeholder = _mobile ? AppCellNum : AppEmail;
+    [self switchMailMobile];
 }
 
 -(void)loginvieww
@@ -77,7 +81,7 @@
 {
     self.loginmobileTF = [[UITextField alloc]init];
     _loginmobileTF.frame = CGRectMake(self.view.frame.origin.x + 50, self.view.frame.origin.y + 84, self.view.frame.size.width/1.36, 50);
-    _loginmobileTF.placeholder = _mobile ? AppCellNum : AppEmail;
+    //_loginmobileTF.placeholder = _mobile ? AppCellNum : AppEmail;
     _loginmobileTF.textAlignment = NSTextAlignmentCenter;
     [_loginmobileTF setBackground:[UIImage imageNamed:@"login_input_lg.png"]];
     [self.view addSubview:_loginmobileTF];
@@ -160,13 +164,32 @@
     [self.view addSubview:label3];
 }
 
+-(void)switchMailMobile
+{
+    if(_mobile)
+    {
+        _mail_mobile_png = @"login_mail.png";
+        _mail_mobile_highlight_png = @"login_mail_a.png";
+        _loginmobileTF.placeholder =  AppCellNum;
+    }
+    else
+    {
+        _mail_mobile_png = @"mobile_line.png";
+        _mail_mobile_highlight_png = @"mobile_fill.png";
+        _loginmobileTF.placeholder =  AppEmail ;
+    }
+    
+    [_emailBT setBackgroundImage:[UIImage imageNamed:_mail_mobile_png] forState:(UIControlStateNormal)];
+    [_emailBT setBackgroundImage:[UIImage imageNamed:_mail_mobile_highlight_png] forState:(UIControlStateHighlighted)];
+}
+
 -(void)fxBt
 {
+    
     self.emailBT = [[UIButton alloc]init];
     _emailBT.frame = kCGRectMake(50, 390, 60, 60);
-    [_emailBT setBackgroundImage:[UIImage imageNamed:@"login_mail.png"] forState:(UIControlStateNormal)];
+    [self switchMailMobile];
     [_emailBT addTarget:self action:@selector(emileBt) forControlEvents:UIControlEventTouchUpInside];
-    [_emailBT setBackgroundImage:[UIImage imageNamed:@"login_mail_a.png"] forState:(UIControlStateHighlighted)];
     [self.view addSubview:_emailBT];
     
     self.facebookBT = [[UIButton alloc]init];
@@ -326,7 +349,7 @@
 -(void)emileBt
 {
     _mobile = !_mobile;
-    _loginmobileTF.placeholder = _mobile ? AppCellNum : AppEmail;
+    [self switchMailMobile];
 }
 
 -(void)signUP
