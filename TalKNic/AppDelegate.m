@@ -25,6 +25,8 @@
 #import "TalkNavigationController.h"
 #import "CommonHeader.h"
 #import "EaseMessageViewController.h"
+#import "ScrollViewController.h"
+#import "LoginViewController.h"
 
 @interface AppDelegate ()<EMChatManagerDelegate>
 
@@ -77,6 +79,8 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
     }
     else
     {
+        if([role isEqualToString:CHINESEUSER] || [ViewControllerUtil CheckVerifiedUser])
+        {
             TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
             talkVC.uid = uid;
             talkVC.identity = role;
@@ -99,6 +103,7 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
             }
             else
             {
+
                 if (uid.length == 0)
                 {
                     [MBProgressHUD showError: kAlertNotLogin];
@@ -116,7 +121,22 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
                 }
             }
             self.window.rootViewController = talkVC;
-        
+        }
+        else    //Need to block unverified foreigner
+        {
+            /*if(uid.length == 0)
+            {
+                LoginViewController *loginVC = [[LoginViewController alloc]init];
+                UINavigationController *naVC = [[UINavigationController alloc]initWithRootViewController:loginVC];
+                self.window.rootViewController = naVC;
+            }
+            else*/
+            {
+                ScrollViewController *scrollVC = [[ScrollViewController alloc]init];
+                UINavigationController *naVC = [[UINavigationController alloc]initWithRootViewController:scrollVC];
+                self.window.rootViewController = naVC;
+            }
+        }
     }
     
 

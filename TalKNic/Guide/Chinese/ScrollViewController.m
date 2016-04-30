@@ -9,9 +9,13 @@
 #import "ScrollViewController.h"
 #import "TalkTabBarViewController.h"
 #import "ViewControllerUtil.h"
+#import "AFNetworking.h"
+#import "MBProgressHUD+MJ.h"
+#import "solveJsonData.h"
 
 @interface ScrollViewController ()<UIScrollViewDelegate>
-
+{
+}
 @property(nonatomic,strong)UIPageControl *pageControl;
 @property(nonatomic,strong)UIScrollView *scrollView;
 @end
@@ -31,6 +35,8 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    if([[ViewControllerUtil CheckRole] isEqualToString:FOREINERUSER])
+        [self verifyUser];
     self.navigationController.navigationBar.hidden = YES;
     
 }
@@ -280,15 +286,71 @@
     _pageControl.currentPage = scrollView.contentOffset.x / self.view.frame.size.width;
 }
 
+-(void)verifyUser
+{
+    NSString *uid = [ViewControllerUtil GetUid];
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    NSMutableDictionary *parme = [NSMutableDictionary dictionary];
+    parme[@"cmd"] = @"37";
+    parme[@"user_id"] = uid;
+    TalkLog(@"Me ID -- %@",uid);
+    [session POST:PATH_GET_LOGIN parameters:parme progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        TalkLog(@"Me result: %@",responseObject);
+        NSDictionary* dic = [solveJsonData changeType:responseObject];
+        if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
+        {
+            NSDictionary *dict = [dic objectForKey:@"result"];
+            NSString* bVerified = [dict objectForKey:@"online"];
+            if(bVerified.length != 0)
+                [[NSUserDefaults standardUserDefaults]setObject:bVerified forKey:@"VerifiedUser"];
+            
+        }
+        else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 4))
+        {
+            [MBProgressHUD showError:kAlertIDwrong];
+            return;
+        }
+        else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 3))
+        {
+            [MBProgressHUD showError:kAlertdataFailure];
+            return;
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
+    }];
+}
+
 - (void)tapAction
 {
-    TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
-    talkVC.uid = _uid;
-    talkVC.identity = [ViewControllerUtil CheckRole];
+    if([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER] || [ViewControllerUtil CheckVerifiedUser])
+    {
+        _uid = [ViewControllerUtil GetUid];
+        TalkTabBarViewController *talkVC = [[TalkTabBarViewController alloc]init];
+        talkVC.uid = _uid;
+        talkVC.identity = [ViewControllerUtil CheckRole];
     
-    self.hidesBottomBarWhenPushed = YES;
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    [self.navigationController pushViewController:talkVC animated:YES];
+        self.hidesBottomBarWhenPushed = YES;
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+        [self.navigationController pushViewController:talkVC animated:YES];
+        
+        [ViewControllerUtil loginHuanxinWithUid:_uid];
+    }
+    else
+    {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:kAlertNotLogin message:@"Thank you for using Talknic and we will verify your information very soon!" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *sureAction = [UIAlertAction actionWithTitle:AppSure style:UIAlertActionStyleCancel handler:nil];
+        
+        [alertController addAction:sureAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+        return;
+
+    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

@@ -12,6 +12,7 @@
 #import "solveJsonData.h"
 #import "TalkTabBarViewController.h"
 #include "TalkNavigationController.h"
+#import "EaseMobSDK.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDKUI.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
@@ -117,6 +118,11 @@
 +(BOOL)CheckFinishedInformation
 {
     return ([[[NSUserDefaults standardUserDefaults] objectForKey:@"FinishedInformation"] isEqualToString:@"Done"]);
+}
+
++(BOOL)CheckVerifiedUser
+{
+    return ([[[NSUserDefaults standardUserDefaults] objectForKey:@"VerifiedUser"] isEqualToString:@"1"]);
 }
 
 +(void)GetUserInformation:(NSString*)uid
@@ -298,6 +304,50 @@
 {
     NSLog(@"Sever error %@",error);
     [MBProgressHUD showError:kAlertNetworkError];
+}
+
+
+
+/**
+ *  登录环信聊天，设置聊天监听代理，
+ *
+ *  @param uid 当前用户uid
+ */
++ (void)loginHuanxinWithUid:(NSString *)uid
+{
+    
+#warning TalkLog
+    TalkLog(@"TalkLog:LINE %d ==>loginHuanxinWithUid%@", __LINE__, uid);
+    //环信聊天登录，增加自动登录功能
+    BOOL isAutoLogin = [[EaseMob sharedInstance].chatManager isAutoLoginEnabled];// 判断是否已经自动登录
+    if (!isAutoLogin) {
+        [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:uid
+                                                            password:KHuanxin
+                                                          completion:^(NSDictionary *loginInfo, EMError *error) {
+                                                              // 设置自动登录
+                                                              [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
+                                                              
+                                                          } onQueue:nil];
+    }
+    
+    //更新环信推送的推送信息
+    [self updataEaseMobPUshNoificationOptions];
+}
+
+
+/**
+ *  更新环信推送的推送信息
+ */
++ (void)updataEaseMobPUshNoificationOptions
+{
+    //设置推送信息
+    EMPushNotificationOptions *options = [[EaseMob sharedInstance].chatManager pushNotificationOptions];
+#warning TODO 获取用户名称
+    options.nickname = @"MarkFan";
+    options.displayStyle = 1;
+    
+    [EaseMobSDK easeMobUpdatePushOptions:options completion:^(EMPushNotificationOptions *options, EMError *error) {
+    }];
 }
 
 @end

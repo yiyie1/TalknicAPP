@@ -10,6 +10,7 @@
 #import "ChoosePeopleViewController.h"
 #import "EaseMobSDK.h"
 #import "ScrollViewController.h"
+#import "LoginViewController.h"
 
 @interface ChoosePeopleViewController ()
 @property (nonatomic,strong)UIImageView *imageView;
@@ -88,8 +89,10 @@
     
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"UseApp"];
     
-    ScrollViewController *scrollVC = [[ScrollViewController alloc]init];
-    [self.navigationController pushViewController:scrollVC animated:YES];
+    //foreigner cannot go to home directly
+    LoginViewController *loginVC = [[LoginViewController alloc]init];
+    //ScrollViewController *scrollVC = [[ScrollViewController alloc]init];
+    [self.navigationController pushViewController:loginVC animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

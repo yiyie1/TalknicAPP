@@ -27,10 +27,14 @@
 +(NSString*)GetLinked:(NSString*)method;
 +(NSString*)CheckRole;
 +(BOOL)CheckFinishedInformation;
++(BOOL)CheckVerifiedUser;
 
 +(void)GetUserInformation:(NSString*)uid;
 +(BOOL)IsValidChat:(NSString*) pay_time msg_time: (NSString*) msg_time;
 +(void)RemainingMsgTimeNotify:(NSString*) pay_time msg_time: (NSString*) msg_time;
 
 +(void)simplyShare:(NSUInteger) platform;
+
++ (void)loginHuanxinWithUid:(NSString *)uid;
++ (void)updataEaseMobPUshNoificationOptions;
 @end
