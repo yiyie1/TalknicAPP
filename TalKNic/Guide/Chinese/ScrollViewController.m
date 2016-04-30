@@ -338,7 +338,8 @@
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
         [self.navigationController pushViewController:talkVC animated:YES];
         
-        [ViewControllerUtil loginHuanxinWithUid:_uid];
+        if(_uid.length != 0)
+            [ViewControllerUtil loginHuanxinWithUid:_uid];
     }
     else
     {
