@@ -153,7 +153,7 @@
     label2.frame = kCGRectMake(130, 332.5 , 140, 24);
     label2.text = AppOtherFastLogin;
     label2.font = [UIFont fontWithName:kHelveticaLight size:14];
-
+    label2.textAlignment = NSTextAlignmentCenter;
     
     label2.numberOfLines = 0;
     [self.view addSubview:label2];

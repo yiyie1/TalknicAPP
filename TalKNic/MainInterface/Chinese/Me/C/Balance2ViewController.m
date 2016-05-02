@@ -180,10 +180,10 @@
             }
             [self.tableview reloadData];
         }
-        else
-        {
-            [MBProgressHUD showError:kAlertdataFailure];
-        }
+        //else
+        //{
+            //[MBProgressHUD showError:kAlertdataFailure];
+        //}
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [ViewControllerUtil showNetworkErrorMessage: error];
         return;

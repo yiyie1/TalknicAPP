@@ -208,7 +208,7 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
     }
     [self.view addSubview:self.imagevie];
     self.imagevie.animationImages=arr;
-    self.imagevie.animationDuration=1;
+    self.imagevie.animationDuration=0.7;
     if (self.l == 1) {
         //        self.imagevie.animationRepeatCount=0;
         

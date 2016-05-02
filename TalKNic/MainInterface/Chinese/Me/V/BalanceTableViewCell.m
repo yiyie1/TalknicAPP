@@ -37,7 +37,7 @@
         _titleLabel.text = AppBalance;
         [self.contentView addSubview:_titleLabel];
         
-        self.label = [[UILabel alloc] initWithFrame:kCGRectMake(0, CGRectGetMaxY(_titleLabel.frame) +10, 375, 231 / 4 )];
+        self.label = [[UILabel alloc] initWithFrame:kCGRectMake(0, CGRectGetMaxY(_titleLabel.frame), 375, 231 / 4 )];
 //        _label.center = CGPointMake(kWidth/2 / 2, 231 / 4 + 231 / 8);
         _label.textAlignment = NSTextAlignmentCenter;
         _label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:35.0];
