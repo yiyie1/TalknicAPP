@@ -18,10 +18,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         UIButton *plusBtn = [[UIButton alloc]init];
-        [plusBtn setBackgroundImage:[UIImage imageNamed:@"main_btn_match_50%.png"] forState:UIControlStateNormal];
-        [plusBtn setBackgroundImage:[UIImage imageNamed:@"main_btn_match_100%.png"] forState:UIControlStateHighlighted];
-        [plusBtn setImage:[UIImage imageNamed:@"main_btn_match_50%.png"] forState:UIControlStateNormal];
-        [plusBtn setImage:[UIImage imageNamed:@"main_btn_match_100%.png"] forState:UIControlStateHighlighted];
+        [plusBtn setBackgroundImage:[UIImage imageNamed:@"match_icon_dark@2x.png"] forState:UIControlStateNormal];
+        [plusBtn setBackgroundImage:[UIImage imageNamed:@"match_icon_dark@2x.png"] forState:UIControlStateHighlighted];
+        [plusBtn setImage:[UIImage imageNamed:@"match_icon_dark@2x.png"] forState:UIControlStateNormal];
+        [plusBtn setImage:[UIImage imageNamed:@"match_icon_dark@2x.png"] forState:UIControlStateHighlighted];
 //        [plusBtn setTitle:@"Match" forState:(UIControlStateNormal)];
 //        [plusBtn setTitle:@"Match" forState:(UIControlStateHighlighted)];
 //        plusBtn.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:14.0];
