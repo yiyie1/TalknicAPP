@@ -24,6 +24,7 @@
 #import "AFHTTPSessionManager.h"
 #import "ChoosePeopleViewController.h"
 #import "ViewControllerUtil.h"
+#import "WXApi.h"
 
 #define kMobilewF 275
 
@@ -35,6 +36,7 @@
     
     NSString *_mail_mobile_png;
     NSString *_mail_mobile_highlight_png;
+    BOOL _bInstallWechat;
 }
 
 @property (nonatomic,strong)UIButton *loginBT, *signupBT,*forgetPasspord,*emailBT,*facebookBT,*weixinBT,*weiboBT;
@@ -48,7 +50,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _mobile = YES;
-    
+    if ([WXApi isWXAppInstalled])
+    {
+        //判断是否有微信
+        _bInstallWechat = YES;
+    }
+    else
+    {
+        _bInstallWechat = NO;
+    }
     //增加背景色，防止push到当前页会卡
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.titleView = [ViewControllerUtil SetTitle:AppLogin];
@@ -56,6 +66,8 @@
     [self loginvieww];
     
     self.view.userInteractionEnabled = YES;
+    
+    
     
 }
 
@@ -196,6 +208,7 @@
     _facebookBT.frame = kCGRectMake(125,390, 60, 60);
     [_facebookBT setBackgroundImage:[UIImage imageNamed:@"login_fb.png"] forState:(UIControlStateNormal)];
     [_facebookBT setBackgroundImage:[UIImage imageNamed:@"login_fb.png"] forState:(UIControlStateHighlighted)];
+    [_facebookBT addTarget:self action:@selector(facebookLogin) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_facebookBT];
     
     self.weixinBT = [[UIButton alloc]init];
@@ -222,7 +235,7 @@
 
 -(void)facebookLogin
 {
-    //TODO
+    [MBProgressHUD showError:@"Facebook not supported!"];
 }
 
 -(void)loginFrom3rdPlatform:(id) sender
@@ -230,9 +243,19 @@
     UIButton *btn = sender;
     NSUInteger platform;
     if(btn.tag == 1)
+    {
         platform = SSDKPlatformTypeSinaWeibo;
+    }
     else if (btn.tag == 0)
-        platform = SSDKPlatformTypeWechat;
+    {
+        if(_bInstallWechat)
+            platform = SSDKPlatformTypeWechat;
+        else
+        {
+            [MBProgressHUD showError:@"Please install Wechat APP!"];
+            return;
+        }
+    }
     
     [ShareSDK getUserInfo:(platform) onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
         if (state == SSDKResponseStateSuccess)

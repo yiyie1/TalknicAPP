@@ -209,6 +209,7 @@
     _facebookBt.frame = kCGRectMake( 120, 318, 60, 60);
     [_facebookBt setBackgroundImage:[UIImage imageNamed:@"login_fb.png"] forState:(UIControlStateNormal)];
     [_facebookBt setBackgroundImage:[UIImage imageNamed:@"login_fb.png"] forState:(UIControlStateHighlighted)];
+    [_facebookBt addTarget:self action:@selector(facebookLogin) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_facebookBt];
 }
 -(void)weixinbt
@@ -263,6 +264,11 @@
     label9.font = [UIFont systemFontOfSize:13.0];
     label9.textAlignment = NSTextAlignmentLeft;
     [labelView addSubview:label9];
+}
+
+-(void)facebookLogin
+{
+    [MBProgressHUD showError:@"Facebook not supported!"];
 }
 
 -(void)sendAction

@@ -4714,6 +4714,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Talknic.cn;
 				PRODUCT_NAME = TalkNic;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7s i386 armv7";
 			};
 			name = Debug;
@@ -4760,6 +4761,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Talknic.cn;
 				PRODUCT_NAME = TalkNic;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7s i386 armv7";
 			};
 			name = Release;
