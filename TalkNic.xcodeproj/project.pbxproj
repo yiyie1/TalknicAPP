@@ -28,7 +28,6 @@
 		362E60AE1C1AA8E300FA78D9 /* datePicker.plist in Resources */ = {isa = PBXBuildFile; fileRef = 362E60AD1C1AA8E300FA78D9 /* datePicker.plist */; };
 		3644564B1BD8D1E6000F8281 /* TalkTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3644564A1BD8D1E6000F8281 /* TalkTabBarViewController.m */; };
 		3644564E1BD8D209000F8281 /* TalkNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3644564D1BD8D209000F8281 /* TalkNavigationController.m */; };
-		36474A8D1C40EF0000C12D2C /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36474A731C40EF0000C12D2C /* libWeiboSDK.a */; };
 		36474A8E1C40EF0000C12D2C /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 36474A7D1C40EF0000C12D2C /* WeiboSDK.bundle */; };
 		36474A8F1C40EF0000C12D2C /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36474A811C40EF0000C12D2C /* libWeChatSDK.a */; };
 		36474A901C40EF0100C12D2C /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = 36474A821C40EF0000C12D2C /* read_me.txt */; };
@@ -639,7 +638,6 @@
 		3644564A1BD8D1E6000F8281 /* TalkTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TalkTabBarViewController.m; sourceTree = "<group>"; };
 		3644564C1BD8D209000F8281 /* TalkNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkNavigationController.h; sourceTree = "<group>"; };
 		3644564D1BD8D209000F8281 /* TalkNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TalkNavigationController.m; sourceTree = "<group>"; };
-		36474A731C40EF0000C12D2C /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeiboSDK.a; sourceTree = "<group>"; };
 		36474A741C40EF0000C12D2C /* WBHttpRequest+WeiboGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboGame.h"; sourceTree = "<group>"; };
 		36474A751C40EF0000C12D2C /* WBHttpRequest+WeiboShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboShare.h"; sourceTree = "<group>"; };
 		36474A761C40EF0000C12D2C /* WBHttpRequest+WeiboToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboToken.h"; sourceTree = "<group>"; };
@@ -1651,7 +1649,6 @@
 				36B5E8181C3A0A7F00BC2156 /* libicucore.tbd in Frameworks */,
 				36B5E8161C3A0A6200BC2156 /* CoreTelephony.framework in Frameworks */,
 				36474A8F1C40EF0000C12D2C /* libWeChatSDK.a in Frameworks */,
-				36474A8D1C40EF0000C12D2C /* libWeiboSDK.a in Frameworks */,
 				36B5E8141C3A0A5100BC2156 /* QuartzCore.framework in Frameworks */,
 				36474A971C40EF0100C12D2C /* ShareSDKUI.framework in Frameworks */,
 				36474A951C40EF0100C12D2C /* ShareSDKExtension.framework in Frameworks */,
@@ -1757,7 +1754,6 @@
 		36474A721C40EF0000C12D2C /* SinaWeiboSDK */ = {
 			isa = PBXGroup;
 			children = (
-				36474A731C40EF0000C12D2C /* libWeiboSDK.a */,
 				36474A741C40EF0000C12D2C /* WBHttpRequest+WeiboGame.h */,
 				36474A751C40EF0000C12D2C /* WBHttpRequest+WeiboShare.h */,
 				36474A761C40EF0000C12D2C /* WBHttpRequest+WeiboToken.h */,
@@ -4724,7 +4720,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: JI REN ZOU (8RH764BC39)";
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_BITCODE = NO;
