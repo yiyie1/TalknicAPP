@@ -88,9 +88,9 @@
 -(void)layoutEditBox
 {
     _nameText = [self layoutText:AppUserName       text: _name x:5 y:40 width:365 height:30 textView:_nameText];
-    _occupText = [self layoutText:AppOccupation text: _occupation x:5 y:110 width:365 height:30 textView:_occupText];
-    _locationText = [self layoutText:AppLocation  text: _location x:5 y:180 width:365 height:30 textView:_locationText];
-    _bioText = [self layoutText:AppBio        text: _bio x:5 y:250 width:365 height:200 textView:_bioText];
+    //_occupText = [self layoutText:AppOccupation text: _occupation x:5 y:110 width:365 height:30 textView:_occupText];
+    _locationText = [self layoutText:AppLocation  text: _location x:5 y:110 width:365 height:30 textView:_locationText];
+    _bioText = [self layoutText:AppBio        text: _bio x:5 y:180 width:365 height:200 textView:_bioText];
 }
 
 -(void)rightAction

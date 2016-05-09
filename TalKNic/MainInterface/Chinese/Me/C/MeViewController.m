@@ -36,6 +36,7 @@
     NSArray *_allMesetup;
     UITextView * _nameText;
     UITextView * _topText;
+    NSArray *_GeneralGroup;
 }
 
 @property(nonatomic,strong)NSArray *searchArr; //保存searchBar搜索到的数据
@@ -88,8 +89,27 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self loadId];
+    [ViewControllerUtil verifyFreeUser];
     self.navigationController.navigationBar.translucent = YES;
     self.tabBarController.tabBar.hidden = NO;
+    
+    
+    if([_role isEqualToString:CHINESEUSER])
+        _GeneralGroup = @[AppInviteFriends, AppQA,AppAbout];
+    else
+        _GeneralGroup = @[AppInviteFriends,AppAbout];
+    
+    if([ViewControllerUtil CheckFreeUser])
+    {
+        _allMesetup =@[[MeSetup mesetupWithHeader:AppPayment group:@[AppHistory]],
+                       [MeSetup mesetupWithHeader:AppGeneral group:_GeneralGroup]];
+    }
+    else
+    {
+        _allMesetup =@[[MeSetup mesetupWithHeader:AppPayment group:@[AppBalance,AppCreditCard,AppHistory]],
+                       [MeSetup mesetupWithHeader:AppGeneral group:_GeneralGroup]];
+    }
+    [self.tableView reloadData];
 }
 
 -(void)portraitImageView
@@ -537,17 +557,6 @@
     _tableView.delegate = self;
     [_tableView setScrollEnabled:NO];
     [self.view addSubview:_tableView];
-    
-    NSArray *GeneralGroup = nil;
-    if([_role isEqualToString:CHINESEUSER])
-        GeneralGroup = @[AppInviteFriends, AppQA,AppAbout];
-    else
-        GeneralGroup = @[AppInviteFriends,AppAbout];
-    
-    _allMesetup =@[[MeSetup mesetupWithHeader:AppPayment group:@[AppBalance,AppCreditCard,AppHistory]],
-            [MeSetup mesetupWithHeader:AppGeneral group:GeneralGroup]];
-    
-    
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -583,13 +592,20 @@
         cell.textLabel.textColor = [UIColor colorWithRed:85.0/255.0 green:85.0/255.0 blue:85.0/255.0 alpha:1.0];
         
         NSArray *arr = nil;
-        if([_role isEqualToString:CHINESEUSER])
+        if([ViewControllerUtil CheckFreeUser])
         {
-        arr = @[@[@"me_balance_icon.png",@"me_card_icon.png",@"me_history_icon.png"],@[@"me_invite_icon.png",@"me_qa_icon.png",@"me_about_icon.png"]];
+            arr = @[@[@"me_history_icon.png"],@[@"me_invite_icon.png",@"me_qa_icon.png",@"me_about_icon.png"]];
         }
         else
         {
-            arr = @[@[@"me_balance_icon.png",@"me_card_icon.png",@"me_history_icon.png"],@[@"me_invite_icon.png",@"me_about_icon.png"]];
+            if([_role isEqualToString:CHINESEUSER])
+            {
+                arr = @[@[@"me_balance_icon.png",@"me_card_icon.png",@"me_history_icon.png"],@[@"me_invite_icon.png",@"me_qa_icon.png",@"me_about_icon.png"]];
+            }
+            else
+            {
+                arr = @[@[@"me_balance_icon.png",@"me_card_icon.png",@"me_history_icon.png"],@[@"me_invite_icon.png",@"me_about_icon.png"]];
+            }
         }
         cell.imageView.image = [UIImage imageNamed:arr[indexPath.section][indexPath.row]];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -623,7 +639,10 @@
         label.frame = kCGRectMake(10, 3, 100, 15);
         label.font = [UIFont fontWithName:kHelveticaLight size:14.0];
         label.textColor = [UIColor colorWithRed:128/255.0 green:128/255.0 blue:128/255.0 alpha:1.0];
-        label.text = AppPayment;
+        if([ViewControllerUtil CheckFreeUser])
+            label.text = @"";
+        else
+            label.text = AppPayment;
         return label;
     }
     else

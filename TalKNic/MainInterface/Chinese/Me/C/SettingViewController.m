@@ -12,6 +12,8 @@
 #import "VoiceViewController.h"
 #import "AccountViewController.h"
 #import "NotificationViewController.h"
+#import "ViewControllerUtil.h"
+
 @interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     NSArray *_allSetting;
@@ -64,7 +66,14 @@
     _tableView.dataSource = self;
     [_tableView setScrollEnabled:NO];
     [self.view addSubview:_tableView];
-    _allSetting = @[[Setting settingWithGroup:@[AppAccount]],[Setting settingWithGroup:@[AppInboxMessage,AppClearCache]],[Setting settingWithGroup:@[AppNotification,AppRateAppStore]]];
+    if([ViewControllerUtil CheckFreeUser])
+    {
+        _allSetting = @[[Setting settingWithGroup:@[AppAccount]],[Setting settingWithGroup:@[AppInboxMessage,AppClearCache]]];
+    }
+    else
+    {
+        _allSetting = @[[Setting settingWithGroup:@[AppAccount]],[Setting settingWithGroup:@[AppInboxMessage,AppClearCache]],[Setting settingWithGroup:@[AppNotification,AppRateAppStore]]];
+    }
     
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -99,7 +108,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 25;
+    return KHeightScaled(25);
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {

@@ -60,7 +60,7 @@
 -(void)layoutLogoutBtn
 {
     self.logoutBT =  [[UIButton alloc]init];
-    _logoutBT.frame = kCGRectMake(self.view.frame.origin.x + 50, self.view.frame.origin.y +374, self.view.frame.size.width /1.36, 50);
+    _logoutBT.frame = kCGRectMake(36, self.view.frame.origin.y +374, 302.5, 56.5);
     [_logoutBT setTitle:AppLogout forState:(UIControlStateNormal)];
     [_logoutBT setBackgroundImage:[UIImage imageNamed:@"login_btn_lg_a.png"] forState:(UIControlStateNormal)];
     [_logoutBT addTarget:self action:@selector(logoutAction) forControlEvents:(UIControlEventTouchUpInside)];

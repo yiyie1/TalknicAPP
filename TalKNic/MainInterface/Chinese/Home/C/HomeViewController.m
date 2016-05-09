@@ -74,6 +74,7 @@
         [self requestDataMethod];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
+    
     //    // 头部的刷新
     //    self.homecollectview.header = [MJRefreshHeader headerWithRefreshingBlock:^{
     //        NSArray *titleArr = @[@"featured",@"latest",@"popular"];
@@ -290,6 +291,8 @@
     }
     
     self.seletedCount ++;
+    if([ViewControllerUtil CheckFreeUser])
+        self.seletedCount ++;
     //1st page to 2nd page
     if (self.seletedCount % 2 == 1)
     {
@@ -367,7 +370,7 @@
             else if([[dic objectForKey:@"code" ] isEqualToString:@"5"])
             {
                 //App store test doesn't go to alipay
-                if([_bFreeUser isEqualToString:@"1"])
+                if([ViewControllerUtil CheckFreeUser])
                 {
                     [self finishPay];
                 }
@@ -541,48 +544,9 @@
     //    searchBar.hidden = YES;
 }
 
-- (void)verifyFreeUser
-{
-    NSString *uid = [ViewControllerUtil GetUid];
-    if(uid.length == 0)
-        return;
-    
-    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
-    session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSMutableDictionary *parme = [NSMutableDictionary dictionary];
-    parme[@"cmd"] = @"38";
-    parme[@"user_id"] = uid;
-    TalkLog(@"Me ID -- %@",uid);
-    [session POST:PATH_GET_LOGIN parameters:parme progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        TalkLog(@"Me result: %@",responseObject);
-        NSDictionary* dic = [solveJsonData changeType:responseObject];
-        if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
-        {
-            NSDictionary *dict = [dic objectForKey:@"result"];
-            _bFreeUser = [dict objectForKey:@"free"];
-        }
-        else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 4))
-        {
-            [MBProgressHUD showError:kAlertIDwrong];
-            return;
-        }
-        else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 3))
-        {
-            [MBProgressHUD showError:kAlertdataFailure];
-            return;
-        }
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [MBProgressHUD showError:kAlertNetworkError];
-        return;
-    }];
-}
-
-
 -(void)viewWillAppear:(BOOL)animated
 {
+    [ViewControllerUtil verifyFreeUser];
     [self.homecollectview reloadData];
     [self requestCoupon];
     self.navigationController.navigationBar.translucent = YES;
@@ -590,7 +554,6 @@
     
     //self.tabBarController.tabBar.translucent = YES;
     //self.tabBarController.tabBar.hidden = YES;
-    [self verifyFreeUser];
     //FIXME strange behavior in viewdidload
     self.bar = [ViewControllerUtil ConfigNavigationBar:AppDiscover NavController: self.navigationController NavBar:self.bar];
     [self.view addSubview:self.bar];

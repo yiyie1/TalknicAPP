@@ -47,6 +47,7 @@
     self.tabBarController.tabBar.hidden = YES;
     
     [self getData];
+
 }
 
 - (void)getData
@@ -94,6 +95,7 @@
     UIBarButtonItem *leftI = [[UIBarButtonItem alloc]initWithCustomView:_leftBT];
     self.navigationItem.leftBarButtonItem = leftI;
 }
+
 -(void)layoutView
 {
     UILabel *label = [[UILabel alloc] initWithFrame:kCGRectMake(0, 64 + 35 / 2, 375, 1)];
@@ -104,11 +106,6 @@
     _tableView.dataSource = self;
     [_tableView setScrollEnabled:NO];
     
-    FootView *foot = [[FootView alloc] initWithFrame:kCGRectMake(0, 0, 375, 240 )];
-    
-    
-    self.tableView.tableFooterView = foot;
-    
     [self.view addSubview:_tableView];
     NSArray *images = @[[UIImage imageNamed:@"me_ads_image.png"],
                         [UIImage imageNamed:@"me_ads_image.png"],
@@ -118,17 +115,35 @@
     cycleScrollView.infiniteLoop = YES;
     cycleScrollView.delegate = self;
     cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
-    [foot addSubview:cycleScrollView];
-    
-    if([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER])
+
+
+    if([ViewControllerUtil CheckFreeUser])
+    {
         _allBalance = @[
+                        [Balance balancesetupWithGrouping:@[AppBalance,AppFreeze,AppAvailablebalance]]];
+    }
+    else
+    {
+    
+        if([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER])
+        {
+        
+            _allBalance = @[
                     [Balance balancesetupWithGrouping:@[AppBalance,AppFreeze,AppAvailablebalance,AppPoints]],
                     [Balance balancesetupWithGrouping:@[AppAlipay,AppCreditCard,AppCoupon]]];
-    else
-        _allBalance = @[
+        
+        }
+        else
+        {
+            _allBalance = @[
                         [Balance balancesetupWithGrouping:@[AppBalance,AppFreeze,AppAvailablebalance,AppPoints]],
                         [Balance balancesetupWithGrouping:@[AppCreditCard]]];
-    
+        }
+        
+        FootView *foot = [[FootView alloc] initWithFrame:kCGRectMake(0, 0, 375, 240 )];
+        self.tableView.tableFooterView = foot;
+        [foot addSubview:cycleScrollView];
+    }
 }
 -(void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
@@ -140,17 +155,30 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 4;
+    /*if([ViewControllerUtil CheckFreeUser])
+    {
+        //if (section == 0) {
+            return 3;
+        //}
     }
     else
     {
-        if([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER])
-            return 3;
+        if (section == 0) {
+        return 4;
+        }
         else
-            return 1;
-    }
+        {
+            if([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER])
+                return 3;
+            else
+                return 1;
+        }
+    }*/
+    
+    Balance* b = _allBalance[section];
+    return b.grouping.count;
 }
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
@@ -243,14 +271,17 @@
     {
         if(indexPath.row == 0)
         {
-            self.hidesBottomBarWhenPushed=YES;
+            /*self.hidesBottomBarWhenPushed=YES;
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chinese" bundle:nil];
             Balance2ViewController *baVC = [storyboard instantiateViewControllerWithIdentifier:@"balance2ViewController"];
             baVC.uid = _uid;
             //        [self.navigationController presentViewController:baVC animated:YES completion:nil];
             [self.navigationController pushViewController:baVC animated:YES];
-            self.hidesBottomBarWhenPushed=NO;
+            self.hidesBottomBarWhenPushed=NO;*/
+            
+            //[MBProgressHUD showError:@"Coming Soon"];
         }
+        
     }
     
 #warning 支付修改开始 10.1
@@ -260,7 +291,7 @@
         {
             if(indexPath.row == 0)
             {
-                NSString *orderId = [self generateTradeNO];
+                /*NSString *orderId = [self generateTradeNO];
         
                 [YGPayByAliTool payByAliWithSubjects:ALI_PAY_SUBJECT body:nil price:0.01 orderId:orderId partner:ALI_PARTNER_ID seller:ALI_SELLER_ID privateKey:ALI_PRIVATE_KEY success:^(NSDictionary *info) {
                     NSString *result = info[@"result"];
@@ -270,7 +301,7 @@
                     {
                         [self charge];
                     }
-                }];
+                }];*/
             }
             else if(indexPath.row == 1)
             {
