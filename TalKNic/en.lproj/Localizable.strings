@@ -51,7 +51,7 @@
 "alert.selectnotion" = "Please enter the nationality";
 "alert.selectProfession" = "Please enter the profession";
 "alert.selectPerson" = "Please enter the personal introduction";
-"alert.registered" = "Is the registered";
+"alert.registered" = "Register successfully";
 "alert.uploadFail" = "Upload failed";
 "alert.IDWrong" = "User ID is wrong";
 "alert.EnglishLevel" = "Please choose your English level";

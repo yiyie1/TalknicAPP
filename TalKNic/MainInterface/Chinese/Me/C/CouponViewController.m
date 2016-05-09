@@ -60,8 +60,8 @@
         }
         else if ([responseObject[@"code"] isEqualToString:@"4"])
             [MBProgressHUD showError:kAlertNoCoupon];
-        else
-            [MBProgressHUD showError:kAlertdataFailure];
+        //else
+          //  [MBProgressHUD showError:kAlertdataFailure];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [ViewControllerUtil showNetworkErrorMessage: error];

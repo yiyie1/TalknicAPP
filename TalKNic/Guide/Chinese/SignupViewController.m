@@ -26,7 +26,6 @@
 #import "Foreigner1ViewController.h"
 #import "ChoosePeopleViewController.h"
 #import "ViewControllerUtil.h"
-#import "LoginViewController.h"
 
 #define kMobilewF 275
 
@@ -423,7 +422,7 @@
                     //注册环信
                     [EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
                 }
-                
+                [MBProgressHUD showSuccess:kAlertRegistered];
                 [self popAction];
                 
             }
@@ -495,7 +494,7 @@
                     //注册环信
                     [EaseMobSDK easeMobRegisterAppWithAccount:_uid password:KHuanxin HUDShowInView:self.view];
                 }
-                
+                [MBProgressHUD showSuccess:kAlertRegistered];
                 [self popAction];
             }
             else

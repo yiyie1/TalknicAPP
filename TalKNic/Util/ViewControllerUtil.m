@@ -125,6 +125,11 @@
     return ([[[NSUserDefaults standardUserDefaults] objectForKey:@"VerifiedUser"] isEqualToString:@"1"]);
 }
 
++(BOOL)CheckFreeUser
+{
+    return ([[[NSUserDefaults standardUserDefaults] objectForKey:@"FreeUser"] isEqualToString:@"1"]);
+}
+
 +(void)GetUserInformation:(NSString*)uid
 {
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];

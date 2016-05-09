@@ -51,7 +51,7 @@
 "alert.selectnotion" = "请输入国籍";
 "alert.selectProfession" = "请输入职业";
 "alert.selectPerson" = "请输入个人介绍";
-"alert.registered" = "正在注册...";
+"alert.registered" = "注册成功";
 "alert.uploadFail" = "上传失败";
 "alert.IDWrong" = "用户ID错误";
 "alert.cardEmpty" = "银行卡号不能为空";

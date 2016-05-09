@@ -31,7 +31,7 @@
     NSString *topic;
     NSString *user_pic;
     NSString *username;
-    
+    NSString *_bFreeUser;
     //NSString *userid;
     NSMutableArray *searChArr;//搜索结果数组
     NSDictionary * _dicP;//接受匹配信息的通知
@@ -366,6 +366,13 @@
             }
             else if([[dic objectForKey:@"code" ] isEqualToString:@"5"])
             {
+                //App store test doesn't go to alipay
+                if([_bFreeUser isEqualToString:@"1"])
+                {
+                    [self finishPay];
+                }
+                else
+                {
                 float remain_price = [[dic objectForKey:@"balance"] floatValue];
                 NSString *AliPayOrderId = [self generateTradeNO];
                 [YGPayByAliTool payByAliWithSubjects:ALI_PAY_SUBJECT body:nil price:remain_price orderId:AliPayOrderId partner:ALI_PARTNER_ID seller:ALI_SELLER_ID privateKey:ALI_PRIVATE_KEY success:^(NSDictionary *info) {
@@ -377,38 +384,7 @@
                     //Pay successful and record data in server
                     if(result.length > 0 && [resultStatus isEqualToString: @"9000"] )
                     {
-                        //2. finish pay
-                        AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
-                        session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-                        NSMutableDictionary *parmes = [NSMutableDictionary dictionary];
-                        parmes[@"cmd"] = @"17";
-                        parmes[@"theory_time"] = @(DEFAULT_VOICE_MSG_DURATION_MINS);//FIXME user choose time
-                        parmes[@"order_id"] = [NSNumber numberWithInt:[_order_id_from_db intValue]];
-                        NSLog(@"%@",parmes);
-                        
-                        [session POST:PATH_GET_LOGIN parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
-
-                        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                            NSDictionary *dic = [solveJsonData changeType:responseObject];
-                            NSLog(@"result = %@",dic);
-                            if ([[dic objectForKey:@"code" ] isEqualToString:SERVER_SUCCESS])
-                            {
-                                [MBProgressHUD showSuccess:@"Ali pay successful"];
-                                [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController order_id:_order_id_from_db];
-                                self.navigationController.tabBarItem.badgeValue = nil;
-                            }
-                            else
-                            {
-                                [MBProgressHUD showError:kAlertdataFailure];
-                            }
-                            
-                            
-                        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                            [ViewControllerUtil showNetworkErrorMessage: error];
-                            return;
-                            
-                        }];
-
+                        [self finishPay];
                     }
                     else
                     {
@@ -417,7 +393,7 @@
                         return;
                     }
                 }];
-                
+                }
                 return ;
             }
             else
@@ -432,6 +408,41 @@
 
 }
 
+-(void)finishPay
+{
+    //2. finish pay
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    NSMutableDictionary *parmes = [NSMutableDictionary dictionary];
+    parmes[@"cmd"] = @"17";
+    parmes[@"theory_time"] = @(DEFAULT_VOICE_MSG_DURATION_MINS);//FIXME user choose time
+    parmes[@"order_id"] = [NSNumber numberWithInt:[_order_id_from_db intValue]];
+    NSLog(@"%@",parmes);
+    
+    [session POST:PATH_GET_LOGIN parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dic = [solveJsonData changeType:responseObject];
+        NSLog(@"result = %@",dic);
+        if ([[dic objectForKey:@"code" ] isEqualToString:SERVER_SUCCESS])
+        {
+            //[MBProgressHUD showSuccess:@"Ali pay successful"];
+            [EaseMobSDK createOneChatViewWithConversationChatter:foreigner_uid Name:self.nameLb.text onNavigationController:self.navigationController order_id:_order_id_from_db];
+            self.navigationController.tabBarItem.badgeValue = nil;
+        }
+        else
+        {
+            [MBProgressHUD showError:kAlertdataFailure];
+        }
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [ViewControllerUtil showNetworkErrorMessage: error];
+        return;
+        
+    }];
+
+}
 - (void)charge{
     
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
@@ -530,6 +541,46 @@
     //    searchBar.hidden = YES;
 }
 
+- (void)verifyFreeUser
+{
+    NSString *uid = [ViewControllerUtil GetUid];
+    if(uid.length == 0)
+        return;
+    
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    NSMutableDictionary *parme = [NSMutableDictionary dictionary];
+    parme[@"cmd"] = @"38";
+    parme[@"user_id"] = uid;
+    TalkLog(@"Me ID -- %@",uid);
+    [session POST:PATH_GET_LOGIN parameters:parme progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        TalkLog(@"Me result: %@",responseObject);
+        NSDictionary* dic = [solveJsonData changeType:responseObject];
+        if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
+        {
+            NSDictionary *dict = [dic objectForKey:@"result"];
+            _bFreeUser = [dict objectForKey:@"free"];
+        }
+        else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 4))
+        {
+            [MBProgressHUD showError:kAlertIDwrong];
+            return;
+        }
+        else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 3))
+        {
+            [MBProgressHUD showError:kAlertdataFailure];
+            return;
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [MBProgressHUD showError:kAlertNetworkError];
+        return;
+    }];
+}
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [self.homecollectview reloadData];
@@ -539,7 +590,7 @@
     
     //self.tabBarController.tabBar.translucent = YES;
     //self.tabBarController.tabBar.hidden = YES;
-    
+    [self verifyFreeUser];
     //FIXME strange behavior in viewdidload
     self.bar = [ViewControllerUtil ConfigNavigationBar:AppDiscover NavController: self.navigationController NavBar:self.bar];
     [self.view addSubview:self.bar];
