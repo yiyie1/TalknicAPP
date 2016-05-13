@@ -26,6 +26,7 @@
 #import "Foreigner1ViewController.h"
 #import "ChoosePeopleViewController.h"
 #import "ViewControllerUtil.h"
+#import "WXApi.h"
 
 #define kMobilewF 275
 
@@ -43,6 +44,7 @@
     
     NSString *_mail_mobile_png;
     NSString *_mail_mobile_highlight_png;
+    BOOL _bInstallWechat;
     
 }
 
@@ -66,7 +68,21 @@
     //_mobile = YES; //get from login
     _dic = [NSDictionary dictionary];
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    if ([WXApi isWXAppInstalled])
+    {
+        //判断是否有微信
+        _bInstallWechat = YES;
+    }
+    else
+    {
+        _bInstallWechat = NO;
+    }
+
+    
     [self createanView];
+    
+    
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -82,9 +98,9 @@
     [self sendbt];
     [self codebt];
     [self emailbt];
-    [self facebookbt];
     [self weixinbt];
     [self weibobt];
+    [self LabelViewLayout];
     [self imageviewD];
     [self loginbt];
 }
@@ -193,7 +209,6 @@
 
 -(void)emailbt
 {
-    
     self.emailBt = [[UIButton alloc]init];
     _emailBt.frame = kCGRectMake(40, 318, 60, 60);
     [self switchMailMobile];
@@ -202,15 +217,24 @@
     [_emailBt addTarget:self action:@selector(emailBtAction) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:_emailBt];
 }
--(void)facebookbt
+-(void)weibobt
 {
-    self.facebookBt = [[UIButton alloc]init];
+    /*self.facebookBt = [[UIButton alloc]init];
     _facebookBt.frame = kCGRectMake( 120, 318, 60, 60);
     [_facebookBt setBackgroundImage:[UIImage imageNamed:@"login_fb.png"] forState:(UIControlStateNormal)];
     [_facebookBt setBackgroundImage:[UIImage imageNamed:@"login_fb.png"] forState:(UIControlStateHighlighted)];
     [_facebookBt addTarget:self action:@selector(facebookLogin) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_facebookBt];
+    [self.view addSubview:_facebookBt];*/
+    
+    self.weiboBt = [[UIButton alloc]init];
+    _weiboBt.frame = kCGRectMake( 120, 318, 60, 60);
+    _weiboBt.tag = 1;
+    [_weiboBt setBackgroundImage:[UIImage imageNamed:@"login_weibo.png"] forState:(UIControlStateNormal)];
+    [_weiboBt setBackgroundImage:[UIImage imageNamed:@"login_weibo_a.png"] forState:(UIControlStateHighlighted)];
+    [self.view addSubview:_weiboBt];
+    [_weiboBt addTarget:self action:@selector(loginFrom3rdPlatform:) forControlEvents:UIControlEventTouchUpInside];
 }
+
 -(void)weixinbt
 {
     self.weixinBt = [[UIButton alloc]init];
@@ -219,17 +243,11 @@
     [_weixinBt setBackgroundImage:[UIImage imageNamed:@"login_wechat.png"] forState:(UIControlStateNormal)];
     [_weixinBt setBackgroundImage:[UIImage imageNamed:@"login_wechat_a.png"] forState:(UIControlStateHighlighted)];
     [_weixinBt addTarget:self action:@selector(loginFrom3rdPlatform:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_weixinBt];
+    if(_bInstallWechat)
+        [self.view addSubview:_weixinBt];
 }
--(void)weibobt
+-(void)LabelViewLayout
 {
-    self.weiboBt = [[UIButton alloc]init];
-    _weiboBt.frame = kCGRectMake( 280, 318, 60, 60);
-    _weiboBt.tag = 1;
-    [_weiboBt setBackgroundImage:[UIImage imageNamed:@"login_weibo.png"] forState:(UIControlStateNormal)];
-    [_weiboBt setBackgroundImage:[UIImage imageNamed:@"login_weibo_a.png"] forState:(UIControlStateHighlighted)];
-    [self.view addSubview:_weiboBt];
-    [_weiboBt addTarget:self action:@selector(loginFrom3rdPlatform:) forControlEvents:UIControlEventTouchUpInside];
     UILabel *label4 = [[UILabel alloc]init];
     label4.frame = kCGRectMake(40, 395 , 300, 2);
     [label4 setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"login_line_bold.png"]]];

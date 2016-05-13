@@ -197,35 +197,36 @@
 
 -(void)fxBt
 {
-    
     self.emailBT = [[UIButton alloc]init];
     _emailBT.frame = kCGRectMake(50, 390, 60, 60);
     [self switchMailMobile];
     [_emailBT addTarget:self action:@selector(emileBt) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_emailBT];
     
-    self.facebookBT = [[UIButton alloc]init];
-    _facebookBT.frame = kCGRectMake(125,390, 60, 60);
-    [_facebookBT setBackgroundImage:[UIImage imageNamed:@"login_fb.png"] forState:(UIControlStateNormal)];
-    [_facebookBT setBackgroundImage:[UIImage imageNamed:@"login_fb.png"] forState:(UIControlStateHighlighted)];
-    [_facebookBT addTarget:self action:@selector(facebookLogin) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_facebookBT];
-    
-    self.weixinBT = [[UIButton alloc]init];
-    _weixinBT.frame = kCGRectMake(200,  390, 60, 60);
-    _weixinBT.tag = 0;
-    [_weixinBT setBackgroundImage:[UIImage imageNamed:@"login_wechat.png"] forState:(UIControlStateNormal)];
-    [_weixinBT setBackgroundImage:[UIImage imageNamed:@"login_wechat_a.png"] forState:(UIControlStateHighlighted)];
-    [_weixinBT addTarget:self action:@selector(loginFrom3rdPlatform:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_weixinBT];
-    
     self.weiboBT = [[UIButton alloc]init];
-    _weiboBT.frame = kCGRectMake(275,390, 60, 60);
+    _weiboBT.frame = kCGRectMake(125,390, 60, 60);
     _weiboBT.tag = 1;
     [_weiboBT setBackgroundImage:[UIImage imageNamed:@"login_weibo.png"] forState:(UIControlStateNormal)];
     [_weiboBT addTarget:self action:@selector(loginFrom3rdPlatform:) forControlEvents:UIControlEventTouchUpInside];
     [_weiboBT setBackgroundImage:[UIImage imageNamed:@"login_weibo_a.png"] forState:(UIControlStateHighlighted)];
     [self.view addSubview:_weiboBT];
+    
+    /*self.facebookBT = [[UIButton alloc]init];
+    _facebookBT.frame = kCGRectMake(125,390, 60, 60);
+    [_facebookBT setBackgroundImage:[UIImage imageNamed:@"login_fb.png"] forState:(UIControlStateNormal)];
+    [_facebookBT setBackgroundImage:[UIImage imageNamed:@"login_fb.png"] forState:(UIControlStateHighlighted)];
+    [_facebookBT addTarget:self action:@selector(facebookLogin) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_facebookBT];*/
+    
+    self.weixinBT = [[UIButton alloc]init];
+    _weixinBT.frame = kCGRectMake(200, 390, 60, 60);
+    _weixinBT.tag = 0;
+    [_weixinBT setBackgroundImage:[UIImage imageNamed:@"login_wechat.png"] forState:(UIControlStateNormal)];
+    [_weixinBT setBackgroundImage:[UIImage imageNamed:@"login_wechat_a.png"] forState:(UIControlStateHighlighted)];
+    [_weixinBT addTarget:self action:@selector(loginFrom3rdPlatform:) forControlEvents:UIControlEventTouchUpInside];
+    if(_bInstallWechat)
+        [self.view addSubview:_weixinBT];
+    
 }
 
 -(void)popAction
