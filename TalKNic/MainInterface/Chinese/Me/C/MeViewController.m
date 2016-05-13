@@ -77,6 +77,8 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.titleView = [ViewControllerUtil SetTitle:AppMe];
 
+    [ViewControllerUtil verifyFreeUser];
+    
     [self Setting];
     [self LayoutProfile];
     [self TopBarView];
@@ -594,7 +596,10 @@
         NSArray *arr = nil;
         if([ViewControllerUtil CheckFreeUser])
         {
-            arr = @[@[@"me_history_icon.png"],@[@"me_invite_icon.png",@"me_qa_icon.png",@"me_about_icon.png"]];
+            if([_role isEqualToString:CHINESEUSER])
+                arr = @[@[@"me_history_icon.png"],@[@"me_invite_icon.png",@"me_qa_icon.png",@"me_about_icon.png"]];
+            else
+                arr = @[@[@"me_history_icon.png"],@[@"me_invite_icon.png",@"me_about_icon.png"]];
         }
         else
         {

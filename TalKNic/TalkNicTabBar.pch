@@ -241,10 +241,13 @@
 #define AppPaid     NSLocalizedString(@"AppPaid",@"")
 #define AppRate     NSLocalizedString(@"AppRate",@"")
 #define AppComments NSLocalizedString(@"AppComments",@"")
+#define AppDailySetting NSLocalizedString(@"AppDailySetting",@"")
+
 //APP language
 #define AppCompleted    NSLocalizedString(@"AppCompleted",@"")
 #define AppDone  NSLocalizedString(@"AppDone",@"")
 #define AppCancel  NSLocalizedString(@"AppCancel",@"")
+#define AppAvailabletime  NSLocalizedString(@"AppAvailabletime",@"")
 //Chinese or Foreginer
 #define AppChinese  NSLocalizedString(@"AppChinese",@"")
 #define AppForeigner  NSLocalizedString(@"AppForeigner",@"")

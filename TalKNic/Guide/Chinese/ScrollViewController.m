@@ -36,7 +36,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     if([[ViewControllerUtil CheckRole] isEqualToString:FOREINERUSER])
-        [self verifyUser];
+        [ViewControllerUtil verifyUser];
     self.navigationController.navigationBar.hidden = YES;
     
 }
@@ -285,46 +285,6 @@
 {
     _pageControl.currentPage = scrollView.contentOffset.x / self.view.frame.size.width;
 }
-
--(void)verifyUser
-{
-    NSString *uid = [ViewControllerUtil GetUid];
-    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
-    session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSMutableDictionary *parme = [NSMutableDictionary dictionary];
-    parme[@"cmd"] = @"37";
-    parme[@"user_id"] = uid;
-    TalkLog(@"Me ID -- %@",uid);
-    [session POST:PATH_GET_LOGIN parameters:parme progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        TalkLog(@"Me result: %@",responseObject);
-        NSDictionary* dic = [solveJsonData changeType:responseObject];
-        if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2))
-        {
-            NSDictionary *dict = [dic objectForKey:@"result"];
-            NSString* bVerified = [dict objectForKey:@"online"];
-            if(bVerified.length != 0)
-                [[NSUserDefaults standardUserDefaults]setObject:bVerified forKey:@"VerifiedUser"];
-            
-        }
-        else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 4))
-        {
-            [MBProgressHUD showError:kAlertIDwrong];
-            return;
-        }
-        else if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 3))
-        {
-            [MBProgressHUD showError:kAlertdataFailure];
-            return;
-        }
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [MBProgressHUD showError:kAlertNetworkError];
-        return;
-    }];
-}
-
 - (void)tapAction
 {
     if([[ViewControllerUtil CheckRole] isEqualToString:CHINESEUSER] || [ViewControllerUtil CheckVerifiedUser])

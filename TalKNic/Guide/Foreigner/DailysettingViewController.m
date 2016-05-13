@@ -36,8 +36,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [ViewControllerUtil verifyFreeUser];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.titleView = [ViewControllerUtil SetTitle:@"Daily setting"];
+    self.navigationItem.titleView = [ViewControllerUtil SetTitle:AppDailySetting];
     
     [self navigaTitle];
     
@@ -86,7 +87,7 @@
     
     self.labelTopic = [[UILabel alloc]init];
     _labelTopic.frame =kCGRectMake(0, 235, self.view.frame.size.width, 20);
-    _labelTopic.text = @"Choose your topic:";
+    _labelTopic.text = kAlertTopic;
     _labelTopic.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0];
     _labelTopic.textAlignment = NSTextAlignmentCenter;
     _labelTopic.numberOfLines = 0;

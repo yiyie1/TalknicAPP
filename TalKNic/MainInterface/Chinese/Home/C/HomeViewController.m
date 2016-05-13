@@ -54,7 +54,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    [ViewControllerUtil verifyFreeUser];
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     [self resignFirstResponder];
     self.homecollectview.delegate = self;

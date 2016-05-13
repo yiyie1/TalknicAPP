@@ -192,7 +192,8 @@
 "AppWeibo" = "Weibo";
 "AppMessage" = "Message";
   "AppFriends" = "Friends";
-
+"AppDailySetting" = "Daily Setting";
+"AppAvailabletime" = "Available time:";
 "AppAccount" = "Account";
 "AppInviteFriends" = "Invite Friends";
 "AppSetting" = "Setting";

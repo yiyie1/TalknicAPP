@@ -83,7 +83,7 @@
         
         DailysettingViewController *dailyVC = [[DailysettingViewController alloc]init];
         dailyVC.uid = _uid;
-        [self addChildVc:dailyVC title:@"Daily Setting" image:kDailyTopicImage selectedImage:kDailyTopicSelected];
+        [self addChildVc:dailyVC title:AppDailySetting image:kDailyTopicImage selectedImage:kDailyTopicSelected];
 
         VoiceViewController *voice = [[VoiceViewController alloc] init];
         voice.uid = _uid;

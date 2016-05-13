@@ -124,13 +124,13 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
         }
         else    //Need to block unverified foreigner
         {
-            /*if(uid.length == 0)
+            if(uid.length == 0)
             {
                 LoginViewController *loginVC = [[LoginViewController alloc]init];
                 UINavigationController *naVC = [[UINavigationController alloc]initWithRootViewController:loginVC];
                 self.window.rootViewController = naVC;
             }
-            else*/
+            else
             {
                 ScrollViewController *scrollVC = [[ScrollViewController alloc]init];
                 UINavigationController *naVC = [[UINavigationController alloc]initWithRootViewController:scrollVC];

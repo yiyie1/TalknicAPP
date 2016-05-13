@@ -188,6 +188,8 @@
 "AppFollowing" = "关注";
 "AppFreeze" = "冻结金额";
 "AppNotification" = "提醒";
+"AppDailySetting" = "日常设置";
+"AppAvailabletime" = "空余时间:";
 "AppWeChat" = "微信";
 "AppWeibo" = "微博";
 "AppMessage" = "短信";

@@ -30,7 +30,7 @@
 +(BOOL)CheckVerifiedUser;
 +(BOOL)CheckFreeUser;
 +(void)verifyFreeUser;
-
++(void)verifyUser;
 +(void)GetUserInformation:(NSString*)uid;
 +(BOOL)IsValidChat:(NSString*) pay_time msg_time: (NSString*) msg_time;
 +(void)RemainingMsgTimeNotify:(NSString*) pay_time msg_time: (NSString*) msg_time;
