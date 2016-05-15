@@ -77,6 +77,9 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.titleView = [ViewControllerUtil SetTitle:AppMe];
 
+    if(_uid.length == 0)
+        return;
+
     [ViewControllerUtil verifyFreeUser];
     
     [self Setting];
