@@ -108,6 +108,13 @@
 {
     [self.tableView.header endRefreshing];
     
+    //FIXME use other words than featured
+    if ([_titleStr isEqualToString:AppInboxMessage])
+    {
+        [MBProgressHUD showError:@"No Message"];
+        return;
+    }
+    
     //清空数据
     if (self.chatListCellsArr != nil) {
         [self.chatListCellsArr removeAllObjects];
@@ -240,7 +247,6 @@
     [self.tableView addLegendHeaderWithRefreshingBlock:^{
         
         [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
-        //FIXME use other words than featured
         [self GetChatterInformation];
         [MBProgressHUD hideHUDForView:self.tableView animated:YES];
     }];

@@ -65,7 +65,7 @@
 {
     self.labelAvail = [[UILabel alloc]init];
     _labelAvail.frame = kCGRectMake(0, 84, self.view.frame.size.width, 20);
-    _labelAvail.text = @"Available time:";
+    _labelAvail.text = AppAvailabletime;
     _labelAvail.textAlignment = NSTextAlignmentCenter;
     _labelAvail.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0];
     [self.view addSubview:_labelAvail];
