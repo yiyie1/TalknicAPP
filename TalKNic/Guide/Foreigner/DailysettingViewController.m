@@ -7,16 +7,17 @@
 //
 
 #import "DailysettingViewController.h"
-#import "KTSelectDatePicker.h"
+//#import "KTSelectDatePicker.h"
+#import "CDPDatePicker.h"
 #import "AFNetworking.h"
 #import "MBProgressHUD+MJ.h"
 #import "solveJsonData.h"
 #import "LoginViewController.h"
 #import "ViewControllerUtil.h"
 
-@interface DailysettingViewController ()
+@interface DailysettingViewController ()<CDPDatePickerDelegate>
 {
-    KTSelectDatePicker *_kePicker;
+    CDPDatePicker *_kePicker;
     NSString *_startTime;
     NSString *_endTime;
     NSString *_topics;
@@ -27,7 +28,7 @@
 
 @property (nonatomic,strong)UIButton *starBtn;
 @property (nonatomic,strong)UIButton *endBtn;
-
+@property (nonatomic,strong)UIButton *bgButton;
 @property (nonatomic,strong)UILabel *labelTopic;
 @property (nonatomic,strong)UILabel *labelTopic2;
 @end
@@ -43,7 +44,7 @@
     [self navigaTitle];
     
     [self layoutDaily];
-    
+
     [self layoutBtn];
 }
 
@@ -92,13 +93,6 @@
     _labelTopic.textAlignment = NSTextAlignmentCenter;
     _labelTopic.numberOfLines = 0;
     [self.view addSubview:_labelTopic];
-    //self.labelTopic2 = [[UILabel alloc]init];
-    //_labelTopic2.frame = kCGRectMake(0, 255, self.view.frame.size.width, 15);
-    //_labelTopic2.text = @"(maximum 3 chosen)";
-    //_labelTopic2.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10.0];
-    //_labelTopic2.textAlignment = NSTextAlignmentCenter;
-    //_labelTopic2.numberOfLines = 0;
-    //[self.view addSubview:_labelTopic2];
 }
 
 -(void)layoutBtn
@@ -145,26 +139,50 @@
 
 -(void)startAction:(id)sender
 {
+    if(_kePicker == nil)
+        _kePicker = [[CDPDatePicker alloc] initWithSelectTitle:nil viewOfDelegate:self.view delegate:self];
+    _kePicker.isBeforeTime = NO;
     [_starBtn setBackgroundImage:[UIImage imageNamed:@"login_btn_100%_a.png"] forState:(UIControlStateNormal)];
-    _kePicker = [[KTSelectDatePicker alloc] init];
-    [_kePicker didFinishSelectedDate:^(NSDate *selectedDate) {
-        _startTime = [NSString stringWithFormat:@"%@",[NSDate dateWithTimeInterval:3600*8 sinceDate:selectedDate]];
-        NSString *textStr = [_startTime substringToIndex:16];
-        [_starBtn setTitle:textStr forState:UIControlStateNormal];
-    }];
+    [_kePicker pushDatePicker];
+    _endBtn.enabled = NO;
 }
 
 -(void)endAction
 {
+    if(_kePicker == nil)
+        _kePicker = [[CDPDatePicker alloc] initWithSelectTitle:nil viewOfDelegate:self.view delegate:self];
+    _kePicker.isBeforeTime = NO;
     [_endBtn setBackgroundImage:[UIImage imageNamed:@"login_btn_100%_a.png"] forState:(UIControlStateNormal)];
-    _kePicker = [[KTSelectDatePicker alloc] init];
-    [_kePicker didFinishSelectedDate:^(NSDate *selectedDate) {
-        _endTime = [NSString stringWithFormat:@"%@",[NSDate dateWithTimeInterval:3600*8 sinceDate:selectedDate]];
-        NSString *textStr = [_endTime substringToIndex:16];
-        [_endBtn setTitle:textStr forState:UIControlStateNormal];
-    }];
+    [_kePicker pushDatePicker];
+    _starBtn.enabled = NO;
 }
 
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [_kePicker popDatePicker];
+    _starBtn.enabled = YES;
+    _endBtn.enabled = YES;
+}
+
+-(void)CDPDatePickerDidConfirm:(NSString *)confirmString
+{
+    if(_starBtn.enabled)
+    {
+        _startTime = [NSString stringWithFormat:@"%@",confirmString];
+        NSString *textStr = [_startTime substringToIndex:16];
+        [_starBtn setTitle:textStr forState:UIControlStateNormal];
+        _endBtn.enabled = YES;
+    }
+    else
+    {
+        _endTime = [NSString stringWithFormat:@"%@",confirmString];
+        NSString *textStr = [_endTime substringToIndex:16];
+        [_endBtn setTitle:textStr forState:UIControlStateNormal];
+        _starBtn.enabled = YES;
+    }
+}
+
+//FIXME need to end time > start time
 -(void)rightAction
 {
     if(_uid.length == 0)

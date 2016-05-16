@@ -399,6 +399,7 @@
 		AC2F952F1CD799940058FA56 /* match_icon_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2F952E1CD799940058FA56 /* match_icon_dark@2x.png */; };
 		AC2F95311CD799CD0058FA56 /* match_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2F95301CD799CD0058FA56 /* match_icon@2x.png */; };
 		AC5C610D1C97251600F2EB3F /* ViewControllerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5C610C1C97251600F2EB3F /* ViewControllerUtil.m */; };
+		ACC5018E1CEA37E000F21F48 /* CDPDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC5018D1CEA37E000F21F48 /* CDPDatePicker.m */; };
 		ACC9856F1CAD6FD10003C28B /* CompletedChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC9856E1CAD6FD10003C28B /* CompletedChatViewController.m */; };
 		ACD83DBD1CCFCF1800FC0EFA /* mobile_fill.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD83DBB1CCFCF1800FC0EFA /* mobile_fill.png */; };
 		ACD83DBE1CCFCF1800FC0EFA /* mobile_line.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD83DBC1CCFCF1800FC0EFA /* mobile_line.png */; };
@@ -1207,6 +1208,8 @@
 		AC5C610C1C97251600F2EB3F /* ViewControllerUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerUtil.m; sourceTree = "<group>"; };
 		AC725C231C91DA1200D1E684 /* TalkNicTabBar.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkNicTabBar.pch; sourceTree = "<group>"; };
 		ACAEE5C21C9BF75F007F0DA4 /* CommonHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonHeader.h; sourceTree = "<group>"; };
+		ACC5018C1CEA37E000F21F48 /* CDPDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDPDatePicker.h; path = CDPDatePicker/CDPDatePicker.h; sourceTree = "<group>"; };
+		ACC5018D1CEA37E000F21F48 /* CDPDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDPDatePicker.m; path = CDPDatePicker/CDPDatePicker.m; sourceTree = "<group>"; };
 		ACC9856D1CAD6FD10003C28B /* CompletedChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompletedChatViewController.h; sourceTree = "<group>"; };
 		ACC9856E1CAD6FD10003C28B /* CompletedChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompletedChatViewController.m; sourceTree = "<group>"; };
 		ACD83DBB1CCFCF1800FC0EFA /* mobile_fill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mobile_fill.png; sourceTree = "<group>"; };
@@ -2823,6 +2826,7 @@
 		36F9061A1BE205810017F5AA /* Thethirdparty */ = {
 			isa = PBXGroup;
 			children = (
+				ACC5018F1CEA37ED00F21F48 /* CDPDatePicker */,
 				36D89FD41C5162FD00BE5558 /* Category */,
 				360B8CA21C436C7300F1E34E /* SDCycleScrollView */,
 				36F823941C42CD8A00D0E1B5 /* AliNeed */,
@@ -2946,6 +2950,15 @@
 				36915E451C082DD3000C2F81 /* Foreigner */,
 			);
 			path = MainInterface;
+			sourceTree = "<group>";
+		};
+		ACC5018F1CEA37ED00F21F48 /* CDPDatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				ACC5018C1CEA37E000F21F48 /* CDPDatePicker.h */,
+				ACC5018D1CEA37E000F21F48 /* CDPDatePicker.m */,
+			);
+			name = CDPDatePicker;
 			sourceTree = "<group>";
 		};
 		D1DD31AE19BAF2D8B2258C66 /* Frameworks */ = {
@@ -4504,6 +4517,7 @@
 				36F906351BE2058B0017F5AA /* MJFoundation.m in Sources */,
 				DFD054DA1C3CED10000E034F /* PSTGridLayoutInfo.m in Sources */,
 				36474AC61C40F10500C12D2C /* ForgetPasswordViewController.m in Sources */,
+				ACC5018E1CEA37E000F21F48 /* CDPDatePicker.m in Sources */,
 				DFD054F11C3CED10000E034F /* EaseLocationViewController.m in Sources */,
 				DFD054F91C3CED10000E034F /* EaseMessageTimeCell.m in Sources */,
 				36C75AF81C1FEBA000234DD3 /* MeHeadViewController.m in Sources */,
