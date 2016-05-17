@@ -405,6 +405,7 @@
 		ACD83DBE1CCFCF1800FC0EFA /* mobile_line.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD83DBC1CCFCF1800FC0EFA /* mobile_line.png */; };
 		ACD83DC01CCFD63800FC0EFA /* ripple.gif in Resources */ = {isa = PBXBuildFile; fileRef = ACD83DBF1CCFD63800FC0EFA /* ripple.gif */; };
 		ACE01B501CBE9E3900FB0853 /* sharing.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ACE01B4F1CBE9E3900FB0853 /* sharing.jpg */; };
+		ACF4B9A81CEB5CAE0020B015 /* me_about_talknic_logo_new.png in Resources */ = {isa = PBXBuildFile; fileRef = ACF4B9A71CEB5CAE0020B015 /* me_about_talknic_logo_new.png */; };
 		ACF882CC1CAEBF8900A2947D /* CouponCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF882CB1CAEBF8900A2947D /* CouponCardCell.m */; };
 		ACFEC4AD1CB563A70082A115 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACFEC4AC1CB563A70082A115 /* EditProfileViewController.m */; };
 		DFB50C831C3E04CD0022AD95 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFB50C851C3E04CD0022AD95 /* Localizable.strings */; };
@@ -1216,6 +1217,7 @@
 		ACD83DBC1CCFCF1800FC0EFA /* mobile_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mobile_line.png; sourceTree = "<group>"; };
 		ACD83DBF1CCFD63800FC0EFA /* ripple.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = ripple.gif; path = "Cutting File pt1/ripple.gif"; sourceTree = "<group>"; };
 		ACE01B4F1CBE9E3900FB0853 /* sharing.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = sharing.jpg; path = "Cutting File pt1/sharing.jpg"; sourceTree = "<group>"; };
+		ACF4B9A71CEB5CAE0020B015 /* me_about_talknic_logo_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = me_about_talknic_logo_new.png; sourceTree = "<group>"; };
 		ACF882CA1CAEBF8900A2947D /* CouponCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponCardCell.h; sourceTree = "<group>"; };
 		ACF882CB1CAEBF8900A2947D /* CouponCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponCardCell.m; sourceTree = "<group>"; };
 		ACFEC4AB1CB563A70082A115 /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
@@ -2518,6 +2520,7 @@
 		36B6AA8F1BF35B320047B19E /* 07 Me page Rev2 */ = {
 			isa = PBXGroup;
 			children = (
+				ACF4B9A71CEB5CAE0020B015 /* me_about_talknic_logo_new.png */,
 				36B6AA901BF35B320047B19E /* me_about_bg.png */,
 				36B6AA911BF35B320047B19E /* me_about_icon.png */,
 				36B6AA921BF35B320047B19E /* me_about_talknic_logo.png */,
@@ -4280,6 +4283,7 @@
 				36B6AAF01BF35B320047B19E /* me_invite_icon_bar.png in Resources */,
 				36B6AA8A1BF35B2B0047B19E /* me_rate_star_icon_dark.png in Resources */,
 				36ABED2B1C07EED700CE0249 /* bottom_line_blue.png in Resources */,
+				ACF4B9A81CEB5CAE0020B015 /* me_about_talknic_logo_new.png in Resources */,
 				36B6AADA1BF35B320047B19E /* me_completed_heart_icon.png in Resources */,
 				366A24481BFB51D400F2E7DD /* msg_select_area_bg.png in Resources */,
 				364C56911BC7822B00DECAC8 /* login_wechat.png in Resources */,

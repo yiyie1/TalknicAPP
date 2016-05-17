@@ -35,7 +35,7 @@
 -(void)layoutView
 {
     UIImageView* _TalkNicView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width-88)/2, 64+44, 88, 129.5)];
-    _TalkNicView.image = [UIImage imageNamed:@"me_about_talknic_logo"];
+    _TalkNicView.image = [UIImage imageNamed:@"me_about_talknic_logo_new"];
     [self.view addSubview:_TalkNicView];
     
     UIImageView* _WeiChatView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width-151-88)/2, 64+230, 75.5, 97.5)];
