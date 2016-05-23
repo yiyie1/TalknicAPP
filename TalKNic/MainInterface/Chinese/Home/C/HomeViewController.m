@@ -20,6 +20,9 @@
 #import "MBProgressHUD+MJ.h"
 #import "ViewControllerUtil.h"
 #import "LoginViewController.h"
+#import "UIImage+animatedGIF.h"
+#import <ImageIO/ImageIO.h>
+#import <QuartzCore/CoreAnimation.h>
 
 @interface HomeViewController ()<UISearchBarDelegate,UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,UISearchDisplayDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, UIAlertViewDelegate>
 {
@@ -37,6 +40,8 @@
     NSDictionary * _dicP;//接受匹配信息的通知
     NSMutableArray *_piArr;//存放匹配信息
     NSString *_order_id_from_db;
+    NSMutableArray* idleImages, *pullingImages, *refreshingImages;
+
 }
 @property (nonatomic,strong)UINavigationBar *bar;
 @property (nonatomic,strong)UISearchDisplayController *searchController;
@@ -67,22 +72,22 @@
     self.seletedCount = 0;
     self.bShowViewForm = NO;
     
-    [self.homecollectview addLegendHeaderWithRefreshingBlock:^{
+    [self.homecollectview addGifHeaderWithRefreshingBlock:^{
 
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        //FIXME use other words than featured
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"Loading...";
+        hud.mode = MBProgressHUDModeDeterminate;
         [self requestDataMethod];
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD hideHUDForView:self.view animated:NO];
     }];
     
-    //    // 头部的刷新
-    //    self.homecollectview.header = [MJRefreshHeader headerWithRefreshingBlock:^{
-    //        NSArray *titleArr = @[@"featured",@"latest",@"popular"];
-    //        [self requestDataMethod:titleArr[self.segmentControl.selectedSegmentIndex]];
-    //    }];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"tongzhi" object:nil];
 }
+
+-(void)loadImages
+{
+    }
 
 -(void)tongzhi:(NSNotification *)dic
 {
@@ -702,13 +707,19 @@
     else
         [dataArray removeAllObjects];
     
+    MBProgressHUD * hub = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hub.mode = MBProgressHUDModeDeterminate;
+    hub.labelText = @"loading...";
+    
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSMutableDictionary *parmes = [NSMutableDictionary dictionary];
     parmes[@"cmd"] = @"10";
     [session POST:PATH_GET_LOGIN parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [MBProgressHUD hideHUD];
+        [MBProgressHUD hideHUDForView:self.view animated:NO];
+        //[hub hide:YES];
+        //[MBProgressHUD hideHUD];
         NSDictionary *dic = [solveJsonData changeType:responseObject];
         if ([[dic objectForKey:@"code"]isEqualToString:SERVER_SUCCESS])
         {

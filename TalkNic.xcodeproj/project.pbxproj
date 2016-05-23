@@ -399,6 +399,7 @@
 		AC2F952F1CD799940058FA56 /* match_icon_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2F952E1CD799940058FA56 /* match_icon_dark@2x.png */; };
 		AC2F95311CD799CD0058FA56 /* match_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2F95301CD799CD0058FA56 /* match_icon@2x.png */; };
 		AC5C610D1C97251600F2EB3F /* ViewControllerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5C610C1C97251600F2EB3F /* ViewControllerUtil.m */; };
+		AC90C68B1CF358BB008E1735 /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = AC90C68A1CF358BB008E1735 /* UIImage+animatedGIF.m */; };
 		ACC5018E1CEA37E000F21F48 /* CDPDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC5018D1CEA37E000F21F48 /* CDPDatePicker.m */; };
 		ACC9856F1CAD6FD10003C28B /* CompletedChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC9856E1CAD6FD10003C28B /* CompletedChatViewController.m */; };
 		ACD83DBD1CCFCF1800FC0EFA /* mobile_fill.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD83DBB1CCFCF1800FC0EFA /* mobile_fill.png */; };
@@ -1208,6 +1209,8 @@
 		AC5C610B1C97251600F2EB3F /* ViewControllerUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewControllerUtil.h; sourceTree = "<group>"; };
 		AC5C610C1C97251600F2EB3F /* ViewControllerUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerUtil.m; sourceTree = "<group>"; };
 		AC725C231C91DA1200D1E684 /* TalkNicTabBar.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkNicTabBar.pch; sourceTree = "<group>"; };
+		AC90C6891CF358BB008E1735 /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
+		AC90C68A1CF358BB008E1735 /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
 		ACAEE5C21C9BF75F007F0DA4 /* CommonHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonHeader.h; sourceTree = "<group>"; };
 		ACC5018C1CEA37E000F21F48 /* CDPDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDPDatePicker.h; path = CDPDatePicker/CDPDatePicker.h; sourceTree = "<group>"; };
 		ACC5018D1CEA37E000F21F48 /* CDPDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDPDatePicker.m; path = CDPDatePicker/CDPDatePicker.m; sourceTree = "<group>"; };
@@ -2450,6 +2453,8 @@
 		36AEDAF81C2937C4002416AC /* UserImage */ = {
 			isa = PBXGroup;
 			children = (
+				AC90C6891CF358BB008E1735 /* UIImage+animatedGIF.h */,
+				AC90C68A1CF358BB008E1735 /* UIImage+animatedGIF.m */,
 				369913521C48C03700FAEB1E /* UIImage+HKExtension.h */,
 				369913531C48C03E00FAEB1E /* UIImage+HKExtension.m */,
 			);
@@ -4416,6 +4421,7 @@
 				DFD054C81C3CED10000E034F /* MKAnnotationView+EMWebCache.m in Sources */,
 				36F9063D1BE2058B0017F5AA /* NSObject+MJMember.m in Sources */,
 				36252E711C18172C00059C30 /* Setting.m in Sources */,
+				AC90C68B1CF358BB008E1735 /* UIImage+animatedGIF.m in Sources */,
 				36F9375D1BF9F6BD00913570 /* QaViewController.m in Sources */,
 				36F824001C42CD8A00D0E1B5 /* Order.m in Sources */,
 				ACF882CC1CAEBF8900A2947D /* CouponCardCell.m in Sources */,
