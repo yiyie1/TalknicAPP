@@ -99,7 +99,7 @@
         [view addSubview:imageView3];
         if (i == 1) {
             UILabel *label = [[UILabel alloc]init];
-            label.frame = CGRectMake(0, 20 , CGRectGetMaxX(imageView.frame) , 24);
+            label.frame = CGRectMake(0, KHeightScaled(20) , CGRectGetMaxX(imageView.frame) , KHeightScaled(24));
             label.text = @"Voice Chatting";
             label.textAlignment = NSTextAlignmentCenter;
             label.textColor = [UIColor colorWithRed:40/255.0 green:140/255.0 blue:212/255.0 alpha:1.0];
@@ -107,7 +107,7 @@
             [imageView addSubview:label];
             
             UILabel *label1 = [[UILabel alloc]init];
-            label1.frame = CGRectMake(self.view.frame.size.width / 3, 70 , self.view.frame.size.width /3, self.view.frame.size.height / 25);
+            label1.frame = CGRectMake(self.view.frame.size.width / 3, KHeightScaled(70) , self.view.frame.size.width /3, self.view.frame.size.height / 25);
             label1.text = @"Friendly Audio";
             label1.textAlignment = NSTextAlignmentCenter;
             label1.textColor = [UIColor colorWithRed:85/255.0 green:85/255.0 blue:85/255.0 alpha:1.0];
@@ -115,7 +115,7 @@
             [imageView addSubview:label1];
             
             UILabel *label2 = [[UILabel alloc]init];
-            label2.frame = CGRectMake(0, CGRectGetMaxY(label1.frame) , CGRectGetMaxX(imageView.frame), 18);
+            label2.frame = CGRectMake(0, CGRectGetMaxY(label1.frame) , CGRectGetMaxX(imageView.frame), KHeightScaled(18));
             label2.text = @"Quickly Converting";
             label2.textAlignment = NSTextAlignmentCenter;
             label2.textColor = [UIColor colorWithRed:85/255.0 green:85/255.0 blue:85/255.0 alpha:1.0];
@@ -123,7 +123,7 @@
             [imageView addSubview:label2];
             
             UILabel *label3 = [[UILabel alloc]init];
-            label3.frame = CGRectMake(self.view.frame.size.width / 3.8, 110, self.view.frame.size.width /2, self.view.frame.size.height / 25);
+            label3.frame = CGRectMake(self.view.frame.size.width / 3.8, KHeightScaled(110), self.view.frame.size.width /2, self.view.frame.size.height / 25);
             label3.text = @"Accurately Translation";
             label3.textAlignment = NSTextAlignmentCenter;
             label3.textColor = [UIColor colorWithRed:85/255.0 green:85/255.0 blue:85/255.0 alpha:1.0];
@@ -150,7 +150,7 @@
             imageView1.frame = CGRectMake(self.view.frame.size.width /5.3, self.view.frame.size.height / 12.8, self.view.frame.size.width / 1.6, self.view.frame.size.height /1.9);
         
             UILabel *label = [[UILabel alloc]init];
-            label.frame = CGRectMake(self.view.frame.size.width / 3.9, 20 , self.view.frame.size.width /2, self.view.frame.size.height / 15);
+            label.frame = CGRectMake(self.view.frame.size.width / 3.9, KHeightScaled(20) , self.view.frame.size.width /2, self.view.frame.size.height / 15);
             label.text = AppDiscover;
             label.textAlignment = NSTextAlignmentCenter;
             label.textColor = [UIColor colorWithRed:40/255.0 green:140/255.0 blue:212/255.0 alpha:1.0];
@@ -158,7 +158,7 @@
             [imageView addSubview:label];
             
             UILabel *label1 = [[UILabel alloc]init];
-            label1.frame = CGRectMake(0, 70 , self.view.frame.size.width , self.view.frame.size.height / 15);
+            label1.frame = CGRectMake(0, KHeightScaled(70) , self.view.frame.size.width , self.view.frame.size.height / 15);
             label1.text = @"Find you Friends beside you";
             label1.textAlignment = NSTextAlignmentCenter;
             label1.numberOfLines = 0;
@@ -167,7 +167,7 @@
             [imageView addSubview:label1];
             
             UILabel *label2 = [[UILabel alloc]init];
-            label2.frame = CGRectMake(self.view.frame.size.width / 2.1, 100, 20,20);
+            label2.frame = CGRectMake(self.view.frame.size.width / 2.1, KHeightScaled(100), KWidthScaled(20), KHeightScaled(20));
             label2.text = @"&";
             label2.textAlignment = NSTextAlignmentCenter;
             label2.textColor = [UIColor colorWithRed:85/255.0 green:85/255.0 blue:85/255.0 alpha:1.0];
@@ -175,7 +175,7 @@
             [imageView addSubview:label2];
             
             UILabel *label3 = [[UILabel alloc]init];
-            label3.frame = CGRectMake(self.view.frame.size.width / 10, 105, self.view.frame.size.width /1.2, self.view.frame.size.height / 15);
+            label3.frame = CGRectMake(self.view.frame.size.width / 10, KHeightScaled(105), self.view.frame.size.width /1.2, self.view.frame.size.height / 15);
             label3.text = @"Many useful information in HERE";
             label3.textAlignment = NSTextAlignmentCenter;
             label3.numberOfLines = 0;
@@ -198,14 +198,10 @@
 
         }
         if (i == 3) {
-            
-            
-
-            
             imageView1.frame = CGRectMake(self.view.frame.size.width /5.3, self.view.frame.size.height / 12.8, self.view.frame.size.width / 1.6, self.view.frame.size.height /1.9);
         
             UILabel *label = [[UILabel alloc]init];
-            label.frame = CGRectMake(self.view.frame.size.width / 3.9, 20 , self.view.frame.size.width /2, self.view.frame.size.height / 15);
+            label.frame = CGRectMake(self.view.frame.size.width / 3.9, KHeightScaled(20) , self.view.frame.size.width /2, self.view.frame.size.height / 15);
             label.text = @"Feeds";
             label.textAlignment = NSTextAlignmentCenter;
             label.textColor = [UIColor colorWithRed:40/255.0 green:140/255.0 blue:212/255.0 alpha:1.0];
@@ -213,7 +209,7 @@
             [imageView addSubview:label];
             
             UILabel *label1 = [[UILabel alloc]init];
-            label1.frame = CGRectMake(self.view.frame.size.width / 5, 60 , self.view.frame.size.width /1.6, self.view.frame.size.height / 15);
+            label1.frame = CGRectMake(self.view.frame.size.width / 5, KHeightScaled(60) , self.view.frame.size.width /1.6, self.view.frame.size.height / 15);
             label1.text = @"Edit your text/photo/video";
             label1.textAlignment = NSTextAlignmentCenter;
             label1.numberOfLines = 0;
@@ -222,7 +218,7 @@
             [imageView addSubview:label1];
             
             UILabel *label2 = [[UILabel alloc]init];
-            label2.frame = CGRectMake(self.view.frame.size.width / 2.1, 90, 20,20);
+            label2.frame = CGRectMake(self.view.frame.size.width / 2.1, KHeightScaled(90), KWidthScaled(20), KHeightScaled(20));
             label2.text = @"&";
             label2.textAlignment = NSTextAlignmentCenter;
             label2.textColor = [UIColor colorWithRed:85/255.0 green:85/255.0 blue:85/255.0 alpha:1.0];
@@ -230,7 +226,7 @@
             [imageView addSubview:label2];
             
             UILabel *label3 = [[UILabel alloc]init];
-            label3.frame = CGRectMake(self.view.frame.size.width / 10, 95, self.view.frame.size.width /1.2, self.view.frame.size.height / 15);
+            label3.frame = CGRectMake(self.view.frame.size.width / 10, KHeightScaled(95), self.view.frame.size.width /1.2, self.view.frame.size.height / 15);
             label3.text = @"Share them to everyone";
             label3.textAlignment = NSTextAlignmentCenter;
             label3.numberOfLines = 0;
@@ -239,7 +235,7 @@
             [imageView addSubview:label3];
             
             UIButton *button = [[UIButton alloc]init];
-            button.frame = CGRectMake(40, CGRectGetMaxY(label3.frame) , self.view.frame.size.width/ 1.3, self.view.frame.size.height /16);
+            button.frame = CGRectMake(KWidthScaled(40), CGRectGetMaxY(label3.frame) , self.view.frame.size.width/ 1.3, self.view.frame.size.height /16);
             [button setBackgroundImage:[UIImage imageNamed:@"login_btn_lg_a.png"] forState:(UIControlStateNormal)];
             [button setTitle:@"Open your        " forState:(UIControlStateNormal)];
 //            button.contentEdgeInsets = UIEdgeInsetsMake(-10,0, 0, 0);
