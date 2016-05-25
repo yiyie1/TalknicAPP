@@ -75,10 +75,10 @@
     [self.homecollectview addGifHeaderWithRefreshingBlock:^{
 
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"Loading...";
+        hud.labelText = kAlertLoading;
         hud.mode = MBProgressHUDModeDeterminate;
         [self requestDataMethod];
-        [MBProgressHUD hideHUDForView:self.view animated:NO];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
     
     //注册通知
@@ -709,7 +709,7 @@
     
     MBProgressHUD * hub = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hub.mode = MBProgressHUDModeDeterminate;
-    hub.labelText = @"loading...";
+    hub.labelText = kAlertLoading;
     
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -717,7 +717,7 @@
     parmes[@"cmd"] = @"10";
     [session POST:PATH_GET_LOGIN parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [MBProgressHUD hideHUDForView:self.view animated:NO];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         //[hub hide:YES];
         //[MBProgressHUD hideHUD];
         NSDictionary *dic = [solveJsonData changeType:responseObject];

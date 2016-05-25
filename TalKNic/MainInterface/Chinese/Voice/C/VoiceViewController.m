@@ -134,6 +134,10 @@
         _chatterRole = @"user_student_id";
     }
     
+    MBProgressHUD * hub = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hub.mode = MBProgressHUDModeDeterminate;
+    hub.labelText = kAlertLoading;
+
     NSMutableDictionary *dicc = [NSMutableDictionary dictionary];
     dicc[@"cmd"] = @"32";
     dicc[@"role"] = [ViewControllerUtil CheckRole];
@@ -142,7 +146,7 @@
     //[MBProgressHUD showHUDAddedTo:self.tableView animated:NO];
     [_manager POST:PATH_GET_LOGIN parameters:dicc progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        //[MBProgressHUD hideAllHUDsForView:self.tableView animated:NO];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         
         TalkLog(@"all orders info -- %@",responseObject);
         NSDictionary* dic = [solveJsonData changeType:responseObject];

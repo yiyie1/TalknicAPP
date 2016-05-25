@@ -324,15 +324,21 @@
         return;
     }
     
+    MBProgressHUD * hub = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hub.mode = MBProgressHUDModeDeterminate;
+    hub.labelText = kAlertLoading;
+
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSMutableDictionary *parme = [NSMutableDictionary dictionary];
     parme[@"cmd"] = @"19";
     parme[@"user_id"] = _uid;
     TalkLog(@"Me ID -- %@",_uid);
+    
     [session POST:PATH_GET_LOGIN parameters:parme progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         TalkLog(@"Me result: %@",responseObject);
         NSDictionary *dic = [solveJsonData changeType:responseObject];
         if ([[dic objectForKey:@"code"] isEqualToString:SERVER_SUCCESS])

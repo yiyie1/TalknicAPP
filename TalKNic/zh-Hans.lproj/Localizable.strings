@@ -90,6 +90,7 @@
 "alert.SharingSuccess" = "分享成功";
 "alert.SharingFail" = "分享失败";
 "alert.SharingCancel" = "分享取消";
+"alert.Loading" = "加载中...";
 
 //APP language
 "AppCouponSuccess" = "你已经使用了一张代金券!";
