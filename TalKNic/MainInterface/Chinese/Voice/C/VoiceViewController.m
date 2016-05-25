@@ -146,7 +146,7 @@
     //[MBProgressHUD showHUDAddedTo:self.tableView animated:NO];
     [_manager POST:PATH_GET_LOGIN parameters:dicc progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD hideHUDForView:self.view animated:NO];
         
         TalkLog(@"all orders info -- %@",responseObject);
         NSDictionary* dic = [solveJsonData changeType:responseObject];
@@ -181,6 +181,7 @@
         NSLog(@"error%@",error);
         self.tableView.hidden = YES;
         self.searchBar.hidden = YES;
+        [MBProgressHUD hideHUDForView:self.view animated:NO];
         [MBProgressHUD showError:kAlertNetworkError];
         return;
     }];
@@ -249,10 +250,7 @@
     [self.view addSubview:_tableView];
     
     [self.tableView addLegendHeaderWithRefreshingBlock:^{
-        
-        [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
         [self GetChatterInformation];
-        [MBProgressHUD hideHUDForView:self.tableView animated:YES];
     }];
 
 }

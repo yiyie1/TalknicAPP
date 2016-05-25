@@ -73,12 +73,7 @@
     self.bShowViewForm = NO;
     
     [self.homecollectview addGifHeaderWithRefreshingBlock:^{
-
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = kAlertLoading;
-        hud.mode = MBProgressHUDModeDeterminate;
         [self requestDataMethod];
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
     
     //注册通知
@@ -717,9 +712,7 @@
     parmes[@"cmd"] = @"10";
     [session POST:PATH_GET_LOGIN parameters:parmes progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        //[hub hide:YES];
-        //[MBProgressHUD hideHUD];
+        [MBProgressHUD hideHUDForView:self.view animated:NO];
         NSDictionary *dic = [solveJsonData changeType:responseObject];
         if ([[dic objectForKey:@"code"]isEqualToString:SERVER_SUCCESS])
         {
@@ -745,6 +738,7 @@
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [MBProgressHUD hideHUDForView:self.view animated:NO];
         [ViewControllerUtil showNetworkErrorMessage: error];
         return;
     }];

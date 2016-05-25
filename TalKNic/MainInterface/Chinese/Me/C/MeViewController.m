@@ -338,7 +338,7 @@
     [session POST:PATH_GET_LOGIN parameters:parme progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD hideHUDForView:self.view animated:NO];
         TalkLog(@"Me result: %@",responseObject);
         NSDictionary *dic = [solveJsonData changeType:responseObject];
         if ([[dic objectForKey:@"code"] isEqualToString:SERVER_SUCCESS])
@@ -392,6 +392,7 @@
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [MBProgressHUD hideHUDForView:self.view animated:NO];
         [ViewControllerUtil showNetworkErrorMessage: error];
     }];
 }
