@@ -241,7 +241,7 @@
             UIButton *button = [[UIButton alloc]init];
             button.frame = CGRectMake(40, CGRectGetMaxY(label3.frame) , self.view.frame.size.width/ 1.3, self.view.frame.size.height /16);
             [button setBackgroundImage:[UIImage imageNamed:@"login_btn_lg_a.png"] forState:(UIControlStateNormal)];
-            [button setTitle:@"Open your            " forState:(UIControlStateNormal)];
+            [button setTitle:@"Open your        " forState:(UIControlStateNormal)];
 //            button.contentEdgeInsets = UIEdgeInsetsMake(-10,0, 0, 0);
             [button addTarget:self action:@selector(tapAction) forControlEvents:(UIControlEventTouchUpInside)];
             imageView.userInteractionEnabled = YES;
@@ -249,7 +249,7 @@
             [imageView addGestureRecognizer:tap];
             [imageView addSubview:button];
             UIImageView *talkImage = [[UIImageView alloc]init];
-            talkImage.frame = CGRectMake(210, CGRectGetMidY(button.frame) - 10, 55.5, 15.5);
+            talkImage.frame = CGRectMake(KWidthScaled(210), CGRectGetMidY(button.frame) - 10, KWidthScaled(55.5), KHeightScaled(15.5));
             talkImage.image = [UIImage imageNamed:@"talknic_white.png"];
             [imageView addSubview:talkImage];
             
