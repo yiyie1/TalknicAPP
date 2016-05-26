@@ -94,7 +94,7 @@
     self.badge = cellModel.badgeNumber;
     
     //选中cell时背景图片
-    if ([cellModel.chatDes isEqualToString:@"Audio message!"]) {
+    if ([cellModel.chatDes isEqualToString:AppAudioMessaage]) {
         self.selectedBackgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"msg_select_area_bg.png"]];
         self.desLabel.textColor = [UIColor blackColor];
         self.nameLabel.textColor = [UIColor blackColor];

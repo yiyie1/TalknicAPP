@@ -101,14 +101,18 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
     [self image];
     self.l = 1;
     //录音button
+    
     self.sayBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.sayBtn setFrame:CGRectMake((self.view.bounds.size.width-60)/2, self.view.bounds.size.height-120-64, 60, 60)];
     [self.sayBtn setBackgroundImage:[UIImage imageNamed:@"msg_audio_input_icon.png"] forState:(UIControlStateNormal)];
-    [self.view addSubview:self.sayBtn];
-    UILongPressGestureRecognizer * longPG = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPress:)];
-    longPG.minimumPressDuration = 0.1;
-    [self.sayBtn  addGestureRecognizer:longPG];
+    if(![_orderId isEqualToString:@"REPLAYMODE"])
+    {
+        [self.view addSubview:self.sayBtn];
     
+        UILongPressGestureRecognizer * longPG = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPress:)];
+        longPG.minimumPressDuration = 0.1;
+        [self.sayBtn  addGestureRecognizer:longPG];
+    }
     [(EaseChatToolbar *)self.chatToolbar setDelegate:self];
     self.chatBarMoreView = (EaseChatBarMoreView*)[(EaseChatToolbar *)self.chatToolbar moreView];
     self.faceView = (EaseFaceView*)[(EaseChatToolbar *)self.chatToolbar faceView];

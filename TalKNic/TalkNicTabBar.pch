@@ -336,16 +336,16 @@
 #define AppAccount  NSLocalizedString(@"AppAccount",@"")
 #define AppInviteFriends NSLocalizedString(@"AppInviteFriends",@"")
 #define AppSetting  NSLocalizedString(@"AppSetting",@"")
-
+#define AppOvertime NSLocalizedString(@"AppOvertime",@"")
 #define AppNotification NSLocalizedString(@"AppNotification",@"")
 #define AppClearCache  NSLocalizedString(@"AppClearCache",@"")
 #define AppRateAppStore NSLocalizedString(@"AppRateAppStore",@"")
-
+#define AppFinished     NSLocalizedString(@"AppFinished",@"")
 #define AppPayment NSLocalizedString(@"AppPayment",@"")
 #define AppGeneral  NSLocalizedString(@"AppGeneral",@"")
 
 #define AppAlipay   NSLocalizedString(@"AppAlipay",@"")
 #define AppAvailablebalance   NSLocalizedString(@"AppAvailablebalance",@"")
 
-#define APP_TOPIC @[@"Travel ",@"Film ",@"Sports ",@"Tech ",@"Design ",@"Arts ",@"Cooking ",@"Book"]
+#define APP_TOPIC @[@"Topic 1 ",@"Topic 2 ",@"Topic 3 ",@"Topic 4 "]//,@"Design ",@"Arts ",@"Cooking ",@"Book"]
 

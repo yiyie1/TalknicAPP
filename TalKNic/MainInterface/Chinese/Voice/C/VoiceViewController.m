@@ -411,6 +411,9 @@
             //FIXME go to pay details
             
             [self GotoCompletedView:indexPath.row];
+            
+            [EaseMobSDK createOneChatViewWithConversationChatter:cellModel.uid Name:cellModel.username onNavigationController:self.navigationController order_id:@"REPLAYMODE"];//cellModel.order_id];
+            
         }];
         
         [alertController addAction:okAction];

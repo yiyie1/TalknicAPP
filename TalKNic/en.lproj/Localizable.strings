@@ -105,7 +105,7 @@
 "AppConChat" = "Recharging if you want to continue chatting";
 "AppTotalTimeLessThanMsgTime" = "The chat needs to be finished in 24 hours, Please keep chatting";
 "AppSure"   = "Sure";
-
+"AppFinished" = "Finished!";
 "AppChangePassword" = "Change Password";
 //APP language
 "AppDone" = "Done";
@@ -197,7 +197,7 @@
 "AppAccount" = "Account";
 "AppInviteFriends" = "Invite Friends";
 "AppSetting" = "Setting";
-
+"AppOvertime" = "Overtime!";
 "AppPayment" = "    Payment";
 "AppGeneral" = "    General";
 

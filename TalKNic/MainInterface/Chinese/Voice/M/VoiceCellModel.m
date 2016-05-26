@@ -50,12 +50,15 @@
         
         double leftTime = [self.time doubleValue] / 60;
         self.leftTime = [[NSString alloc]initWithFormat: @"%.1f mins left", leftTime];  //[[NSString alloc]initWithFormat:@"%@, %.1f min left", dateString, leftTime];
-        self.chatDes = @"Audio message!";
+        self.chatDes = AppAudioMessaage;
     }
     else
     {
         self.leftTime = @"";
-        self.chatDes = @"Overtime!";
+        if([self.time isEqualToString:@"0"])
+            self.chatDes = AppFinished;
+        else
+            self.chatDes = AppOvertime;
     }
 
 }
