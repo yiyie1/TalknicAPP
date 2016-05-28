@@ -210,7 +210,7 @@
 -(void)emailbt
 {
     self.emailBt = [[UIButton alloc]init];
-    _emailBt.frame = kCGRectMake(40, 318, 60, 60);
+    _emailBt.frame = kCGRectMake(70, 318, 55, 55);
     [self switchMailMobile];
     //[_emailBt setBackgroundImage:[UIImage imageNamed:@"login_mail.png"] forState:(UIControlStateNormal)];
     //[_emailBt setBackgroundImage:[UIImage imageNamed:@"login_mail_a.png"] forState:(UIControlStateHighlighted)];
@@ -227,7 +227,7 @@
     [self.view addSubview:_facebookBt];*/
     
     self.weiboBt = [[UIButton alloc]init];
-    _weiboBt.frame = kCGRectMake( 120, 318, 60, 60);
+    _weiboBt.frame = kCGRectMake( 250, 318, 55, 55);
     _weiboBt.tag = 1;
     [_weiboBt setBackgroundImage:[UIImage imageNamed:@"login_weibo.png"] forState:(UIControlStateNormal)];
     [_weiboBt setBackgroundImage:[UIImage imageNamed:@"login_weibo_a.png"] forState:(UIControlStateHighlighted)];
@@ -238,7 +238,7 @@
 -(void)weixinbt
 {
     self.weixinBt = [[UIButton alloc]init];
-    _weixinBt.frame = kCGRectMake(200, 318, 60, 60);
+    _weixinBt.frame = kCGRectMake(160, 318, 55, 55);
     _weixinBt.tag = 0;
     [_weixinBt setBackgroundImage:[UIImage imageNamed:@"login_wechat.png"] forState:(UIControlStateNormal)];
     [_weixinBt setBackgroundImage:[UIImage imageNamed:@"login_wechat_a.png"] forState:(UIControlStateHighlighted)];
