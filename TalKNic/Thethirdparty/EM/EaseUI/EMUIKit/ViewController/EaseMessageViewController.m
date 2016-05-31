@@ -86,7 +86,7 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithRed:248 / 255.0 green:248 / 255.0 blue:248 / 255.0 alpha:1.0];
+    self.view.backgroundColor = [UIColor whiteColor];//[UIColor colorWithRed:248 / 255.0 green:248 / 255.0 blue:248 / 255.0 alpha:1.0];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     //初始化页面
@@ -103,7 +103,7 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
     //录音button
     
     self.sayBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.sayBtn setFrame:CGRectMake((self.view.bounds.size.width-60)/2, self.view.bounds.size.height-120-64, 60, 60)];
+    [self.sayBtn setFrame:kCGRectMake((375-60)/2, 667-KHeightScaled(120), KWidthScaled(60), KHeightScaled(60))];
     [self.sayBtn setBackgroundImage:[UIImage imageNamed:@"msg_audio_input_icon.png"] forState:(UIControlStateNormal)];
     if(![_orderId isEqualToString:@"REPLAYMODE"])
     {
@@ -118,7 +118,7 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
     self.faceView = (EaseFaceView*)[(EaseChatToolbar *)self.chatToolbar faceView];
     self.recordView = (EaseRecordView*)[(EaseChatToolbar *)self.chatToolbar recordView];
     self.chatToolbar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;    
-    
+
     //初始化手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyBoardHidden:)];
     [self.view addGestureRecognizer:tap];
@@ -206,13 +206,14 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
 {
     self.imagevie = [[UIImageView alloc]initWithFrame:CGRectMake(0, self.view.bounds.size.height-70-64, self.view.frame.size.width, 70)];
     NSMutableArray * arr = [NSMutableArray array];
-    for (int a=1 ; a<4; a++) {
-        UIImage * image =[UIImage imageNamed:[NSString stringWithFormat:@"msg_audio_wave_%d.png",a]];
+    for (int a=0 ; a<79; a++) {
+        UIImage * image =[UIImage imageNamed:[NSString stringWithFormat:@"wave-white_0000%d.png",a]];
         [arr addObject:image];
     }
+    //self.imagevie.backgroundColor = [UIColor grayColor];
     [self.view addSubview:self.imagevie];
     self.imagevie.animationImages=arr;
-    self.imagevie.animationDuration=0.7;
+    self.imagevie.animationDuration=1;
     if (self.l == 1) {
         //        self.imagevie.animationRepeatCount=0;
         
