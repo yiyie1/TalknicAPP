@@ -65,7 +65,7 @@
 -(void)layoutDaily
 {
     self.labelAvail = [[UILabel alloc]init];
-    _labelAvail.frame = kCGRectMake(0, 84, self.view.frame.size.width, 20);
+    _labelAvail.frame = kCGRectMake(0, 84, 375, 20);
     _labelAvail.text = AppAvailabletime;
     _labelAvail.textAlignment = NSTextAlignmentCenter;
     _labelAvail.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0];
@@ -87,7 +87,7 @@
     [self.view addSubview:_endBtn];
     
     self.labelTopic = [[UILabel alloc]init];
-    _labelTopic.frame =kCGRectMake(0, 235, self.view.frame.size.width, 20);
+    _labelTopic.frame =kCGRectMake(0, 235, 375, 20);
     _labelTopic.text = kAlertTopic;
     _labelTopic.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0];
     _labelTopic.textAlignment = NSTextAlignmentCenter;

@@ -115,8 +115,18 @@
     cell.titlelb.text = [NSString stringWithFormat:@"Topic：%@",dataArray[indexPath.item][@"topic"]];
     cell.nickNameLb.text = [NSString stringWithFormat:@"Nick：%@",dataArray[indexPath.item][@"username"]];
     cell.dianzanLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"fans"]];
-    cell.pingfenLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"rate"]];;
-    cell.occupationLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"occupation"]];
+    cell.pingfenLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"rate"]];
+    if([dataArray[indexPath.item][@"start_time"] length] != 0)
+    {
+        NSString *start_time = [dataArray[indexPath.item][@"start_time"] substringWithRange:NSMakeRange(5, 11)];
+        NSString *end_time = [dataArray[indexPath.item][@"end_time"] substringWithRange:NSMakeRange(5, 11)];
+        cell.occupationLb.text = [NSString stringWithFormat:@"Time: %@~%@",start_time, end_time];
+    }
+    else
+    {
+        cell.occupationLb.textAlignment = NSTextAlignmentRight;
+        cell.occupationLb.text = [NSString stringWithFormat:@"Occupation: %@",dataArray[indexPath.item][@"occupation"]];
+    }
     return cell;
     
 }
