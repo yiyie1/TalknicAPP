@@ -112,8 +112,8 @@
     //赋值
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"user_pic"]]];
     [cell.imageview sd_setImageWithURL:url placeholderImage:nil];
-    cell.titlelb.text = [NSString stringWithFormat:@"Topic：%@",dataArray[indexPath.item][@"topic"]];
-    cell.nickNameLb.text = [NSString stringWithFormat:@"Nick：%@",dataArray[indexPath.item][@"username"]];
+    cell.titlelb.text = [NSString stringWithFormat:@"Topic: %@",dataArray[indexPath.item][@"topic"]];
+    cell.nickNameLb.text = [NSString stringWithFormat:@"Nick:%@",dataArray[indexPath.item][@"username"]];
     cell.dianzanLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"fans"]];
     cell.pingfenLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"rate"]];
     if([dataArray[indexPath.item][@"start_time"] length] != 0)
