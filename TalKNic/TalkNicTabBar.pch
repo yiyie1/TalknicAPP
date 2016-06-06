@@ -106,7 +106,7 @@
 #define ALI_SELLER_ID   @"2088121821295317"
 
 #define DEFAULT_VOICE_MSG_DURATION_MINS      (15)
-#define DEFAULT_MAX_CHAT_DURATION_MINS       (60 * 24)
+#define DEFAULT_MAX_CHAT_DURATION_MINS       (60 * 12)
 #define RMB_PER_MIN                          (1)
 
 #define ALI_PAY_SUBJECT @"TALKNIC PAY ACCOUNT"

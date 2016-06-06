@@ -8,6 +8,9 @@
 
 #import "VoiceCellModel.h"
 #import "ViewControllerUtil.h"
+#import "solveJsonData.h"
+#import "AFNetworking.h"
+#import "MBProgressHUD+MJ.h"
 
 @implementation VoiceCellModel
 
@@ -58,7 +61,40 @@
         if([self.time isEqualToString:@"0"])
             self.chatDes = AppFinished;
         else
+        {
             self.chatDes = AppOvertime;
+            
+            if([[ViewControllerUtil CheckRole] isEqualToString:FOREINERUSER])
+                return;
+            
+            NSMutableDictionary *dicc = [NSMutableDictionary dictionary];
+            dicc[@"cmd"] = @"39";
+            dicc[@"user_id"] = _uid;
+            dicc[@"order_id"] = _order_id;
+            float remaining = [_time integerValue] / 60;
+            dicc[@"remaining"] = [NSString stringWithFormat:@"%d", (int)remaining];
+            
+            AFHTTPSessionManager *_manager = [AFHTTPSessionManager manager];
+            _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+            [_manager POST:PATH_GET_LOGIN parameters:dicc progress:^(NSProgress * _Nonnull uploadProgress) {
+            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                NSDictionary* dic = [solveJsonData changeType:responseObject];
+                TalkLog(@"responseObject: %@",responseObject);
+                if (([(NSNumber *)[dic objectForKey:@"code"] intValue] != 2) || ([(NSNumber *)[dic objectForKey:@"code"] intValue] != 5) )
+                //{
+                    //[MBProgressHUD showSuccess:kAlertdataSuccess];
+               // }
+               // else
+                {
+                    [MBProgressHUD showError:kAlertdataFailure];
+                }
+
+            }failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                NSLog(@"error%@",error);
+                [MBProgressHUD showError:kAlertNetworkError];
+                return;
+            }];
+        }
     }
 
 }

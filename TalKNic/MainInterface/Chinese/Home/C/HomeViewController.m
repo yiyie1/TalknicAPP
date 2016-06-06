@@ -113,9 +113,10 @@
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"user_pic"]]];
     [cell.imageview sd_setImageWithURL:url placeholderImage:nil];
     cell.titlelb.text = [NSString stringWithFormat:@"Topic: %@",dataArray[indexPath.item][@"topic"]];
-    cell.nickNameLb.text = [NSString stringWithFormat:@"Nick:%@",dataArray[indexPath.item][@"username"]];
+    cell.nickNameLb.text = [NSString stringWithFormat:@"Nick: %@",dataArray[indexPath.item][@"username"]];
     cell.dianzanLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"fans"]];
     cell.pingfenLb.text = [NSString stringWithFormat:@"%@",dataArray[indexPath.item][@"rate"]];
+    
     if([dataArray[indexPath.item][@"start_time"] length] != 0)
     {
         NSString *start_time = [dataArray[indexPath.item][@"start_time"] substringWithRange:NSMakeRange(5, 11)];
@@ -171,7 +172,7 @@
     //FIXME to add bio in server database
     self.bioLb.text = dataDic[@"bio"];
     self.topicLb.text = dataDic[@"topic"];
-    
+    self.dailyTopicLb2.text = [NSString stringWithFormat:@"Daily Topic: \n%@",dataDic[@"topic"]];
     // 点赞、评分
     self.dianzaiLb.text = dataDic[@"fans"];
     self.pingfenLb.text = dataDic[@"rate"];
@@ -629,7 +630,7 @@
     self.addressLb.text = dataDic[@"nationality"];
     self.bioLb.text = dataDic[@"bio"];
     self.topicLb.text = dataDic[@"topic"];
-    
+    self.dailyTopicLb2.text = [NSString stringWithFormat:@"Daily Topic: \n%@",dataDic[@"topic"]];
     // 点赞、评分
     self.dianzaiLb.text = dataDic[@"fans"];
     self.pingfenLb.text = dataDic[@"rate"];
