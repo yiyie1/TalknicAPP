@@ -356,7 +356,7 @@
     if (success) {
         success = [fileManager removeItemAtPath:imageFilePath error:&error];
     }
-    UIImage *smallImage = [self thumbnailWithImageWithoutScale:image size:CGSizeMake(80, 80)];
+    UIImage *smallImage = [self thumbnailWithImageWithoutScale:image size:CGSizeMake(138, 130)];
     [UIImageJPEGRepresentation(smallImage, 1.0f) writeToFile:imageFilePath atomically:YES];
     UIImage *selfPhoto = [UIImage imageWithContentsOfFile:imageFilePath];
     self.imagePhoto.image = selfPhoto;
