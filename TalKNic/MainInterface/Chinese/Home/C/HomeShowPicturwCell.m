@@ -13,11 +13,11 @@
 - (void)awakeFromNib {
     // Initialization code
 
-    self.imageview.layer.masksToBounds = YES;
-    self.imageview.layer.cornerRadius = 60 / 2 * (kWidth / 320);
+    //self.imageview.layer.masksToBounds = YES;
+    //self.imageview.layer.cornerRadius = 60 / 2 * (kWidth / 320);
     
-    self.yinyingview.layer.masksToBounds = YES;
-    self.yinyingview.layer.cornerRadius = 66 / 2 * (kWidth / 320);
+    //self.yinyingview.layer.masksToBounds = YES;
+    //self.yinyingview.layer.cornerRadius = 66 / 2 * (kWidth / 320);
     
 }
 

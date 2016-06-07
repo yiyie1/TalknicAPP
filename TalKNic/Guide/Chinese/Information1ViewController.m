@@ -308,7 +308,7 @@
     session.responseSerializer = [AFHTTPResponseSerializer serializer];
     [session.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil]];
     [session POST:PATH_GET_LOGIN parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        NSData *data = UIImageJPEGRepresentation(image, 0.5);
+        NSData *data = UIImageJPEGRepresentation(image, 1.0f);
         NSLog(@"Image data -- %@",data);
         [formData appendPartWithFileData:data name:@"file" fileName:fileName mimeType:@"image/jpeg"];
     } progress:^(NSProgress * _Nonnull uploadProgress) {

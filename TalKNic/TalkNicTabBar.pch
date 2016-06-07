@@ -347,5 +347,5 @@
 #define AppAlipay   NSLocalizedString(@"AppAlipay",@"")
 #define AppAvailablebalance   NSLocalizedString(@"AppAvailablebalance",@"")
 
-#define APP_TOPIC @[@"Topic 1 ",@"Topic 2 ",@"Topic 3 ",@"Topic 4 "]//,@"Design ",@"Arts ",@"Cooking ",@"Book"]
+#define APP_TOPIC @[@"Topic1 ",@"Topic2 ",@"Topic3 ",@"Topic4 "]//,@"Design ",@"Arts ",@"Cooking ",@"Book"]
 
