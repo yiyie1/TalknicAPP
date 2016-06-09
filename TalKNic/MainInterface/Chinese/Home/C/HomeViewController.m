@@ -121,6 +121,7 @@
     {
         NSString *start_time = [dataArray[indexPath.item][@"start_time"] substringWithRange:NSMakeRange(5, 11)];
         NSString *end_time = [dataArray[indexPath.item][@"end_time"] substringWithRange:NSMakeRange(5, 11)];
+        cell.occupationLb.textAlignment = NSTextAlignmentLeft;
         cell.occupationLb.text = [NSString stringWithFormat:@"Time: %@~%@",start_time, end_time];
     }
     else
