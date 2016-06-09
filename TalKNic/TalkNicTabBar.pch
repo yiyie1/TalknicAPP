@@ -74,29 +74,15 @@
 #define EaseMobUnreaderMessageCount @"EaseMobUnreaderMessageCount"
 
 //获取验证码
-#define PATH_GET_CODE  @"http://120.25.255.114/admin.php/Api"
+#define PATH_GET_CODE  @"http://talknic.cn/admin.php/Api"
 //登陆
-#define PATH_GET_LOGIN @"http://120.25.255.114/admin.php/Api/index?"
+#define PATH_GET_LOGIN @"http://talknic.cn/admin.php/Api/index?"
 #else
 //获取验证码
-#define PATH_GET_CODE  @"http://120.92.230.17/talknic1.0/admin.php/Api"
+#define PATH_GET_CODE  @""
 //登陆
-#define PATH_GET_LOGIN @"http://120.92.230.17/talknic1.0/admin.php/Api/index?"
-// 生成订单
-#define PATH_GET_ORDER @"http://120.92.230.17/talknic1.0/admin.php/Api/index?cmd=16"
-// 交易记录
-#define PATH_GET_ORDER_RECORDER @"http://120.92.230.17/talknic1.0/admin.php/Api/index?cmd=23"
+#define PATH_GET_LOGIN @""
 
-// 充值记录
-#define PATH_GET_ORDER_CHARGE @"http://120.92.230.17/talknic1.0/admin.php/Api/index?cmd=25"
-
-//   获取金额
-#define PATH_GET_MONEY @"http://120.92.230.17/talknic1.0/admin.php/Api/index?cmd=26"
-
-//   充钱
-#define PATH_ADD_MONEY @"http://120.92.230.17/talknic1.0/admin.php/Api/index?cmd=24"
-
-#define PATH_FINISH_ORDER_PAY   @"http://120.92.230.17/talknic1.0/admin.php/Api/index?cmd=17"
 #endif
 
 //FIXME Move to PHP Server
