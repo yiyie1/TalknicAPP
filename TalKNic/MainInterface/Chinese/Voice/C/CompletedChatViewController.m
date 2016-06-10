@@ -288,15 +288,15 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary* dic = [solveJsonData changeType:responseObject];
         TalkLog(@"responseObject: %@",responseObject);
-        if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2) )
-        {
-            [MBProgressHUD showSuccess:kAlertdataSuccess];
+        //if (([(NSNumber *)[dic objectForKey:@"code"] intValue] == 2) )
+        //{
+        //    [MBProgressHUD showSuccess:kAlertdataSuccess];
             [self.navigationController popViewControllerAnimated:YES];
-        }
-        else
-        {
-            [MBProgressHUD showError:kAlertdataFailure];
-        }
+        //}
+        //else
+        //{
+        //    [MBProgressHUD showError:kAlertdataFailure];
+        //}
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [ViewControllerUtil showNetworkErrorMessage: error];
     }];

@@ -103,7 +103,7 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
     //录音button
     
     self.sayBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.sayBtn setFrame:kCGRectMake((375-60)/2, 667-KHeightScaled(120), KWidthScaled(60), KHeightScaled(60))];
+    [self.sayBtn setFrame:kCGRectMake((375-75)/2, 667-150, 150/2, 150/2)];
     [self.sayBtn setBackgroundImage:[UIImage imageNamed:@"msg_audio_input_icon.png"] forState:(UIControlStateNormal)];
     if(![_orderId isEqualToString:@"REPLAYMODE"])
     {
