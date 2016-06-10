@@ -151,7 +151,7 @@
         
             UILabel *label = [[UILabel alloc]init];
             label.frame = CGRectMake(self.view.frame.size.width / 3.9, KHeightScaled(20) , self.view.frame.size.width /2, self.view.frame.size.height / 15);
-            label.text = AppDiscover;
+            label.text = @"Discover";
             label.textAlignment = NSTextAlignmentCenter;
             label.textColor = [UIColor colorWithRed:40/255.0 green:140/255.0 blue:212/255.0 alpha:1.0];
             label.font =[UIFont fontWithName:kHelveticaLight size:23.0];

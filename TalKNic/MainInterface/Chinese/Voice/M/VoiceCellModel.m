@@ -80,7 +80,7 @@
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 NSDictionary* dic = [solveJsonData changeType:responseObject];
                 TalkLog(@"responseObject: %@",responseObject);
-                if (([(NSNumber *)[dic objectForKey:@"code"] intValue] != 2) || ([(NSNumber *)[dic objectForKey:@"code"] intValue] != 5) )
+                if (([(NSNumber *)[dic objectForKey:@"code"] intValue] != 2) && ([(NSNumber *)[dic objectForKey:@"code"] intValue] != 5) )
                 //{
                     //[MBProgressHUD showSuccess:kAlertdataSuccess];
                // }

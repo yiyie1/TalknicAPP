@@ -90,7 +90,6 @@
 "alert.SharingSuccess" = "Sharing successful";
 "alert.SharingFail" = "Sharing error";
 "alert.SharingCancel" = "Sharing cancel";
-"alert.Loading" = "Loading...";
 //APP language
 "AppCouponSuccess" = "You have used 1 coupon!";
 "AppNotify" = "Notification";
