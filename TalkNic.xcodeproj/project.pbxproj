@@ -476,8 +476,8 @@
 		AC1B2A281CFDE1BC009A35A6 /* wave-white_000077.png in Resources */ = {isa = PBXBuildFile; fileRef = AC1B29D91CFDE1BC009A35A6 /* wave-white_000077.png */; };
 		AC1B2A291CFDE1BC009A35A6 /* wave-white_000078.png in Resources */ = {isa = PBXBuildFile; fileRef = AC1B29DA1CFDE1BC009A35A6 /* wave-white_000078.png */; };
 		AC2F952F1CD799940058FA56 /* match_icon_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2F952E1CD799940058FA56 /* match_icon_dark@2x.png */; };
-		AC2F95311CD799CD0058FA56 /* match_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2F95301CD799CD0058FA56 /* match_icon@2x.png */; };
 		AC5C610D1C97251600F2EB3F /* ViewControllerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5C610C1C97251600F2EB3F /* ViewControllerUtil.m */; };
+		AC8AAB221D134D4000ED200E /* match_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC8AAB211D134D4000ED200E /* match_icon@2x.png */; };
 		AC90C68B1CF358BB008E1735 /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = AC90C68A1CF358BB008E1735 /* UIImage+animatedGIF.m */; };
 		ACC5018E1CEA37E000F21F48 /* CDPDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC5018D1CEA37E000F21F48 /* CDPDatePicker.m */; };
 		ACC9856F1CAD6FD10003C28B /* CompletedChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC9856E1CAD6FD10003C28B /* CompletedChatViewController.m */; };
@@ -1363,10 +1363,10 @@
 		AC1B29D91CFDE1BC009A35A6 /* wave-white_000077.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wave-white_000077.png"; path = "audio wave talking/wave-white_000077.png"; sourceTree = "<group>"; };
 		AC1B29DA1CFDE1BC009A35A6 /* wave-white_000078.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wave-white_000078.png"; path = "audio wave talking/wave-white_000078.png"; sourceTree = "<group>"; };
 		AC2F952E1CD799940058FA56 /* match_icon_dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "match_icon_dark@2x.png"; sourceTree = "<group>"; };
-		AC2F95301CD799CD0058FA56 /* match_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "match_icon@2x.png"; path = "../../../../UI design1/Cutting File pt3 - 04 home page/Cutting File pt3 - 04 home page/04 Discover:Home page/match_icon@2x.png"; sourceTree = "<group>"; };
 		AC5C610B1C97251600F2EB3F /* ViewControllerUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewControllerUtil.h; sourceTree = "<group>"; };
 		AC5C610C1C97251600F2EB3F /* ViewControllerUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerUtil.m; sourceTree = "<group>"; };
 		AC725C231C91DA1200D1E684 /* TalkNicTabBar.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkNicTabBar.pch; sourceTree = "<group>"; };
+		AC8AAB211D134D4000ED200E /* match_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "match_icon@2x.png"; sourceTree = "<group>"; };
 		AC90C6891CF358BB008E1735 /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
 		AC90C68A1CF358BB008E1735 /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
 		ACAEE5C21C9BF75F007F0DA4 /* CommonHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonHeader.h; sourceTree = "<group>"; };
@@ -2429,7 +2429,7 @@
 		3683BAAA1BD5E89300644F68 /* 04 Discover:Home page */ = {
 			isa = PBXGroup;
 			children = (
-				AC2F95301CD799CD0058FA56 /* match_icon@2x.png */,
+				AC8AAB211D134D4000ED200E /* match_icon@2x.png */,
 				AC2F952E1CD799940058FA56 /* match_icon_dark@2x.png */,
 				36A4C76E1C50E9C7004677A4 /* discover_foot_bg.png */,
 				3683BAAB1BD5E89300644F68 /* discover_avatar.png */,
@@ -4293,6 +4293,7 @@
 				AC1B2A161CFDE1BC009A35A6 /* wave-white_000059.png in Resources */,
 				36B6AA741BF35B2B0047B19E /* me_card_icon.png in Resources */,
 				AC1B2A111CFDE1BC009A35A6 /* wave-white_000054.png in Resources */,
+				AC8AAB221D134D4000ED200E /* match_icon@2x.png in Resources */,
 				AC1B29E51CFDE1BC009A35A6 /* wave-white_000010.png in Resources */,
 				DFD052D11C3CE9A8000E034F /* MBProgressHUD.bundle in Resources */,
 				AC1B29DD1CFDE1BC009A35A6 /* wave-white_00002.png in Resources */,
@@ -4349,7 +4350,6 @@
 				DFD055401C3CED10000E034F /* VoiceSearchFeedback020@2x.png in Resources */,
 				18FC28BE1BEB6B1F00D5277E /* DaView.xib in Resources */,
 				DFD0550F1C3CED10000E034F /* chat_receiver_bg@2x.png in Resources */,
-				AC2F95311CD799CD0058FA56 /* match_icon@2x.png in Resources */,
 				36B6AAF41BF35B320047B19E /* me_invoice_icon.png in Resources */,
 				DFD0553F1C3CED10000E034F /* VoiceSearchFeedback019@2x.png in Resources */,
 				36B6AA7F1BF35B2B0047B19E /* me_invite_icon.png in Resources */,
