@@ -17,11 +17,15 @@
 //#import "ContactListSelectViewController.h"
 #import "EaseMessageViewController.h"
 #import "ViewControllerUtil.h"
+
+#warning 这个类
+
 @interface EMChatViewController ()<UIAlertViewDelegate, EaseMessageViewControllerDelegate, EaseMessageViewControllerDataSource>
 {
     UIMenuItem *_copyMenuItem;
     UIMenuItem *_deleteMenuItem;
     UIMenuItem *_transpondMenuItem;
+    UIMenuItem *_requestTheText;
     NSString *_date;
 }
 
@@ -426,6 +430,42 @@
     self.menuIndexPath = nil;
 }
 
+- (void)requestTheText
+{
+    NSLog(@"requestTheText");
+    
+    if (self.menuIndexPath && self.menuIndexPath.row > 0) {
+        id<IMessageModel> model = [self.dataArray objectAtIndex:self.menuIndexPath.row];
+        NSMutableIndexSet *indexs = [NSMutableIndexSet indexSetWithIndex:self.menuIndexPath.row];
+        NSMutableArray *indexPaths = [NSMutableArray arrayWithObjects:self.menuIndexPath, nil];
+        
+        
+//        [self.conversation removeMessage:model.message];
+//        [self.messsagesSource removeObject:model.message];
+//        
+//        if (self.menuIndexPath.row - 1 >= 0) {
+//            id nextMessage = nil;
+//            id prevMessage = [self.dataArray objectAtIndex:(self.menuIndexPath.row - 1)];
+//            if (self.menuIndexPath.row + 1 < [self.dataArray count]) {
+//                nextMessage = [self.dataArray objectAtIndex:(self.menuIndexPath.row + 1)];
+//            }
+//            if ((!nextMessage || [nextMessage isKindOfClass:[NSString class]]) && [prevMessage isKindOfClass:[NSString class]]) {
+//                [indexs addIndex:self.menuIndexPath.row - 1];
+//                [indexPaths addObject:[NSIndexPath indexPathForRow:(self.menuIndexPath.row - 1) inSection:0]];
+//            }
+//        }
+        
+//        [self.dataArray removeObjectsAtIndexes:indexs];
+//        [self.tableView beginUpdates];
+//        [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+//        [self.tableView endUpdates];
+    }
+    
+    self.menuIndexPath = nil;
+
+    
+}
+
 #pragma mark - notification
 - (void)exitGroup
 {
@@ -473,21 +513,30 @@
         _copyMenuItem = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"copy", @"Copy") action:@selector(copyMenuAction:)];
     }
     
+    if (_requestTheText == nil) {
+        _requestTheText = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"request the text" , @"request the text") action:@selector(requestTheText)];
+    }
+    
     if (_transpondMenuItem == nil) {
         _transpondMenuItem = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"transpond", @"Transpond") action:@selector(transpondMenuAction:)];
     }
+    
+    id<IMessageModel> model = [self.dataArray objectAtIndex:self.menuIndexPath.row];
     
     if (messageType == eMessageBodyType_Text) {
         [self.menuController setMenuItems:@[_copyMenuItem, _deleteMenuItem,_transpondMenuItem]];
     } else if (messageType == eMessageBodyType_Image){
         [self.menuController setMenuItems:@[_deleteMenuItem,_transpondMenuItem]];
     } else {
-        [self.menuController setMenuItems:@[_deleteMenuItem]];
+//        [self.menuController setMenuItems:@[_deleteMenuItem,_requestTheText]];
+        if (model.isSender) {
+            [self.menuController setMenuItems:@[_deleteMenuItem]];
+        }
+        else
+            [self.menuController setMenuItems:@[_requestTheText]];
     }
     [self.menuController setTargetRect:showInView.frame inView:showInView.superview];
     [self.menuController setMenuVisible:YES animated:YES];
 }
-
-
 
 @end
