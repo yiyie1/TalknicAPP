@@ -23,6 +23,8 @@
 @property (nonatomic) NSLayoutConstraint *bubbleWithNameTopConstraint;
 @property (nonatomic) NSLayoutConstraint *bubbleWithoutNameTopConstraint;
 
+@property (nonatomic) NSLayoutConstraint *requestTextRightContraint;
+
 @end
 
 @implementation EaseBaseMessageCell
@@ -161,6 +163,18 @@
     
     //hasRead
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.hasRead attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.bubbleView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:-EaseMessageCellPadding]];
+    
+    //requestText
+    self.requestTextRightContraint = [NSLayoutConstraint constraintWithItem:self.requestTextVIew attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.hasRead.hidden ? self.bubbleView : self.hasRead attribute:NSLayoutAttributeLeft multiplier:1.0 constant:-EaseMessageCellPadding * 1];
+    [self addConstraint:self.requestTextRightContraint];
+    
+//    if (self.model.isSender && self.model.messageStatus == eMessageDeliveryState_Delivered && self.model.isMessageRead) {
+//        [self addConstraint:[NSLayoutConstraint constraintWithItem:self.requestTextVIew attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.hasRead attribute:NSLayoutAttributeLeft multiplier:1.0 constant:-EaseMessageCellPadding]];
+//    }else{
+//        [self addConstraint:[NSLayoutConstraint constraintWithItem:self.requestTextVIew attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.bubbleView  attribute:NSLayoutAttributeLeft multiplier:1.0 constant:-EaseMessageCellPadding]];
+//
+//    }
+    
 }
 
 - (void)configureRecvLayoutConstraints
@@ -209,11 +223,25 @@
     }
 }
 
+- (void)updateRequestTextConstraints{
+    if (self.requestTextVIew) {
+        [self removeConstraint:self.requestTextRightContraint];
+        
+        self.requestTextRightContraint = [NSLayoutConstraint constraintWithItem:self.requestTextVIew attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.hasRead.hidden ? self.bubbleView : self.hasRead attribute:NSLayoutAttributeLeft multiplier:1.0 constant:-EaseMessageCellPadding * 1];
+        [self addConstraint:self.requestTextRightContraint];
+    }
+}
+
 #pragma mark - setter
 
 - (void)setModel:(id<IMessageModel>)model
 {
     [super setModel:model];
+    
+    if (model.message.isAnonymous) {
+//        self.backgroundColor = [UIColor redColor];
+        self.requestTextVIew.hidden = NO;
+    }
     
     if (model.avatarURLPath) {
         [self.avatarView sd_setImageWithURL:[NSURL URLWithString:model.avatarURLPath] placeholderImage:model.avatarImage];
@@ -253,6 +281,8 @@
                 break;
         }
     }
+    
+    [self updateRequestTextConstraints];
 }
 
 - (void)setMessageNameFont:(UIFont *)messageNameFont

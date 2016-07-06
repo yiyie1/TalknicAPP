@@ -8,4 +8,6 @@
 
 @interface CustomMessageCell : EaseBaseMessageCell
 
+@property (strong, nonatomic) id<IMessageModel> modelForRequestText;
+
 @end

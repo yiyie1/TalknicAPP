@@ -53,6 +53,8 @@ typedef enum{
 
 @property (strong, nonatomic) UILabel *hasRead;
 
+@property (strong, nonatomic) UIImageView *requestTextVIew;
+
 @property (strong, nonatomic) EaseBubbleView *bubbleView;
 
 @property (strong, nonatomic) id<IMessageModel> model;

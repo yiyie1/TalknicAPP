@@ -243,4 +243,9 @@ shouldSendHasReadAckForMessage:(EMMessage *)message
 -(void)addMessageToDataSource:(EMMessage *)message
                      progress:(id<IEMChatProgressDelegate>)progress;
 
+/*
+ *  接受到有RequestToText的消息
+ */
+- (void)didReceiveRequestToText;
+
 @end
