@@ -488,6 +488,7 @@
 		ACF4B9A81CEB5CAE0020B015 /* me_about_talknic_logo_new.png in Resources */ = {isa = PBXBuildFile; fileRef = ACF4B9A71CEB5CAE0020B015 /* me_about_talknic_logo_new.png */; };
 		ACF882CC1CAEBF8900A2947D /* CouponCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF882CB1CAEBF8900A2947D /* CouponCardCell.m */; };
 		ACFEC4AD1CB563A70082A115 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACFEC4AC1CB563A70082A115 /* EditProfileViewController.m */; };
+		B35E3B151D2BEA4B006176B2 /* right_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B35E3B141D2BEA4B006176B2 /* right_arrow@2x.png */; };
 		DFB50C831C3E04CD0022AD95 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFB50C851C3E04CD0022AD95 /* Localizable.strings */; };
 		DFD052D01C3CE9A8000E034F /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = DFD052CC1C3CE9A8000E034F /* MBProgressHUD+MJ.m */; };
 		DFD052D11C3CE9A8000E034F /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DFD052CD1C3CE9A8000E034F /* MBProgressHUD.bundle */; };
@@ -1383,6 +1384,7 @@
 		ACF882CB1CAEBF8900A2947D /* CouponCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponCardCell.m; sourceTree = "<group>"; };
 		ACFEC4AB1CB563A70082A115 /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
 		ACFEC4AC1CB563A70082A115 /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
+		B35E3B141D2BEA4B006176B2 /* right_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "right_arrow@2x.png"; path = "Cutting File pt1/right_arrow@2x.png"; sourceTree = "<group>"; };
 		DFB50C841C3E04CD0022AD95 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DFD052CB1C3CE9A8000E034F /* MBProgressHUD+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+MJ.h"; sourceTree = "<group>"; };
 		DFD052CC1C3CE9A8000E034F /* MBProgressHUD+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+MJ.m"; sourceTree = "<group>"; };
@@ -2103,6 +2105,7 @@
 		364C56401BC7694500DECAC8 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				B35E3B141D2BEA4B006176B2 /* right_arrow@2x.png */,
 				ACD83DBF1CCFD63800FC0EFA /* ripple.gif */,
 				ACE01B4F1CBE9E3900FB0853 /* sharing.jpg */,
 				3695A55C1BC8A76700148748 /* Font */,
@@ -4197,7 +4200,6 @@
 				TargetAttributes = {
 					364C56061BC761AB00DECAC8 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 8RH764BC39;
 					};
 					364C56191BC761AC00DECAC8 = {
 						CreatedOnToolsVersion = 6.4;
@@ -4280,6 +4282,7 @@
 				DFD0551B1C3CED10000E034F /* chatBar_colorMore_videoCallSelected@2x.png in Resources */,
 				36B6AAE21BF35B320047B19E /* me_creditcard_master_icon.png in Resources */,
 				DFD055151C3CED10000E034F /* chatBar_colorMore_location@2x.png in Resources */,
+				B35E3B151D2BEA4B006176B2 /* right_arrow@2x.png in Resources */,
 				36B6AB041BF35B320047B19E /* me_title_bar.png in Resources */,
 				36B6AAE51BF35B320047B19E /* me_dot.png in Resources */,
 				3683BB071BD5E89400644F68 /* main_btn_vioce_50%.png in Resources */,
@@ -5071,7 +5074,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: JI REN ZOU (8RH764BC39)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

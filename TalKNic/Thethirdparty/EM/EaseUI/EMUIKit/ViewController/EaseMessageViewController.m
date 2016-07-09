@@ -39,6 +39,8 @@
 @property (nonatomic) BOOL isPlayingAudio;
 
 @property (nonatomic,strong)UIButton *sayBtn;
+@property (nonatomic,strong)    UIView *commentBar;
+@property (nonatomic,strong) UITextField *textField;
 @property (strong ,nonatomic) UIImageView * imagevie;
 @property (assign ,nonatomic) int l;
 
@@ -86,7 +88,7 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor whiteColor];//[UIColor colorWithRed:248 / 255.0 green:248 / 255.0 blue:248 / 255.0 alpha:1.0];
+    self.view.backgroundColor = [UIColor colorWithRed:248 / 255.0 green:248 / 255.0 blue:248 / 255.0 alpha:1.0];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     //初始化页面
@@ -101,24 +103,20 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
     [self image];
     self.l = 1;
     //录音button
-    
     self.sayBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.sayBtn setFrame:kCGRectMake((375-75)/2, 667-150, 150/2, 150/2)];
+    [self.sayBtn setFrame:CGRectMake((self.view.bounds.size.width-60)/2, self.view.bounds.size.height-120-64, 60, 60)];
     [self.sayBtn setBackgroundImage:[UIImage imageNamed:@"msg_audio_input_icon.png"] forState:(UIControlStateNormal)];
-    if(![_orderId isEqualToString:@"REPLAYMODE"])
-    {
-        [self.view addSubview:self.sayBtn];
+    [self.view addSubview:self.sayBtn];
+    UILongPressGestureRecognizer * longPG = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPress:)];
+    longPG.minimumPressDuration = 0.1;
+    [self.sayBtn  addGestureRecognizer:longPG];
     
-        UILongPressGestureRecognizer * longPG = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPress:)];
-        longPG.minimumPressDuration = 0.1;
-        [self.sayBtn  addGestureRecognizer:longPG];
-    }
     [(EaseChatToolbar *)self.chatToolbar setDelegate:self];
     self.chatBarMoreView = (EaseChatBarMoreView*)[(EaseChatToolbar *)self.chatToolbar moreView];
     self.faceView = (EaseFaceView*)[(EaseChatToolbar *)self.chatToolbar faceView];
     self.recordView = (EaseRecordView*)[(EaseChatToolbar *)self.chatToolbar recordView];
-    self.chatToolbar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;    
-
+    self.chatToolbar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    
     //初始化手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyBoardHidden:)];
     [self.view addGestureRecognizer:tap];
@@ -194,6 +192,55 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
        [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    self.commentBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, [UIScreen mainScreen].bounds.size.width, 40)];
+    self.commentBar.backgroundColor = [UIColor colorWithRed:241/255.0 green:241/255.0 blue:241/255.0 alpha:1];
+    
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 1)];
+    lineView.backgroundColor = [UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1];
+    [self.commentBar addSubview:lineView];
+    
+    UIButton *sendBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    sendBtn.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 80, 6, 80, 28);
+    [sendBtn setTitle:@"Send" forState:UIControlStateNormal];
+    [sendBtn addTarget:self action:@selector(sendAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.commentBar addSubview:sendBtn];
+    
+    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 6, [UIScreen mainScreen].bounds.size.width - 90, 28)];
+    self.textField.placeholder = @"Add a comment";
+    self.textField.borderStyle = UITextBorderStyleRoundedRect;
+    [self.commentBar addSubview:self.textField];
+    
+    [self.view addSubview:self.commentBar];
+    
+}
+
+- (void)showCommentBar{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.4];
+    self.commentBar.frame = CGRectMake(0, self.view.frame.size.height - 296, [UIScreen mainScreen].bounds.size.width, 40);
+    [UIView commitAnimations];
+}
+
+- (void)hideCommentBar{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.4];
+    self.commentBar.frame = CGRectMake(0, self.view.frame.size.height, [UIScreen mainScreen].bounds.size.width, 40);
+    [UIView commitAnimations];
+}
+
+- (void)sendAction{
+    if (self.textField.text.length) {
+        [self sendTextMessage:self.textField.text];
+    }
+    [self.textField resignFirstResponder];
+    [self hideCommentBar];
+    
+    self.textField.text = @"";
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -206,14 +253,13 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
 {
     self.imagevie = [[UIImageView alloc]initWithFrame:CGRectMake(0, self.view.bounds.size.height-70-64, self.view.frame.size.width, 70)];
     NSMutableArray * arr = [NSMutableArray array];
-    for (int a=0 ; a<79; a++) {
-        UIImage * image =[UIImage imageNamed:[NSString stringWithFormat:@"wave-white_0000%d.png",a]];
+    for (int a=1 ; a<4; a++) {
+        UIImage * image =[UIImage imageNamed:[NSString stringWithFormat:@"msg_audio_wave_%d.png",a]];
         [arr addObject:image];
     }
-    //self.imagevie.backgroundColor = [UIColor grayColor];
     [self.view addSubview:self.imagevie];
     self.imagevie.animationImages=arr;
-    self.imagevie.animationDuration=1;
+    self.imagevie.animationDuration=0.7;
     if (self.l == 1) {
         //        self.imagevie.animationRepeatCount=0;
         
@@ -1333,6 +1379,27 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
 
 -(void)didReceiveMessage:(EMMessage *)message
 {
+    //接收消息，如果格式符合requestText0000，则检索messsagesSource，并且将相应的EMMessage属性修改
+    id<IMessageModel> model = nil;
+    model = [[EaseMessageModel alloc] initWithMessage:message];
+    
+    if ([model.text hasPrefix:@"requestText"]) {
+        
+        NSString *requestId = [model.text substringFromIndex:[model.text rangeOfString:@"requestText"].length];
+        
+        for (int i = 0; i < self.messsagesSource.count; i++) {
+            EMMessage *msg = (EMMessage *)self.messsagesSource[i];
+            
+            if ([msg.messageId isEqualToString:requestId]) {
+//                msg.isRequestText = YES;
+                msg.isAnonymous = YES; //非匿名属性，只是用来作为是否是isRequestText
+            }
+        }
+        [self didReceiveRequestToText];
+        
+        return;
+    }
+    
     if ([self.conversation.chatter isEqualToString:message.conversationChatter]) {
         [self addMessageToDataSource:message progress:nil];
         
@@ -1344,6 +1411,13 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
             [self.conversation markMessageWithId:message.messageId asRead:YES];
         }
     }
+}
+
+- (void)didReceiveRequestToText{
+    [self.tableView reloadData];
+    
+    [self showCommentBar];
+    [self.textField becomeFirstResponder];
 }
 
 -(void)didReceiveCmdMessage:(EMMessage *)message
@@ -1676,7 +1750,16 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
             else{
                 timeStr = [messageDate formattedTime];
             }
+            
             [formattedArray addObject:timeStr];
+            
+            if (message.messageBodies) {
+                NSString *bodyArrayStr = [message.messageBodies componentsJoinedByString:@"-"];
+                if (bodyArrayStr && [bodyArrayStr rangeOfString:@"requestText"].location != NSNotFound) {
+                    [formattedArray removeLastObject];
+                }
+            }
+            
             self.messageTimeIntervalTag = message.timestamp;
         }
         

@@ -40,6 +40,7 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
 @property (nonatomic) NSLayoutConstraint *statusWidthConstraint;
 @property (nonatomic) NSLayoutConstraint *activtiyWidthConstraint;
 @property (nonatomic) NSLayoutConstraint *hasReadWidthConstraint;
+@property (nonatomic) NSLayoutConstraint *requestTextWidthContraint;
 @property (nonatomic) NSLayoutConstraint *bubbleMaxWidthConstraint;
 
 @end
@@ -49,6 +50,7 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
 @synthesize statusButton = _statusButton;
 @synthesize bubbleView = _bubbleView;
 @synthesize hasRead = _hasRead;
+@synthesize requestTextVIew = _requestTextVIew;
 @synthesize activity = _activity;
 
 + (void)initialize
@@ -131,6 +133,11 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     _hasRead.hidden = YES;
     [_hasRead sizeToFit];
     [self.contentView addSubview:_hasRead];
+    
+    _requestTextVIew = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right_arrow"]];
+    _requestTextVIew.translatesAutoresizingMaskIntoConstraints = NO;
+    _requestTextVIew.hidden = YES;
+    [self.contentView addSubview:_requestTextVIew];
     
     _activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     _activity.translatesAutoresizingMaskIntoConstraints = NO;
@@ -231,6 +238,10 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.hasRead attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.hasRead attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.statusButton attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
 //    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.hasRead attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.activity attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
+    
+    [self _updateRequestTextWidthConstraint];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.requestTextVIew attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.requestTextVIew attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.statusButton attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
 }
 
 #pragma mark - Update Constraint
@@ -242,6 +253,16 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
         
         self.hasReadWidthConstraint = [NSLayoutConstraint constraintWithItem:_hasRead attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:40];
         [self addConstraint:self.hasReadWidthConstraint];
+    }
+}
+
+- (void)_updateRequestTextWidthConstraint
+{
+    if (_requestTextVIew) {
+        [self removeConstraint:self.requestTextWidthContraint];
+        
+        self.requestTextWidthContraint = [NSLayoutConstraint constraintWithItem:_requestTextVIew attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:20];
+        [self addConstraint:self.requestTextWidthContraint];
     }
 }
 

@@ -8,6 +8,7 @@
 
 #import "EMChatViewController.h"
 #import "EMMessage.h"
+#import "IMessageModel.h"
 #import "EMConversation.h"
 //#import "ChatGroupDetailViewController.h"
 //#import "ChatroomDetailViewController.h"
@@ -17,15 +18,13 @@
 //#import "ContactListSelectViewController.h"
 #import "EaseMessageViewController.h"
 #import "ViewControllerUtil.h"
-
-#warning 这个类
-
 @interface EMChatViewController ()<UIAlertViewDelegate, EaseMessageViewControllerDelegate, EaseMessageViewControllerDataSource>
 {
     UIMenuItem *_copyMenuItem;
     UIMenuItem *_deleteMenuItem;
     UIMenuItem *_transpondMenuItem;
-    UIMenuItem *_requestTheText;
+    UIMenuItem *_requestTextMenuItem;
+
     NSString *_date;
 }
 
@@ -34,6 +33,7 @@
 @property (nonatomic,strong)UIButton *btnLeft;
 @property (nonatomic,strong)UIButton *btnMe;
 
+@property (nonatomic, strong) NSString *requestIdStr;
 
 @end
 
@@ -185,7 +185,7 @@
         EaseMessageCell *cell = (EaseMessageCell *)[self.tableView cellForRowAtIndexPath:indexPath];
         [cell becomeFirstResponder];
         self.menuIndexPath = indexPath;
-        [self _showMenuViewController:cell.bubbleView andIndexPath:indexPath messageType:cell.model.bodyType];
+        [self _showMenuViewController:cell.bubbleView andIndexPath:indexPath messageType:cell.model.bodyType messageModel:cell.model];
     }
     return YES;
 }
@@ -203,6 +203,7 @@
             sendCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         sendCell.model = model;
+        
         return sendCell;
     }
     return nil;
@@ -299,6 +300,11 @@
 //    if (profileEntity) {
 //        model.avatarURLPath = profileEntity.imageUrl;
 //    }
+    
+    if ([model.text hasPrefix:@"requestText"]) {
+        return nil;
+    }
+    
     model.failImageName = @"imageDownloadFail";
     return model;
 }
@@ -430,40 +436,34 @@
     self.menuIndexPath = nil;
 }
 
-- (void)requestTheText
-{
-    NSLog(@"requestTheText");
+- (void)requestTextAction:(id)sender{
+    NSLog(@"request test");
     
-    if (self.menuIndexPath && self.menuIndexPath.row > 0) {
-        id<IMessageModel> model = [self.dataArray objectAtIndex:self.menuIndexPath.row];
-        NSMutableIndexSet *indexs = [NSMutableIndexSet indexSetWithIndex:self.menuIndexPath.row];
-        NSMutableArray *indexPaths = [NSMutableArray arrayWithObjects:self.menuIndexPath, nil];
-        
-        
-//        [self.conversation removeMessage:model.message];
-//        [self.messsagesSource removeObject:model.message];
-//        
-//        if (self.menuIndexPath.row - 1 >= 0) {
-//            id nextMessage = nil;
-//            id prevMessage = [self.dataArray objectAtIndex:(self.menuIndexPath.row - 1)];
-//            if (self.menuIndexPath.row + 1 < [self.dataArray count]) {
-//                nextMessage = [self.dataArray objectAtIndex:(self.menuIndexPath.row + 1)];
-//            }
-//            if ((!nextMessage || [nextMessage isKindOfClass:[NSString class]]) && [prevMessage isKindOfClass:[NSString class]]) {
-//                [indexs addIndex:self.menuIndexPath.row - 1];
-//                [indexPaths addObject:[NSIndexPath indexPathForRow:(self.menuIndexPath.row - 1) inSection:0]];
-//            }
-//        }
-        
-//        [self.dataArray removeObjectsAtIndexes:indexs];
-//        [self.tableView beginUpdates];
-//        [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-//        [self.tableView endUpdates];
+    if (self.requestIdStr) {
+        [self sendTextMessage:[NSString stringWithFormat:@"requestText%@", self.requestIdStr]];
     }
     
-    self.menuIndexPath = nil;
-
-    
+//    // 表情映射。
+//    NSString *willSendText = [EaseConvertToCommonEmoticonsHelper convertToCommonEmoticons:text];
+//    EMChatText *textChat = [[EMChatText alloc] initWithText:willSendText];
+//    EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithChatObject:textChat];
+//    EMMessage *message = [[EMMessage alloc] initWithReceiver:toUser bodies:[NSArray arrayWithObject:body]];
+//    message.requireEncryption = requireEncryption;
+//    message.messageType = messageType;
+//    message.ext = messageExt;
+//    EMMessage *retMessage = [[EaseMob sharedInstance].chatManager asyncSendMessage:message
+//                                                                          progress:nil];
+//    
+//    EMCmdMessageBody *body = [[EMCmdMessageBody alloc] initWithAction:action];
+//    NSString *from = [[EMClient sharedClient] currentUsername];
+//    
+//    // 生成message
+//    EMMessage *message = [[EMMessage alloc] initWithConversationID:@"6001" from:from to:@"6001" body:body ext:messageExt];
+//    message.messageType = eMessageTypeChat; // 设置为单聊消息
+//    
+//    
+//    [self addMessageToDataSource:message
+//                        progress:nil];
 }
 
 #pragma mark - notification
@@ -500,6 +500,7 @@
 - (void)_showMenuViewController:(UIView *)showInView
                    andIndexPath:(NSIndexPath *)indexPath
                     messageType:(MessageBodyType)messageType
+                   messageModel:(EMMessage<IMessageModel> *)model
 {
     if (self.menuController == nil) {
         self.menuController = [UIMenuController sharedMenuController];
@@ -513,30 +514,28 @@
         _copyMenuItem = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"copy", @"Copy") action:@selector(copyMenuAction:)];
     }
     
-    if (_requestTheText == nil) {
-        _requestTheText = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"request the text" , @"request the text") action:@selector(requestTheText)];
-    }
-    
     if (_transpondMenuItem == nil) {
         _transpondMenuItem = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"transpond", @"Transpond") action:@selector(transpondMenuAction:)];
     }
     
-    id<IMessageModel> model = [self.dataArray objectAtIndex:self.menuIndexPath.row];
+    if (_requestTextMenuItem == nil) {
+        _requestTextMenuItem = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"requestText", @"Request the text") action:@selector(requestTextAction:)];
+    }
     
     if (messageType == eMessageBodyType_Text) {
         [self.menuController setMenuItems:@[_copyMenuItem, _deleteMenuItem,_transpondMenuItem]];
     } else if (messageType == eMessageBodyType_Image){
         [self.menuController setMenuItems:@[_deleteMenuItem,_transpondMenuItem]];
-    } else {
-//        [self.menuController setMenuItems:@[_deleteMenuItem,_requestTheText]];
-        if (model.isSender) {
-            [self.menuController setMenuItems:@[_deleteMenuItem]];
-        }
-        else
-            [self.menuController setMenuItems:@[_requestTheText]];
+    } else if (model.isSender == NO){
+        [self.menuController setMenuItems:@[_deleteMenuItem,_requestTextMenuItem]];
+        self.requestIdStr = model.messageId;
+    }else {
+        [self.menuController setMenuItems:@[_deleteMenuItem]];
     }
     [self.menuController setTargetRect:showInView.frame inView:showInView.superview];
     [self.menuController setMenuVisible:YES animated:YES];
 }
+
+
 
 @end

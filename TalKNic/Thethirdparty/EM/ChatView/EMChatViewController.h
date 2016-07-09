@@ -8,6 +8,8 @@
 
 #define KNOTIFICATIONNAME_DELETEALLMESSAGE @"RemoveAllMessages"
 
+#import "IMessageModel.h"
+
 @interface EMChatViewController : EaseMessageViewController
 @property (nonatomic,copy)NSString *ud;
 
