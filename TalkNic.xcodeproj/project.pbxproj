@@ -4200,6 +4200,7 @@
 				TargetAttributes = {
 					364C56061BC761AB00DECAC8 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = N474GMN23Y;
 					};
 					364C56191BC761AC00DECAC8 = {
 						CreatedOnToolsVersion = 6.4;
@@ -5060,7 +5061,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = Talknic.cn;
+				PRODUCT_BUNDLE_IDENTIFIER = Talknic1.cn;
 				PRODUCT_NAME = TalkNic;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -5107,7 +5108,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = Talknic.cn;
+				PRODUCT_BUNDLE_IDENTIFIER = Talknic1.cn;
 				PRODUCT_NAME = TalkNic;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;

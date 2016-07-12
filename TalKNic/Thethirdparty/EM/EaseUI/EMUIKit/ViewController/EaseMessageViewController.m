@@ -1400,6 +1400,38 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
         return;
     }
     
+    if ([model.text hasPrefix:@"delete"]) {
+        NSString *deleteId = [model.text substringFromIndex:[model.text rangeOfString:@"delete"].length];
+        
+        int index = -1;
+
+        for (int i = 0; i < self.dataArray.count; i++) {
+//            EMMessage *msg = (EMMessage *)self.dataArray[i];
+            
+            id<IMessageModel> model1 = [self.dataArray objectAtIndex:i];
+
+            if (![model1 isKindOfClass:[NSString class]]) {
+                if (model1.messageId && [model1.messageId isEqualToString:deleteId]) {
+                    index = i;
+                }
+            }
+        }
+        
+        if (index != -1) {
+            NSMutableIndexSet *indexs = [NSMutableIndexSet indexSetWithIndex:index];
+            //                NSMutableArray *indexPaths = [NSMutableArray arrayWithObjects:i, nil];
+            
+            [self.dataArray removeObjectsAtIndexes:indexs];
+//            [self.tableView beginUpdates];
+//            [self.tableView deleteRowsAtIndexPaths:@[indexs] withRowAnimation:UITableViewRowAnimationFade];
+//            [self.tableView endUpdates];
+            
+            [self.tableView reloadData];
+
+        }
+        return;
+    }
+    
     if ([self.conversation.chatter isEqualToString:message.conversationChatter]) {
         [self addMessageToDataSource:message progress:nil];
         
@@ -1756,6 +1788,10 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
             if (message.messageBodies) {
                 NSString *bodyArrayStr = [message.messageBodies componentsJoinedByString:@"-"];
                 if (bodyArrayStr && [bodyArrayStr rangeOfString:@"requestText"].location != NSNotFound) {
+                    [formattedArray removeLastObject];
+                }
+                
+                if (bodyArrayStr && [bodyArrayStr rangeOfString:@"delete"].location != NSNotFound) {
                     [formattedArray removeLastObject];
                 }
             }
