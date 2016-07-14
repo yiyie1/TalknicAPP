@@ -34,6 +34,7 @@
 @property (nonatomic,strong)UIButton *btnMe;
 
 @property (nonatomic, strong) NSString *requestIdStr;
+@property (nonatomic, strong) NSString *deleteIdStr;
 
 @end
 
@@ -305,6 +306,10 @@
         return nil;
     }
     
+    if ([model.text hasPrefix:@"delete"]) {
+        return nil;
+    }
+    
     model.failImageName = @"imageDownloadFail";
     return model;
 }
@@ -431,6 +436,12 @@
         [self.tableView beginUpdates];
         [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
+        
+        NSLog(@"request test");
+        
+        if (self.deleteIdStr) {
+            [self sendTextMessage:[NSString stringWithFormat:@"delete%@", self.deleteIdStr]];
+        }
     }
     
     self.menuIndexPath = nil;
@@ -442,28 +453,6 @@
     if (self.requestIdStr) {
         [self sendTextMessage:[NSString stringWithFormat:@"requestText%@", self.requestIdStr]];
     }
-    
-//    // 表情映射。
-//    NSString *willSendText = [EaseConvertToCommonEmoticonsHelper convertToCommonEmoticons:text];
-//    EMChatText *textChat = [[EMChatText alloc] initWithText:willSendText];
-//    EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithChatObject:textChat];
-//    EMMessage *message = [[EMMessage alloc] initWithReceiver:toUser bodies:[NSArray arrayWithObject:body]];
-//    message.requireEncryption = requireEncryption;
-//    message.messageType = messageType;
-//    message.ext = messageExt;
-//    EMMessage *retMessage = [[EaseMob sharedInstance].chatManager asyncSendMessage:message
-//                                                                          progress:nil];
-//    
-//    EMCmdMessageBody *body = [[EMCmdMessageBody alloc] initWithAction:action];
-//    NSString *from = [[EMClient sharedClient] currentUsername];
-//    
-//    // 生成message
-//    EMMessage *message = [[EMMessage alloc] initWithConversationID:@"6001" from:from to:@"6001" body:body ext:messageExt];
-//    message.messageType = eMessageTypeChat; // 设置为单聊消息
-//    
-//    
-//    [self addMessageToDataSource:message
-//                        progress:nil];
 }
 
 #pragma mark - notification
@@ -527,10 +516,12 @@
     } else if (messageType == eMessageBodyType_Image){
         [self.menuController setMenuItems:@[_deleteMenuItem,_transpondMenuItem]];
     } else if (model.isSender == NO){
-        [self.menuController setMenuItems:@[_deleteMenuItem,_requestTextMenuItem]];
+//        [self.menuController setMenuItems:@[_deleteMenuItem,_requestTextMenuItem]];
+        [self.menuController setMenuItems:@[_requestTextMenuItem]];
         self.requestIdStr = model.messageId;
     }else {
         [self.menuController setMenuItems:@[_deleteMenuItem]];
+        self.deleteIdStr = model.messageId;
     }
     [self.menuController setTargetRect:showInView.frame inView:showInView.superview];
     [self.menuController setMenuVisible:YES animated:YES];
