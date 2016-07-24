@@ -437,8 +437,6 @@
         [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
         
-        NSLog(@"request test");
-        
         if (self.deleteIdStr) {
             [self sendTextMessage:[NSString stringWithFormat:@"delete%@", self.deleteIdStr]];
         }
