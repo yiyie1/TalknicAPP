@@ -396,6 +396,7 @@
 		A385C2071C7C91C700FB44D8 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A385C2021C7C91C700FB44D8 /* AccountViewController.m */; };
 		A385C2081C7C91C700FB44D8 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A385C2041C7C91C700FB44D8 /* NotificationViewController.m */; };
 		A385C2091C7C91C700FB44D8 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A385C2061C7C91C700FB44D8 /* SettingViewController.m */; };
+		AC0451D51D393C3400FB67C0 /* libEaseMobClientSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC0451D41D393C3400FB67C0 /* libEaseMobClientSDK.a */; };
 		AC1B29DB1CFDE1BC009A35A6 /* wave-white_00000.png in Resources */ = {isa = PBXBuildFile; fileRef = AC1B298C1CFDE1BC009A35A6 /* wave-white_00000.png */; };
 		AC1B29DC1CFDE1BC009A35A6 /* wave-white_00001.png in Resources */ = {isa = PBXBuildFile; fileRef = AC1B298D1CFDE1BC009A35A6 /* wave-white_00001.png */; };
 		AC1B29DD1CFDE1BC009A35A6 /* wave-white_00002.png in Resources */ = {isa = PBXBuildFile; fileRef = AC1B298E1CFDE1BC009A35A6 /* wave-white_00002.png */; };
@@ -479,7 +480,6 @@
 		AC5C610D1C97251600F2EB3F /* ViewControllerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5C610C1C97251600F2EB3F /* ViewControllerUtil.m */; };
 		AC8AAB221D134D4000ED200E /* match_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC8AAB211D134D4000ED200E /* match_icon@2x.png */; };
 		AC90C68B1CF358BB008E1735 /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = AC90C68A1CF358BB008E1735 /* UIImage+animatedGIF.m */; };
-		ACAD28131D37C6C4001B1A8C /* libEaseMobClientSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAD28121D37C6C4001B1A8C /* libEaseMobClientSDK.a */; };
 		ACC5018E1CEA37E000F21F48 /* CDPDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC5018D1CEA37E000F21F48 /* CDPDatePicker.m */; };
 		ACC9856F1CAD6FD10003C28B /* CompletedChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC9856E1CAD6FD10003C28B /* CompletedChatViewController.m */; };
 		ACD83DBD1CCFCF1800FC0EFA /* mobile_fill.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD83DBB1CCFCF1800FC0EFA /* mobile_fill.png */; };
@@ -1284,6 +1284,7 @@
 		A385C2041C7C91C700FB44D8 /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
 		A385C2051C7C91C700FB44D8 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		A385C2061C7C91C700FB44D8 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		AC0451D41D393C3400FB67C0 /* libEaseMobClientSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEaseMobClientSDK.a; sourceTree = "<group>"; };
 		AC1B298C1CFDE1BC009A35A6 /* wave-white_00000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wave-white_00000.png"; path = "audio wave talking/wave-white_00000.png"; sourceTree = "<group>"; };
 		AC1B298D1CFDE1BC009A35A6 /* wave-white_00001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wave-white_00001.png"; path = "audio wave talking/wave-white_00001.png"; sourceTree = "<group>"; };
 		AC1B298E1CFDE1BC009A35A6 /* wave-white_00002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wave-white_00002.png"; path = "audio wave talking/wave-white_00002.png"; sourceTree = "<group>"; };
@@ -1370,7 +1371,6 @@
 		AC8AAB211D134D4000ED200E /* match_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "match_icon@2x.png"; sourceTree = "<group>"; };
 		AC90C6891CF358BB008E1735 /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
 		AC90C68A1CF358BB008E1735 /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
-		ACAD28121D37C6C4001B1A8C /* libEaseMobClientSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEaseMobClientSDK.a; sourceTree = "<group>"; };
 		ACAEE5C21C9BF75F007F0DA4 /* CommonHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonHeader.h; sourceTree = "<group>"; };
 		ACC5018C1CEA37E000F21F48 /* CDPDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDPDatePicker.h; path = CDPDatePicker/CDPDatePicker.h; sourceTree = "<group>"; };
 		ACC5018D1CEA37E000F21F48 /* CDPDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDPDatePicker.m; path = CDPDatePicker/CDPDatePicker.m; sourceTree = "<group>"; };
@@ -1821,7 +1821,7 @@
 				36474A971C40EF0100C12D2C /* ShareSDKUI.framework in Frameworks */,
 				36474A951C40EF0100C12D2C /* ShareSDKExtension.framework in Frameworks */,
 				36B5E8121C3A0A4100BC2156 /* SystemConfiguration.framework in Frameworks */,
-				ACAD28131D37C6C4001B1A8C /* libEaseMobClientSDK.a in Frameworks */,
+				AC0451D51D393C3400FB67C0 /* libEaseMobClientSDK.a in Frameworks */,
 				36C8ECD61C434056000654E9 /* libssl.a in Frameworks */,
 				DFD054AA1C3CED10000E034F /* libopencore-amrwb.a in Frameworks */,
 			);
@@ -3537,7 +3537,7 @@
 		DFD0533D1C3CEA7D000E034F /* lib */ = {
 			isa = PBXGroup;
 			children = (
-				ACAD28121D37C6C4001B1A8C /* libEaseMobClientSDK.a */,
+				AC0451D41D393C3400FB67C0 /* libEaseMobClientSDK.a */,
 			);
 			path = lib;
 			sourceTree = "<group>";
