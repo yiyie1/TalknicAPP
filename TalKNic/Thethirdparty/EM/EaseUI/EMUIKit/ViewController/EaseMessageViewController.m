@@ -31,8 +31,6 @@
     NSInteger _remaining_msg_time;
     dispatch_queue_t _messageQueue;
     AFHTTPSessionManager *_manager;
-    
-    BOOL _isReciveRequestToText;
 }
 
 
@@ -89,9 +87,6 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    _isReciveRequestToText = NO;
-    
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithRed:248 / 255.0 green:248 / 255.0 blue:248 / 255.0 alpha:1.0];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -219,7 +214,11 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
     [self.commentBar addSubview:self.textField];
     
     [self.view addSubview:self.commentBar];
-    
+        
+    if ([self isWillShowBar]) {
+        [self showCommentBar];
+        [self.textField becomeFirstResponder];
+    }
 }
 
 - (void)showCommentBar{
@@ -236,11 +235,41 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
     [UIView commitAnimations];
 }
 
+- (BOOL)isWillShowBar{
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSDictionary *dic = [userDefault objectForKey:@"requestDic"];
+    
+    if ([[dic allKeys] containsObject:_conversation.chatter]) {
+        NSString *str = [dic objectForKey:_conversation.chatter];
+        
+        if ([str isEqualToString:@"1"]) {
+            return YES;
+        }else{
+            return NO;
+        }
+    }
+    return NO;
+}
+
+- (void)storeRequestToTest:(BOOL)isToShow{
+//    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+//    [userDefault setObject:[NSDictionary dictionary] forKey:@"requestDic"];
+//    [userDefault synchronize];
+    
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:[userDefault objectForKey:@"requestDic"]];
+    [dic setObject:isToShow?@"1":@"2" forKey:_conversation.chatter];
+    
+    [userDefault setObject:dic forKey:@"requestDic"];
+    [userDefault synchronize];
+}
+
 - (void)sendAction{
     if (self.textField.text.length) {
         [self sendTextMessage:self.textField.text];
     }
     [self.textField resignFirstResponder];
+    [self storeRequestToTest:NO];
     [self hideCommentBar];
     
     self.textField.text = @"";
@@ -872,10 +901,7 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.tableView reloadData];
             
-            if (self.dataArray.count >= 1) {
-                [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[self.dataArray count] - scrollToIndex - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-            }
-
+            [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[self.dataArray count] - scrollToIndex - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
         });
         
         //从数据库导入时重新下载没有下载成功的附件
@@ -1142,18 +1168,9 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
 - (void)chatToolbarDidChangeFrameToHeight:(CGFloat)toHeight
 {
     [UIView animateWithDuration:0.3 animations:^{
-        
-        NSLog(@"--------------------------------------");
-        
         CGRect rect = self.tableView.frame;
         rect.origin.y = 0;
         rect.size.height = self.view.frame.size.height - toHeight;
-        
-//        if (_isReciveRequestToText == YES) {
-            rect.size.height = rect.size.height - 100;
-            _isReciveRequestToText = NO;
-//        }
-        
         self.tableView.frame = rect;
     }];
     
@@ -1417,38 +1434,6 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
         return;
     }
     
-    if ([model.text hasPrefix:@"delete"]) {
-        NSString *deleteId = [model.text substringFromIndex:[model.text rangeOfString:@"delete"].length];
-        
-        int index = -1;
-
-        for (int i = 0; i < self.dataArray.count; i++) {
-//            EMMessage *msg = (EMMessage *)self.dataArray[i];
-            
-            id<IMessageModel> model1 = [self.dataArray objectAtIndex:i];
-
-            if (![model1 isKindOfClass:[NSString class]]) {
-                if (model1.messageId && [model1.messageId isEqualToString:deleteId]) {
-                    index = i;
-                }
-            }
-        }
-        
-        if (index != -1) {
-            NSMutableIndexSet *indexs = [NSMutableIndexSet indexSetWithIndex:index];
-            //                NSMutableArray *indexPaths = [NSMutableArray arrayWithObjects:i, nil];
-            
-            [self.dataArray removeObjectsAtIndexes:indexs];
-//            [self.tableView beginUpdates];
-//            [self.tableView deleteRowsAtIndexPaths:@[indexs] withRowAnimation:UITableViewRowAnimationFade];
-//            [self.tableView endUpdates];
-            
-            [self.tableView reloadData];
-
-        }
-        return;
-    }
-    
     if ([self.conversation.chatter isEqualToString:message.conversationChatter]) {
         [self addMessageToDataSource:message progress:nil];
         
@@ -1463,11 +1448,9 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
 }
 
 - (void)didReceiveRequestToText{
-    
-    _isReciveRequestToText = YES;
-    
     [self.tableView reloadData];
     
+    [self storeRequestToTest:YES];
     [self showCommentBar];
     [self.textField becomeFirstResponder];
 }
@@ -1809,14 +1792,6 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
                 NSString *bodyArrayStr = [message.messageBodies componentsJoinedByString:@"-"];
                 if (bodyArrayStr && [bodyArrayStr rangeOfString:@"requestText"].location != NSNotFound) {
                     [formattedArray removeLastObject];
-                    
-//                    CGRect frame = self.tableView.frame;
-//                    frame.size.height = frame.size.height - 100;
-//                    self.tableView.frame = frame;
-                }
-                
-                if (bodyArrayStr && [bodyArrayStr rangeOfString:@"delete"].location != NSNotFound) {
-                    [formattedArray removeLastObject];
                 }
             }
             
@@ -1854,10 +1829,7 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.dataArray addObjectsFromArray:messages];
             [weakSelf.tableView reloadData];
-            
-            if (weakSelf.dataArray.count >= 1) {
-                [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[weakSelf.dataArray count] - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-            }
+            [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[weakSelf.dataArray count] - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         });
     });
 }
@@ -1886,14 +1858,6 @@ NSString *CurrentTalkerUid = @""; //记录当前聊天对象的uid，只有聊�
 
 - (void)sendTextMessage:(NSString *)text
 {
-//    if (_isChangeTableSize == NO && ![text hasPrefix:@"delete"]) {
-    
-//        CGRect frame = self.tableView.frame;
-//        frame.size.height = frame.size.height - 100;
-//        self.tableView.frame = frame;
-    
-//        _isChangeTableSize = YES;
-//    }
     [self sendTextMessage:text withExt:nil];
 }
 

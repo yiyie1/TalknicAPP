@@ -43,6 +43,18 @@ extern NSString *CurrentTalkerUid; //记录当前聊天对象的uid，只有聊�
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstStart"]){
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStart"];
+        
+        NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+        [userDefault setObject:[NSDictionary dictionary] forKey:@"requestDic"];
+        [userDefault synchronize];
+    }
+    
+//    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+//    NSDictionary *dic = [userDefault objectForKey:@"requestDic"];
+//    
+//    NSLog(@"%@",dic);
     
     //集成分享登陆功能
     [self addShareSDKWithapplication:application didFinishLaunchingWithOptions:launchOptions];
